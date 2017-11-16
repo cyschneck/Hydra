@@ -64,20 +64,24 @@ def chunkNouns(token_dict):
 		chunked = chunkParser.parse(value[1]) # parses part of speech tags
 		#chunked.draw() #prints as a tree
 		chunk_dict[key] = chunked # stores at the same index value in new dictionary
-	#chunk_dict = { k:v for k, v in chunk_dict.items() if 'Chunk' in v } # store chunks that contain chunks with nouns
 
-	for key, value in chunk_dict.iteritems():
-		print("\n")
-		print(value)
-		value.draw()
-	#print(chunk_dict)
 	return chunk_dict
 
 def namedEntity(token_dict):
-	pass
+	'''named entity based on nltk'''
+	named_ent_dict = {}
+
+	for key, value in token_dict.iteritems():
+		namedEnt = nltk.ne_chunk(value[1], binary=True) # classifies all tags as named entites (avoids different types, name, time, etc...)
+		#namedEnt.draw()
+		named_ent_dict[key] = namedEnt
+	#print(named_ent_dict[1].draw())
+
+	return named_ent_dict
 
 ########################################################################
-## Parse Arguments
+## Parse Arguments, running main
+
 if __name__ == '__main__':
 	import argparse
 	parser = argparse.ArgumentParser(description="flag format given as: -F <filename>")
@@ -98,4 +102,4 @@ if __name__ == '__main__':
 
 	group_nouns = chunkNouns(dict_parts_speech)
 
-	named_entity_recognition = namedEntity(dict_parts_speech)
+	nltk_named_entity_recognition = namedEntity(dict_parts_speech)
