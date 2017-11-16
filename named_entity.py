@@ -33,19 +33,48 @@ def readFile(filename):
 	return file_remove_extra
 
 def tokenizeSentence(string_sentence):
-	tokens_sentence_dict = {}
+	'''EXAMPLE
+	{60: 'After rather a long silence, the commander resumed the conversation.'}
+	'''
+	tokens_sentence_dict = {} # returns dict with {token location in text #: sentence}
 	for i in range(len(sent_tokenize(string_sentence))):
 		tokens_sentence_dict[i] = sent_tokenize(string_sentence)[i]
-	print(tokens_sentence_dict)
+	#print(tokens_sentence_dict)
 	return tokens_sentence_dict
 
-def tokenizeWord(string_sentence):
-	tokens_word_dict = {}
-	for i in range(len(word_tokenize(string_sentence))):
-		tokens_word_dict[i] = word_tokenize(string_sentence)[i]
-	#print(tokens_word_dict)
-	return tokens_word_dict
+def partsOfSpeech(token_dict):
+	'''EXAMPLE
+	60: ('After rather a long silence, the commander resumed the conversation.', 
+	[('After', 'IN'), ('rather', 'RB'), ('a', 'DT'), ('long', 'JJ'), ('silence', 'NN'),
+	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
+	 ('conversation', 'NN'), ('.', '.')])}
+	'''
+	for key, value in token_dict.iteritems():
+		token_dict[key] = (value, nltk.pos_tag(word_tokenize(value))) # adds part of speech tag for each word in the sentence
+	#print(token_dict)
+	return token_dict
 
+def chunkNouns(token_dict):
+	chunk_dict = {}
+
+	#chunkGram = r"""Noun: {<RB.?>*<VB.?>*<NNP>+<NN>?}"""  # any form , returns 0 or more, requires noun (singular)
+	chunkGram = r"""Noun: {(<NN.?>|<PRP.?>)}"""  # any form , returns 0 or more, requires noun (singular)
+	chunkParser = nltk.RegexpParser(chunkGram)
+	for key, value in token_dict.iteritems():
+		chunked = chunkParser.parse(value[1]) # parses part of speech tags
+		#chunked.draw() #prints as a tree
+		chunk_dict[key] = chunked # stores at the same index value in new dictionary
+	#chunk_dict = { k:v for k, v in chunk_dict.items() if 'Chunk' in v } # store chunks that contain chunks with nouns
+
+	for key, value in chunk_dict.iteritems():
+		print("\n")
+		print(value)
+		value.draw()
+	#print(chunk_dict)
+	return chunk_dict
+
+def namedEntity(token_dict):
+	pass
 
 ########################################################################
 ## Parse Arguments
@@ -65,4 +94,8 @@ if __name__ == '__main__':
 	tokens_as_string = " ".join(tokens_in_order)
 
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
-	#token_word_dict = tokenizeWord(tokens_as_string)
+	dict_parts_speech = partsOfSpeech(token_sentence_dict)
+
+	group_nouns = chunkNouns(dict_parts_speech)
+
+	named_entity_recognition = namedEntity(dict_parts_speech)
