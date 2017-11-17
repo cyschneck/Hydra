@@ -1,5 +1,5 @@
 ###########################################################################
-# Named Entity Recognition
+# Pre-processing raw ext
 
 # Date: November 2017
 
