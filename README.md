@@ -6,6 +6,9 @@ The code in this repo is the working version of the thesis found in the link bel
 
 Link to final PDF 
 
+## How to run
+Install nltk (step-by-step)
+
 ## Pre-Processing
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
 
