@@ -79,8 +79,22 @@ def namedEntity(token_dict):
 
 	return named_ent_dict
 
-#def hierachy_tree (named_enity (parent->) pronoun(->child)) IS A PRINT for easy viewing
-#def neural_network based on position of pronoun from named enitiy
+#def hierachy_tree (named_enity (parent->) pronoun/title (->child)) IS A PRINT for easy viewing
+'''
+Grandfather  +  Grandmother
+             |
+             |
+--------------------    
+   |         |          
+Daughter    Son + Daughter in-law
+                |
+                |
+      -----------------
+         |         |
+      Grandson Granddaughter
+'''
+#def neural_network trained on position of pronoun from named enitiy
+# all pronouns are linked to all proper nouns and widdled down based on probabilitiy based on a manually tagged set of training data
 
 ########################################################################
 ## Parse Arguments, running main
