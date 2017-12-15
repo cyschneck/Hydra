@@ -75,9 +75,12 @@ def namedEntity(token_dict):
 		namedEnt = nltk.ne_chunk(value[1], binary=True) # classifies all tags as named entites (avoids different types, name, time, etc...)
 		#namedEnt.draw()
 		named_ent_dict[key] = namedEnt
-	#print(named_ent_dict[1].draw())
+	print(named_ent_dict[1].draw())
 
 	return named_ent_dict
+
+#def hierachy_tree (named_enity (parent->) pronoun(->child)) IS A PRINT for easy viewing
+#def neural_network based on position of pronoun from named enitiy
 
 ########################################################################
 ## Parse Arguments, running main
@@ -98,8 +101,10 @@ if __name__ == '__main__':
 	tokens_as_string = " ".join(tokens_in_order)
 
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
+	print(token_sentence_dict)
 	dict_parts_speech = partsOfSpeech(token_sentence_dict)
 
 	group_nouns = chunkNouns(dict_parts_speech)
 
 	nltk_named_entity_recognition = namedEntity(dict_parts_speech)
+	print(nltk_named_entity_recognition)
