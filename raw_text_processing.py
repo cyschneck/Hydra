@@ -23,6 +23,10 @@ def readFile(filename):
 		string_words = string_words.replace("\n", " ")
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", " ")
+		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
+		string_words = string_words.replace("Ms.", "Ms")
+		string_words = string_words.replace("Mrs.", "Mrs")
+		string_words = string_words.replace("Dr.", "Dr")
 		string_words = re.sub(r'[\x90-\xff]', '', string_words, flags=re.IGNORECASE) # remove unicode
 		string_words = re.sub(r'[\x80-\xff]', '', string_words, flags=re.IGNORECASE) # remove unicode
 		file_remove_extra = string_words.split(' ')
@@ -51,7 +55,7 @@ def partsOfSpeech(token_dict):
 	for key, value in token_dict.iteritems():
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
 		token_dict[key] = (value, nltk.pos_tag(word_tokenize(no_punc))) # adds part of speech tag for each word in the sentence
-	return token_dict
+	return token_dict 
 
 def mostCommonPronouns(raw_text):
 	# returns a dictionary of the most common pronouns in the text with their occureance #
@@ -82,6 +86,41 @@ def mostCommonPronouns(raw_text):
 
 	return pronoun_common
 
+def indexPronoun(token_dict, pronoun_dict):
+	# stores pronoun and location in sentence for each sentence
+	#{0: (['I'], [8]), 1: (['my', 'me'], [3, 21]), 2: (['I'], [5])}
+
+	index_pronoun_dict = {}
+	pronouns_in_txt = pronoun_dict.keys()
+	for index, sentence in token_dict.iteritems():
+		pronoun_in_sentence = []
+		pronoun_location = []
+		#print("sentence # {0}".format(index))
+		#print(sentence.split())
+		for word_index in range(len(sentence.split())):
+			if sentence.split()[word_index].lower() in pronouns_in_txt:
+				#print("pronoun ----> {0}".format(sentence.split()[word_index]))
+				pronoun_in_sentence.append(sentence.split()[word_index])
+				pronoun_location.append(word_index)
+		index_pronoun_dict[index] = (pronoun_in_sentence, pronoun_location)
+	#print("\ntotal pronouns to find = {0}".format(sum(pronoun_dict.values())))
+	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
+	return index_pronoun_dict
+########################################################################
+## Output data into csv
+def outputCSV(filename, token_sentence_dict, pronouns_dict):
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "{0}_data.csv".format(given_file.upper())
+	import csv
+	with open(output_filename, 'w+') as txt_data:
+		fieldnames = ['sentence_index', 'sentence', 'pronouns', 'pronouns_index']
+		writer = csv.DictWriter(txt_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		for index in range(len(token_sentence_dict)):
+			writer.writerow({'sentence_index': index, 'sentence': token_sentence_dict[index], 'pronouns': str(pronouns_dict[index][0]).strip("[]"), 'pronouns_index': str(pronouns_dict[index][1]).strip("[]")})
+
+	print(output_filename)
+		
 ########################################################################
 ## Parse Arguments, running main
 
@@ -102,15 +141,22 @@ if __name__ == '__main__':
 	tokens_as_string = tokens_as_string.translate(None, "\r")
 	
 	# return the most common pronouns in the text (TODO: Automate)
-	most_common_pronouns = mostCommonPronouns(tokens_as_string)
-	print(most_common_pronouns)
+	most_common_pronouns_dict = mostCommonPronouns(tokens_as_string)
+	print(most_common_pronouns_dict)
 	print("\n")
-
+	
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
 	#print(token_sentence_dict) # TODO: switch to namedTuples
+	
+	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
+	print("\n")
+	print(pronouns_dict)
+	print("\n")
+	
+	outputCSV(filename, token_sentence_dict, pronouns_dict)
 	
 	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
 	#print(dict_parts_speech)
 	
-	#TODO Next: set up indexing for pronouns in each sections
+	#TODO Next: identify names with a RNN trained on census data
 	#x number of sentences around to find proper noun
