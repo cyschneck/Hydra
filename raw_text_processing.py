@@ -28,27 +28,7 @@ def readFile(filename):
 		file_remove_extra = string_words.split(' ')
 		file_remove_extra = filter(None, file_remove_extra) # remove empty strings from list
 	return file_remove_extra
-'''
-def readFile(filename):
-	file_remove_extra = []
-	with codecs.open(filename, "r", 'utf-8', errors='ignore') as given_file:
-		string_words = given_file.read()
-		# remove puntucation from text
 
-		string_words = string_words.replace("\n", " ")
-		string_words = string_words.replace(";" , " ")
-		string_words = string_words.replace("--", " ")
-		string_words = string_words.encode("ascii", "ignore") # convert back to ascii from unicode
-		# keep quotes, but move into their own token
-		#string_words = string_words.replace("\"", "\" ")
-
-		# store all words in order in a list
-		file_remove_extra = string_words.split(' ')
-		file_remove_extra = filter(None, file_remove_extra) # remove empty strings from list
-		#file_remove_extra = map(str.lower, file_remove_extra) # convert all words to upper case for consitency
-	#print(file_remove_extra)
-	return file_remove_extra
-'''
 def tokenizeSentence(string_sentence):
 	'''EXAMPLE
 	{60: 'After rather a long silence, the commander resumed the conversation.'}
@@ -72,31 +52,6 @@ def partsOfSpeech(token_dict):
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
 		token_dict[key] = (value, nltk.pos_tag(word_tokenize(no_punc))) # adds part of speech tag for each word in the sentence
 	return token_dict
-
-'''
-def syntaxTree(token_dict):
-	syntaxTreeStr = ''
-
-	print("\n")
-	for index in range(len(token_dict)):
-		print(token_dict[index][0])
-		print(token_dict[index][1])
-		print(len(token_dict[index][0]))
-		print(len(token_dict[index][1]))
-	print("\n")
-	syntax_list = '[' #https://yohasebe.com/rsyntaxtree/
-	#[S[NNP_FIRST Alice][VP[VBS is][NP[DT a][NN student][IN of][NNS physics]]]][S[NNP_FIRST Alice][VP[VBS is][NP[DT a][NN student][IN of][NNS physics]]]]
-	for index in range(len(token_dict)):
-		for pos in token_dict[index][1]:
-			#print(pos)
-			syntax_list += str([pos[1], pos[0]])
-	syntax_list += ']'
-	#syntax_list = syntax_list.translate(None, ',') #remove quotes and commas for formatting
-	#syntax_list = syntax_list.translate(None, '\'') #remove quotes and commas for formatting
-	print("\n")
-	print(syntax_list)
-	return syntaxTreeStr
-'''
 
 def mostCommonPronouns(raw_text):
 	# returns a dictionary of the most common pronouns in the text with their occureance #
@@ -153,6 +108,9 @@ if __name__ == '__main__':
 
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
 	#print(token_sentence_dict) # TODO: switch to namedTuples
-
+	
 	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
 	#print(dict_parts_speech)
+	
+	#TODO Next: set up indexing for pronouns in each sections
+	#x number of sentences around to find proper noun
