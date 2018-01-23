@@ -4,12 +4,9 @@ Department of Computer Science at the University of Colorado, Boulder 2017-2018
 
 The code in this repo is the working version of the thesis found in the link below. To run, follow instructions below
 
-Link to final PDF 
+Link to final PDF (coming soon)
 
-## How to run
-Install nltk (step-by-step)
-
-## Pre-Processing
+## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
 
 The raw text including for testing are both first and third person for benchmarking purposes:
@@ -52,7 +49,23 @@ Around the World in Eighty Days (Verne)
 
 Time Machine (Wells)
 
-## Coreference
-## First Person Narratives
-## Models
-## Running Code on Raw Text
+## Datasets
+[Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
+
+## Citations
+Names Corpus, Version 1.3 (1994-03-29)
+Copyright (C) 1991 Mark Kantrowitz
+Additions by Bill Ross
+
+This corpus contains 5001 female names and 2943 male names, sorted
+alphabetically, one per line.
+
+You may use the lists of names for any purpose, so long as credit is
+given in any published work. You may also redistribute the list if you
+provide the recipients with a copy of this README file. The lists are
+not in the public domain (I retain the copyright on the lists) but are
+freely redistributable.  If you have any additions to the lists of
+names, I would appreciate receiving them.
+
+Mark Kantrowitz <mkant+@cs.cmu.edu>
+http://www-2.cs.cmu.edu/afs/cs/project/ai-repository/ai/areas/nlp/corpora/names/

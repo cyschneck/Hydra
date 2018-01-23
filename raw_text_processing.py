@@ -10,7 +10,7 @@ import nltk # Natural Language toolkit
 from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/sentences
 import string
 import codecs 
-
+########################################################################
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -42,7 +42,7 @@ def tokenizeSentence(string_sentence):
 	for i in range(len(tokens_sent)):
 		if tokens_sent[i] != '':
 			tokens_sentence_dict[i] = tokens_sent[i].strip() #adds to dictionary and strips away excess whitespace
-	print(tokens_sentence_dict)
+	#print(tokens_sentence_dict)
 	return tokens_sentence_dict
 
 def partsOfSpeech(token_dict):
@@ -153,10 +153,12 @@ if __name__ == '__main__':
 	print(pronouns_dict)
 	print("\n")
 	
-	outputCSV(filename, token_sentence_dict, pronouns_dict)
+	#outputCSV(filename, token_sentence_dict, pronouns_dict)
 	
 	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
 	#print(dict_parts_speech)
 	
 	#TODO Next: identify names with a RNN trained on census data
 	#x number of sentences around to find proper noun
+	#print(NN_gender_class.DT_features("Atticus"))
+	#run gender tag once on the entire text, tag male/female and use for predictions
