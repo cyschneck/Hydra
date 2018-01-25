@@ -1,9 +1,15 @@
+###########################################################################
+# Gender classifier and predictor
+
+# Date: January 2017
+###########################################################################
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
+###########################################################################
 
 TRAINING_PERCENT = 0.6 #60%
 FEATURE_TAGS = ['first_letter', 
@@ -23,9 +29,12 @@ def DT_features(given_name):
 	features_list = dict(zip(FEATURE_TAGS, name_features))
 	return features_list
 
-def determine_gender(name, pipeline):
+def determine_gender(name_list):
 	#return male/female for a given name
-	return pipeline.predict(DT_features([name]))#[0]
+	for name in name_list:
+		print("The name '{0}' is most likely {1}".format(name, pipeline.predict(DT_features([name]))))
+	#print(pipeline.predict(DT_features(name)))#[0]
+	#return pipeline.predict(DT_features(name))#[0]
 
 if __name__ == '__main__':
 	gender_names_data = pd.read_csv('names_gender.csv')
@@ -33,10 +42,9 @@ if __name__ == '__main__':
 	print(len(gender_names_data))
 
 	gender_y = gender_names_data[:, 1]
-
-	DT_features = np.vectorize(DT_features)
+	DT_features = np.vectorize(DT_features) #vectorize dt_features function
 	names_x = DT_features(gender_names_data[:, 0]) # generate new list/list array with additional features
-
+	
 	#shuffle to create train/test data
 	from sklearn.utils import shuffle
 	names_x, gender_y = shuffle(names_x, gender_y)
@@ -51,6 +59,7 @@ if __name__ == '__main__':
 	#TOD: shrink dataset to run faster
 	vectorizer = DictVectorizer()
 	dtc = DecisionTreeClassifier()
+	global pipeline
 	pipeline = Pipeline([('dict', vectorizer), ('dtc', dtc)])
 	pipeline.fit(x_train, y_train)
 
@@ -59,5 +68,7 @@ if __name__ == '__main__':
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
 
 	#testing on novel names
-	test_name = "Dejah"
-	print("The name '{0}' is most likely {1}".format(test_name, determine_gender(test_name, pipeline)))
+	test_name = ["Nemo"]
+	determine_gender(test_name)
+	test_name = ["Atticus", "Shevek", "Emma"]
+	determine_gender(test_name)

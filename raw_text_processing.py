@@ -2,7 +2,6 @@
 # Pre-processing raw text
 
 # Date: November 2017
-
 ###########################################################################
 import os
 import re
@@ -11,6 +10,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/
 import string
 import codecs 
 ########################################################################
+from NN_gender_class import determine_gender
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -158,7 +158,7 @@ if __name__ == '__main__':
 	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
 	#print(dict_parts_speech)
 	
-	#TODO Next: identify names with a RNN trained on census data
+	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
-	#print(NN_gender_class.DT_features("Atticus"))
+	#print(determine_gender("Atticus"))
 	#run gender tag once on the entire text, tag male/female and use for predictions
