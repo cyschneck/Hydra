@@ -6,6 +6,8 @@ The code in this repo is the working version of the thesis found in the link bel
 
 Link to final PDF (coming soon)
 
+TODO: convert to Jupyter notebook
+
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
 

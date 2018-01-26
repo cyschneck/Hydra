@@ -8,9 +8,6 @@ import re
 import nltk # Natural Language toolkit
 from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/sentences
 import string
-import codecs 
-########################################################################
-from NN_gender_class import determine_gender
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -52,6 +49,7 @@ def partsOfSpeech(token_dict):
 	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
+	## TODO: train and benchmark against Parsey
 	for key, value in token_dict.iteritems():
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
 		token_dict[key] = (value, nltk.pos_tag(word_tokenize(no_punc))) # adds part of speech tag for each word in the sentence
@@ -106,6 +104,38 @@ def indexPronoun(token_dict, pronoun_dict):
 	#print("\ntotal pronouns to find = {0}".format(sum(pronoun_dict.values())))
 	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
 	return index_pronoun_dict
+
+def mostCommonProperNouns(raw_text):
+	# returns ordered proper nouns and total instances
+	# TODO: merge with mostCommonProunouns
+	name_instances = {}
+	from collections import Counter
+
+	raw_words = re.findall(r'\w+', raw_text)
+
+	total_words = [word for word in raw_words]
+	word_counts = Counter(total_words)
+		
+	tag_noun = ["NNP", "NNPS"]
+
+	for word in word_counts:
+		if nltk.pos_tag(nltk.word_tokenize(word))[0][1] in tag_noun: # if word is a pronoun, then store it
+			name_instances[word] = word_counts[word]
+	return name_instances
+
+def indexProperNoun(token_dict):
+	# stores noun and location in sentence for each sentence
+	pass
+
+def SyntaxWrapper(sentences_dict):
+	# run syntaxnet on raw sentences to produce trees
+	print("\n")
+	for index, sentence in sentences_dict.iteritems():
+		print(index)
+		print(sentence)
+	import subprocess
+	subprocess.call(['echo "After rather a long silence, the commander resumed the conversation." | syntaxnet/demo.sh'], shell=True)
+
 ########################################################################
 ## Output data into csv
 def outputCSV(filename, token_sentence_dict, pronouns_dict):
@@ -139,20 +169,26 @@ if __name__ == '__main__':
 	tokens_in_order = readFile(filename)
 	tokens_as_string = " ".join(tokens_in_order)
 	tokens_as_string = tokens_as_string.translate(None, "\r")
-	
+
 	# return the most common pronouns in the text (TODO: Automate)
 	most_common_pronouns_dict = mostCommonPronouns(tokens_as_string)
-	print(most_common_pronouns_dict)
-	print("\n")
+	#print(most_common_pronouns_dict)
+	#print("\n")
 	
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
-	#print(token_sentence_dict) # TODO: switch to namedTuples
+	print(token_sentence_dict) # TODO: switch to namedTuples
 	
+	syntax_tree = SyntaxWrapper(token_sentence_dict)
+	
+	'''
 	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
-	print("\n")
 	print(pronouns_dict)
 	print("\n")
 	
+	# return the most common nouns in the text (TODO: Automate)
+	name_dict = mostCommonProperNouns(tokens_as_string)
+	print(name_dict)
+
 	#outputCSV(filename, token_sentence_dict, pronouns_dict)
 	
 	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
@@ -160,5 +196,9 @@ if __name__ == '__main__':
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
-	#print(determine_gender("Atticus"))
+	from sklearn.externals import joblib # save model to load
+	loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
+	test_name = ["Nemo"]
+	#loaded_gender_model.predict(NN_gender_class.DT_features(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
+	'''

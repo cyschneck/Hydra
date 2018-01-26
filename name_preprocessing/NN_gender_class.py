@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
+from sklearn.externals import joblib # save model to load
 ###########################################################################
 
 TRAINING_PERCENT = 0.6 #60%
@@ -66,6 +67,11 @@ if __name__ == '__main__':
 	#Accuracy
 	print("Accuracy on training: {0}".format(pipeline.score(x_train, y_train)))
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
+	if pipeline.score(x_test, y_test) > 0.854:
+		joblib.dump(pipeline, 'gender_saved_model_{0}.sav'.format(pipeline.score(x_test, y_test)))
+		print("SAVED")
+	else:
+		print("NOT SAVED")
 
 	#testing on novel names
 	test_name = ["Nemo"]
