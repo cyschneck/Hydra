@@ -134,7 +134,7 @@ def SyntaxWrapper(sentences_dict):
 		print(index)
 		print(sentence)
 	import subprocess
-	subprocess.call(['echo "After rather a long silence, the commander resumed the conversation." | syntaxnet/demo.sh'], shell=True)
+	#subprocess.call(['echo "After rather a long silence, the commander resumed the conversation." | syntaxnet/demo.sh'], shell=True)
 
 ########################################################################
 ## Output data into csv
