@@ -54,23 +54,6 @@ Time Machine (Wells)
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
-## Install and Running SyntaxNet
-
-The SyntaxNet documention contains a few errors. Some directory paths have changed.
-
-Install bazel
-
-Tensorflow requires bazel 0.4.5 or greater to run. Current version 0.10.0
-```
-wget https://github.com/bazelbuild/bazel/releases/download/0.10.0/bazel-0.10.0-installer-linux-x86_64.sh -O bazel-0.10.0-installer-linux-x86_64.sh
-chmod +x bazel-0.10.0-installer-linux-x86_64.sh
-sudo ./bazel-0.10.0-installer-linux-x86_64.sh --user
-rm bazel-0.10.0-installer-linux-x86_64.sh
-sudo chown $USER:$USER ~/.cache/bazel/
-export PATH="$PATH:/home/user/bin"
-```
-
-
 ## Citations
 Names Corpus, Version 1.3 (1994-03-29)
 Copyright (C) 1991 Mark Kantrowitz
