@@ -8,6 +8,26 @@ Link to final PDF (coming soon)
 
 TODO: convert to Jupyter notebook
 
+## Install and Run
+1. git clone https://github.com/cschneck/Ishmael.git
+2. If first time setup:
+
+```./0_first_time_install.sh ```
+
+3. To run docker image:
+
+Once docker has been installed (via 0_first_time_install.sh or manually), start docker container 'mcparseface'
+
+```docker run --name mcparseface --rm -it brianlow/syntaxnet-docker bash```
+
+4. In new tab (open within cloned repo Ishmael): clone repo into docker container
+
+```./1_run_inside_repo.sh```
+
+5. Within the open docker container: install modules to run python scripts
+
+```./2_run_inside_docker_container.sh```
+
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
 
