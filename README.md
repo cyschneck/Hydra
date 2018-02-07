@@ -29,6 +29,10 @@ Once docker has been installed (via 0_first_time_install.sh or manually), start 
 
 ```./2_run_inside_docker_container.sh```
 
+6. Test parser with string
+
+```./3_run_text.sh "Very well, I will marry you if you promise not to make me eat eggplant"```
+
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
 

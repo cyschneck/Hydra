@@ -127,15 +127,6 @@ def indexProperNoun(token_dict):
 	# stores noun and location in sentence for each sentence
 	pass
 
-def SyntaxWrapper(sentences_dict):
-	# run syntaxnet on raw sentences to produce trees
-	print("\n")
-	for index, sentence in sentences_dict.iteritems():
-		print(index)
-		print(sentence)
-	import subprocess
-	#subprocess.call(['echo "After rather a long silence, the commander resumed the conversation." | syntaxnet/demo.sh'], shell=True)
-
 ########################################################################
 ## Output data into csv
 def outputCSV(filename, token_sentence_dict, pronouns_dict):
@@ -176,10 +167,8 @@ if __name__ == '__main__':
 	#print("\n")
 	
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
-	print(token_sentence_dict) # TODO: switch to namedTuples
-	
-	syntax_tree = SyntaxWrapper(token_sentence_dict)
-	
+	#print(token_sentence_dict) # TODO: switch to namedTuples
+	print(token_sentence_dict.values()[0])
 	'''
 	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
 	print(pronouns_dict)
