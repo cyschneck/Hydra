@@ -3,5 +3,9 @@ echo "install modules needed to run inside docker container..."
 echo ""
 sed -i -e 's/archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 apt-get update
-apt-get install vim
+echo 'y' | apt-get install vim
 
+echo ""
+echo "install nltk for tokens"
+pip install nltk
+echo -e "import nltk\nnltk.download('punkt')" | python
