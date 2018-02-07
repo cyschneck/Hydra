@@ -9,7 +9,8 @@ Link to final PDF (coming soon)
 TODO: convert to Jupyter notebook
 
 ## Install and Run
-1. git clone https://github.com/cschneck/Ishmael.git
+```git clone https://github.com/cschneck/Ishmael.git```
+
 2. If first time setup:
 
 ```./0_first_time_install.sh ```
