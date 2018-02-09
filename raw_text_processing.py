@@ -49,15 +49,14 @@ def partsOfSpeech(token_dict):
 	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
+	print("DATA STDOUT:")
+	import logging
+	logging.getLogger('tensorflow').disabled = True
 	from subprocess import check_output
 	for key, value in token_dict.iteritems():
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
-		print(value)
 		print("./3_run_text.sh '{0}'\n".format(value))
-		result = check_output(["echo", "hello world"])
-		print(result)
 		pos_tagged = check_output(["./3_run_text.sh", value])
-		print(pos_tagged)
 		if "docker not running, required to run syntaxnet" not in pos_tagged:
 			pos_tagged = process_POS_conll(pos_tagged) # process conll output from shell
 			print(pos_tagged)
@@ -68,13 +67,24 @@ def partsOfSpeech(token_dict):
 	return token_dict
 
 def process_POS_conll(conll_output):
+	'''
+	['1', 'At', '_', 'ADP', 'IN', '_', '13', 'prep', '_', '_']
+	['2', 'the', '_', 'DET', 'DT', '_', '3', 'det', '_', '_']
+	['3', 'period', '_', 'NOUN', 'NN', '_', '1', 'pobj', '_', '_']
+	['4', 'when', '_', 'ADV', 'WRB', '_', '7', 'advmod', '_', '_']
+	['5', 'these', '_', 'DET', 'DT', '_', '6', 'det', '_', '_']
+	['6', 'events', '_', 'NOUN', 'NNS', '_', '7', 'nsubj', '_', '_']
+	['7', 'took', '_', 'VERB', 'VBD', '_', '3', 'rcmod', '_', '_']
+	['8', 'place', '_', 'NOUN', 'NN', '_', '7', 'dobj', '_', '_']
+	'''
 	pos_processed = conll_output
 	start_data = 0
-	print("PROCESS FUNCTION")
-	#or i in range(len(conll_output)):
-	#	if conll_output[i] == 'INFO:tensorflow:Seconds elapsed in evaluation:':
-	#		start_data = i # save the index of the start of the data (typically 102)
-	#pos_processed = graph_data[start_data+2:] # splice all data for just the graphable data (+2 to not include 'DATA:') 
+	pos_processed = re.sub("\t", ",", pos_processed.strip())
+	pos_processed = re.sub(",", " ", pos_processed.strip())
+	pos_processed = pos_processed.splitlines()
+	for i in range(len(pos_processed)):
+		pos_processed[i] = pos_processed[i].split(" ")
+		#print(pos_processed[i])
 	return pos_processed
 
 def mostCommonPronouns(raw_text):
@@ -178,8 +188,8 @@ if __name__ == '__main__':
 	#outputCSV(filename, token_sentence_dict, pronouns_dict)
 
 	dict_parts_speech = partsOfSpeech(token_sentence_dict)
-	print("\n")
-	print(dict_parts_speech)
+	#print("\n")
+	#print(dict_parts_speech)
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun

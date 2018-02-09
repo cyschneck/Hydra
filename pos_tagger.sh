@@ -13,7 +13,6 @@ $PARSER_EVAL \
   --model_path=$MODEL_DIR/tagger-params \
   --slim_model \
   --batch_size=1024 \
-  --alsologtostderr \
    | \
   $PARSER_EVAL \
   --input=stdin-conll \
@@ -25,4 +24,3 @@ $PARSER_EVAL \
   --model_path=$MODEL_DIR/parser-params \
   --slim_model \
   --batch_size=1024 \
-  --alsologtostderr \
