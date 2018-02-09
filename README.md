@@ -87,6 +87,9 @@ ASCII tree
 
 ![image](https://user-images.githubusercontent.com/22159116/36015691-d2ef764e-0d2c-11e8-9702-72254ffb8c42.png)
 
+Run time: 41 (verne short) -> real 2m25.151s, user 3m27.610s, sys 0m45.450s
+
+
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
