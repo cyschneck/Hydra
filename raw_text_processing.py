@@ -49,17 +49,14 @@ def partsOfSpeech(token_dict):
 	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
-	print("DATA STDOUT:")
-	import logging
-	logging.getLogger('tensorflow').disabled = True
+	#print("DATA STDOUT:")
 	from subprocess import check_output
 	for key, value in token_dict.iteritems():
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
-		print("./3_run_text.sh '{0}'\n".format(value))
+		#print("./3_run_text.sh '{0}'\n".format(value))
 		pos_tagged = check_output(["./3_run_text.sh", value])
 		if "docker not running, required to run syntaxnet" not in pos_tagged:
 			pos_tagged = process_POS_conll(pos_tagged) # process conll output from shell
-			print(pos_tagged)
 			token_dict[key] = (value, pos_tagged) # adds part of speech tag for each word in the sentence
 		else:
 			print("\n\tWARNING: docker not running, cannot run syntaxnet for POS, exiting")
@@ -78,6 +75,7 @@ def process_POS_conll(conll_output):
 	['8', 'place', '_', 'NOUN', 'NN', '_', '7', 'dobj', '_', '_']
 	'''
 	pos_processed = conll_output
+	#print(pos_processed)
 	start_data = 0
 	pos_processed = re.sub("\t", ",", pos_processed.strip())
 	pos_processed = re.sub(",", " ", pos_processed.strip())
@@ -188,8 +186,10 @@ if __name__ == '__main__':
 	#outputCSV(filename, token_sentence_dict, pronouns_dict)
 
 	dict_parts_speech = partsOfSpeech(token_sentence_dict)
-	#print("\n")
-	#print(dict_parts_speech)
+	print("\n")
+	print(dict_parts_speech)
+	
+	## TODO: SAVE DICT_PARTS_SPEECH TO CSV
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
