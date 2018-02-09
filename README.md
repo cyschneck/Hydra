@@ -78,6 +78,15 @@ Time Machine (Wells)
 
 *To do*: Remove logging from "embedding names", "embedding dims", "Features", "Loaded terms from"
 
+## Parser output
+CoNLL
+
+![image](https://user-images.githubusercontent.com/22159116/36015676-b48e83ac-0d2c-11e8-9241-03c0b88e1bd5.png)
+
+ASCII tree
+
+![image](https://user-images.githubusercontent.com/22159116/36015691-d2ef764e-0d2c-11e8-9702-72254ffb8c42.png)
+
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
