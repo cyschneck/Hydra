@@ -76,6 +76,8 @@ Around the World in Eighty Days (Verne)
 
 Time Machine (Wells)
 
+*To do*: Remove logging from "embedding names", "embedding dims", "Features", "Loaded terms from"
+
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
