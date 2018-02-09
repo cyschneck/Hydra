@@ -49,11 +49,33 @@ def partsOfSpeech(token_dict):
 	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
-	## TODO: train and benchmark against Parsey
+	from subprocess import check_output
 	for key, value in token_dict.iteritems():
 		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
-		token_dict[key] = (value, nltk.pos_tag(word_tokenize(no_punc))) # adds part of speech tag for each word in the sentence
-	return token_dict 
+		print(value)
+		print("./3_run_text.sh '{0}'\n".format(value))
+		result = check_output(["echo", "hello world"])
+		print(result)
+		pos_tagged = check_output(["./3_run_text.sh", value])
+		print(pos_tagged)
+		if "docker not running, required to run syntaxnet" not in pos_tagged:
+			pos_tagged = process_POS_conll(pos_tagged) # process conll output from shell
+			print(pos_tagged)
+			token_dict[key] = (value, pos_tagged) # adds part of speech tag for each word in the sentence
+		else:
+			print("\n\tWARNING: docker not running, cannot run syntaxnet for POS, exiting")
+			exit()
+	return token_dict
+
+def process_POS_conll(conll_output):
+	pos_processed = conll_output
+	start_data = 0
+	print("PROCESS FUNCTION")
+	#or i in range(len(conll_output)):
+	#	if conll_output[i] == 'INFO:tensorflow:Seconds elapsed in evaluation:':
+	#		start_data = i # save the index of the start of the data (typically 102)
+	#pos_processed = graph_data[start_data+2:] # splice all data for just the graphable data (+2 to not include 'DATA:') 
+	return pos_processed
 
 def mostCommonPronouns(raw_text):
 	# returns a dictionary of the most common pronouns in the text with their occureance #
@@ -105,24 +127,6 @@ def indexPronoun(token_dict, pronoun_dict):
 	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
 	return index_pronoun_dict
 
-def mostCommonProperNouns(raw_text):
-	# returns ordered proper nouns and total instances
-	# TODO: merge with mostCommonProunouns
-	name_instances = {}
-	from collections import Counter
-
-	raw_words = re.findall(r'\w+', raw_text)
-
-	total_words = [word for word in raw_words]
-	word_counts = Counter(total_words)
-		
-	tag_noun = ["NNP", "NNPS"]
-
-	for word in word_counts:
-		if nltk.pos_tag(nltk.word_tokenize(word))[0][1] in tag_noun: # if word is a pronoun, then store it
-			name_instances[word] = word_counts[word]
-	return name_instances
-
 def indexProperNoun(token_dict):
 	# stores noun and location in sentence for each sentence
 	pass
@@ -139,9 +143,8 @@ def outputCSV(filename, token_sentence_dict, pronouns_dict):
 		writer.writeheader() 
 		for index in range(len(token_sentence_dict)):
 			writer.writerow({'sentence_index': index, 'sentence': token_sentence_dict[index], 'pronouns': str(pronouns_dict[index][0]).strip("[]"), 'pronouns_index': str(pronouns_dict[index][1]).strip("[]")})
+	print("CSV output saved as {0}".format(output_filename))
 
-	print(output_filename)
-		
 ########################################################################
 ## Parse Arguments, running main
 
@@ -168,26 +171,20 @@ if __name__ == '__main__':
 	
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
 	#print(token_sentence_dict) # TODO: switch to namedTuples
-	print(token_sentence_dict.values()[0])
-	'''
+
 	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
 	print(pronouns_dict)
-	print("\n")
-	
-	# return the most common nouns in the text (TODO: Automate)
-	name_dict = mostCommonProperNouns(tokens_as_string)
-	print(name_dict)
-
+	# save output to csv
 	#outputCSV(filename, token_sentence_dict, pronouns_dict)
-	
-	#dict_parts_speech = partsOfSpeech(token_sentence_dict)
-	#print(dict_parts_speech)
+
+	dict_parts_speech = partsOfSpeech(token_sentence_dict)
+	print("\n")
+	print(dict_parts_speech)
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
-	from sklearn.externals import joblib # save model to load
-	loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
-	test_name = ["Nemo"]
-	#loaded_gender_model.predict(NN_gender_class.DT_features(test_name))
+	#from sklearn.externals import joblib # save model to load
+	#loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
+	#test_name = ["Nemo"]
+	#print(loaded_gender_model.score(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
-	'''

@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Linking repo volumne inside of syntaxnet docker container"
+echo ""
+
+echo "DOCKER STARTING, entering docker...";
+docker run --name mcparseface -v $(pwd)/:/root/models/syntaxnet/Ishmael/ --rm -it brianlow/syntaxnet-docker bash
+

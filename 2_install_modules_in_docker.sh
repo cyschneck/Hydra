@@ -10,5 +10,8 @@ echo "install nltk for tokens"
 pip install nltk
 echo -e "import nltk\nnltk.download('punkt')\nnltk.download('averaged_perceptron_tagger')" | python
 
+echo "copying tagger for POS, replaced demo.sh"
+cp /root/models/syntaxnet/Ishmael/pos_tagger.sh ~/models/syntaxnet/syntaxnet/
 # To be commented out (for testing)
-python raw_text_processing.py -F testing.txt 
+#echo "testing raw_text_processing.py is running"
+#python raw_text_processing.py -F testing.txt 
