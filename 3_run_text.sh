@@ -8,5 +8,5 @@ cd /root/models/syntaxnet/ && echo $ECHO_COMMAND | ~/models/syntaxnet/syntaxnet/
 cd Ishmael/
 
 # return ascii tree, output std to /dev/null
-cd /root/models/syntaxnet/ && echo $ECHO_COMMAND | ~/models/syntaxnet/syntaxnet/demo.sh 2> /dev/null
-cd Ishmael/
+#cd /root/models/syntaxnet/ && echo $ECHO_COMMAND | ~/models/syntaxnet/syntaxnet/demo.sh 2> /dev/null
+#cd Ishmael/

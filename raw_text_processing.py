@@ -195,26 +195,25 @@ def outputCSVconll(filename, dict_parts_speech):
 		fieldnames = ['SENTENCE_INDEX', 'SENTENCE', 'ID', 'FORM', 'LEMMA', 'UPOSTAG', 'XPOSTAG', 'FEATS', 'HEAD', 'DEPREL', 'DEPS', 'MISC']
 		writer = csv.DictWriter(pos_data, fieldnames=fieldnames)
 		writer.writeheader() 
-		#writer.writerow({'SENTENCE_INDEX': 
-			#for pos in pos_lst:
-			#	print(i)
-			#	print(dict_parts_speech[i][0])
-			#	print(pos[1])
-			#	writer.writerow({'SENTENCE_INDEX': i, 
-			#					'SENTENCE': dict_parts_speech[i][0],
-			#					'ID': pos[0],
-			#					'FORM': pos[1],
-			#					'LEMMA': pos[2],
-			#					'UPOSTAG': pos[3],
-			#					'XPOSTAG': pos[4],
-			#					'FEATS': pos[5],
-			#					'HEAD': pos[6],
-			#					'DEPREL': pos[7],
-			#					'DEPS':pos[8],
-			#					'MISC': pos[9],
-			#					})
 
-	print("CSV POS output saved as {0}".format(output_filename))
+		for i in range(len(dict_parts_speech)):
+			sentence_pos_lst = dict_parts_speech[i][1]
+			for pos in sentence_pos_lst:
+				writer.writerow({'SENTENCE_INDEX': i, 
+								'SENTENCE': dict_parts_speech[i][0],
+								'ID': pos[0],
+								'FORM': pos[1],
+								'LEMMA': pos[2],
+								'UPOSTAG': pos[3],
+								'XPOSTAG': pos[4],
+								'FEATS': pos[5],
+								'HEAD': pos[6],
+								'DEPREL': pos[7],
+								'DEPS':pos[8],
+								'MISC': pos[9],
+								})
+
+	print("\nCSV POS output saved as {0}".format(output_filename))
 
 
 ########################################################################
@@ -250,7 +249,6 @@ if __name__ == '__main__':
 	#outputCSVpronoun(filename, token_sentence_dict, pronouns_dict)
 
 	dict_parts_speech = partsOfSpeech(token_sentence_dict)
-	print("\n")
 	outputCSVconll(filename, dict_parts_speech)
 	
 	
