@@ -8,6 +8,7 @@ import re
 import nltk # Natural Language toolkit
 from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/sentences
 import string
+import csv
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -49,18 +50,24 @@ def partsOfSpeech(token_dict):
 	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
-	#print("DATA STDOUT:")
 	from subprocess import check_output
-	for key, value in token_dict.iteritems():
-		no_punc = value.translate(None, string.punctuation) # remove puncuation from part of speech tagging
-		#print("./3_run_text.sh '{0}'\n".format(value))
-		pos_tagged = check_output(["./3_run_text.sh", value])
+	import progressbar as pb
+	widgets = ['Running POS tagger: ', pb.Percentage(), ' ', 
+				pb.Bar(marker=pb.RotatingMarker()), ' ', pb.ETA()]
+	timer = pb.ProgressBar(widgets=widgets, maxval=len(token_dict)).start()
+
+	for i in range(len(token_dict)):
+		timer.update(i)
+		no_punc = token_dict[i].translate(None, string.punctuation) # remove puncuation from part of speech tagging
+		pos_tagged = check_output(["./3_run_text.sh", token_dict[i]])
 		if "docker not running, required to run syntaxnet" not in pos_tagged:
 			pos_tagged = process_POS_conll(pos_tagged) # process conll output from shell
-			token_dict[key] = (value, pos_tagged) # adds part of speech tag for each word in the sentence
+			token_dict[i] = (token_dict[i], pos_tagged) # adds part of speech tag for each word in the sentence
 		else:
 			print("\n\tWARNING: docker not running, cannot run syntaxnet for POS, exiting")
 			exit()
+	timer.finish()
+
 	return token_dict
 
 def process_POS_conll(conll_output):
@@ -135,23 +142,80 @@ def indexPronoun(token_dict, pronoun_dict):
 	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
 	return index_pronoun_dict
 
-def indexProperNoun(token_dict):
+def indexProperNoun(finished=False):
 	# stores noun and location in sentence for each sentence
 	pass
 
 ########################################################################
 ## Output data into csv
-def outputCSV(filename, token_sentence_dict, pronouns_dict):
+def outputCSVpronoun(filename, token_sentence_dict, pronouns_dict):
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
-	output_filename = "{0}_data.csv".format(given_file.upper())
-	import csv
+	output_filename = "data_{0}.csv".format(given_file.upper())
+
 	with open(output_filename, 'w+') as txt_data:
 		fieldnames = ['sentence_index', 'sentence', 'pronouns', 'pronouns_index']
 		writer = csv.DictWriter(txt_data, fieldnames=fieldnames)
 		writer.writeheader() 
 		for index in range(len(token_sentence_dict)):
 			writer.writerow({'sentence_index': index, 'sentence': token_sentence_dict[index], 'pronouns': str(pronouns_dict[index][0]).strip("[]"), 'pronouns_index': str(pronouns_dict[index][1]).strip("[]")})
-	print("CSV output saved as {0}".format(output_filename))
+
+	print("CSV data output saved as {0}".format(output_filename))
+
+def outputCSVconll(filename, dict_parts_speech):
+	# save conll parser and pos to csv
+	'''
+	0 - ID (index in sentence), index starts at 1
+	1 - FORM (exact word)
+	2 - LEMMA (stem of word form)
+	3 - UPOSTAG (universal pos tag)
+	4 - XPOSTAG (Language-specific part-of-speech tag)
+	5 - FEATS (List of morphological features)
+	6 - HEAD (Head of the current token, which is either a value of ID or zero (0))
+	7 - DEPREL (Universal Stanford dependency relation to the HEAD (root iff HEAD = 0))
+	8 - DEPS (List of secondary dependencies)
+	9 - MISC (other annotation)
+	
+	{ 173: ('After rather a long silence, the commander resumed the conversation', 
+	[['1', 'After', '_', 'ADP', 'IN', '_', '9', 'prep', '_', '_'],
+	 ['2', 'rather', '_', 'ADV', 'RB', '_', '5', 'advmod', '_', '_'], 
+	 ['3', 'a', '_', 'DET', 'DT', '_', '5', 'det', '_', '_'],
+	 ['4', 'long', '_', 'ADJ', 'JJ', '_', '5', 'amod', '_', '_'],
+	 ['5', 'silence', '_', 'NOUN', 'NN', '_', '1', 'pobj', '_', '_'], 
+	 ['6', '', '', '_', '.', '', '', '_', '9', 'punct', '_', '_'],
+	 ['7', 'the', '_', 'DET', 'DT', '_', '8', 'det', '_', '_'],
+	 ['8', 'commander', '_', 'NOUN', 'NN', '_', '9', 'nsubj', '_', '_'],
+	 ['9', 'resumed', '_', 'VERB', 'VBD', '_', '0', 'ROOT', '_', '_'],
+	 ['10', 'the', '_', 'DET', 'DT', '_', '11', 'det', '_', '_'],
+	 ['11', 'conversation', '_', 'NOUN', 'NN', '_', '9', 'dobj', '_', '_']])}
+	'''
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "pos_{0}.csv".format(given_file.upper())
+
+	with open(output_filename, 'w+') as pos_data:
+		fieldnames = ['SENTENCE_INDEX', 'SENTENCE', 'ID', 'FORM', 'LEMMA', 'UPOSTAG', 'XPOSTAG', 'FEATS', 'HEAD', 'DEPREL', 'DEPS', 'MISC']
+		writer = csv.DictWriter(pos_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		#writer.writerow({'SENTENCE_INDEX': 
+			#for pos in pos_lst:
+			#	print(i)
+			#	print(dict_parts_speech[i][0])
+			#	print(pos[1])
+			#	writer.writerow({'SENTENCE_INDEX': i, 
+			#					'SENTENCE': dict_parts_speech[i][0],
+			#					'ID': pos[0],
+			#					'FORM': pos[1],
+			#					'LEMMA': pos[2],
+			#					'UPOSTAG': pos[3],
+			#					'XPOSTAG': pos[4],
+			#					'FEATS': pos[5],
+			#					'HEAD': pos[6],
+			#					'DEPREL': pos[7],
+			#					'DEPS':pos[8],
+			#					'MISC': pos[9],
+			#					})
+
+	print("CSV POS output saved as {0}".format(output_filename))
+
 
 ########################################################################
 ## Parse Arguments, running main
@@ -181,13 +245,14 @@ if __name__ == '__main__':
 	#print(token_sentence_dict) # TODO: switch to namedTuples
 
 	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
-	print(pronouns_dict)
+	#print(pronouns_dict)
 	# save output to csv
-	#outputCSV(filename, token_sentence_dict, pronouns_dict)
+	#outputCSVpronoun(filename, token_sentence_dict, pronouns_dict)
 
 	dict_parts_speech = partsOfSpeech(token_sentence_dict)
 	print("\n")
-	print(dict_parts_speech)
+	outputCSVconll(filename, dict_parts_speech)
+	
 	
 	## TODO: SAVE DICT_PARTS_SPEECH TO CSV
 	
