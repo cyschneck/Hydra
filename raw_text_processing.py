@@ -67,7 +67,6 @@ def partsOfSpeech(token_dict):
 			print("\n\tWARNING: docker not running, cannot run syntaxnet for POS, exiting")
 			exit()
 	timer.finish()
-
 	return token_dict
 
 def process_POS_conll(conll_output):
@@ -142,9 +141,10 @@ def indexPronoun(token_dict, pronoun_dict):
 	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
 	return index_pronoun_dict
 
-def indexProperNoun(finished=False):
-	# stores noun and location in sentence for each sentence
-	pass
+def findFullNames():
+	# find full names as two proper nouns next to eachother in a sentence
+	for sentence in token_sentence_dict:
+		names_proper_nouns = list(nltk.bigrams(sentence.split()))
 
 ########################################################################
 ## Output data into csv
@@ -161,6 +161,7 @@ def outputCSVpronoun(filename, token_sentence_dict, pronouns_dict):
 
 	print("CSV data output saved as {0}".format(output_filename))
 
+## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech):
 	# save conll parser and pos to csv
 	'''
@@ -191,7 +192,7 @@ def outputCSVconll(filename, dict_parts_speech):
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 
-	with open(output_filename, 'w+') as pos_data:
+	with open('csv_pos/{0}'.format(output_filename), 'w+') as pos_data:
 		fieldnames = ['SENTENCE_INDEX', 'SENTENCE', 'ID', 'FORM', 'LEMMA', 'UPOSTAG', 'XPOSTAG', 'FEATS', 'HEAD', 'DEPREL', 'DEPS', 'MISC']
 		writer = csv.DictWriter(pos_data, fieldnames=fieldnames)
 		writer.writeheader() 
@@ -215,6 +216,12 @@ def outputCSVconll(filename, dict_parts_speech):
 
 	print("\nCSV POS output saved as {0}".format(output_filename))
 
+## save values from an existing pos from csv
+def savePOSfromExistingCSV(csv_filename):
+	# save data from existing csv
+	import pandas as pd
+	pos_csv = pd.read_csv(csv_filename)
+	return pos_csv
 
 ########################################################################
 ## Parse Arguments, running main
@@ -248,12 +255,19 @@ if __name__ == '__main__':
 	# save output to csv
 	#outputCSVpronoun(filename, token_sentence_dict, pronouns_dict)
 
-	dict_parts_speech = partsOfSpeech(token_sentence_dict)
-	outputCSVconll(filename, dict_parts_speech)
-	
-	
-	## TODO: SAVE DICT_PARTS_SPEECH TO CSV
-	
+	# check to see if file has already been saved in csv, otherwise run script
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "pos_{0}.csv".format(given_file.upper())
+	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
+	if not os.path.isfile(csv_local_dir):
+		#print("pos needs to be calculated...")
+		dict_parts_speech = partsOfSpeech(token_sentence_dict)
+		outputCSVconll(filename, dict_parts_speech)
+
+	pos_data = savePOSfromExistingCSV(csv_local_dir)
+	print(pos_data.head())
+
+
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
 	#from sklearn.externals import joblib # save model to load
