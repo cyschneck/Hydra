@@ -11,25 +11,26 @@ TODO: convert to Jupyter notebook
 ## Install and Run
 ```git clone https://github.com/cschneck/Ishmael.git```
 
-2. If first time setup:
+1. If first time setup:
 
 ```./0_first_time_install.sh ```
 
-3. To run docker image:
+2. To run docker image within repo, starts docker:
 
-Once docker has been installed (via 0_first_time_install.sh or manually), start docker container 'mcparseface'
+```./1_start_docker.sh```
 
-```docker run --name mcparseface --rm -it brianlow/syntaxnet-docker bash```
+2. Install modules within docker to run repo:
 
-4. In new tab (open within cloned repo Ishmael): clone repo into docker container
+```
+cd Ishmael/
+./2_install_modules_in_docker.sh
+```
 
-```./1_run_inside_repo.sh```
+3. Run parser on text:
 
-5. Within the open docker container: install modules to run python scripts
+```python raw_text_processing.py -F <filename>.txt```
 
-```./2_run_inside_docker_container.sh```
-
-6. Test parser with string
+Example: Test parser with string
 
 ```./3_run_text.sh "Very well, I will marry you if you promise not to make me eat eggplant"```
 
