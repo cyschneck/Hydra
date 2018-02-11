@@ -11,6 +11,10 @@ pip install progressbar
 echo 'y' | apt-get install python-pandas
 
 echo ""
+echo "install scikit learn"
+pip install -U scikit-learn
+
+echo ""
 echo "install nltk for tokens"
 pip install nltk
 echo -e "import nltk\nnltk.download('punkt')\nnltk.download('averaged_perceptron_tagger')" | python
