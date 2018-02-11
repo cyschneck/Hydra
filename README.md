@@ -1,12 +1,10 @@
 # BA CSCI Honors Thesis
 
-Department of Computer Science at the University of Colorado, Boulder 2017-2018
+Department of Computer Science at the University of Colorado, Boulder
 
 The code in this repo is the working version of the thesis found in the link below. To run, follow instructions below
 
 Link to final PDF (coming soon)
-
-TODO: convert to Jupyter notebook
 
 ## Install and Run
 ```git clone https://github.com/cschneck/Ishmael.git```
@@ -99,6 +97,8 @@ ASCII tree
 ![image](https://user-images.githubusercontent.com/22159116/36015691-d2ef764e-0d2c-11e8-9702-72254ffb8c42.png)
 
 Run time: 41 (verne short) -> real 2m25.151s, user 3m27.610s, sys 0m45.450s
+
+Will only run the parser once, if the parser has been run already, the output will be stored in the csv file for future use
 
 
 ## Datasets
