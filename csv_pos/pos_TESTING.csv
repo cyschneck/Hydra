@@ -1,112 +1,112 @@
-SENTENCE_INDEX,SENTENCE,ID,FORM,LEMMA,UPOSTAG,XPOSTAG,FEATS,HEAD,DEPREL,DEPS,MISC
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",1,At,_,ADP,IN,_,13,prep,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",2,the,_,DET,DT,_,3,det,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",3,period,_,NOUN,NN,_,1,pobj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",4,when,_,ADV,WRB,_,7,advmod,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",5,these,_,DET,DT,_,6,det,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",6,events,_,NOUN,NNS,_,7,nsubj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",7,took,_,VERB,VBD,_,3,rcmod,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",8,place,_,NOUN,NN,_,7,dobj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",9,,,_,.,,,_,13,punct
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",10,I,_,PRON,PRP,_,13,nsubj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",11,had,_,VERB,VBD,_,13,aux,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",12,just,_,ADV,RB,_,13,advmod,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",13,returned,_,VERB,VBN,_,0,ROOT,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",14,from,_,ADP,IN,_,13,prep,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",15,a,_,DET,DT,_,17,det,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",16,scientific,_,ADJ,JJ,_,17,amod,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",17,research,_,NOUN,NN,_,14,pobj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",18,in,_,ADP,IN,_,17,prep,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",19,the,_,DET,DT,_,21,det,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",20,disagreeable,_,ADJ,JJ,_,21,amod,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",21,territory,_,NOUN,NN,_,18,pobj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",22,of,_,ADP,IN,_,21,prep,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",23,Nebraska,_,NOUN,NNP,_,22,pobj,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",24,,,_,.,,,_,13,punct
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",25,in,_,ADP,IN,_,13,prep,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,the,_,DET,DT,_,28,det,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",27,United,_,NOUN,NNP,_,28,nn,_,_
-0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",28,States,_,NOUN,NNP,_,25,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",1,In,_,ADP,IN,_,22,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",2,virtue,_,NOUN,NN,_,1,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",3,of,_,ADP,IN,_,2,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",4,my,_,PRON,PRP$,_,5,poss,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",5,office,_,NOUN,NN,_,3,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",6,as,_,ADP,IN,_,5,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",7,Assistant,_,NOUN,NNP,_,8,nn,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",8,Professor,_,NOUN,NNP,_,6,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",9,in,_,ADP,IN,_,5,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",10,the,_,DET,DT,_,11,det,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",11,Museum,_,NOUN,NNP,_,9,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",12,of,_,ADP,IN,_,11,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",13,Natural,_,NOUN,NNP,_,14,nn,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",14,History,_,NOUN,NNP,_,12,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",15,in,_,ADP,IN,_,11,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",16,Paris,_,NOUN,NNP,_,15,pobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",17,,,_,.,,,_,22,punct
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",18,the,_,DET,DT,_,20,det,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",19,French,_,ADJ,JJ,_,20,amod,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",20,Government,_,NOUN,NNP,_,22,nsubj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",21,had,_,VERB,VBD,_,22,aux,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",22,attached,_,VERB,VBN,_,0,ROOT,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",23,me,_,PRON,PRP,_,22,dobj,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",24,to,_,ADP,IN,_,22,prep,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,that,_,DET,DT,_,26,det,_,_
-1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",26,expedition,_,NOUN,NN,_,24,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",1,After,_,ADP,IN,_,8,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",2,six,_,NUM,CD,_,3,num,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",3,months,_,NOUN,NNS,_,1,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",4,in,_,ADP,IN,_,3,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",5,Nebraska,_,NOUN,NNP,_,4,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",6,,,_,.,,,_,8,punct
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",7,I,_,PRON,PRP,_,8,nsubj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",8,arrived,_,VERB,VBD,_,0,ROOT,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",9,in,_,ADP,IN,_,8,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",10,New,_,NOUN,NNP,_,11,nn,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",11,York,_,NOUN,NNP,_,9,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",12,towards,_,ADP,IN,_,8,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",13,the,_,DET,DT,_,14,det,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",14,end,_,NOUN,NN,_,12,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",15,of,_,ADP,IN,_,14,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",16,March,_,NOUN,NNP,_,15,pobj,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",17,,,_,.,,,_,8,punct
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",18,laden,_,ADJ,JJ,_,8,dep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",19,with,_,ADP,IN,_,18,prep,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,a,_,DET,DT,_,22,det,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",21,precious,_,ADJ,JJ,_,22,amod,_,_
-2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",22,collection,_,NOUN,NN,_,19,pobj,_,_
-3,My departure for France was fixed for the first days in May,1,My,_,PRON,PRP$,_,2,poss,_,_
-3,My departure for France was fixed for the first days in May,2,departure,_,NOUN,NN,_,6,nsubjpass,_,_
-3,My departure for France was fixed for the first days in May,3,for,_,ADP,IN,_,2,prep,_,_
-3,My departure for France was fixed for the first days in May,4,France,_,NOUN,NNP,_,3,pobj,_,_
-3,My departure for France was fixed for the first days in May,5,was,_,VERB,VBD,_,6,auxpass,_,_
-3,My departure for France was fixed for the first days in May,6,fixed,_,VERB,VBN,_,0,ROOT,_,_
-3,My departure for France was fixed for the first days in May,7,for,_,ADP,IN,_,6,prep,_,_
-3,My departure for France was fixed for the first days in May,8,the,_,DET,DT,_,10,det,_,_
-3,My departure for France was fixed for the first days in May,9,first,_,ADJ,JJ,_,10,amod,_,_
-3,My departure for France was fixed for the first days in May,10,days,_,NOUN,NNS,_,7,pobj,_,_
-3,My departure for France was fixed for the first days in May,11,in,_,ADP,IN,_,10,prep,_,_
-3,My departure for France was fixed for the first days in May,12,May,_,NOUN,NNP,_,11,pobj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",1,Meanwhile,_,ADV,RB,_,4,advmod,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",2,I,_,PRON,PRP,_,4,nsubj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",3,was,_,VERB,VBD,_,4,aux,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",4,occupying,_,VERB,VBG,_,0,ROOT,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",5,myself,_,PRON,PRP,_,4,dobj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",6,in,_,ADP,IN,_,4,prep,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",7,classifying,_,VERB,VBG,_,6,pcomp,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",8,my,_,PRON,PRP$,_,15,poss,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",9,mineralogical,_,ADJ,JJ,_,15,amod,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",10,,,_,.,,,_,9,punct
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",11,botanical,_,ADJ,JJ,_,9,conj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",12,,,_,.,,,_,9,punct
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",13,and,_,CONJ,CC,_,9,cc,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",14,zoological,_,ADJ,JJ,_,9,conj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",15,riches,_,NOUN,NNS,_,7,dobj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",16,,,_,.,,,_,15,punct
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",17,when,_,ADV,WRB,_,20,advmod,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",18,the,_,DET,DT,_,19,det,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",19,accident,_,NOUN,NN,_,20,nsubj,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,happened,_,VERB,VBD,_,15,rcmod,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",21,to,_,ADP,IN,_,20,prep,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",22,the,_,DET,DT,_,23,det,_,_
-4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",23,Scotia,_,NOUN,NNP,_,21,pobj,_,_
+SENTENCE_INDEX,SENTENCE,SENTENCE_LENGTH,PRONOUN,PRONOUN_INDEX,ID,FORM,LEMMA,UPOSTAG,XPOSTAG,FEATS,HEAD,DEPREL,DEPS,MISC
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,1,At,_,ADP,IN,_,13,prep,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,2,the,_,DET,DT,_,3,det,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,3,period,_,NOUN,NN,_,1,pobj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,4,when,_,ADV,WRB,_,7,advmod,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,5,these,_,DET,DT,_,6,det,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,6,events,_,NOUN,NNS,_,7,nsubj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,7,took,_,VERB,VBD,_,3,rcmod,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,8,place,_,NOUN,NN,_,7,dobj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,9,,,_,.,,,_,13,punct
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,10,I,_,PRON,PRP,_,13,nsubj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,11,had,_,VERB,VBD,_,13,aux,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,12,just,_,ADV,RB,_,13,advmod,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,13,returned,_,VERB,VBN,_,0,ROOT,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,14,from,_,ADP,IN,_,13,prep,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,15,a,_,DET,DT,_,17,det,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,16,scientific,_,ADJ,JJ,_,17,amod,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,17,research,_,NOUN,NN,_,14,pobj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,18,in,_,ADP,IN,_,17,prep,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,19,the,_,DET,DT,_,21,det,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,20,disagreeable,_,ADJ,JJ,_,21,amod,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,21,territory,_,NOUN,NN,_,18,pobj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,22,of,_,ADP,IN,_,21,prep,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,23,Nebraska,_,NOUN,NNP,_,22,pobj,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,24,,,_,.,,,_,13,punct
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,25,in,_,ADP,IN,_,13,prep,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,26,the,_,DET,DT,_,28,det,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,27,United,_,NOUN,NNP,_,28,nn,_,_
+0,"At the period when these events took place, I had just returned from a scientific research in the disagreeable territory of Nebraska, in the United States",26,'I',8,28,States,_,NOUN,NNP,_,25,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",1,In,_,ADP,IN,_,22,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",2,virtue,_,NOUN,NN,_,1,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",3,of,_,ADP,IN,_,2,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",4,my,_,PRON,PRP$,_,5,poss,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",5,office,_,NOUN,NN,_,3,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",6,as,_,ADP,IN,_,5,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",7,Assistant,_,NOUN,NNP,_,8,nn,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",8,Professor,_,NOUN,NNP,_,6,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",9,in,_,ADP,IN,_,5,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",10,the,_,DET,DT,_,11,det,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",11,Museum,_,NOUN,NNP,_,9,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",12,of,_,ADP,IN,_,11,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",13,Natural,_,NOUN,NNP,_,14,nn,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",14,History,_,NOUN,NNP,_,12,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",15,in,_,ADP,IN,_,11,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",16,Paris,_,NOUN,NNP,_,15,pobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",17,,,_,.,,,_,22,punct
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",18,the,_,DET,DT,_,20,det,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",19,French,_,ADJ,JJ,_,20,amod,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",20,Government,_,NOUN,NNP,_,22,nsubj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",21,had,_,VERB,VBD,_,22,aux,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",22,attached,_,VERB,VBN,_,0,ROOT,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",23,me,_,PRON,PRP,_,22,dobj,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",24,to,_,ADP,IN,_,22,prep,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",25,that,_,DET,DT,_,26,det,_,_
+1,"In virtue of my office as Assistant Professor in the Museum of Natural History in Paris, the French Government had attached me to that expedition",25,"'my', 'me'","3, 21",26,expedition,_,NOUN,NN,_,24,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,1,After,_,ADP,IN,_,8,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,2,six,_,NUM,CD,_,3,num,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,3,months,_,NOUN,NNS,_,1,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,4,in,_,ADP,IN,_,3,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,5,Nebraska,_,NOUN,NNP,_,4,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,6,,,_,.,,,_,8,punct
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,7,I,_,PRON,PRP,_,8,nsubj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,8,arrived,_,VERB,VBD,_,0,ROOT,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,9,in,_,ADP,IN,_,8,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,10,New,_,NOUN,NNP,_,11,nn,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,11,York,_,NOUN,NNP,_,9,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,12,towards,_,ADP,IN,_,8,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,13,the,_,DET,DT,_,14,det,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,14,end,_,NOUN,NN,_,12,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,15,of,_,ADP,IN,_,14,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,16,March,_,NOUN,NNP,_,15,pobj,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,17,,,_,.,,,_,8,punct
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,18,laden,_,ADJ,JJ,_,8,dep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,19,with,_,ADP,IN,_,18,prep,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,20,a,_,DET,DT,_,22,det,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,21,precious,_,ADJ,JJ,_,22,amod,_,_
+2,"After six months in Nebraska, I arrived in New York towards the end of March, laden with a precious collection",20,'I',5,22,collection,_,NOUN,NN,_,19,pobj,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,1,My,_,PRON,PRP$,_,2,poss,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,2,departure,_,NOUN,NN,_,6,nsubjpass,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,3,for,_,ADP,IN,_,2,prep,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,4,France,_,NOUN,NNP,_,3,pobj,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,5,was,_,VERB,VBD,_,6,auxpass,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,6,fixed,_,VERB,VBN,_,0,ROOT,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,7,for,_,ADP,IN,_,6,prep,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,8,the,_,DET,DT,_,10,det,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,9,first,_,ADJ,JJ,_,10,amod,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,10,days,_,NOUN,NNS,_,7,pobj,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,11,in,_,ADP,IN,_,10,prep,_,_
+3,My departure for France was fixed for the first days in May,12,'My',0,12,May,_,NOUN,NNP,_,11,pobj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",1,Meanwhile,_,ADV,RB,_,4,advmod,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",2,I,_,PRON,PRP,_,4,nsubj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",3,was,_,VERB,VBD,_,4,aux,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",4,occupying,_,VERB,VBG,_,0,ROOT,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",5,myself,_,PRON,PRP,_,4,dobj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",6,in,_,ADP,IN,_,4,prep,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",7,classifying,_,VERB,VBG,_,6,pcomp,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",8,my,_,PRON,PRP$,_,15,poss,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",9,mineralogical,_,ADJ,JJ,_,15,amod,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",10,,,_,.,,,_,9,punct
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",11,botanical,_,ADJ,JJ,_,9,conj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",12,,,_,.,,,_,9,punct
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",13,and,_,CONJ,CC,_,9,cc,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",14,zoological,_,ADJ,JJ,_,9,conj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",15,riches,_,NOUN,NNS,_,7,dobj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",16,,,_,.,,,_,15,punct
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",17,when,_,ADV,WRB,_,20,advmod,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",18,the,_,DET,DT,_,19,det,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",19,accident,_,NOUN,NN,_,20,nsubj,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",20,happened,_,VERB,VBD,_,15,rcmod,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",21,to,_,ADP,IN,_,20,prep,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",22,the,_,DET,DT,_,23,det,_,_
+4,"Meanwhile I was occupying myself in classifying my mineralogical, botanical, and zoological riches, when the accident happened to the Scotia",20,"'I', 'myself', 'my'","1, 4, 7",23,Scotia,_,NOUN,NNP,_,21,pobj,_,_
