@@ -76,8 +76,6 @@ Around the World in Eighty Days (Verne)
 
 Time Machine (Wells)
 
-*To do*: Remove logging from "embedding names", "embedding dims", "Features", "Loaded terms from"
-
 ## Parser output
 CoNLL
 
