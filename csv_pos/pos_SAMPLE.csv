@@ -1,0 +1,69 @@
+SENTENCE_INDEX,SENTENCE,ID,FORM,LEMMA,UPOSTAG,XPOSTAG,FEATS,HEAD,DEPREL,DEPS,MISC
+0,Peter knew a dragon once named Isabelle of the Iron Trees,1,Peter,_,NOUN,NNP,_,2,nsubj,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,2,knew,_,VERB,VBD,_,0,ROOT,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,3,a,_,DET,DT,_,4,det,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,4,dragon,_,NOUN,NN,_,2,dobj,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,5,once,_,ADV,RB,_,6,advmod,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,6,named,_,VERB,VBN,_,4,partmod,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,7,Isabelle,_,NOUN,NNP,_,6,dep,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,8,of,_,ADP,IN,_,7,prep,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,9,the,_,DET,DT,_,11,det,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,10,Iron,_,NOUN,NNP,_,11,nn,_,_
+0,Peter knew a dragon once named Isabelle of the Iron Trees,11,Trees,_,NOUN,NNPS,_,8,pobj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",1,She,_,PRON,PRP,_,2,nsubj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",2,looked,_,VERB,VBD,_,0,ROOT,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",3,like,_,ADP,IN,_,2,prep,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",4,a,_,DET,DT,_,6,det,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",5,tall,_,ADJ,JJ,_,6,amod,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",6,deer,_,NOUN,NN,_,3,pobj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",7,to,_,ADP,IN,_,2,prep,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",8,him,_,PRON,PRP,_,7,pobj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",9,,,_,.,,,_,2,punct
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",10,and,_,CONJ,CC,_,2,cc,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",11,her,_,PRON,PRP$,_,12,poss,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",12,wings,_,NOUN,NNS,_,19,nsubj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",13,were,_,VERB,VBD,_,19,cop,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",14,a,_,DET,DT,_,19,det,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",15,pale,_,ADJ,JJ,_,19,amod,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",16,,,_,.,,,_,19,punct
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",17,almost,_,ADV,RB,_,18,advmod,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",18,transparent,_,ADJ,JJ,_,19,amod,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",19,shade,_,NOUN,NN,_,2,conj,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",20,of,_,ADP,IN,_,19,prep,_,_
+1,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue",21,blue,_,ADJ,JJ,_,20,pobj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,1,He,_,PRON,PRP,_,2,nsubj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,2,found,_,VERB,VBD,_,0,ROOT,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,3,her,_,PRON,PRP,_,2,dobj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,4,in,_,ADP,IN,_,2,prep,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,5,a,_,DET,DT,_,6,det,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,6,valley,_,NOUN,NN,_,4,pobj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,7,perpetually,_,ADV,RB,_,8,advmod,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,8,blackened,_,VERB,VBN,_,6,partmod,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,9,by,_,ADP,IN,_,8,prep,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,10,the,_,DET,DT,_,11,det,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,11,shadow,_,NOUN,NN,_,9,pobj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,12,of,_,ADP,IN,_,11,prep,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,13,the,_,DET,DT,_,15,det,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,14,great,_,ADJ,JJ,_,15,amod,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,15,mountain,_,NOUN,NN,_,12,pobj,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,16,to,_,ADP,IN,_,15,prep,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,17,the,_,DET,DT,_,18,det,_,_
+2,He found her in a valley perpetually blackened by the shadow of the great mountain to the East,18,East,_,NOUN,NNP,_,16,pobj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,1,She,_,PRON,PRP,_,2,nsubj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,2,looked,_,VERB,VBD,_,0,ROOT,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,3,at,_,ADP,IN,_,2,prep,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,4,him,_,PRON,PRP,_,3,pobj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,5,with,_,ADP,IN,_,2,prep,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,6,a,_,DET,DT,_,8,det,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,7,vast,_,ADJ,JJ,_,8,amod,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,8,serenity,_,NOUN,NN,_,5,pobj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,9,but,_,CONJ,CC,_,2,cc,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,10,did,_,VERB,VBD,_,12,aux,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,11,not,_,ADV,RB,_,12,neg,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,12,speak,_,VERB,VB,_,2,conj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,13,to,_,ADP,IN,_,12,prep,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,14,him,_,PRON,PRP,_,13,pobj,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,15,for,_,ADP,IN,_,12,prep,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,16,another,_,DET,DT,_,18,det,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,17,seventy-four,_,ADJ,JJ,_,18,amod,_,_
+3,She looked at him with a vast serenity but did not speak to him for another seventy-four years,18,years,_,NOUN,NNS,_,15,pobj,_,_
