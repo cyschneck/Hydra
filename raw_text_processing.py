@@ -9,6 +9,7 @@ import nltk # Natural Language toolkit
 from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/sentences
 import string
 import csv
+from datetime import datetime
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -21,6 +22,7 @@ def readFile(filename):
 		string_words = string_words.replace("\n", " ")
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", " ")
+		string_words = string_words.replace("_", "")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
@@ -129,40 +131,24 @@ def indexPronoun(token_dict, pronoun_dict):
 	for index, sentence in token_dict.iteritems():
 		pronoun_in_sentence = []
 		pronoun_location = []
-		#print("sentence # {0}".format(index))
-		#print(sentence.split())
+
 		for word_index in range(len(sentence.split())):
 			if sentence.split()[word_index].lower() in pronouns_in_txt:
-				#print("pronoun ----> {0}".format(sentence.split()[word_index]))
 				pronoun_in_sentence.append(sentence.split()[word_index])
 				pronoun_location.append(word_index)
 		index_pronoun_dict[index] = (pronoun_in_sentence, pronoun_location)
-	#print("\ntotal pronouns to find = {0}".format(sum(pronoun_dict.values())))
-	#print("total pronouns found = {0}".format(sum(len(value) for key, value in index_pronoun_dict.items())))
+
 	return index_pronoun_dict
 
 def findFullNames():
 	# find full names as two proper nouns next to eachother in a sentence
 	for sentence in token_sentence_dict:
 		names_proper_nouns = list(nltk.bigrams(sentence.split()))
+	pass
 
 ########################################################################
-## Output data into csv
-def outputCSVpronoun(filename, token_sentence_dict, pronouns_dict):
-	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
-	output_filename = "data_{0}.csv".format(given_file.upper())
-
-	with open(output_filename, 'w+') as txt_data:
-		fieldnames = ['sentence_index', 'sentence', 'pronouns', 'pronouns_index']
-		writer = csv.DictWriter(txt_data, fieldnames=fieldnames)
-		writer.writeheader() 
-		for index in range(len(token_sentence_dict)):
-			writer.writerow({'sentence_index': index, 'sentence': token_sentence_dict[index], 'pronouns': str(pronouns_dict[index][0]).strip("[]"), 'pronouns_index': str(pronouns_dict[index][1]).strip("[]")})
-
-	print("CSV data output saved as {0}".format(output_filename))
-
 ## Output pos into csv
-def outputCSVconll(filename, dict_parts_speech):
+def outputCSVconll(filename, dict_parts_speech, pronouns_dict):
 	# save conll parser and pos to csv
 	'''
 	0 - ID (index in sentence), index starts at 1
@@ -175,33 +161,37 @@ def outputCSVconll(filename, dict_parts_speech):
 	7 - DEPREL (Universal Stanford dependency relation to the HEAD (root iff HEAD = 0))
 	8 - DEPS (List of secondary dependencies)
 	9 - MISC (other annotation)
-	
-	{ 173: ('After rather a long silence, the commander resumed the conversation', 
-	[['1', 'After', '_', 'ADP', 'IN', '_', '9', 'prep', '_', '_'],
-	 ['2', 'rather', '_', 'ADV', 'RB', '_', '5', 'advmod', '_', '_'], 
-	 ['3', 'a', '_', 'DET', 'DT', '_', '5', 'det', '_', '_'],
-	 ['4', 'long', '_', 'ADJ', 'JJ', '_', '5', 'amod', '_', '_'],
-	 ['5', 'silence', '_', 'NOUN', 'NN', '_', '1', 'pobj', '_', '_'], 
-	 ['6', '', '', '_', '.', '', '', '_', '9', 'punct', '_', '_'],
-	 ['7', 'the', '_', 'DET', 'DT', '_', '8', 'det', '_', '_'],
-	 ['8', 'commander', '_', 'NOUN', 'NN', '_', '9', 'nsubj', '_', '_'],
-	 ['9', 'resumed', '_', 'VERB', 'VBD', '_', '0', 'ROOT', '_', '_'],
-	 ['10', 'the', '_', 'DET', 'DT', '_', '11', 'det', '_', '_'],
-	 ['11', 'conversation', '_', 'NOUN', 'NN', '_', '9', 'dobj', '_', '_']])}
 	'''
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 
 	with open('csv_pos/{0}'.format(output_filename), 'w+') as pos_data:
-		fieldnames = ['SENTENCE_INDEX', 'SENTENCE', 'ID', 'FORM', 'LEMMA', 'UPOSTAG', 'XPOSTAG', 'FEATS', 'HEAD', 'DEPREL', 'DEPS', 'MISC']
+		fieldnames = ['SENTENCE_INDEX',
+					'SENTENCE',
+					'SENTENCE_LENGTH',
+					'PRONOUN',
+					'PRONOUN_INDEX',
+					'ID',
+					'FORM',
+					'LEMMA',
+					'UPOSTAG',
+					'XPOSTAG',
+					'FEATS',
+					'HEAD',
+					'DEPREL',
+					'DEPS',
+					'MISC']
+					
 		writer = csv.DictWriter(pos_data, fieldnames=fieldnames)
 		writer.writeheader() 
-
 		for i in range(len(dict_parts_speech)):
 			sentence_pos_lst = dict_parts_speech[i][1]
 			for pos in sentence_pos_lst:
 				writer.writerow({'SENTENCE_INDEX': i, 
 								'SENTENCE': dict_parts_speech[i][0],
+								'SENTENCE_LENGTH': len(dict_parts_speech[i][0].split()),
+								'PRONOUN': str(pronouns_dict[i][0]).strip("[]"),
+								'PRONOUN_INDEX': str(pronouns_dict[i][1]).strip("[]"),
 								'ID': pos[0],
 								'FORM': pos[1],
 								'LEMMA': pos[2],
@@ -211,7 +201,7 @@ def outputCSVconll(filename, dict_parts_speech):
 								'HEAD': pos[6],
 								'DEPREL': pos[7],
 								'DEPS':pos[8],
-								'MISC': pos[9],
+								'MISC': pos[9]
 								})
 
 	print("\nCSV POS output saved as {0}".format(output_filename))
@@ -221,12 +211,22 @@ def savePOSfromExistingCSV(csv_filename):
 	# save data from existing csv
 	import pandas as pd
 	pos_csv = pd.read_csv(csv_filename)
-	return pos_csv
+	print(pos_csv.head())
+	#print(pos_csv.shape)
+	#print("total features csv: {0}".format(pos_csv.shape[1]))
+	#print("total rows in csv: {0}".format(pos_csv.index))
+	#print(pos_csv[["SENTENCE_INDEX", "FORM", "UPOSTAG", "HEAD"]])
 
+	#print(pos_csv['SENTENCE_INDEX'])
+	#print(pos_csv.index)
+	#print(pos_csv.columns)
+	print("\nAverage Sentence length: {0}".format(pos_csv["SENTENCE_LENGTH"].mean()))
+	return pos_csv
 ########################################################################
 ## Parse Arguments, running main
 
 if __name__ == '__main__':
+	start_time = datetime.now()
 	import argparse
 	parser = argparse.ArgumentParser(description="flag format given as: -F <filename>")
 	parser.add_argument('-F', '-filename', help="filename from Raw_Text directory")
@@ -244,29 +244,25 @@ if __name__ == '__main__':
 
 	# return the most common pronouns in the text (TODO: Automate)
 	most_common_pronouns_dict = mostCommonPronouns(tokens_as_string)
-	#print(most_common_pronouns_dict)
-	#print("\n")
 	
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
 	#print(token_sentence_dict) # TODO: switch to namedTuples
 
 	pronouns_dict = indexPronoun(token_sentence_dict, most_common_pronouns_dict)
-	#print(pronouns_dict)
-	# save output to csv
-	#outputCSVpronoun(filename, token_sentence_dict, pronouns_dict)
 
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
-	if not os.path.isfile(csv_local_dir):
+	# if file has been modified more recently than the associated csv
+	file_has_been_modified_recently = os.path.getmtime("{0}/{1}".format(os.getcwd(), filename)) > os.path.getmtime(csv_local_dir)
+	# if file does not exist in the csv folder
+	if not os.path.isfile(csv_local_dir) or file_has_been_modified_recently: 
 		#print("pos needs to be calculated...")
 		dict_parts_speech = partsOfSpeech(token_sentence_dict)
-		outputCSVconll(filename, dict_parts_speech)
+		outputCSVconll(filename, dict_parts_speech, pronouns_dict)
 
 	pos_data = savePOSfromExistingCSV(csv_local_dir)
-	print(pos_data.head())
-
 
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
@@ -275,3 +271,4 @@ if __name__ == '__main__':
 	#test_name = ["Nemo"]
 	#print(loaded_gender_model.score(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
+	print("\nPre-processing ran for   {0}".format(datetime.now() - start_time))

@@ -69,12 +69,12 @@ if __name__ == '__main__':
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
 	if pipeline.score(x_test, y_test) > 0.854:
 		joblib.dump(pipeline, 'gender_saved_model_{0}.sav'.format(pipeline.score(x_test, y_test)))
-		print("SAVED")
+		print("MODEL INCREASED ACCURACY, SAVED")
 	else:
-		print("NOT SAVED")
+		print("NO CHANGE IN ACCURACY, NOT SAVED")
 
 	#testing on novel names
 	test_name = ["Nemo"]
 	determine_gender(test_name)
-	test_name = ["Atticus", "Shevek", "Emma"]
+	test_name = ["Atticus", "Shevek", "Emma", "Ishamel"]
 	determine_gender(test_name)
