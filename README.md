@@ -104,6 +104,12 @@ Will only run the parser once, if the parser has been run already, the output wi
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
+# Benchmarking
+
+[Feuding Families and Former Friends: Unsupervised Learning for Dynamic Fictional Relationships](https://www.cs.umd.edu/~miyyer/pubs/2016_naacl_relationships.pdf)
+
+Code from paper found [here](https://github.com/miyyer/rmn)
+
 ## Citations
 Names Corpus, Version 1.3 (1994-03-29)
 Copyright (C) 1991 Mark Kantrowitz
