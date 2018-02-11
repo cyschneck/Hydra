@@ -18,12 +18,24 @@ TODO: convert to Jupyter notebook
 2. To run docker image within repo, starts docker:
 
 ```./1_start_docker.sh```
+```
+Linking repo volumne inside of syntaxnet docker container
 
-2. Install modules within docker to run repo:
+DOCKER STARTING, entering docker...
+```
+
+2. Install modules within docker to run repo (will take a few minutes):
 
 ```
 cd Ishmael/
 ./2_install_modules_in_docker.sh
+```
+```
+install modules needed to run inside docker container...
+
+Get:1 http://old-releases.ubuntu.com wily InRelease [218 kB]
+Get:2 http://old-releases.ubuntu.com wily-updates InRelease [65.9 kB]
+...
 ```
 
 3. Run parser on text:
