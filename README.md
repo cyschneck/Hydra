@@ -13,6 +13,8 @@ Link to final PDF (coming soon)
 
 ```./0_first_time_install.sh ```
 
+This script will install all docker related modules to enable the next steps
+
 2. To run docker image within repo, starts docker:
 
 ```./1_start_docker.sh```
@@ -35,6 +37,7 @@ Get:1 http://old-releases.ubuntu.com wily InRelease [218 kB]
 Get:2 http://old-releases.ubuntu.com wily-updates InRelease [65.9 kB]
 ...
 ```
+The script is now ready to run
 
 3. Run parser on text:
 
