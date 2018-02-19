@@ -288,6 +288,7 @@ if __name__ == '__main__':
 	#test_name = ["Nemo"]
 	#print(loaded_gender_model.score(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
+	# TODO: predict gender with probailities to allow for abiguity
 	# create named tuple from csv row
 	PosCSV = namedtuple('PosCSV', fieldnames)
 	pos_dict = {}
