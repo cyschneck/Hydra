@@ -29,12 +29,11 @@ def readFile(filename):
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", " ")
 		string_words = string_words.replace("_", "")
-		string_words = string_words.replace("-", "")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
 		string_words = string_words.replace("Dr.", "Dr")
-		string_words = re.sub(r'[\x90-\xff]', '', string_words, flags=re.IGNORECASE) # remove unicode
+		string_words = re.sub(r'[\x90-\xff]', ' ', string_words, flags=re.IGNORECASE) # remove unicode (dash)
 		string_words = re.sub(r'[\x80-\xff]', '', string_words, flags=re.IGNORECASE) # remove unicode
 		file_remove_extra = string_words.split(' ')
 		file_remove_extra = filter(None, file_remove_extra) # remove empty strings from list
