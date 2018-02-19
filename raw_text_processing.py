@@ -99,42 +99,68 @@ def process_POS_conll(conll_output):
 		#print(pos_processed[i])
 	return pos_processed
 
-def percentagePronounsNouns(total_words, csv_dict):
-	# return the percentage of the text that is pronouns vs. nouns
-	nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNP")
-	print("\npercent nouns = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
-	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
-	pronoun_percentage = float(pronouns_count)/float(total_words)
-	print("percent pronouns = {0:.3f}%".format(pronoun_percentage*100.0))
-	return pronoun_percentage
-
 def findNamedEntityAndPronoun(pos_dict):
-	# find proper nouns and full name (first/last name)
-	named_dict = {}
-	named_temp_lst = []
+	# find proper nouns and full name (first/last name) with sentence and word index
+	# [[(0, 1, 'Scarlett'), (0, 2, "O'Hara")], [(0, 19, 'Tarleton'), (0, 20, 'twins')], [(1, 16, 'Coast'), (1, 17, 'aristocrat')]]
 	pos_type_lst = []
 	for row, pos_named in pos_dict.iteritems():
 		if "NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG:
 			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
-	print(pos_type_lst)
+	#print(pos_type_lst)
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
 	sub_sentences = []
 	for index in total_sentence_indices:
 		# create sub sentences for each sentence [[0], [1])
 		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
+	# sub sentences contain all nouns (proper, singular, plural, pronouns)
 
-	'''
-	for row, pos_named in pos_dict.iteritems():
-		#print(pos_named.SENTENCE_INDEX)
-		#print(pos_named.FORM)
-		#print(pos_named.XPOSTAG)
-		if "NN" in pos_named.XPOSTAG:
-			named_lst[int(pos_named.SENTENCE_INDEX)], int(row), pos_named.XPOSTAG, pos_named.FORM])
-		#if "PRP" in pos_named.XPOSTAG:
-		#	named_lst.append([int(pos_named.SENTENCE_INDEX), int(row), pos_named.XPOSTAG, pos_named.FORM])
-		if "POS" in pos_named.XPOSTAG:
-			named_lst.append([int(pos_named.SENTENCE_INDEX), int(row), pos_named.XPOSTAG, pos_named.FORM])
-	'''
+	from operator import itemgetter # find sequences of consecutive values
+	import itertools
+
+	grouped_nouns = []
+	for sentence in sub_sentences:
+		noun_index = [s_index[1] for s_index in sentence]
+		consec_lst = []
+		for k, g in itertools.groupby(enumerate(noun_index), lambda x: x[1]-x[0]):
+			consec_order = list(map(itemgetter(1), g))
+			if len(consec_order) > 1: # if there is more than one noun in an order for a sentence
+				consec_lst.append(consec_order)
+		#consec_lst = [item for items in consec_lst for item in items]
+		for c_l in consec_lst:
+			grouped_nouns.append([x[:3] for x in sentence if x[1] in c_l])
+
+	return grouped_nouns
+
+########################################################################
+# data anaylsis
+def percentagePos(total_words, csv_dict):
+	# prints the percentage of the text that is pronouns vs. nouns
+	proper_nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNP") # proper noun singular
+	proper_nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNPS") # proper noun plural: spaniards
+	print("\npercent proper nouns = {0:.3f}%".format((float(proper_nouns_count)/float(total_words))*100))
+
+	nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NN") # nouns: ship, language
+	nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNS") # plurla noun: limbs
+	print("percent nouns = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
+
+	nouns_ratio= [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("NOUN")
+	print("proper nouns make up {0:.3f}% of all nouns".format((float(proper_nouns_count)/float(nouns_ratio))*100))
+	print("regular nouns make up {0:.3f}% of all nouns".format((float(nouns_count)/float(nouns_ratio))*100))
+
+	verbs_count = [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("VERB")
+	print("percent verbs = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
+
+	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
+	pronoun_percentage = float(pronouns_count)/float(total_words)
+	print("percent pronouns = {0:.3f}%".format(pronoun_percentage*100.0))
+
+	#print(set([pos.XPOSTAG for _, pos in csv_dict.iteritems()])) # unquie tags
+	noun_tags = []
+	for row_num, pos in csv_dict.iteritems():
+		if pos.UPOSTAG == "NOUN":
+			noun_tags.append(pos.XPOSTAG)
+	print(set(noun_tags))
+
 
 ########################################################################
 ## Output pos into csv
@@ -230,8 +256,6 @@ if __name__ == '__main__':
 		dict_parts_speech = partsOfSpeech(token_sentence_dict)
 		outputCSVconll(filename, dict_parts_speech, fieldnames)
 
-	
-
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
 	#from sklearn.externals import joblib # save model to load
@@ -239,7 +263,6 @@ if __name__ == '__main__':
 	#test_name = ["Nemo"]
 	#print(loaded_gender_model.score(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
-	
 	# create named tuple from csv row
 	PosCSV = namedtuple('PosCSV', fieldnames)
 	pos_dict = {}
@@ -254,11 +277,13 @@ if __name__ == '__main__':
 			id_count += 1
 			if pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's
 				total_words += 1
-	print(total_words)
+
+	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	named_ent_lst = findNamedEntityAndPronoun(pos_dict)
-	pronoun_percentage = percentagePronounsNouns(total_words, pos_dict) # TODO: update nouns list with only named enitites
+	print(named_ent_lst)
 
 	# TODO: identify dialouge to create it as its own sentence
+	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
 
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
