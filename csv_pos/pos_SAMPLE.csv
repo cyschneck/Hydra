@@ -31,24 +31,24 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 1,shade,NN,NOUN,19,19,_,_,2,conj,_,_,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue"
 1,of,IN,ADP,20,19,_,_,19,prep,_,_,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue"
 1,blue,JJ,ADJ,21,19,_,_,20,pobj,_,_,"She looked like a tall deer to him, and her wings were a pale, almost transparent shade of blue"
-2,He,PRP,PRON,1,18,_,_,2,nsubj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,found,VBD,VERB,2,18,_,_,0,ROOT,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,her,PRP,PRON,3,18,_,_,2,dobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,in,IN,ADP,4,18,_,_,2,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,a,DT,DET,5,18,_,_,6,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,valley,NN,NOUN,6,18,_,_,4,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,perpetually,RB,ADV,7,18,_,_,8,advmod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,blackened,VBN,VERB,8,18,_,_,6,partmod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,by,IN,ADP,9,18,_,_,8,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,the,DT,DET,10,18,_,_,11,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,shadow,NN,NOUN,11,18,_,_,9,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,of,IN,ADP,12,18,_,_,11,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,the,DT,DET,13,18,_,_,15,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,great,JJ,ADJ,14,18,_,_,15,amod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,mountain,NN,NOUN,15,18,_,_,12,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,to,IN,ADP,16,18,_,_,15,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,the,DT,DET,17,18,_,_,18,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
-2,East,NNP,NOUN,18,18,_,_,16,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the East
+2,He,PRP,PRON,1,18,_,_,2,nsubj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,found,VBD,VERB,2,18,_,_,0,ROOT,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,her,PRP,PRON,3,18,_,_,2,dobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,in,IN,ADP,4,18,_,_,2,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,a,DT,DET,5,18,_,_,6,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,valley,NN,NOUN,6,18,_,_,4,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,perpetually,RB,ADV,7,18,_,_,8,advmod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,blackened,VBN,VERB,8,18,_,_,6,partmod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,by,IN,ADP,9,18,_,_,8,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,the,DT,DET,10,18,_,_,11,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,shadow,NN,NOUN,11,18,_,_,9,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,of,IN,ADP,12,18,_,_,11,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,the,DT,DET,13,18,_,_,15,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,great,JJ,ADJ,14,18,_,_,15,amod,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,mountain,NN,NOUN,15,18,_,_,12,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,to,IN,ADP,16,18,_,_,15,prep,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,the,DT,DET,17,18,_,_,18,det,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
+2,east,NN,NOUN,18,18,_,_,16,pobj,_,_,He found her in a valley perpetually blackened by the shadow of the great mountain to the east
 3,She,PRP,PRON,1,18,_,_,2,nsubj,_,_,She looked at him with a vast serenity but did not speak to him for another seventy-four years
 3,looked,VBD,VERB,2,18,_,_,0,ROOT,_,_,She looked at him with a vast serenity but did not speak to him for another seventy-four years
 3,at,IN,ADP,3,18,_,_,2,prep,_,_,She looked at him with a vast serenity but did not speak to him for another seventy-four years

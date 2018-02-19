@@ -29,6 +29,7 @@ def readFile(filename):
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", " ")
 		string_words = string_words.replace("_", "")
+		string_words = string_words.replace("-", "")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
@@ -104,7 +105,7 @@ def findNamedEntityAndPronoun(pos_dict):
 	# [[(0, 1, 'Scarlett'), (0, 2, "O'Hara")], [(0, 19, 'Tarleton'), (0, 20, 'twins')], [(1, 16, 'Coast'), (1, 17, 'aristocrat')]]
 	pos_type_lst = []
 	for row, pos_named in pos_dict.iteritems():
-		if "NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG:
+		if "NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG or "IN" in pos_named.XPOSTAG or "DT" in pos_named.XPOSTAG:
 			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
 	#print(pos_type_lst)
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
@@ -127,9 +128,33 @@ def findNamedEntityAndPronoun(pos_dict):
 				consec_lst.append(consec_order)
 		#consec_lst = [item for items in consec_lst for item in items]
 		for c_l in consec_lst:
-			grouped_nouns.append([x[:3] for x in sentence if x[1] in c_l])
-
+			#grouped_nouns.append([x[:3] for x in sentence if x[1] in c_l])
+			g_name = [x for x in sentence if x[1] in c_l]
+			nnp_in_sentence = False
+			for i, v in enumerate(g_name):
+				nnp_in_sentence = "NNP" in v
+				if nnp_in_sentence: # if the nnp exist in the sub-list, exit and save
+					break
+			if nnp_in_sentence:
+				#print([i for i, v in enumerate(g_name) if v[4] == "NNP"])
+				grouped_nouns.append([x for x in sentence if x[1] in c_l])
 	return grouped_nouns
+
+def createGlobalNamedEnity(pos_dict, grouped_nouns):
+	# create a global level of names
+	global_named = {}
+	for key, value in pos_dict.iteritems():
+		if value.XPOSTAG == "NNP":
+			compare = (int(value.SENTENCE_INDEX), int(value.ID), value.FORM, int(value.SENTENCE_LENGTH), value.XPOSTAG)
+			existing_value = compare in [j for i in grouped_nouns for j in i]
+			global_named[value.FORM] = grouped_nouns
+			if not existing_value:
+				grouped_nouns.append(compare)
+	print("\n")
+	for i in grouped_nouns:
+		print(i)
+	print("\n")
+	print(global_named)
 
 ########################################################################
 # data anaylsis
@@ -203,6 +228,7 @@ def outputCSVconll(filename, dict_parts_speech, filednames):
 								})
 
 	print("\nCSV POS output saved as {0}".format(output_filename))
+
 ########################################################################
 ## Parse Arguments, running main
 
@@ -279,8 +305,8 @@ if __name__ == '__main__':
 				total_words += 1
 
 	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
-	named_ent_lst = findNamedEntityAndPronoun(pos_dict)
-	print(named_ent_lst)
+	grouped_named_ent_lst = findNamedEntityAndPronoun(pos_dict) # return a list of tuples with elements in order for nnp
+	global_named_ent = createGlobalNamedEnity(pos_dict, grouped_named_ent_lst)
 
 	# TODO: identify dialouge to create it as its own sentence
 	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
