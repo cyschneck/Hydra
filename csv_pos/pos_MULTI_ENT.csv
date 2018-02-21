@@ -1,0 +1,8 @@
+SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
+0,United,NNP,NOUN,1,7,_,_,2,nn,_,_,United States of America is a place,False
+0,States,NNP,NOUN,2,7,_,_,7,nsubj,_,_,United States of America is a place,False
+0,of,IN,ADP,3,7,_,_,2,prep,_,_,United States of America is a place,False
+0,America,NNP,NOUN,4,7,_,_,3,pobj,_,_,United States of America is a place,False
+0,is,VBZ,VERB,5,7,_,_,7,cop,_,_,United States of America is a place,False
+0,a,DT,DET,6,7,_,_,7,det,_,_,United States of America is a place,False
+0,place,NN,NOUN,7,7,_,_,0,ROOT,_,_,United States of America is a place,False

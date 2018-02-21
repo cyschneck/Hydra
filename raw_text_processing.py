@@ -116,31 +116,35 @@ def process_POS_conll(conll_output):
 		#print(pos_processed[i])
 	return pos_processed
 
-def findNamedEntityAndPronoun(pos_dict):
-	# find proper nouns and full name (first/last name) with sentence and word index
-	# [[(0, 1, 'Scarlett'), (0, 2, "O'Hara")], [(0, 19, 'Tarleton'), (0, 20, 'twins')], [(1, 16, 'Coast'), (1, 17, 'aristocrat')]]
+def findProperNamedEntity(pos_dict):
+	# returns {sentence index: [list of all proper nouns grouped]
+	# {0: ["Scarlett O'Hara", 'Tarleton'], 1: ['Coast']}
 	pos_type_lst = []
+	# TODO: EXPAND PROPER NOUNS FOR COMMON WORDS AROUND WORD
 	for row, pos_named in pos_dict.iteritems():
-		if "NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG or "IN" in pos_named.XPOSTAG or "DT" in pos_named.XPOSTAG:
+		if "NNP" in pos_named.XPOSTAG: #"NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG or "IN" in pos_named.XPOSTAG or "DT" in pos_named.XPOSTAG:
 			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
 	#print(pos_type_lst)
+
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
+	#print(total_sentence_indices)
 	sub_sentences = []
 	for index in total_sentence_indices:
 		# create sub sentences for each sentence [[0], [1])
 		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
-	# sub sentences contain all nouns (proper, singular, plural, pronouns)
 
 	from operator import itemgetter # find sequences of consecutive values
 	import itertools
 
-	grouped_nouns = []
+	grouped_nouns = {}
+	names_lst = []
+	sentence_index = []
 	for sentence in sub_sentences:
 		noun_index = [s_index[1] for s_index in sentence]
 		consec_lst = []
 		for k, g in itertools.groupby(enumerate(noun_index), lambda x: x[1]-x[0]):
 			consec_order = list(map(itemgetter(1), g))
-			if len(consec_order) > 1: # if there is more than one noun in an order for a sentence
+			if len(consec_order) > 0: # if there is more than one noun in an order for a sentence
 				consec_lst.append(consec_order)
 		#consec_lst = [item for items in consec_lst for item in items]
 		for c_l in consec_lst:
@@ -152,25 +156,15 @@ def findNamedEntityAndPronoun(pos_dict):
 				if nnp_in_sentence: # if the nnp exist in the sub-list, exit and save
 					break
 			if nnp_in_sentence:
-				#print([i for i, v in enumerate(g_name) if v[4] == "NNP"])
-				grouped_nouns.append([x for x in sentence if x[1] in c_l])
-	return grouped_nouns
+				names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
+				sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
+	from collections import defaultdict
+	dic_tmp = zip(sentence_index, names_lst)
+	grouped_nouns = defaultdict(list)
+	for s, n in dic_tmp:
+		grouped_nouns[s].append(n)
 
-def createGlobalNamedEnity(pos_dict, grouped_nouns):
-	# create a global level of names
-	global_named = {}
-	for key, value in pos_dict.iteritems():
-		if value.XPOSTAG == "NNP":
-			compare = (int(value.SENTENCE_INDEX), int(value.ID), value.FORM, int(value.SENTENCE_LENGTH), value.XPOSTAG)
-			existing_value = compare in [j for i in grouped_nouns for j in i]
-			global_named[value.FORM] = grouped_nouns
-			if not existing_value:
-				grouped_nouns.append(compare)
-	print("\nSET GLOBAL")
-	for i in grouped_nouns:
-		print(i)
-	print("\n")
-	print(global_named)
+	return dict(grouped_nouns)
 
 ########################################################################
 # data anaylsis
@@ -301,14 +295,6 @@ if __name__ == '__main__':
 		dict_parts_speech = partsOfSpeech(token_sentence_dict)
 		outputCSVconll(filename, dict_parts_speech, fieldnames)
 
-	#TODO Next: import local file to predict male/female (he/she) with a given list of names
-	#x number of sentences around to find proper noun
-	#from sklearn.externals import joblib # save model to load
-	#loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
-	#test_name = ["Nemo"]
-	#print(loaded_gender_model.score(test_name))
-	#run gender tag once on the entire text, tag male/female and use for predictions
-	# TODO: predict gender with probailities to allow for abiguity
 	# create named tuple from csv row
 	PosCSV = namedtuple('PosCSV', fieldnames)
 	pos_dict = {}
@@ -324,11 +310,22 @@ if __name__ == '__main__':
 			if pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's
 				total_words += 1
 
-	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
-	grouped_named_ent_lst = findNamedEntityAndPronoun(pos_dict) # return a list of tuples with elements in order for nnp
-	global_named_ent = createGlobalNamedEnity(pos_dict, grouped_named_ent_lst)
+	#TODO Next: import local file to predict male/female (he/she) with a given list of names
+	#x number of sentences around to find proper noun
+	#from sklearn.externals import joblib # save model to load
+	#loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
+	#test_name = ["Nemo"]
+	#print(loaded_gender_model.score(test_name))
+	#run gender tag once on the entire text, tag male/female and use for predictions
+	# TODO: predict gender with probailities to allow for abiguity
 
-	# TODO: identify dialouge to create it as its own sentence
+	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
+	#print(grouped_named_ent_lst)
+	print("Characters in the text: {0}".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
+
+
+	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
 
 
