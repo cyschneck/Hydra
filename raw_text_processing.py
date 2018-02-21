@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 ###########################################################################
 # Pre-processing raw text
 
@@ -33,11 +35,20 @@ def readFile(filename):
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
 		string_words = string_words.replace("Dr.", "Dr")
+		# replace utf-8 elements
+		string_words = string_words.replace("’", "\'") # replace signal quotes
+		string_words = string_words.replace("“", "~\"") # isolate dialouge double quotes
+		string_words = string_words.replace("” ", "\"~")
+
 		string_words = re.sub(r'[\x90-\xff]', ' ', string_words, flags=re.IGNORECASE) # remove unicode (dash)
 		string_words = re.sub(r'[\x80-\xff]', '', string_words, flags=re.IGNORECASE) # remove unicode
 		file_remove_extra = string_words.split(' ')
 		file_remove_extra = filter(None, file_remove_extra) # remove empty strings from list
 	return file_remove_extra
+
+def isDialogue(sentence):
+	# return true/false if the value is a quote
+	return '"' in sentence
 
 def tokenizeSentence(string_sentence):
 	'''EXAMPLE
@@ -45,9 +56,15 @@ def tokenizeSentence(string_sentence):
 	'''
 	tokens_sentence_dict = {} # returns dict with {token location in text #: sentence}
 	tokens_sent = string_sentence.split('.')
-	for i in range(len(tokens_sent)):
-		if tokens_sent[i] != '':
-			tokens_sentence_dict[i] = tokens_sent[i].strip() #adds to dictionary and strips away excess whitespace
+
+	index = 0
+	for t in range(len(tokens_sent)):
+		sent = tokens_sent[t].strip() # remove excess whitespace
+		for dia in sent.split('~'):
+			if dia != '': # store dialouge with its double quotes for identification
+				tokens_sentence_dict[index] = dia # {4: '"Oh, why can\'t you remain like this for ever!"'}
+				index += 1
+				t += 1
 	#print(tokens_sentence_dict)
 	return tokens_sentence_dict
 
@@ -149,7 +166,7 @@ def createGlobalNamedEnity(pos_dict, grouped_nouns):
 			global_named[value.FORM] = grouped_nouns
 			if not existing_value:
 				grouped_nouns.append(compare)
-	print("\n")
+	print("\nSET GLOBAL")
 	for i in grouped_nouns:
 		print(i)
 	print("\n")
@@ -223,7 +240,8 @@ def outputCSVconll(filename, dict_parts_speech, filednames):
 								'DEPREL': pos[7],
 								'DEPS':pos[8],
 								'MISC': pos[9],
-								'SENTENCE': dict_parts_speech[i][0]
+								'SENTENCE': dict_parts_speech[i][0],
+								'IS_DIALOUGE': isDialogue(dict_parts_speech[i][0])
 								})
 
 	print("\nCSV POS output saved as {0}".format(output_filename))
@@ -249,7 +267,8 @@ if __name__ == '__main__':
 	tokens_as_string = tokens_as_string.translate(None, "\r")
 
 	token_sentence_dict = tokenizeSentence(tokens_as_string)
-	#print(token_sentence_dict) # TODO: switch to namedTuples
+	#for key, value in token_sentence_dict.iteritems():
+	#	print("k={0} is quote = {1}".format(value, isDialogue(token_sentence_dict[key])))
 
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -268,7 +287,8 @@ if __name__ == '__main__':
 				'DEPREL',
 				'DEPS',
 				'MISC',
-				'SENTENCE'
+				'SENTENCE',
+				'IS_DIALOUGE'
 				]
 
 	# if file has been modified more recently than the associated csv
