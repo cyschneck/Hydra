@@ -12,8 +12,10 @@ from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/
 import string
 import csv
 from datetime import datetime
-from collections import namedtuple
+from collections import namedtuple, Counter
 from itertools import imap # set up namedtuple
+from collections import defaultdict # create dictionary with empty list for values
+
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -158,43 +160,108 @@ def findProperNamedEntity(pos_dict):
 			if nnp_in_sentence:
 				names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
 				sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
-	from collections import defaultdict
+
 	dic_tmp = zip(sentence_index, names_lst)
 	grouped_nouns = defaultdict(list)
 	for s, n in dic_tmp:
 		grouped_nouns[s].append(n)
-
 	return dict(grouped_nouns)
+
+def commonSurrouding(grouped_nouns_dict):
+	# find the most common preceding words to append
+	pass
+
+def groupSimilarEntities(grouped_nouns_dict):
+	# filter out enities that only appear once and re-organize
+	counter_dict = dict(Counter([val for sublist in grouped_nouns_dict.values() for val in sublist]))
+	print(grouped_nouns_dict)
+	#print(counter_dict)
+	print("\n")
+	
+	names_all = list(set([val for sublist in grouped_nouns_dict.values() for val in sublist])) # is a list of all unquie names in the list
+	compare_names_same_format = [val.upper() for val in names_all]
+	# loop through to group similar elements
+	print(names_all)
+	print("\n")
+	print(compare_names_same_format)
+	print("\n")
+	gne_list_of_lists = grouped_nouns_dict.values()
+	gne_list_of_lists = list(set([item for sublist in gne_list_of_lists for item in sublist])) # creates a list of unquie names
+	print(gne_list_of_lists)
+	print("\n")
+
+	import difflib 
+	from difflib import SequenceMatcher
+	gne_name_group = []
+	# find most similar ['Professor', 'Professor Aronnax'], ['Aronnax', 'Mr Aronnax', 'Pierre Aronnax']
+	for gne in gne_list_of_lists:
+		for g in gne.split():
+			compared = difflib.get_close_matches(g, gne_list_of_lists)
+			if compared != []:
+				gne_name_group.append(compared)
+	print(gne_name_group)
+	#gne_name_group = list(set(gne_name_group))
+
+	#final_grouping = []
+	#for row in gne_name_group:
+	#	for i, resrow in enumerate(final_grouping):
+	#		if row[0]==resrow[0]:
+	#			final_grouping[i] += row[1:]
+	#			break
+	#	else:
+	#		final_grouping.append(row)
+	#print(final_grouping)
+	final_grouping = []
+	words_to_ignore = ["Mr", "Mrs", "Ms"]
+	
+	for gne in gne_list_of_lists:
+		sublist = []
+		for i in gne.split():
+			for gne_2 in gne_list_of_lists:
+				print(i, gne_2)
+				if i in gne_2:
+					if i != gne_2:
+						if i != [] or gne_2 != []:
+							if len(i) > 1 and i not in words_to_ignore:
+								sublist.append([i, gne_2])
+		final_grouping.append(sublist)
+	final_grouping = [x for x in final_grouping if x != []]
+	print("\nfinalgrouping")
+	for i in final_grouping:
+		print(i)
+	#print(final_grouping)
+
+
 
 ########################################################################
 # data anaylsis
 def percentagePos(total_words, csv_dict):
 	# prints the percentage of the text that is pronouns vs. nouns
+	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
+	pronoun_percentage = float(pronouns_count)/float(total_words)
+	print("percent pronouns = {0:.3f}% of all text".format(pronoun_percentage*100.0))
+
 	proper_nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNP") # proper noun singular
 	proper_nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNPS") # proper noun plural: spaniards
-	print("\npercent proper nouns = {0:.3f}%".format((float(proper_nouns_count)/float(total_words))*100))
+	print("percent proper nouns = {0:.3f}% of all text".format((float(proper_nouns_count)/float(total_words))*100))
 
 	nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NN") # nouns: ship, language
 	nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNS") # plurla noun: limbs
-	print("percent nouns = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
+	print("percent nouns = {0:.3f}% of all text".format((float(nouns_count)/float(total_words))*100))
 
 	nouns_ratio= [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("NOUN")
 	print("proper nouns make up {0:.3f}% of all nouns".format((float(proper_nouns_count)/float(nouns_ratio))*100))
 	print("regular nouns make up {0:.3f}% of all nouns".format((float(nouns_count)/float(nouns_ratio))*100))
 
-	verbs_count = [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("VERB")
-	print("percent verbs = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
-
-	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
-	pronoun_percentage = float(pronouns_count)/float(total_words)
-	print("percent pronouns = {0:.3f}%".format(pronoun_percentage*100.0))
+	#verbs_count = [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("VERB")
+	#print("percent verbs = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
 
 	#print(set([pos.XPOSTAG for _, pos in csv_dict.iteritems()])) # unquie tags
 	noun_tags = []
 	for row_num, pos in csv_dict.iteritems():
 		if pos.UPOSTAG == "NOUN":
 			noun_tags.append(pos.XPOSTAG)
-	print(set(noun_tags))
+	#print(set(noun_tags))
 
 
 ########################################################################
@@ -310,6 +377,18 @@ if __name__ == '__main__':
 			if pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's
 				total_words += 1
 
+	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
+	print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
+	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
+	shared_ent = groupSimilarEntities(grouped_named_ent_lst)
+	#print(shared_ent)
+	
+
+	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+
+	# TODO: debug dialouge for "words" said person "words again"
+	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
+
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
 	#from sklearn.externals import joblib # save model to load
@@ -319,64 +398,4 @@ if __name__ == '__main__':
 	#run gender tag once on the entire text, tag male/female and use for predictions
 	# TODO: predict gender with probailities to allow for abiguity
 
-	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
-	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
-	#print(grouped_named_ent_lst)
-	print("Characters in the text: {0}".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
-
-
-	# TODO: debug dialouge for "words" said person "words again"
-	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
-
-
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
-
-'''
-def mostCommonPronouns(raw_text):
-	# returns a dictionary of the most common pronouns in the text with their occureance #
-	#{'it': 1291, 'him': 213, 'yourself': 16, 'his': 519, 'our': 292, 'your': 122}
-
-	pronoun_common = {}
-	from collections import Counter
-
-	raw_words = re.findall(r'\w+', raw_text)
-
-	total_words = [word.lower() for word in raw_words]
-	word_counts = Counter(total_words)
-		
-	tag_pronoun = ["PRP", "PRP$"]
-
-	for word in word_counts:
-		captilize_options = [word.capitalize(), word.lower()] # dealing with ME seen as NN instead of PRP
-		for options in captilize_options:
-			if nltk.pos_tag(nltk.word_tokenize(options))[0][1] in tag_pronoun: # if word is a pronoun, then store it
-				if options.lower() in basic_pronouns.lower().split():
-					pronoun_common[word.lower()] = word_counts[word]
-
-	# testing that it found the right pronouns (not in basic_pronouns)
-	#if len(pronoun_common.keys()) != len(basic_pronouns.lower().split()):
-	#	for found in pronoun_common.keys():
-	#		if found not in basic_pronouns.lower().split():
-	#			print("\n\tWARNING: INCORRECT PRONOUNS FOUND ==> {0}\n".format(found))
-
-	return pronoun_common
-
-
-def indexPronoun(token_dict, pronoun_dict):
-	# stores pronoun and location in sentence for each sentence
-	#{0: (['I'], [8]), 1: (['my', 'me'], [3, 21]), 2: (['I'], [5])}
-
-	index_pronoun_dict = {}
-	pronouns_in_txt = pronoun_dict.keys()
-	for index, sentence in token_dict.iteritems():
-		pronoun_in_sentence = []
-		pronoun_location = []
-
-		for word_index in range(len(sentence.split())):
-			if sentence.split()[word_index].lower() in pronouns_in_txt:
-				pronoun_in_sentence.append(sentence.split()[word_index])
-				pronoun_location.append(word_index)
-		index_pronoun_dict[index] = (pronoun_in_sentence, pronoun_location)
-
-	return index_pronoun_dict
-'''
