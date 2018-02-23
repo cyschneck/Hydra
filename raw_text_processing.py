@@ -166,9 +166,6 @@ def findProperNamedEntity(pos_dict):
 				names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
 				sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
 
-	print("\n")
-	print(names_lst)
-	print("\n")
 	dic_tmp = zip(sentence_index, names_lst)
 	grouped_nouns = defaultdict(list)
 	for s, n in dic_tmp:
@@ -181,9 +178,18 @@ def commonSurrouding(grouped_nouns_dict):
 
 def groupSimilarEntities(grouped_nouns_dict):
 	# filter out enities that only appear once and re-organize
+	'''
+	[['America'], ['Aronnax', 'Pierre', 'Pierre Aronnax'],
+	['Captain Farragut', 'Captain', 'Farragut'], ['Conseil'], 
+	['English'], ['Europe'], ['French'], ['Gentlemen'], ['God'], 
+	['Land', 'Mr Ned Land', 'Ned', 'Ned Land'], ['Latin'],
+	['Lincoln', 'Abraham', 'Abraham Lincoln'], ['Museum'], 
+	['Natural'], ['OEdiphus'], ['Pacific'], ['Paris'], ['Professor'],
+	['Sir'], ['Sphinx'], ['United States', 'States', 'United'],
+	['sir']]
+	'''
 	counter_dict = dict(Counter([val for sublist in grouped_nouns_dict.values() for val in sublist]))
-	print(grouped_nouns_dict)
-	
+
 	names_all = list(set([val for sublist in grouped_nouns_dict.values() for val in sublist])) # is a list of all unquie names in the list
 	compare_names_same_format = [val.upper() for val in names_all]
 	# loop through to group similar elements
@@ -205,10 +211,10 @@ def groupSimilarEntities(grouped_nouns_dict):
 
 	for gne in gne_list_of_lists:
 		sublist = []
-		if len(gne.split()) == 1:
+		if len(gne.split()) == 1 and len(gne.split()[0]) > 1: # includes only single instance values that are not a single letter
 			sublist.append(gne.split()) # include values that only appear once in a setence
 		for i in gne.split():
-			print(i)
+			#print(i)
 			for gne_2 in gne_list_of_lists:
 				#print(i, gne_2)
 				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
@@ -234,6 +240,26 @@ def groupSimilarEntities(grouped_nouns_dict):
 	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
 	#print(final_grouping)
 	return final_grouping
+
+def lookupSubDictionary(shared_ent):
+	# return a dictionary of proper nouns and surrounding values for one-shot look up
+	'''
+	{"Scarlett O'Hara": ["O'Hara", 'Scarlett'], 'Tarleton': ['Tarleton'], 
+	"O'Hara": ["Scarlett O'Hara", 'Scarlett'], 'Scarlett': ["Scarlett O'Hara", "O'Hara"],
+	 'Coast': ['Coast']}
+	'''
+	sub_dictionary_lookup = defaultdict(list)
+	for group in shared_ent:
+		iterate_list_num = list(range(len(group)))
+		for i in range(len(group)):
+			for j in iterate_list_num:
+				if i != j:
+					sub_dictionary_lookup[group[i]].append(group[j])
+		if len(group) == 1:
+			sub_dictionary_lookup[group[i]].append(group[i]) # for single instances, store {'Tarleton':'Tarleton'{ as its own reference
+
+	return dict(sub_dictionary_lookup)
+
 
 ########################################################################
 # data anaylsis
@@ -383,24 +409,16 @@ if __name__ == '__main__':
 	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
 	shared_ent = groupSimilarEntities(grouped_named_ent_lst)
-	print("\nCharacters in the text: {0}\n".format(shared_ent))
+	print("Characters in the text: {0}\n".format(shared_ent))
 
-	sub_dictionary_lookup = defaultdict(list)
-	for group in shared_ent:
-		iterate_list_num = list(range(len(group)))
-		for i in range(len(group)):
-			for j in iterate_list_num:
-				if i != j:
-					sub_dictionary_lookup[group[i]].append(group[j])
-
-	sub_dictionary_lookup = dict(sub_dictionary_lookup)
-	#for key, value in sub_dictionary_lookup.iteritems():
-	#	print(key)
-	#	print(value)
-	print("dictionary for one degree of nouns: {0}".format(sub_dictionary_lookup))
+	sub_dictionary_one_shot_lookup = lookupSubDictionary(shared_ent)
+	print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
 	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
+########################################################################
+## TODO: 
 	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
 
@@ -413,4 +431,3 @@ if __name__ == '__main__':
 	#run gender tag once on the entire text, tag male/female and use for predictions
 	# TODO: predict gender with probailities to allow for abiguity
 
-	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
