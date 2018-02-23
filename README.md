@@ -6,7 +6,7 @@ The code in this repo is the working version of the thesis found in the link bel
 
 Link to final PDF (coming soon)
 
-TODO: update GNE for most common surrouding elements, create global name as the shared elements of GNES, research pronoun features (binding theory), generate percentNouns graphs, label pronouns (gender, plurality)
+TODO: update GNE for most common surrouding elements, create global name as the shared elements of GNES, research pronoun features (binding theory), generate percentNouns graphs, label pronouns (gender, plurality), cut off counter based on the size of the given text
 
 ## Install and Run
 ```git clone https://github.com/cschneck/Ishmael.git```
