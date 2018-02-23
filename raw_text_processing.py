@@ -142,7 +142,11 @@ def findProperNamedEntity(pos_dict):
 	names_lst = []
 	sentence_index = []
 	for sentence in sub_sentences:
-		noun_index = [s_index[1] for s_index in sentence]
+		noun_index = [s_index[1] for s_index in sentence] # noun location in a sentence (index)
+		#print(sentence, noun_index)
+		#print(noun_index)
+		#print(sentence)
+		#print("\n")
 		consec_lst = []
 		for k, g in itertools.groupby(enumerate(noun_index), lambda x: x[1]-x[0]):
 			consec_order = list(map(itemgetter(1), g))
@@ -161,6 +165,9 @@ def findProperNamedEntity(pos_dict):
 				names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
 				sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
 
+	print("\n")
+	print(names_lst)
+	print("\n")
 	dic_tmp = zip(sentence_index, names_lst)
 	grouped_nouns = defaultdict(list)
 	for s, n in dic_tmp:
@@ -175,20 +182,12 @@ def groupSimilarEntities(grouped_nouns_dict):
 	# filter out enities that only appear once and re-organize
 	counter_dict = dict(Counter([val for sublist in grouped_nouns_dict.values() for val in sublist]))
 	print(grouped_nouns_dict)
-	#print(counter_dict)
-	print("\n")
 	
 	names_all = list(set([val for sublist in grouped_nouns_dict.values() for val in sublist])) # is a list of all unquie names in the list
 	compare_names_same_format = [val.upper() for val in names_all]
 	# loop through to group similar elements
-	print(names_all)
-	print("\n")
-	print(compare_names_same_format)
-	print("\n")
 	gne_list_of_lists = grouped_nouns_dict.values()
 	gne_list_of_lists = list(set([item for sublist in gne_list_of_lists for item in sublist])) # creates a list of unquie names
-	print(gne_list_of_lists)
-	print("\n")
 
 	import difflib 
 	from difflib import SequenceMatcher
@@ -199,39 +198,46 @@ def groupSimilarEntities(grouped_nouns_dict):
 			compared = difflib.get_close_matches(g, gne_list_of_lists)
 			if compared != []:
 				gne_name_group.append(compared)
-	print(gne_name_group)
-	#gne_name_group = list(set(gne_name_group))
 
-	#final_grouping = []
-	#for row in gne_name_group:
-	#	for i, resrow in enumerate(final_grouping):
-	#		if row[0]==resrow[0]:
-	#			final_grouping[i] += row[1:]
-	#			break
-	#	else:
-	#		final_grouping.append(row)
-	#print(final_grouping)
-	final_grouping = []
+	subgrouping = []
 	words_to_ignore = ["Mr", "Mrs", "Ms"]
 	
 	for gne in gne_list_of_lists:
 		sublist = []
 		for i in gne.split():
 			for gne_2 in gne_list_of_lists:
-				print(i, gne_2)
-				if i in gne_2:
-					if i != gne_2:
-						if i != [] or gne_2 != []:
-							if len(i) > 1 and i not in words_to_ignore:
-								sublist.append([i, gne_2])
-		final_grouping.append(sublist)
-	final_grouping = [x for x in final_grouping if x != []]
-	print("\nfinalgrouping")
+				#print(i, gne_2)
+				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
+					if len(i) > 1 and i not in words_to_ignore:
+						sublist.append([i, gne_2])
+		subgrouping.append(sublist)
+	subgrouping = [x for x in subgrouping if x != []]
+
+	final_grouping = []
+	for subgroup in subgrouping:
+		final_grouping.append(list(set([item for sublist in subgroup for item in sublist])))
+
+	iterate_list_num = list(range(len(final_grouping)))
+	for i in range(len(final_grouping)):
+		for num in iterate_list_num:
+			if num != i:
+				extend_val = list(set(final_grouping[i]).intersection(final_grouping[num]))
+				if extend_val:
+					final_grouping[i].extend(final_grouping[num])
+					final_grouping[i] = sorted(list(set(final_grouping[i])))
+	print("\n")
+	final_grouping = sorted(final_grouping)
+	#for i in final_grouping:
+	#	print(i)
+	import itertools
+	#print("\n")
+	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
+	#print(final_grouping)
 	for i in final_grouping:
 		print(i)
-	#print(final_grouping)
-
-
+	print("\n")
+	
+	return final_grouping
 
 ########################################################################
 # data anaylsis
@@ -378,10 +384,11 @@ if __name__ == '__main__':
 				total_words += 1
 
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
-	print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
+	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
 	shared_ent = groupSimilarEntities(grouped_named_ent_lst)
-	#print(shared_ent)
+	print("Characters in the text: {0}\n".format(shared_ent))
+	
 	
 
 	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
