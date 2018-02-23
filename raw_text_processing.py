@@ -24,7 +24,8 @@ basic_pronouns = "I Me You She He Him It We Us They Them Myself Yourself Himself
 possessive_pronouns = "mine yours his hers ours theirs"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves"
 relative_pronouns = "that whic who whose whom where when"
-
+connecting_words = []#["of", "the"]
+words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR"]
 
 def readFile(filename):
 	file_remove_extra = []
@@ -32,7 +33,7 @@ def readFile(filename):
 		string_words = given_file.read()
 		string_words = string_words.replace("\n", " ")
 		string_words = string_words.replace(";" , " ")
-		string_words = string_words.replace("--", " ")
+		string_words = string_words.replace("--", ", ")
 		string_words = string_words.replace("_", "")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
@@ -126,18 +127,27 @@ def findProperNamedEntity(pos_dict):
 	# {0: ["Scarlett O'Hara", 'Tarleton'], 1: ['Coast']}
 	pos_type_lst = []
 	# TODO: EXPAND PROPER NOUNS FOR COMMON WORDS AROUND WORD
+	previous_nnp_index = 0
 	for row, pos_named in pos_dict.iteritems():
 		if "NNP" in pos_named.XPOSTAG: #"NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG or "IN" in pos_named.XPOSTAG or "DT" in pos_named.XPOSTAG:
 			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
-	#print(pos_type_lst)
+			previous_nnp_index = int(pos_named.ID)
+		#if "the" in pos_named.FORM or "The" in pos_named.FORM:
+		#	if previous_nnp_index < int(pos_named.ID): # only store of if it is part of an existing sentence
+		#		pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
+		#if "of" in pos_named.FORM:
+		#	if previous_nnp_index < int(pos_named.ID): # only store of if it is part of an existing sentence
+		#		pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
+		
 
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
-	#print(total_sentence_indices)
+
 	sub_sentences = []
 	for index in total_sentence_indices:
 		# create sub sentences for each sentence [[0], [1])
 		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
-
+	#print("\nsub_sentence={0}\n".format(sub_sentences))
+	
 	from operator import itemgetter # find sequences of consecutive values
 	import itertools
 
@@ -209,7 +219,6 @@ def groupSimilarEntities(grouped_nouns_dict):
 				gne_name_group.append(compared)
 
 	subgrouping = []
-	words_to_ignore = ["Mr", "Mrs", "Ms"]
 
 	for gne in gne_list_of_lists:
 		sublist = []
@@ -256,7 +265,8 @@ def lookupSubDictionary(shared_ent):
 		for i in range(len(group)):
 			for j in iterate_list_num:
 				if i != j:
-					sub_dictionary_lookup[group[i]].append(group[j])
+					if group[i] not in connecting_words: # ignore 'of', 'the'
+						sub_dictionary_lookup[group[i]].append(group[j])
 		if len(group) == 1:
 			sub_dictionary_lookup[group[i]].append(group[i]) # for single instances, store {'Tarleton':'Tarleton'{ as its own reference
 
@@ -293,7 +303,7 @@ def percentagePos(total_words, csv_dict):
 	# prints the percentage of the text that is pronouns vs. nouns
 	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
 	pronoun_percentage = float(pronouns_count)/float(total_words)
-	print("percent pronouns = {0:.3f}% of all text".format(pronoun_percentage*100.0))
+	print("\npercent pronouns = {0:.3f}% of all text".format(pronoun_percentage*100.0))
 
 	proper_nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNP") # proper noun singular
 	proper_nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNPS") # proper noun plural: spaniards
@@ -316,7 +326,12 @@ def percentagePos(total_words, csv_dict):
 		if pos.UPOSTAG == "NOUN":
 			noun_tags.append(pos.XPOSTAG)
 	#print(set(noun_tags))
+	
+	print("Text is approximately {0} words".format(total_words))
 
+def saveDatatoCSV():
+	# save data from each run to a csv for graphing (if text is new or has been updated)
+	pass
 
 ########################################################################
 ## Output pos into csv
@@ -439,18 +454,22 @@ if __name__ == '__main__':
 	print("Characters in the text: {0}\n".format(character_entities_group))
 
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
-	print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
+	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
 	# index pronouns
 	pronoun_index_dict = findPronouns(pos_dict)
 	print("\npronoun index dictionary: {0}".format(pronoun_index_dict))
 
-	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+	percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
 ## TODO: 
+	# TODO: character should be taking actions and connect directly to the root, otherwise, remove
+	# TODO: split sentences with question marks (see 20k end)
+	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
+	# TODO: re-implement 'of' and 'the' connecting words
 	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
 
