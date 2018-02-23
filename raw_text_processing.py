@@ -119,6 +119,8 @@ def process_POS_conll(conll_output):
 		#print(pos_processed[i])
 	return pos_processed
 
+########################################################################
+## GROUP PROPER NOUNS ENTITIES
 def findProperNamedEntity(pos_dict):
 	# returns {sentence index: [list of all proper nouns grouped]
 	# {0: ["Scarlett O'Hara", 'Tarleton'], 1: ['Coast']}
@@ -259,10 +261,34 @@ def lookupSubDictionary(shared_ent):
 			sub_dictionary_lookup[group[i]].append(group[i]) # for single instances, store {'Tarleton':'Tarleton'{ as its own reference
 
 	return dict(sub_dictionary_lookup)
+########################################################################
+## INDEX PRONOUNS
+def findPronouns(pos_dict):
+	# return the index value for pronouns in each sentence
+	#{1: [1, 8, 11], 2: [1, 3], 3: [1, 4, 14], 4: [2, 5, 11, 22], 5: [4]}
+	pos_type_lst = []
+	for row, pos_named in pos_dict.iteritems():
+		if "PRP" in pos_named.XPOSTAG:
+			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
 
+	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
+	sub_sentences = []
+	for index in total_sentence_indices:
+		# create sub sentences for each sentence [[0], [1])
+		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
+	#print(sub_sentences)
+
+	grouped_pronouns = {}
+	pronoun_lst = []
+	sentence_index = []
+	for sentence_index in range(len(sub_sentences)):
+		noun_index = [s_index[1] for s_index in sub_sentences[sentence_index]] # noun location in a sentence (index)
+		grouped_pronouns[sentence_index] = noun_index
+
+	return grouped_pronouns
 
 ########################################################################
-# data anaylsis
+# DATA ANAYLSIS
 def percentagePos(total_words, csv_dict):
 	# prints the percentage of the text that is pronouns vs. nouns
 	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
@@ -405,16 +431,22 @@ if __name__ == '__main__':
 			if pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's
 				total_words += 1
 
+	# index proper nouns
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
 	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
-	shared_ent = groupSimilarEntities(grouped_named_ent_lst)
-	print("Characters in the text: {0}\n".format(shared_ent))
+	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
+	print("Characters in the text: {0}\n".format(character_entities_group))
 
-	sub_dictionary_one_shot_lookup = lookupSubDictionary(shared_ent)
+	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
+	# index pronouns
+	pronoun_index_dict = findPronouns(pos_dict)
+	print("\npronoun index dictionary: {0}".format(pronoun_index_dict))
+
 	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
