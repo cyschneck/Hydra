@@ -13,6 +13,7 @@ import string
 import csv
 from datetime import datetime
 from collections import namedtuple, Counter
+import itertools
 from itertools import imap # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
 
@@ -201,14 +202,17 @@ def groupSimilarEntities(grouped_nouns_dict):
 
 	subgrouping = []
 	words_to_ignore = ["Mr", "Mrs", "Ms"]
-	
+
 	for gne in gne_list_of_lists:
 		sublist = []
+		if len(gne.split()) == 1:
+			sublist.append(gne.split()) # include values that only appear once in a setence
 		for i in gne.split():
+			print(i)
 			for gne_2 in gne_list_of_lists:
 				#print(i, gne_2)
 				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
-					if len(i) > 1 and i not in words_to_ignore:
+					if i not in words_to_ignore and len(i) > 1:
 						sublist.append([i, gne_2])
 		subgrouping.append(sublist)
 	subgrouping = [x for x in subgrouping if x != []]
@@ -224,19 +228,11 @@ def groupSimilarEntities(grouped_nouns_dict):
 				extend_val = list(set(final_grouping[i]).intersection(final_grouping[num]))
 				if extend_val:
 					final_grouping[i].extend(final_grouping[num])
-					final_grouping[i] = sorted(list(set(final_grouping[i])))
-	print("\n")
-	final_grouping = sorted(final_grouping)
-	#for i in final_grouping:
-	#	print(i)
-	import itertools
-	#print("\n")
+					final_grouping[i] = sorted(list(set(final_grouping[i]))) # extend list to include similar elements
+
+	final_grouping = sorted(final_grouping) # organize and sort
 	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
 	#print(final_grouping)
-	for i in final_grouping:
-		print(i)
-	print("\n")
-	
 	return final_grouping
 
 ########################################################################
@@ -387,9 +383,21 @@ if __name__ == '__main__':
 	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
 	shared_ent = groupSimilarEntities(grouped_named_ent_lst)
-	print("Characters in the text: {0}\n".format(shared_ent))
-	
-	
+	print("\nCharacters in the text: {0}\n".format(shared_ent))
+
+	sub_dictionary_lookup = defaultdict(list)
+	for group in shared_ent:
+		iterate_list_num = list(range(len(group)))
+		for i in range(len(group)):
+			for j in iterate_list_num:
+				if i != j:
+					sub_dictionary_lookup[group[i]].append(group[j])
+
+	sub_dictionary_lookup = dict(sub_dictionary_lookup)
+	#for key, value in sub_dictionary_lookup.iteritems():
+	#	print(key)
+	#	print(value)
+	print("dictionary for one degree of nouns: {0}".format(sub_dictionary_lookup))
 
 	#percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 
