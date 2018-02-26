@@ -63,6 +63,13 @@ Run time: 41 (verne short) -> real 2m25.151s, user 3m27.610s, sys 0m45.450s
 
 Will only run the parser once, if the parser has been run already, the output will be stored in the csv file for future use
 
+## Part of Speech Data
+
+![all_nouns_all_words](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/all_nouns_in_all_words.png)
+![pronouns_all_words](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/pronouns_in_all_words.png)
+![proper_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/proper_nouns_in_all_nouns.png)
+![regular_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/regular_nouns_in_all_nouns.png)
+
 
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
