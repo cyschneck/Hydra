@@ -49,48 +49,6 @@ Example: Test parser with string
 
 ```./3_run_text.sh "Very well, I will marry you if you promise not to make me eat eggplant"```
 
-## Pre-Processing Text
-Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
-
-The raw text including for testing are both first and third person for benchmarking purposes:
-
-Peter Pan (Barrie)
-
-A Little Princess (Burnett)
-
-Secret Garden (Burnett)
-
-A Princess of Mars (Burroughs)
-
-Alice’s Adventures in Wonderland (Carroll)
-
-The Adventures of Sherlock Holmes (Doyle)
-
-Fairy Tales (Grimm)
-
-Legends of King Arthur and his Knights (Malory)
-
-Le Morte d’Arthur v1 (Malory)
-
-Le Morte d’Arthur v2 (Malory)
-
-Moby Dick (Melville)
-
-The Raven (Poe)
-
-Frankenstein (Shelley)
-
-The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)
-
-A Connecticut Yankee in King Arthur’s Court (Twain)
-
-The Adventures of Tom Sawyer (Twain)
-
-20,000 Leagues Under the Sea (Verne)
-
-Around the World in Eighty Days (Verne)
-
-Time Machine (Wells)
 
 ## Parser output
 CoNLL
@@ -104,6 +62,128 @@ ASCII tree
 Run time: 41 (verne short) -> real 2m25.151s, user 3m27.610s, sys 0m45.450s
 
 Will only run the parser once, if the parser has been run already, the output will be stored in the csv file for future use
+
+
+## Pre-Processing Text
+Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
+
+The raw text including for testing are both first and third person for benchmarking purposes:
+
+Emma (Austen)
+
+Pride and Prejudice (Austen)
+
+Peter Pan (Barrie)
+
+The Wonderful Wizard of Oz (Baum)
+
+Jane Eyre (Bronte)
+
+A Little Princess (Burnett)
+
+Secret Garden (Burnett)
+
+A Princess of Mars (Burroughs)
+
+Tarzan of the Apes (Burroughs)
+
+The Book of a Thousand Nights and a Night (Burton)
+
+Alice’s Adventures in Wonderland (Carroll)
+
+The Mysterious Affair at Styles (Christie)
+
+Heart of Darkness (Conrad)
+
+On the Origin of Species by Means of Natural Selection (Darwin)
+
+The Life and Adventures of Robinson Cruseo (Defoe)
+
+A Christmas Carol in Prose (Dickens)
+
+A Tale of Two Cities (Dickens)
+
+Narrative of the Life of Frederick Douglass (Douglass)
+
+The Adventures of Sherlock Holmes (Doyle)
+
+The Hound of the Baskervilles (Doyle)
+
+The Sign of Four (Doyle)
+
+The Count of Monte Cristo (Dumas)
+
+Autobiography of Benjamin Franklin (Franklin)
+
+The King James Version of the Bible
+
+Fairy Tales (Grimm)
+
+Beowulf (Hall)
+
+The Federalist Papers (Hamliton/Jay/Madison)
+
+The Scarlet Letter (Hawthorne)
+
+The Iliad (Homer)
+
+Les Miserables (Hugo)
+
+Ulysses (Joyce)
+
+The Trial (Kafka)
+
+The Jungle Book (Kipling)
+
+The Call of the Wild (London)
+
+White Fang (London)
+
+Legends of King Arthur and his Knights (Malory)
+
+Le Morte d’Arthur v1 (Malory)
+
+Le Morte d’Arthur v2 (Malory)
+
+The Koran (Margoliouth/Rodwell)
+
+Moby Dick (Melville)
+
+The Raven (Poe)
+
+Don Quixote (Saavedra)
+
+Frankenstein (Shelley)
+
+The Jungle (Sinclair)
+
+The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)
+
+Treasure Island (Stevenson)
+
+Dracula (Stoker)
+
+Anna Karenina (Tolstoy)
+
+A Connecticut Yankee in King Arthur’s Court (Twain)
+
+The Adventures of Tom Sawyer (Twain)
+
+The Prince and the Pauper (Twain)
+
+20,000 Leagues Under the Sea (Verne)
+
+Around the World in Eighty Days (Verne)
+
+The Island of Doctor Moreau (Wells)
+
+The War of the Worlds (Wells)
+
+The Time Machine (Wells)
+
+The Picture of Dorian Gray (Wells)
+
+My Man Jeeves (Wodehouse)
 
 
 ## Datasets
