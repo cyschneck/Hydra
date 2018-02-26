@@ -97,6 +97,8 @@ Heart of Darkness (Conrad)
 
 On the Origin of Species by Means of Natural Selection (Darwin)
 
+The Voyage of the Beagle (Darwin)
+
 The Life and Adventures of Robinson Cruseo (Defoe)
 
 A Christmas Carol in Prose (Dickens)
@@ -150,6 +152,8 @@ The Koran (Margoliouth/Rodwell)
 Moby Dick (Melville)
 
 The Raven (Poe)
+
+The Merry Adventures of Robin Hood (Pyle)
 
 Don Quixote (Saavedra)
 
