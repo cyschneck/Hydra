@@ -1,0 +1,52 @@
+SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
+0,Scarlett,NNP,NOUN,1,20,_,_,2,nn,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,O'Hara,NNP,NOUN,2,20,_,_,5,nsubj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,was,VBD,VERB,3,20,_,_,5,cop,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,not,RB,ADV,4,20,_,_,5,neg,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,beautiful,JJ,ADJ,5,20,_,_,0,ROOT,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,,.,_,6,20,,,,_,5,punct,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,but,CC,CONJ,7,20,_,_,5,cc,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,men,NNS,NOUN,8,20,_,_,10,nsubj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,seldom,RB,ADV,9,20,_,_,10,advmod,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,realized,VBD,VERB,10,20,_,_,5,conj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,it,PRP,PRON,11,20,_,_,10,dobj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,when,WRB,ADV,12,20,_,_,13,advmod,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,caught,VBN,VERB,13,20,_,_,10,advcl,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,by,IN,ADP,14,20,_,_,13,prep,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,her,PRP$,PRON,15,20,_,_,16,poss,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,charm,NN,NOUN,16,20,_,_,14,pobj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,as,IN,ADP,17,20,_,_,21,mark,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,the,DT,DET,18,20,_,_,20,det,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,Tarleton,NNP,NOUN,19,20,_,_,20,nn,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,twins,NNS,NOUN,20,20,_,_,21,nsubj,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+0,were,VBD,VERB,21,20,_,_,16,dep,_,_,"Scarlett O'Hara was not beautiful, but men seldom realized it when caught by her charm as the Tarleton twins were",False
+1,In,IN,ADP,1,28,_,_,7,prep,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,her,PRP$,PRON,2,28,_,_,3,poss,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,face,NN,NOUN,3,28,_,_,1,pobj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,were,VBD,VERB,4,28,_,_,7,auxpass,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,too,RB,ADV,5,28,_,_,6,advmod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,sharply,RB,ADV,6,28,_,_,7,advmod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,blended,VBN,VERB,7,28,_,_,0,ROOT,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,the,DT,DET,8,28,_,_,10,det,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,delicate,JJ,ADJ,9,28,_,_,10,amod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,features,NNS,NOUN,10,28,_,_,7,dobj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,of,IN,ADP,11,28,_,_,10,prep,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,her,PRP$,PRON,12,28,_,_,13,poss,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,mother,NN,NOUN,13,28,_,_,11,pobj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,,.,_,14,28,,,,_,13,punct,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,a,DT,DET,15,28,_,_,17,det,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,Coast,NNP,NOUN,16,28,_,_,17,amod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,aristocrat,NN,NOUN,17,28,_,_,13,conj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,of,IN,ADP,18,28,_,_,17,prep,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,French,JJ,ADJ,19,28,_,_,20,amod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,descent,NN,NOUN,20,28,_,_,18,pobj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,,.,_,21,28,,,,_,13,punct,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,and,CC,CONJ,22,28,_,_,13,cc,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,the,DT,DET,23,28,_,_,25,det,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,heavy,JJ,ADJ,24,28,_,_,25,amod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,ones,NNS,NOUN,25,28,_,_,13,conj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,of,IN,ADP,26,28,_,_,25,prep,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,her,PRP$,PRON,27,28,_,_,30,poss,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,florid,NN,NOUN,28,28,_,_,30,nn,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,Irish,JJ,ADJ,29,28,_,_,30,amod,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
+1,father,NN,NOUN,30,28,_,_,26,pobj,_,_,"In her face were too sharply blended the delicate features of her mother, a Coast aristocrat of French descent, and the heavy ones of her florid Irish father",False
