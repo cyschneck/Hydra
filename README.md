@@ -105,6 +105,8 @@ A Christmas Carol in Prose (Dickens)
 
 A Tale of Two Cities (Dickens)
 
+The Great Expectation (Dickens)
+
 Narrative of the Life of Frederick Douglass (Douglass)
 
 The Adventures of Sherlock Holmes (Doyle)
@@ -114,6 +116,8 @@ The Hound of the Baskervilles (Doyle)
 The Sign of Four (Doyle)
 
 The Count of Monte Cristo (Dumas)
+
+The Man in the Iron Mask (Dumas)
 
 Autobiography of Benjamin Franklin (Franklin)
 
