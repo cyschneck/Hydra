@@ -1,0 +1,92 @@
+SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
+0,One,CD,NUM,1,20,_,_,2,num,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,morning,NN,NOUN,2,20,_,_,13,tmod,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,,.,_,3,20,,,,_,13,punct,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,when,WRB,ADV,4,20,_,_,7,advmod,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,Gregor,NNP,NOUN,5,20,_,_,6,nn,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,Samsa,NNP,NOUN,6,20,_,_,7,nsubj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,woke,VBD,VERB,7,20,_,_,13,advcl,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,from,IN,ADP,8,20,_,_,7,prep,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,troubled,JJ,ADJ,9,20,_,_,10,amod,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,dreams,NNS,NOUN,10,20,_,_,8,pobj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,,.,_,11,20,,,,_,13,punct,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,he,PRP,PRON,12,20,_,_,13,nsubj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,found,VBD,VERB,13,20,_,_,0,ROOT,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,himself,PRP,PRON,14,20,_,_,15,nsubj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,transformed,VBN,VERB,15,20,_,_,13,dep,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,in,IN,ADP,16,20,_,_,15,prep,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,his,PRP$,PRON,17,20,_,_,18,poss,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,bed,NN,NOUN,18,20,_,_,16,pobj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,into,IN,ADP,19,20,_,_,15,prep,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,a,DT,DET,20,20,_,_,22,det,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,horrible,JJ,ADJ,21,20,_,_,22,amod,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+0,vermin,NN,NOUN,22,20,_,_,19,pobj,_,_,"One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin",False
+1,He,PRP,PRON,1,29,_,_,2,nsubj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,lay,VBD,VERB,2,29,_,_,0,ROOT,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,on,IN,ADP,3,29,_,_,2,prep,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,his,PRP$,PRON,4,29,_,_,5,poss,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,armour-like,JJ,ADJ,5,29,_,_,3,pobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,back,RB,ADV,6,29,_,_,2,advmod,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,,.,_,7,29,,,,_,2,punct,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,and,CC,CONJ,8,29,_,_,2,cc,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,if,IN,ADP,9,29,_,_,11,mark,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,he,PRP,PRON,10,29,_,_,11,nsubj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,lifted,VBD,VERB,11,29,_,_,24,advcl,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,his,PRP$,PRON,12,29,_,_,13,poss,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,head,NN,NOUN,13,29,_,_,11,dobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,a,DT,DET,14,29,_,_,15,det,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,little,JJ,ADJ,15,29,_,_,11,dobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,he,PRP,PRON,16,29,_,_,18,nsubj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,could,MD,VERB,17,29,_,_,18,aux,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,see,VB,VERB,18,29,_,_,15,rcmod,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,his,PRP$,PRON,19,29,_,_,21,poss,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,brown,JJ,ADJ,20,29,_,_,21,amod,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,belly,NN,NOUN,21,29,_,_,18,dobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,,.,_,22,29,,,,_,24,punct,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,slightly,RB,ADV,23,29,_,_,24,advmod,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,domed,VBN,VERB,24,29,_,_,2,conj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,and,CC,CONJ,25,29,_,_,24,cc,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,divided,VBN,VERB,26,29,_,_,24,conj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,by,IN,ADP,27,29,_,_,26,prep,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,arches,NNS,NOUN,28,29,_,_,27,pobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,into,IN,ADP,29,29,_,_,28,prep,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,stiff,JJ,ADJ,30,29,_,_,31,amod,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+1,sections,NNS,NOUN,31,29,_,_,29,pobj,_,_,"He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",False
+2,The,DT,DET,1,16,_,_,2,det,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,bedding,NN,NOUN,2,16,_,_,5,nsubj,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,was,VBD,VERB,3,16,_,_,5,cop,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,hardly,RB,ADV,4,16,_,_,5,advmod,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,able,JJ,ADJ,5,16,_,_,0,ROOT,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,to,TO,PRT,6,16,_,_,7,aux,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,cover,VB,VERB,7,16,_,_,5,xcomp,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,it,PRP,PRON,8,16,_,_,7,dobj,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,and,CC,CONJ,9,16,_,_,5,cc,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,seemed,VBD,VERB,10,16,_,_,5,conj,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,ready,JJ,ADJ,11,16,_,_,10,acomp,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,to,TO,PRT,12,16,_,_,13,aux,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,slide,VB,VERB,13,16,_,_,11,xcomp,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,off,RP,PRT,14,16,_,_,13,prt,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,any,DT,DET,15,16,_,_,16,det,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+2,moment,NN,NOUN,16,16,_,_,13,dobj,_,_,The bedding was hardly able to cover it and seemed ready to slide off any moment,False
+3,His,PRP$,PRON,1,20,_,_,3,poss,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,many,JJ,ADJ,2,20,_,_,3,amod,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,legs,NNS,NOUN,3,20,_,_,17,nsubj,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,,.,_,4,20,,,,_,3,punct,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,pitifully,RB,ADV,5,20,_,_,6,advmod,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,thin,JJ,ADJ,6,20,_,_,3,amod,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,compared,VBN,VERB,7,20,_,_,6,prep,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,with,IN,ADP,8,20,_,_,7,pcomp,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,the,DT,DET,9,20,_,_,10,det,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,size,NN,NOUN,10,20,_,_,8,pobj,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,of,IN,ADP,11,20,_,_,10,prep,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,the,DT,DET,12,20,_,_,13,det,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,rest,NN,NOUN,13,20,_,_,11,pobj,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,of,IN,ADP,14,20,_,_,13,prep,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,him,PRP,PRON,15,20,_,_,14,pobj,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,,.,_,16,20,,,,_,17,punct,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,waved,VBD,VERB,17,20,_,_,0,ROOT,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,about,IN,ADP,18,20,_,_,19,advmod,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,helplessly,RB,ADV,19,20,_,_,17,advmod,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,as,IN,ADP,20,20,_,_,22,mark,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,he,PRP,PRON,21,20,_,_,22,nsubj,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
+3,looked,VBD,VERB,22,20,_,_,17,advcl,_,_,"His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked",False
