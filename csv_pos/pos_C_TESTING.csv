@@ -23,25 +23,28 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 3,she,PRP,PRON,7,8,_,_,9,nsubj,_,_,"John beat Mary there, since she was late",False
 3,was,VBD,VERB,8,8,_,_,9,cop,_,_,"John beat Mary there, since she was late",False
 3,late,JJ,ADJ,9,8,_,_,2,advcl,_,_,"John beat Mary there, since she was late",False
-4,Mary,NNP,NOUN,1,9,_,_,3,nsubj,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,was,VBD,VERB,2,9,_,_,3,aux,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,having,VBG,VERB,3,9,_,_,0,ROOT,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,a,DT,DET,4,9,_,_,6,det,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,sorid,NN,NOUN,5,9,_,_,6,nn,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,affair,NN,NOUN,6,9,_,_,3,dobj,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,with,IN,ADP,7,9,_,_,6,prep,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,Robert,NNP,NOUN,8,9,_,_,9,nn,_,_,Mary was having a sorid affair with Robert Cooper,False
-4,Cooper,NNP,NOUN,9,9,_,_,7,pobj,_,_,Mary was having a sorid affair with Robert Cooper,False
-5,Robert,NNP,NOUN,1,11,_,_,2,nn,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,Cooper,NNP,NOUN,2,11,_,_,4,nsubjpass,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,was,VBD,VERB,3,11,_,_,4,auxpass,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,found,VBN,VERB,4,11,_,_,0,ROOT,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,dead,JJ,ADJ,5,11,_,_,4,acomp,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,,.,_,6,11,,,,_,4,punct,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,but,CC,CONJ,7,11,_,_,4,cc,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,Mary,NNP,NOUN,8,11,_,_,11,nsubj,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,wo,MD,VERB,9,11,_,_,11,aux,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,n't,RB,ADV,10,11,_,_,11,neg,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,rat,VB,VERB,11,11,_,_,4,conj,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,out,RP,PRT,12,11,_,_,11,prt,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
-5,John,NNP,NOUN,13,11,_,_,11,dobj,_,_,"Robert Cooper was found dead, but Mary won't rat out John",False
+4,Mary,NNP,NOUN,1,12,_,_,3,nsubj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,was,VBD,VERB,2,12,_,_,3,aux,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,having,VBG,VERB,3,12,_,_,0,ROOT,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,a,DT,DET,4,12,_,_,6,det,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,sorid,NN,NOUN,5,12,_,_,6,nn,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,affair,NN,NOUN,6,12,_,_,3,dobj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,with,IN,ADP,7,12,_,_,6,prep,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,Robert,NNP,NOUN,8,12,_,_,9,nn,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,Cooper,NNP,NOUN,9,12,_,_,7,pobj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,,.,_,10,12,,,,_,9,punct,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,her,PRP$,PRON,11,12,_,_,13,poss,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,secret,JJ,ADJ,12,12,_,_,13,amod,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,lover,NN,NOUN,13,12,_,_,9,appos,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+5,Robert,NNP,NOUN,1,10,_,_,3,nsubjpass,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,was,VBD,VERB,2,10,_,_,3,auxpass,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,found,VBN,VERB,3,10,_,_,0,ROOT,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,dead,JJ,ADJ,4,10,_,_,3,acomp,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,,.,_,5,10,,,,_,3,punct,"Robert was found dead, but Mary won't rat out John",False
+5,but,CC,CONJ,6,10,_,_,3,cc,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,Mary,NNP,NOUN,7,10,_,_,10,nsubj,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,wo,MD,VERB,8,10,_,_,10,aux,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,n't,RB,ADV,9,10,_,_,10,neg,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,rat,VB,VERB,10,10,_,_,3,conj,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,out,RP,PRT,11,10,_,_,10,prt,_,_,"Robert was found dead, but Mary won't rat out John",False
+5,John,NNP,NOUN,12,10,_,_,10,dobj,_,_,"Robert was found dead, but Mary won't rat out John",False
