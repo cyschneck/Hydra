@@ -1,12 +1,14 @@
 SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
-0,This,DT,DET,1,4,_,_,4,nsubj,_,_,This is a sentence,False
-0,is,VBZ,VERB,2,4,_,_,4,cop,_,_,This is a sentence,False
-0,a,DT,DET,3,4,_,_,4,det,_,_,This is a sentence,False
-0,sentence,NN,NOUN,4,4,_,_,0,ROOT,_,_,This is a sentence,False
-1,This,DT,DET,1,4,_,_,4,nsubj,_,_,This is another sentence,False
-1,is,VBZ,VERB,2,4,_,_,4,cop,_,_,This is another sentence,False
-1,another,DT,DET,3,4,_,_,4,det,_,_,This is another sentence,False
-1,sentence,NN,NOUN,4,4,_,_,0,ROOT,_,_,This is another sentence,False
+0,This,DT,DET,1,6,_,_,6,nsubj,_,_,This is a the first sentence,False
+0,is,VBZ,VERB,2,6,_,_,6,cop,_,_,This is a the first sentence,False
+0,a,DT,DET,3,6,_,_,6,det,_,_,This is a the first sentence,False
+0,the,DT,DET,4,6,_,_,6,det,_,_,This is a the first sentence,False
+0,first,JJ,ADJ,5,6,_,_,6,amod,_,_,This is a the first sentence,False
+0,sentence,NN,NOUN,6,6,_,_,0,ROOT,_,_,This is a the first sentence,False
+1,This,DT,DET,1,4,_,_,4,nsubj,_,_,This is second sentence,False
+1,is,VBZ,VERB,2,4,_,_,4,cop,_,_,This is second sentence,False
+1,second,JJ,ADJ,3,4,_,_,4,amod,_,_,This is second sentence,False
+1,sentence,NN,NOUN,4,4,_,_,0,ROOT,_,_,This is second sentence,False
 2,John,NNP,NOUN,1,7,_,_,4,nsubj,_,_,John and Smith went to the market,False
 2,and,CC,CONJ,2,7,_,_,1,cc,_,_,John and Smith went to the market,False
 2,Smith,NNP,NOUN,3,7,_,_,1,conj,_,_,John and Smith went to the market,False
