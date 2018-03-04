@@ -50,3 +50,36 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 5,rat,VB,VERB,10,10,_,_,3,conj,_,_,"Robert was found dead, but Mary won't rat out John",False
 5,out,RP,PRT,11,10,_,_,10,prt,_,_,"Robert was found dead, but Mary won't rat out John",False
 5,John,NNP,NOUN,12,10,_,_,10,dobj,_,_,"Robert was found dead, but Mary won't rat out John",False
+6,John,NNP,NOUN,1,19,_,_,3,nsubj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,was,VBD,VERB,2,19,_,_,3,cop,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,heir,NN,NOUN,3,19,_,_,0,ROOT,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,to,IN,ADP,4,19,_,_,3,prep,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,a,DT,DET,5,19,_,_,7,det,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,large,JJ,ADJ,6,19,_,_,7,amod,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,fortune,NN,NOUN,7,19,_,_,4,pobj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,that,IN,ADP,8,19,_,_,11,dobj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,he,PRP,PRON,9,19,_,_,11,nsubj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,would,MD,VERB,10,19,_,_,11,aux,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,inherit,VB,VERB,11,19,_,_,7,rcmod,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,and,CC,CONJ,12,19,_,_,3,cc,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,he,PRP,PRON,13,19,_,_,15,nsubj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,would,MD,VERB,14,19,_,_,15,aux,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,do,VB,VERB,15,19,_,_,3,conj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,anything,NN,NOUN,16,19,_,_,15,dobj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,to,TO,PRT,17,19,_,_,18,aux,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,protect,VB,VERB,18,19,_,_,16,infmod,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+6,it,PRP,PRON,19,19,_,_,18,dobj,_,_,John was heir to a large fortune that he would inherit and he would do anything to protect it,False
+7,He,PRP,PRON,1,13,_,_,4,nsubj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,was,VBD,VERB,2,13,_,_,4,cop,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,the,DT,DET,3,13,_,_,4,det,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,youngest,JJS,ADJ,4,13,_,_,0,ROOT,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,,.,_,5,13,,,,_,4,punct,"He was the youngest, but he had a reputation that he had earned",False
+7,but,CC,CONJ,6,13,_,_,4,cc,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,he,PRP,PRON,7,13,_,_,8,nsubj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,had,VBD,VERB,8,13,_,_,4,conj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,a,DT,DET,9,13,_,_,10,det,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,reputation,NN,NOUN,10,13,_,_,8,dobj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,that,WDT,DET,11,13,_,_,14,dobj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,he,PRP,PRON,12,13,_,_,14,nsubj,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,had,VBD,VERB,13,13,_,_,14,aux,_,_,"He was the youngest, but he had a reputation that he had earned",False
+7,earned,VBN,VERB,14,13,_,_,10,rcmod,_,_,"He was the youngest, but he had a reputation that he had earned",False

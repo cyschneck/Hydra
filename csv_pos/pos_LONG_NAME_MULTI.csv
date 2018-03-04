@@ -12,19 +12,19 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 1,is,VBZ,VERB,4,6,_,_,6,cop,_,_,Dr Juvenal Urbino is a character,False
 1,a,DT,DET,5,6,_,_,6,det,_,_,Dr Juvenal Urbino is a character,False
 1,character,NN,NOUN,6,6,_,_,0,ROOT,_,_,Dr Juvenal Urbino is a character,False
-2,M,NNP,NOUN,1,1,_,_,0,ROOT,_,_,M,False
-3,Pierre,NNP,NOUN,1,14,_,_,2,nn,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,Aronnax,NNP,NOUN,2,14,_,_,0,ROOT,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,,.,_,3,14,,,,_,2,punct,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,Professor,NNP,NOUN,4,14,_,_,2,appos,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,of,IN,ADP,5,14,_,_,4,prep,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,Natural,NNP,NOUN,6,14,_,_,7,amod,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,History,NN,NOUN,7,14,_,_,5,pobj,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,at,IN,ADP,8,14,_,_,4,prep,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,the,DT,DET,9,14,_,_,10,det,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,Museum,NNP,NOUN,10,14,_,_,8,pobj,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,of,IN,ADP,11,14,_,_,10,prep,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,Paris,NNP,NOUN,12,14,_,_,11,pobj,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,in,IN,ADP,13,14,_,_,10,prep,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,a,DT,DET,14,14,_,_,15,det,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
-3,book,NN,NOUN,15,14,_,_,13,pobj,_,_,"Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,M,NNP,NOUN,1,15,_,_,3,nn,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Pierre,NNP,NOUN,2,15,_,_,3,nn,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Aronnax,NNP,NOUN,3,15,_,_,0,ROOT,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,,.,_,4,15,,,,_,3,punct,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Professor,NNP,NOUN,5,15,_,_,3,appos,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,of,IN,ADP,6,15,_,_,5,prep,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Natural,NNP,NOUN,7,15,_,_,8,amod,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,History,NN,NOUN,8,15,_,_,6,pobj,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,at,IN,ADP,9,15,_,_,5,prep,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,the,DT,DET,10,15,_,_,11,det,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Museum,NNP,NOUN,11,15,_,_,9,pobj,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,of,IN,ADP,12,15,_,_,11,prep,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,Paris,NNP,NOUN,13,15,_,_,12,pobj,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,in,IN,ADP,14,15,_,_,5,prep,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,a,DT,DET,15,15,_,_,16,det,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
+2,book,NN,NOUN,16,15,_,_,14,pobj,_,_,"M Pierre Aronnax, Professor of Natural History at the Museum of Paris in a book",False
