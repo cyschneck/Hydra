@@ -13,7 +13,7 @@ import csv
 from datetime import datetime
 from collections import namedtuple, Counter
 import itertools
-from itertools import imap # set up namedtuple
+from itertools import imap, permutations # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
 import matplotlib
 matplotlib.use('Agg')
@@ -26,7 +26,36 @@ possessive_pronouns = "mine yours his hers ours theirs"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves"
 relative_pronouns = "that whic who whose whom where when"
 connecting_words = []#["of", "the"]
-words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR", "CHAPTER", "VOLUME", "MAN"]
+words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR", 
+				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
+				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
+				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
+				   "If"]
+
+words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
+
+words_to_ignore += ["Chapter {0}".format("".join(a)) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+words_to_ignore += ["Chapter {0}".format("".join(a)) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X']]
+
+words_to_ignore += ["Chapter {0}".format("".join(a)) for a in permutations(['1','2','3','4','5','6','7','8','9','10'], 2)]
+words_to_ignore += ["Chapter {0}".format("".join(a)) for a in ['1','2','3','4','5','6','7','8','9','10']]
+
+words_to_ignore += ["CHAPTER {0}".format("".join(a)) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+words_to_ignore += ["CHAPTER {0}".format("".join(a)) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X']]
+
+words_to_ignore += ["Volume {0}".format("".join(a)) for a in permutations(['1','2','3','4','5','6','7','8','9','10'], 2)]
+words_to_ignore += ["Volume {0}".format("".join(a)) for a in ['1','2','3','4','5','6','7','8','9','10']]
+
+words_to_ignore += ["Volume {0}".format("".join(a)) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+words_to_ignore += ["Volume {0}".format("".join(a)) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X']]
+
+words_to_ignore += ["VOLUME {0}".format("".join(a)) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+words_to_ignore += ["VOLUME {0}".format("".join(a)) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X']]
+
+words_to_ignore += ["VOLUME {0}".format("".join(a)) for a in permutations(['1','2','3','4','5','6','7','8','9','10'], 2)]
+words_to_ignore += ["VOLUME {0}".format("".join(a)) for a in ['1','2','3','4','5','6','7','8','9','10']]
+
 
 def readFile(filename):
 	file_remove_extra = []
@@ -229,9 +258,30 @@ def groupSimilarEntities(grouped_nouns_dict):
 			#print(i)
 			for gne_2 in gne_list_of_lists:
 				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
-					if i not in words_to_ignore and gne_2 not in words_to_ignore and len(i) > 1:
+					if len(i) > 1:
 						#print(i, gne_2)
-						sublist.append([i, gne_2])
+						#if found_words_to_ignore:
+						#	print("\tFOUND WORD={0}".format(found_words_to_ignore))
+						chapter_titles = ["CHAPTER", "Chapter", "Volume", "VOLUME"]
+						# only save words that don't include the chapter titles
+						found_in_i = any(val in chapter_titles for val in i.split())
+						found_in_gne2 = any(val in chapter_titles for val in gne_2.split())
+						if found_in_i or found_in_gne2:
+							# 'CHAPTER XXII Mr Rochester' -> 'Mr Rochester'
+							for title in chapter_titles:
+								if found_in_i:
+									#print(" ".join(i.split()[2:]))
+									i = " ".join(i.split()[2:])
+									break
+								if found_in_gne2:
+									#print(" ".join(gne_2.split()[2:]))
+									gne_2 = " ".join(gne_2.split()[2:])
+									break
+							if i != '' and gne_2 != '':
+								#print("FINAL APPEND={0}\n".format((i, gne_2)))
+								sublist.append([i, gne_2])
+						else:
+							sublist.append([i, gne_2])
 		subgrouping.append(sublist)
 	subgrouping = [x for x in subgrouping if x != []]
 
@@ -250,8 +300,44 @@ def groupSimilarEntities(grouped_nouns_dict):
 
 	final_grouping = sorted(final_grouping) # organize and sort
 	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
-	#print(final_grouping)
-	return final_grouping
+
+	#print([item for item in final_grouping if item not in words_to_ignore])
+	count = 0
+	character_group_list = []
+	# remove any word that is part of the 'words_to_ignore' list
+	for item in final_grouping:
+		sublist = []
+		if len(item) > 1:
+			for i in item:
+				if i in words_to_ignore:
+					count += 1
+					#print("in word to ignore = {0}".format(i))
+				else:
+					#print(i)
+					sublist.append(i)
+		if item[0] in words_to_ignore:
+			count += 1
+			if item[0] in words_to_ignore:
+				pass#print("in word to ignore = {0}".format(item[0]))
+			else:
+				#print(item[0])
+				sublist.append(item[0])
+		if sublist != []:
+			character_group_list.append(sublist)
+	character_group = [] # only save unquie lists
+	for i in character_group_list:
+		if i not in character_group:
+			character_group.append(i)
+	
+	#print("\nfinal group: \n{0}".format(final_grouping))
+	#print("\ncharacter group: \n{0}".format(character_group))
+	#print(len([item for item in final_grouping if item not in words_to_ignore]))
+	#print("\n")
+	#print(len(final_grouping))
+	#print(len(character_group))
+	#print("count = {0}".format(count))
+	#print(words_to_ignore)
+	return character_group
 
 def lookupSubDictionary(shared_ent):
 	# return a dictionary of proper nouns and surrounding values for one-shot look up
@@ -309,13 +395,13 @@ def findPronouns(pos_dict):
 def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, pos_dict):
 	# save into csv for manual labelling
 	# TODO: set up with average paragraph length as size_sentences
-	size_sentences = 21 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
+	size_sentences = 2100000000 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
 	rows_of_csv_tuple = csv_file.values()
 	all_sentences_in_csv = list(set([int(word.SENTENCE_INDEX) for word in csv_file.values()]))
-	'''
+
 	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
 		size_sentences = max(all_sentences_in_csv)+1
-	print("Size of sentences = {0}\n".format(size_sentences))
+	print("Size of sentence for manual tagging = {0}".format(size_sentences))
 	
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
@@ -325,7 +411,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	gne_index = 0 # display word of interst as [Name]_index
 	pronoun_index = 0 # display word of interst as [Pronoun]_index
 	for sentences_tag in sub_sentences_to_tag:
-		print(sentences_tag)
+		#print(sentences_tag)
 		if len(sentences_tag) == size_sentences: # ignores sentences at the end that aren't the right length
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
@@ -335,6 +421,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 
 				# TODO: PRONOUNS AND NOUNS DO NOT FIND IF THEY ARE PRECEDED OR FOLLOWS BY PUNCUATION
 				# TODO: Doesn't find all names in barrier and other text where it is present
+				# TODO: tag nouns with possesive: finds Scrooge and not Scrooge's
 
 				# tag pronouns first (from pos_dict)
 				if i in pos_dict.keys():
@@ -396,29 +483,87 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 					#print("largest gne index values ALL = {0}".format(all_index_values))
 					all_index_values = sorted([x for x in all_index_values if x not in to_remove]) # index in order based on start value
 					#print("shared (with removed encompassed) = {0}".format(all_index_values)) # remove all encompassed elements
-					for index_val in all_index_values:
-						print(new_sentence_to_add[index_val[0]:index_val[1]])
+					#for index_val in all_index_values:
+					#	# print out the names in the given text range
+					#	#print(new_sentence_to_add[index_val[0]:index_val[1]])
+					updated_index = []
 					new_characters_from_update = 0 # new characters to keep track of character length when indexing
+					repeats_to_find = []
 					for counter, index_val in enumerate(all_index_values):
 						if counter > 0:
-							new_characters_from_update = len("[]_n{0}".format(gne_index))*counter
+							new_characters_from_update = len("[]_n")*counter
 						start_word = index_val[0] + new_characters_from_update
 						end_word = index_val[1] + new_characters_from_update
-						replacement_string = "[{0}]_n{1}".format(new_sentence_to_add[start_word:end_word], gne_index)
+						updated_index.append([start_word, end_word])
+						find_repeats = new_sentence_to_add[start_word:end_word]
+						repeats_to_find.append(find_repeats)
+						replacement_string = "[{0}]_n".format(new_sentence_to_add[start_word:end_word])
 						new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
+						sub_counter = counter
+					# add repeated gne values
+					# if the same name appears more than once in a sentence
+					sub_counter = 0
+					new_characters_from_update = 0 # new characters to keep track of character length when indexing
+					for find_additional in repeats_to_find:
+						repeat_item = re.finditer(r"\b{0}\b".format(find_additional), new_sentence_to_add)
+						for m in repeat_item:
+							#index_to_check = [m.start(), m.end()]
+							if [m.start()-1,m.end()-1] not in updated_index: # check that name hasn't been already assigned
+								start_word = m.start() + new_characters_from_update
+								end_word = m.end() + new_characters_from_update
+								# TODO: capture possesive [Mrs Darling]_n's11 
+								replacement_string = "[{0}]_n".format(new_sentence_to_add[start_word:end_word])
+								new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
+								sub_counter += 1
+				new_sent = new_sentence_to_add.split()
+				# label all proper nouns with an associated index value for noun
+				for index, word_string in enumerate(new_sent):
+					if ']_n' in word_string:
+						print(word_string)
+						
+						new_sent[index] = '{0}{1}'.format(word_string, gne_index)
+						new_sentence_to_add = " ".join(new_sent)
 						gne_index += 1
 				sentences_in_order += new_sentence_to_add.strip() + '. '
-			print("\nFinal Sentence Format:\n{0}\n".format(sentences_in_order))
+				
+			#print("\nFinal Sentence Format:\n{0}\n".format(sentences_in_order))
+			print("\n")
+			saveTagforManualAccuracy(sentences_in_order)
 
+def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
-	#print("\nTESTING: TODO SAVE NOUN (proper/pronoun) to CSV for manual labeling, {0} sentences each".format(size_sentences))
-
-	output_filename = "manualTaggingPOS.csv"
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "manualTagging_{0}.csv".format(given_file.upper())
 
-	fieldnames = ['FILENAME', 'TEXT_SIZE', 
-				  'TEXT', 'PROPER_NOUN', 'PRONOUN']
-	#'''
+	fieldnames = ['FILENAME', 'TEXT',
+				  'FOUND_PROPER_NOUN', 'MISSED_PROPER_NOUN',
+				  'FOUND_PRONOUN', 'MISSED_PRONOUN']
+
+	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
+	split_sentences_in_list.remove(' .') # remove empty sentences
+	sentence_size = 10 # size of the sentence/paragraph saved in manual tagging
+	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
+	# range stores the sentences in list of list based on the size of tag
+
+	for sentence_tag in sentence_range:
+		print(''.join(sentence_tag))
+	#	print(''.join(sentence_tag).count("]_n"))
+	#	print(''.join(sentence_tag).count("]_p"))
+		print("\n")
+
+	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
+		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		# leave MISSED empty for manual tagging
+		for sentence_tag in sentence_range:
+			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
+							 'TEXT': ''.join(sentence_tag),
+							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count("]_n"),
+							 'MISSED_PROPER_NOUN': None,
+							 'FOUND_PRONOUN': ''.join(sentence_tag).count("]_p"),
+							 'MISSED_PRONOUN': None 
+							})
+	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
 ########################################################################
 # DATA ANAYLSIS
@@ -475,7 +620,7 @@ def saveDatatoCSV(filename, percentDict):
 				  'PROPER_NOUNS_IN_ALL_NOUNS']
 
 	if not os.path.isfile("plot_percent_data/{0}".format(output_filename)): # if it doesn't exist, create csv file with dict data
-		with open('cplot_percent_data/{0}'.format(output_filename), 'w') as noun_data:
+		with open('plot_percent_data/{0}'.format(output_filename), 'w') as noun_data:
 			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
 			writer.writeheader() 
 			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
@@ -602,6 +747,10 @@ def graphPOSdata(csv_data):
 	plt.savefig('plot_percent_data/proper_nouns_in_all_nouns.png')
 
 	print("DATA PLOT POS UPDATED")
+
+def ManualAccuracy(csv_data):
+	# create a graph for accuracy of set up
+	pass
 ########################################################################
 ## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech, filednames):
@@ -718,7 +867,7 @@ if __name__ == '__main__':
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
 	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
-	print("Characters in the text: {0}\n".format(character_entities_group))
+	#print("Characters in the text: {0}\n".format(character_entities_group))
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
@@ -740,15 +889,12 @@ if __name__ == '__main__':
 
 ########################################################################
 ## TODO: 
-	# TODO: set up text for manual labeling
 	# TODO: update plotting with sentence length
-	# TODO: test accuracy on sample page
 	# TODO: character should be taking actions and connect directly to the root, otherwise, remove
 	# TODO: split sentences with question marks (see 20k end)
 	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
 	# TODO: set up progress bar for proper noun and pronoun splicing for large text
 	# TODO: debug dialouge for "words" said person "words again"
-	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
 	# TODO: Predict name of first-person character
 
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
@@ -759,4 +905,3 @@ if __name__ == '__main__':
 	#print(loaded_gender_model.score(test_name))
 	#run gender tag once on the entire text, tag male/female and use for predictions
 	# TODO: predict gender with probailities to allow for abiguity
-
