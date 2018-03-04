@@ -65,10 +65,10 @@ Will only run the parser once, if the parser has been run already, the output wi
 
 ## Part of Speech Data
 
-![all_nouns_all_words](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/all_nouns_in_all_words.png)
-![pronouns_all_words](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/pronouns_in_all_words.png)
-![proper_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/proper_nouns_in_all_nouns.png)
-![regular_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/csv_percent_data/regular_nouns_in_all_nouns.png)
+![all_nouns_all_words](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/all_nouns_in_all_words.png)
+![pronouns_all_words](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/pronouns_in_all_words.png)
+![proper_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
+![regular_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
 
 
 ## Pre-Processing Text
@@ -122,27 +122,13 @@ The Hound of the Baskervilles (Doyle)
 
 The Sign of Four (Doyle)
 
-The Count of Monte Cristo (Dumas)
-
 The Man in the Iron Mask (Dumas)
 
 Autobiography of Benjamin Franklin (Franklin)
 
-The King James Version of the Bible
-
-Fairy Tales (Grimm)
-
-Beowulf (Hall)
-
 The Federalist Papers (Hamliton/Jay/Madison)
 
 The Scarlet Letter (Hawthorne)
-
-The Iliad (Homer)
-
-Les Miserables (Hugo)
-
-Ulysses (Joyce)
 
 The Trial (Kafka)
 
@@ -158,15 +144,11 @@ Le Morte d’Arthur v1 (Malory)
 
 Le Morte d’Arthur v2 (Malory)
 
-The Koran (Margoliouth/Rodwell)
-
 Moby Dick (Melville)
 
 The Raven (Poe)
 
 The Merry Adventures of Robin Hood (Pyle)
-
-Don Quixote (Saavedra)
 
 Frankenstein (Shelley)
 
