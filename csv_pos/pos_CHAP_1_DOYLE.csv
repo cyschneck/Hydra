@@ -1,0 +1,890 @@
+SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
+0,Chapter,NN,NOUN,1,2,_,_,0,ROOT,_,_,Chapter 1,False
+0,1,CD,NUM,2,2,_,_,1,num,_,_,Chapter 1,False
+1,Mr,NNP,NOUN,1,32,_,_,6,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,Sherlock,NNP,NOUN,2,32,_,_,6,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,Holmes,NNP,NOUN,3,32,_,_,6,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,Mr,NNP,NOUN,4,32,_,_,6,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,Sherlock,NNP,NOUN,5,32,_,_,6,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,Holmes,NNP,NOUN,6,32,_,_,17,nsubj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,,.,_,7,32,,,,_,6,punct,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,who,WP,PRON,8,32,_,_,12,nsubj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,was,VBD,VERB,9,32,_,_,12,cop,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,usually,RB,ADV,10,32,_,_,12,advmod,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,very,RB,ADV,11,32,_,_,12,advmod,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,late,RB,ADV,12,32,_,_,6,rcmod,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,in,IN,ADP,13,32,_,_,12,prep,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,the,DT,DET,14,32,_,_,15,det,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,mornings,NNS,NOUN,15,32,_,_,13,pobj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,,.,_,16,32,,,,_,17,punct,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,save,VB,VERB,17,32,_,_,0,ROOT,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,upon,IN,ADP,18,32,_,_,17,prep,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,those,DT,DET,19,32,_,_,22,det,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,not,RB,ADV,20,32,_,_,21,neg,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,infrequent,JJ,ADJ,21,32,_,_,22,amod,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,occasions,NNS,NOUN,22,32,_,_,18,pobj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,when,WRB,ADV,23,32,_,_,25,advmod,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,he,PRP,PRON,24,32,_,_,25,nsubj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,was,VBD,VERB,25,32,_,_,17,advcl,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,up,IN,ADP,26,32,_,_,25,prep,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,all,DT,DET,27,32,_,_,28,det,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,night,NN,NOUN,28,32,_,_,26,pobj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,,.,_,29,32,,,,_,17,punct,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,was,VBD,VERB,30,32,_,_,31,auxpass,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,seated,VBN,VERB,31,32,_,_,17,dep,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,at,IN,ADP,32,32,_,_,31,prep,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,the,DT,DET,33,32,_,_,35,det,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,breakfast,NN,NOUN,34,32,_,_,35,nn,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+1,table,NN,NOUN,35,32,_,_,32,pobj,_,_,"Mr Sherlock Holmes    Mr Sherlock Holmes, who was usually very late in the mornings, save upon those not infrequent occasions when he was up all night, was seated at the breakfast table",False
+2,I,PRP,PRON,1,20,_,_,2,nsubj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,stood,VBD,VERB,2,20,_,_,0,ROOT,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,upon,IN,ADP,3,20,_,_,2,prep,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,the,DT,DET,4,20,_,_,5,det,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,hearth-rug,NN,NOUN,5,20,_,_,3,pobj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,and,CC,CONJ,6,20,_,_,2,cc,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,picked,VBD,VERB,7,20,_,_,2,conj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,up,RP,PRT,8,20,_,_,7,prt,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,the,DT,DET,9,20,_,_,10,det,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,stick,NN,NOUN,10,20,_,_,7,dobj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,which,WDT,DET,11,20,_,_,15,dobj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,our,PRP$,PRON,12,20,_,_,13,poss,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,visitor,NN,NOUN,13,20,_,_,15,nsubj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,had,VBD,VERB,14,20,_,_,15,aux,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,left,VBN,VERB,15,20,_,_,10,rcmod,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,behind,IN,ADP,16,20,_,_,15,prep,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,him,PRP,PRON,17,20,_,_,16,pobj,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,the,DT,DET,18,20,_,_,19,det,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,night,NN,NOUN,19,20,_,_,20,npadvmod,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+2,before,IN,ADP,20,20,_,_,15,advmod,_,_,I stood upon the hearth-rug and picked up the stick which our visitor had left behind him the night before,False
+3,It,PRP,PRON,1,17,_,_,7,nsubj,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,was,VBD,VERB,2,17,_,_,7,cop,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,a,DT,DET,3,17,_,_,7,det,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,fine,JJ,ADJ,4,17,_,_,7,amod,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,,.,_,5,17,,,,_,7,punct,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,thick,JJ,ADJ,6,17,_,_,7,amod,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,piece,NN,NOUN,7,17,_,_,0,ROOT,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,of,IN,ADP,8,17,_,_,7,prep,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,wood,NN,NOUN,9,17,_,_,8,pobj,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,,.,_,10,17,,,,_,9,punct,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,bulbous-headed,VBN,VERB,11,17,_,_,9,partmod,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,,.,_,12,17,,,,_,9,punct,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,of,IN,ADP,13,17,_,_,9,prep,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,the,DT,DET,14,17,_,_,15,det,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,sort,NN,NOUN,15,17,_,_,13,pobj,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,which,WDT,DET,16,17,_,_,18,nsubjpass,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,is,VBZ,VERB,17,17,_,_,18,auxpass,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,known,VBN,VERB,18,17,_,_,15,rcmod,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,as,IN,ADP,19,17,_,_,18,prep,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+3,a,DT,DET,20,17,_,_,19,pobj,_,_,"It was a fine, thick piece of wood, bulbous-headed, of the sort which is known as a ",False
+4,``,``,.,1,2,_,_,3,punct,_,_,"""Penang lawyer",True
+4,Penang,NNP,NOUN,2,2,_,_,3,nn,_,_,"""Penang lawyer",True
+4,lawyer,NN,NOUN,3,2,_,_,0,ROOT,_,_,"""Penang lawyer",True
+5,``,``,.,1,1,_,_,0,ROOT,_,_,"""",True
+6,Just,RB,ADV,1,13,_,_,2,advmod,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,under,IN,ADP,2,13,_,_,5,prep,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,the,DT,DET,3,13,_,_,4,det,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,head,NN,NOUN,4,13,_,_,2,pobj,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,was,VBD,VERB,5,13,_,_,0,ROOT,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,a,DT,DET,6,13,_,_,9,det,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,broad,JJ,ADJ,7,13,_,_,9,amod,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,silver,NN,NOUN,8,13,_,_,9,amod,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,band,NN,NOUN,9,13,_,_,5,nsubj,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,nearly,RB,ADV,10,13,_,_,12,advmod,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,an,DT,DET,11,13,_,_,12,det,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,inch,NN,NOUN,12,13,_,_,13,npadvmod,_,_,Just under the head was a broad silver band nearly an inch across,False
+6,across,IN,ADP,13,13,_,_,9,advmod,_,_,Just under the head was a broad silver band nearly an inch across,False
+7,``,``,.,1,4,_,_,6,punct,_,_,"""To James Mortimer, M",True
+7,To,IN,ADP,2,4,_,_,6,prep,_,_,"""To James Mortimer, M",True
+7,James,NNP,NOUN,3,4,_,_,4,nn,_,_,"""To James Mortimer, M",True
+7,Mortimer,NNP,NOUN,4,4,_,_,2,pobj,_,_,"""To James Mortimer, M",True
+7,,.,_,5,4,,,,_,6,punct,"""To James Mortimer, M",True
+7,M,NNP,NOUN,6,4,_,_,0,ROOT,_,_,"""To James Mortimer, M",True
+8,R,NNP,NOUN,1,1,_,_,0,ROOT,_,_,R,False
+9,C,NNP,NOUN,1,1,_,_,0,ROOT,_,_,C,False
+10,S,NNP,NOUN,1,1,_,_,0,ROOT,_,_,S,False
+11,,.,_,1,7,,,,_,2,punct,", from his friends of the C",False
+11,from,IN,ADP,2,7,_,_,0,ROOT,_,_,", from his friends of the C",False
+11,his,PRP$,PRON,3,7,_,_,4,poss,_,_,", from his friends of the C",False
+11,friends,NNS,NOUN,4,7,_,_,2,pobj,_,_,", from his friends of the C",False
+11,of,IN,ADP,5,7,_,_,4,prep,_,_,", from his friends of the C",False
+11,the,DT,DET,6,7,_,_,7,det,_,_,", from his friends of the C",False
+11,C,NN,NOUN,7,7,_,_,5,pobj,_,_,", from his friends of the C",False
+12,C,NNP,NOUN,1,1,_,_,0,ROOT,_,_,C,False
+13,H,NNP,NOUN,1,1,_,_,0,ROOT,_,_,H,False
+14,,.,_,1,1,,,,_,0,ROOT,",""",True
+14,'','',.,2,1,_,_,1,punct,_,_,",""",True
+15,was,VBD,VERB,1,7,_,_,2,auxpass,_,_,"was engraved upon it, with the date ",False
+15,engraved,VBN,VERB,2,7,_,_,0,ROOT,_,_,"was engraved upon it, with the date ",False
+15,upon,IN,ADP,3,7,_,_,2,prep,_,_,"was engraved upon it, with the date ",False
+15,it,PRP,PRON,4,7,_,_,3,pobj,_,_,"was engraved upon it, with the date ",False
+15,,.,_,5,7,,,,_,2,punct,"was engraved upon it, with the date ",False
+15,with,IN,ADP,6,7,_,_,2,prep,_,_,"was engraved upon it, with the date ",False
+15,the,DT,DET,7,7,_,_,8,det,_,_,"was engraved upon it, with the date ",False
+15,date,NN,NOUN,8,7,_,_,6,pobj,_,_,"was engraved upon it, with the date ",False
+16,``,``,.,1,1,_,_,2,punct,_,_,"""1884",True
+16,1884,CD,NUM,2,1,_,_,0,ROOT,_,_,"""1884",True
+17,``,``,.,1,1,_,_,0,ROOT,_,_,"""",True
+18,It,PRP,PRON,1,18,_,_,6,nsubj,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,was,VBD,VERB,2,18,_,_,6,cop,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,just,RB,ADV,3,18,_,_,6,advmod,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,such,PDT,DET,4,18,_,_,6,predet,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,a,DT,DET,5,18,_,_,6,det,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,stick,NN,NOUN,6,18,_,_,0,ROOT,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,as,IN,ADP,7,18,_,_,6,prep,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,the,DT,DET,8,18,_,_,11,det,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,old-fashioned,JJ,ADJ,9,18,_,_,11,amod,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,family,NN,NOUN,10,18,_,_,11,nn,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,practitioner,NN,NOUN,11,18,_,_,7,pobj,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,used,VBN,VERB,12,18,_,_,11,partmod,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,to,TO,PRT,13,18,_,_,14,aux,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,carry,VB,VERB,14,18,_,_,12,xcomp,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,,.,_,15,18,,,,_,14,punct,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,dignified,JJ,ADJ,16,18,_,_,14,conj,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,,.,_,17,18,,,,_,14,punct,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,solid,JJ,ADJ,18,18,_,_,14,conj,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,,.,_,19,18,,,,_,14,punct,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,and,CC,CONJ,20,18,_,_,14,cc,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+18,reassuring,VBG,VERB,21,18,_,_,14,conj,_,_,"It was just such a stick as the old-fashioned family practitioner used to carry, dignified, solid, and reassuring",False
+19,``,``,.,1,26,_,_,9,punct,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,Well,UH,X,2,26,_,_,9,discourse,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,,.,_,3,26,,,,_,9,punct,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,Watson,NNP,NOUN,4,26,_,_,9,dep,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,,.,_,5,26,,,,_,9,punct,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,what,WP,PRON,6,26,_,_,9,dobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,do,VBP,VERB,7,26,_,_,9,aux,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,you,PRP,PRON,8,26,_,_,9,nsubj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,make,VB,VERB,9,26,_,_,0,ROOT,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,of,IN,ADP,10,26,_,_,9,prep,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,it,PRP,PRON,11,26,_,_,10,pobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,?,.,.,12,26,_,_,9,punct,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,Holmes,NNP,NOUN,13,26,_,_,15,nsubj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,was,VBD,VERB,14,26,_,_,15,aux,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,sitting,VBG,VERB,15,26,_,_,9,parataxis,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,with,IN,ADP,16,26,_,_,15,prep,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,his,PRP$,PRON,17,26,_,_,18,poss,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,back,NN,NOUN,18,26,_,_,16,pobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,to,IN,ADP,19,26,_,_,18,prep,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,me,PRP,PRON,20,26,_,_,19,pobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,,.,_,21,26,,,,_,15,punct,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,and,CC,CONJ,22,26,_,_,15,cc,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,I,PRP,PRON,23,26,_,_,25,nsubj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,had,VBD,VERB,24,26,_,_,25,aux,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,given,VBN,VERB,25,26,_,_,15,conj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,him,PRP,PRON,26,26,_,_,25,iobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,no,DT,DET,27,26,_,_,28,det,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,sign,NN,NOUN,28,26,_,_,25,dobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,of,IN,ADP,29,26,_,_,28,prep,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,my,PRP$,PRON,30,26,_,_,31,poss,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+19,occupation,NN,NOUN,31,26,_,_,29,pobj,_,_,"""Well, Watson, what do you make of it?   Holmes was sitting with his back to me, and I had given him no sign of my occupation",True
+20,``,``,.,1,19,_,_,12,punct,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,How,WRB,ADV,2,19,_,_,5,advmod,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,did,VBD,VERB,3,19,_,_,5,aux,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,you,PRP,PRON,4,19,_,_,5,nsubj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,know,VB,VERB,5,19,_,_,12,advcl,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,what,WP,PRON,6,19,_,_,9,dobj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,I,PRP,PRON,7,19,_,_,9,nsubj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,was,VBD,VERB,8,19,_,_,9,aux,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,doing,VBG,VERB,9,19,_,_,5,ccomp,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,?,.,.,10,19,_,_,12,punct,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,I,PRP,PRON,11,19,_,_,12,nsubj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,believe,VBP,VERB,12,19,_,_,0,ROOT,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,you,PRP,PRON,13,19,_,_,14,nsubj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,have,VBP,VERB,14,19,_,_,12,ccomp,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,eyes,NNS,NOUN,15,19,_,_,14,dobj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,in,IN,ADP,16,19,_,_,15,prep,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,the,DT,DET,17,19,_,_,18,det,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,back,NN,NOUN,18,19,_,_,16,pobj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,of,IN,ADP,19,19,_,_,18,prep,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,your,PRP$,PRON,20,19,_,_,21,poss,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+20,head,NN,NOUN,21,19,_,_,19,pobj,_,_,"""How did you know what I was doing? I believe you have eyes in the back of your head",True
+21,``,``,.,1,12,_,_,12,punct,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,I,PRP,PRON,2,12,_,_,12,nsubj,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,have,VBP,VERB,3,12,_,_,12,aux,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,,.,_,4,12,,,,_,12,punct,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,at,RB,ADV,5,12,_,_,6,advmod,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,least,RBS,ADV,6,12,_,_,12,advmod,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,,.,_,7,12,,,,_,12,punct,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,a,DT,DET,8,12,_,_,12,det,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,well-polished,JJ,ADJ,9,12,_,_,12,amod,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,,.,_,10,12,,,,_,12,punct,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,silver-plated,VBN,VERB,11,12,_,_,12,amod,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,coffee-pot,NN,NOUN,12,12,_,_,0,ROOT,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,in,IN,ADP,13,12,_,_,12,prep,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,front,NN,NOUN,14,12,_,_,13,pobj,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,of,IN,ADP,15,12,_,_,14,prep,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,me,PRP,PRON,16,12,_,_,15,pobj,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,,.,_,17,12,,,,_,12,punct,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+21,'','',.,18,12,_,_,12,punct,_,_,"""I have, at least, a well-polished, silver-plated coffee-pot in front of me,""",True
+22,said,VBD,VERB,1,2,_,_,0,ROOT,_,_,said he,False
+22,he,PRP,PRON,2,2,_,_,1,nsubj,_,_,said he,False
+23,``,``,.,1,35,_,_,4,punct,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,But,CC,CONJ,2,35,_,_,4,cc,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,,.,_,3,35,,,,_,4,punct,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,tell,VB,VERB,4,35,_,_,0,ROOT,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,me,PRP,PRON,5,35,_,_,4,dobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,,.,_,6,35,,,,_,4,punct,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,Watson,NNP,NOUN,7,35,_,_,4,dobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,,.,_,8,35,,,,_,4,punct,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,what,WP,PRON,9,35,_,_,12,dobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,do,VBP,VERB,10,35,_,_,12,aux,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,you,PRP,PRON,11,35,_,_,12,nsubj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,make,VB,VERB,12,35,_,_,4,ccomp,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,of,IN,ADP,13,35,_,_,12,prep,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,our,PRP$,PRON,14,35,_,_,15,poss,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,visitor,NN,NOUN,15,35,_,_,17,poss,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,'s,POS,PRT,16,35,_,_,15,possessive,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,stick,NN,NOUN,17,35,_,_,13,pobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,?,.,.,18,35,_,_,4,punct,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,Since,IN,ADP,19,35,_,_,24,mark,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,we,PRP,PRON,20,35,_,_,24,nsubj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,have,VBP,VERB,21,35,_,_,24,aux,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,been,VBN,VERB,22,35,_,_,24,cop,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,so,RB,ADV,23,35,_,_,24,advmod,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,unfortunate,JJ,ADJ,24,35,_,_,40,advcl,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,as,IN,ADP,25,35,_,_,27,mark,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,to,TO,PRT,26,35,_,_,27,aux,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,miss,VB,VERB,27,35,_,_,24,dep,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,him,PRP,PRON,28,35,_,_,27,dobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,and,CC,CONJ,29,35,_,_,27,cc,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,have,VBP,VERB,30,35,_,_,27,conj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,no,DT,DET,31,35,_,_,32,det,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,notion,NN,NOUN,32,35,_,_,30,dobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,of,IN,ADP,33,35,_,_,32,prep,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,his,PRP$,PRON,34,35,_,_,35,poss,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,errand,NN,NOUN,35,35,_,_,33,pobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,,.,_,36,35,,,,_,40,punct,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,this,DT,DET,37,35,_,_,39,det,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,accidental,JJ,ADJ,38,35,_,_,39,amod,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,souvenir,NN,NOUN,39,35,_,_,40,nsubj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,becomes,VBZ,VERB,40,35,_,_,4,parataxis,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,of,IN,ADP,41,35,_,_,40,prep,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+23,importance,NN,NOUN,42,35,_,_,41,pobj,_,_,"""But, tell me, Watson, what do you make of our visitor's stick? Since we have been so unfortunate as to miss him and have no notion of his errand, this accidental souvenir becomes of importance",True
+24,Let,VB,VERB,1,12,_,_,0,ROOT,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,me,PRP,PRON,2,12,_,_,3,nsubj,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,hear,VB,VERB,3,12,_,_,1,ccomp,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,you,PRP,PRON,4,12,_,_,5,nsubj,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,reconstruct,VB,VERB,5,12,_,_,3,ccomp,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,the,DT,DET,6,12,_,_,7,det,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,man,NN,NOUN,7,12,_,_,5,dobj,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,by,IN,ADP,8,12,_,_,5,prep,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,an,DT,DET,9,12,_,_,10,det,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,examination,NN,NOUN,10,12,_,_,8,pobj,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,of,IN,ADP,11,12,_,_,10,prep,_,_,Let me hear you reconstruct the man by an examination of it,False
+24,it,PRP,PRON,12,12,_,_,11,pobj,_,_,Let me hear you reconstruct the man by an examination of it,False
+25,``,``,.,1,2,_,_,3,punct,_,_,"""I think,""",True
+25,I,PRP,PRON,2,2,_,_,3,nsubj,_,_,"""I think,""",True
+25,think,VBP,VERB,3,2,_,_,0,ROOT,_,_,"""I think,""",True
+25,,.,_,4,2,,,,_,3,punct,"""I think,""",True
+25,'','',.,5,2,_,_,3,punct,_,_,"""I think,""",True
+26,said,VBD,VERB,1,13,_,_,0,ROOT,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,I,PRP,PRON,2,13,_,_,1,nsubj,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,,.,_,3,13,,,,_,1,punct,"said I, following as far as I could the methods of my companion, ",False
+26,following,VBG,VERB,4,13,_,_,1,xcomp,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,as,RB,ADV,5,13,_,_,6,advmod,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,far,RB,ADV,6,13,_,_,4,advmod,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,as,IN,ADP,7,13,_,_,9,mark,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,I,PRP,PRON,8,13,_,_,9,nsubj,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,could,MD,VERB,9,13,_,_,6,ccomp,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,the,DT,DET,10,13,_,_,11,det,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,methods,NNS,NOUN,11,13,_,_,9,dobj,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,of,IN,ADP,12,13,_,_,11,prep,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,my,PRP$,PRON,13,13,_,_,14,poss,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,companion,NN,NOUN,14,13,_,_,12,pobj,_,_,"said I, following as far as I could the methods of my companion, ",False
+26,,.,_,15,13,,,,_,1,punct,"said I, following as far as I could the methods of my companion, ",False
+27,``,``,.,1,22,_,_,11,punct,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,that,IN,ADP,2,22,_,_,11,mark,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,Dr,NNP,NOUN,3,22,_,_,4,nn,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,Mortimer,NNP,NOUN,4,22,_,_,11,nsubj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,is,VBZ,VERB,5,22,_,_,11,cop,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,a,DT,DET,6,22,_,_,11,det,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,successful,JJ,ADJ,7,22,_,_,11,amod,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,,.,_,8,22,,,,_,11,punct,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,elderly,JJ,ADJ,9,22,_,_,11,amod,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,medical,JJ,ADJ,10,22,_,_,11,amod,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,man,NN,NOUN,11,22,_,_,0,ROOT,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,,.,_,12,22,,,,_,11,punct,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,well-esteemed,VBN,VERB,13,22,_,_,11,partmod,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,since,IN,ADP,14,22,_,_,13,prep,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,those,DT,DET,15,22,_,_,14,pobj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,who,WP,PRON,16,22,_,_,17,nsubj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,know,VBP,VERB,17,22,_,_,15,rcmod,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,him,PRP,PRON,18,22,_,_,19,nsubj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,give,VB,VERB,19,22,_,_,17,ccomp,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,him,PRP,PRON,20,22,_,_,19,iobj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,this,DT,DET,21,22,_,_,22,det,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,mark,NN,NOUN,22,22,_,_,19,dobj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,of,IN,ADP,23,22,_,_,22,prep,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,their,PRP$,PRON,24,22,_,_,25,poss,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+27,appreciation,NN,NOUN,25,22,_,_,23,pobj,_,_,"""that Dr Mortimer is a successful, elderly medical man, well-esteemed since those who know him give him this mark of their appreciation",True
+28,``,``,.,1,1,_,_,2,punct,_,_,"""Good!""",True
+28,Good,JJ,ADJ,2,1,_,_,0,ROOT,_,_,"""Good!""",True
+28,!,.,.,3,1,_,_,2,punct,_,_,"""Good!""",True
+28,'','',.,4,1,_,_,2,punct,_,_,"""Good!""",True
+29,said,VBD,VERB,1,2,_,_,0,ROOT,_,_,said Holmes,False
+29,Holmes,NNP,NOUN,2,2,_,_,1,nsubj,_,_,said Holmes,False
+30,``,``,.,1,1,_,_,2,punct,_,_,"""Excellent!   ",True
+30,Excellent,JJ,ADJ,2,1,_,_,0,ROOT,_,_,"""Excellent!   ",True
+30,!,.,.,3,1,_,_,2,punct,_,_,"""Excellent!   ",True
+31,``,``,.,1,25,_,_,3,punct,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,I,PRP,PRON,2,25,_,_,3,nsubj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,think,VBP,VERB,3,25,_,_,0,ROOT,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,also,RB,ADV,4,25,_,_,3,advmod,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,that,IN,ADP,5,25,_,_,8,mark,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,the,DT,DET,6,25,_,_,7,det,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,probability,NN,NOUN,7,25,_,_,8,nsubj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,is,VBZ,VERB,8,25,_,_,3,ccomp,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,in,IN,ADP,9,25,_,_,8,prep,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,favour,NN,NOUN,10,25,_,_,9,pobj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,of,IN,ADP,11,25,_,_,10,prep,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,his,PRP$,PRON,12,25,_,_,16,nsubj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,being,VBG,VERB,13,25,_,_,16,cop,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,a,DT,DET,14,25,_,_,16,det,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,country,NN,NOUN,15,25,_,_,16,nn,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,practitioner,NN,NOUN,16,25,_,_,11,pcomp,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,who,WP,PRON,17,25,_,_,18,nsubj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,does,VBZ,VERB,18,25,_,_,16,rcmod,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,a,DT,DET,19,25,_,_,21,det,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,great,JJ,ADJ,20,25,_,_,21,amod,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,deal,NN,NOUN,21,25,_,_,18,dobj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,of,IN,ADP,22,25,_,_,21,prep,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,his,PRP$,PRON,23,25,_,_,24,nsubj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,visiting,VBG,VERB,24,25,_,_,22,pcomp,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,on,IN,ADP,25,25,_,_,24,prep,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+31,foot,NN,NOUN,26,25,_,_,25,pobj,_,_,"""I think also that the probability is in favour of his being a country practitioner who does a great deal of his visiting on foot",True
+32,``,``,.,1,2,_,_,3,punct,_,_,"""Why so?   ",True
+32,Why,WRB,ADV,2,2,_,_,3,advmod,_,_,"""Why so?   ",True
+32,so,RB,ADV,3,2,_,_,0,ROOT,_,_,"""Why so?   ",True
+32,?,.,.,4,2,_,_,3,punct,_,_,"""Why so?   ",True
+33,``,``,.,1,24,_,_,0,ROOT,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,Because,IN,ADP,2,24,_,_,4,mark,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,this,DT,DET,3,24,_,_,4,nsubj,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,stick,NN,NOUN,4,24,_,_,15,advcl,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,,.,_,5,24,,,,_,15,punct,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,though,IN,ADP,6,24,_,_,15,mark,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,originally,RB,ADV,7,24,_,_,15,advmod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,a,DT,DET,8,24,_,_,11,det,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,very,RB,ADV,9,24,_,_,10,advmod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,handsome,JJ,ADJ,10,24,_,_,11,amod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,one,CD,NUM,11,24,_,_,15,nsubjpass,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,has,VBZ,VERB,12,24,_,_,15,aux,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,been,VBN,VERB,13,24,_,_,15,auxpass,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,so,RB,ADV,14,24,_,_,15,advmod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,knocked,VBN,VERB,15,24,_,_,1,dep,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,about,IN,ADP,16,24,_,_,15,dep,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,that,IN,ADP,17,24,_,_,21,mark,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,I,PRP,PRON,18,24,_,_,21,nsubj,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,can,MD,VERB,19,24,_,_,21,aux,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,hardly,RB,ADV,20,24,_,_,21,advmod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,imagine,VB,VERB,21,24,_,_,15,ccomp,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,a,DT,DET,22,24,_,_,24,det,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,town,NN,NOUN,23,24,_,_,24,nn,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,practitioner,NN,NOUN,24,24,_,_,21,dobj,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,carrying,VBG,VERB,25,24,_,_,24,partmod,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+33,it,PRP,PRON,26,24,_,_,25,dobj,_,_,"""Because this stick, though originally a very handsome one has been so knocked about that I can hardly imagine a town practitioner carrying it",True
+34,The,DT,DET,1,21,_,_,3,det,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,thick-iron,NNP,NOUN,2,21,_,_,3,nn,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,ferrule,NN,NOUN,3,21,_,_,5,nsubjpass,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,is,VBZ,VERB,4,21,_,_,5,auxpass,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,worn,VBN,VERB,5,21,_,_,0,ROOT,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,down,RP,PRT,6,21,_,_,5,prt,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,,.,_,7,21,,,,_,5,punct,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,so,CC,CONJ,8,21,_,_,5,cc,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,it,PRP,PRON,9,21,_,_,11,nsubj,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,is,VBZ,VERB,10,21,_,_,11,cop,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,evident,JJ,ADJ,11,21,_,_,5,conj,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,that,IN,ADP,12,21,_,_,15,mark,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,he,PRP,PRON,13,21,_,_,15,nsubj,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,has,VBZ,VERB,14,21,_,_,15,aux,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,done,VBN,VERB,15,21,_,_,11,ccomp,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,a,DT,DET,16,21,_,_,18,det,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,great,JJ,ADJ,17,21,_,_,18,amod,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,amount,NN,NOUN,18,21,_,_,15,dobj,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,of,IN,ADP,19,21,_,_,18,prep,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,walking,VBG,VERB,20,21,_,_,19,pcomp,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,with,IN,ADP,21,21,_,_,20,prep,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+34,it,PRP,PRON,22,21,_,_,21,pobj,_,_,"The thick-iron ferrule is worn down, so it is evident that he has done a great amount of walking with it",False
+35,``,``,.,1,2,_,_,3,punct,_,_,"""Perfectly sound!""",True
+35,Perfectly,RB,ADV,2,2,_,_,3,advmod,_,_,"""Perfectly sound!""",True
+35,sound,JJ,ADJ,3,2,_,_,0,ROOT,_,_,"""Perfectly sound!""",True
+35,!,.,.,4,2,_,_,3,punct,_,_,"""Perfectly sound!""",True
+35,'','',.,5,2,_,_,3,punct,_,_,"""Perfectly sound!""",True
+36,said,VBD,VERB,1,2,_,_,0,ROOT,_,_,said Holmes,False
+36,Holmes,NNP,NOUN,2,2,_,_,1,nsubj,_,_,said Holmes,False
+37,``,``,.,1,10,_,_,7,punct,_,_,"""And then again, there is the friends of the C",True
+37,And,CC,CONJ,2,10,_,_,7,cc,_,_,"""And then again, there is the friends of the C",True
+37,then,RB,ADV,3,10,_,_,4,advmod,_,_,"""And then again, there is the friends of the C",True
+37,again,RB,ADV,4,10,_,_,7,advmod,_,_,"""And then again, there is the friends of the C",True
+37,,.,_,5,10,,,,_,7,punct,"""And then again, there is the friends of the C",True
+37,there,EX,DET,6,10,_,_,7,expl,_,_,"""And then again, there is the friends of the C",True
+37,is,VBZ,VERB,7,10,_,_,0,ROOT,_,_,"""And then again, there is the friends of the C",True
+37,the,DT,DET,8,10,_,_,9,det,_,_,"""And then again, there is the friends of the C",True
+37,friends,NNS,NOUN,9,10,_,_,7,nsubj,_,_,"""And then again, there is the friends of the C",True
+37,of,IN,ADP,10,10,_,_,9,prep,_,_,"""And then again, there is the friends of the C",True
+37,the,DT,DET,11,10,_,_,12,det,_,_,"""And then again, there is the friends of the C",True
+37,C,NN,NOUN,12,10,_,_,10,pobj,_,_,"""And then again, there is the friends of the C",True
+38,C,NNP,NOUN,1,1,_,_,0,ROOT,_,_,C,False
+39,H,NNP,NOUN,1,1,_,_,0,ROOT,_,_,H,False
+40,',``,.,1,33,_,_,4,punct,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,I,PRP,PRON,2,33,_,_,4,nsubj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,should,MD,VERB,3,33,_,_,4,aux,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,guess,VB,VERB,4,33,_,_,0,ROOT,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,that,DT,DET,5,33,_,_,10,mark,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,to,TO,PRT,6,33,_,_,10,aux,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,be,VB,VERB,7,33,_,_,10,cop,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,the,DT,DET,8,33,_,_,10,det,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,Something,NNP,NOUN,9,33,_,_,10,nn,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,Hunt,NNP,NOUN,10,33,_,_,4,ccomp,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,,.,_,11,33,,,,_,10,punct,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,the,DT,DET,12,33,_,_,14,det,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,local,JJ,ADJ,13,33,_,_,14,amod,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,hunt,NN,NOUN,14,33,_,_,10,appos,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,to,IN,ADP,15,33,_,_,14,prep,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,whose,WP$,PRON,16,33,_,_,17,poss,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,members,NNS,NOUN,17,33,_,_,15,pobj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,he,PRP,PRON,18,33,_,_,21,nsubj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,has,VBZ,VERB,19,33,_,_,21,aux,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,possibly,RB,ADV,20,33,_,_,21,advmod,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,given,VBN,VERB,21,33,_,_,10,dep,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,some,DT,DET,22,33,_,_,24,det,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,surgical,JJ,ADJ,23,33,_,_,24,amod,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,assistance,NN,NOUN,24,33,_,_,21,dobj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,,.,_,25,33,,,,_,10,punct,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,and,CC,CONJ,26,33,_,_,10,cc,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,which,WDT,DET,27,33,_,_,29,nsubj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,has,VBZ,VERB,28,33,_,_,29,aux,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,made,VBN,VERB,29,33,_,_,10,conj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,him,PRP,PRON,30,33,_,_,33,nsubj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,a,DT,DET,31,33,_,_,33,det,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,small,JJ,ADJ,32,33,_,_,33,amod,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,presentation,NN,NOUN,33,33,_,_,29,xcomp,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,in,IN,ADP,34,33,_,_,33,prep,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+40,return,NN,NOUN,35,33,_,_,34,pobj,_,_,"' I should guess that to be the Something Hunt, the local hunt to whose members he has possibly given some surgical assistance, and which has made him a small presentation in return",False
+41,``,``,.,1,5,_,_,7,punct,_,_,"""Really, Watson, you excel yourself,""",True
+41,Really,RB,ADV,2,5,_,_,7,advmod,_,_,"""Really, Watson, you excel yourself,""",True
+41,,.,_,3,5,,,,_,7,punct,"""Really, Watson, you excel yourself,""",True
+41,Watson,NNP,NOUN,4,5,_,_,7,nsubj,_,_,"""Really, Watson, you excel yourself,""",True
+41,,.,_,5,5,,,,_,7,punct,"""Really, Watson, you excel yourself,""",True
+41,you,PRP,PRON,6,5,_,_,7,nsubj,_,_,"""Really, Watson, you excel yourself,""",True
+41,excel,VBP,VERB,7,5,_,_,0,ROOT,_,_,"""Really, Watson, you excel yourself,""",True
+41,yourself,PRP,PRON,8,5,_,_,7,dobj,_,_,"""Really, Watson, you excel yourself,""",True
+41,,.,_,9,5,,,,_,7,punct,"""Really, Watson, you excel yourself,""",True
+41,'','',.,10,5,_,_,7,punct,_,_,"""Really, Watson, you excel yourself,""",True
+42,said,VBD,VERB,1,10,_,_,0,ROOT,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,Holmes,NNP,NOUN,2,10,_,_,1,nsubj,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,,.,_,3,10,,,,_,1,punct,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,pushing,VBG,VERB,4,10,_,_,1,ccomp,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,back,RP,PRT,5,10,_,_,4,advmod,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,his,PRP$,PRON,6,10,_,_,7,poss,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,chair,NN,NOUN,7,10,_,_,4,dobj,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,and,CC,CONJ,8,10,_,_,4,cc,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,lighting,VBG,VERB,9,10,_,_,4,conj,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,a,DT,DET,10,10,_,_,11,det,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+42,cigarette,NN,NOUN,11,10,_,_,9,dobj,_,_,"said Holmes, pushing back his chair and lighting a cigarette",False
+43,``,``,.,1,31,_,_,4,punct,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,I,PRP,PRON,2,31,_,_,4,nsubjpass,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,am,VBP,VERB,3,31,_,_,4,auxpass,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,bound,VBN,VERB,4,31,_,_,0,ROOT,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,to,TO,PRT,5,31,_,_,6,aux,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,say,VB,VERB,6,31,_,_,4,xcomp,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,that,IN,ADP,7,31,_,_,6,dobj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,in,IN,ADP,8,31,_,_,7,prep,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,all,PDT,DET,9,31,_,_,11,predet,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,the,DT,DET,10,31,_,_,11,det,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,accounts,NNS,NOUN,11,31,_,_,8,pobj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,which,WDT,DET,12,31,_,_,17,dobj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,you,PRP,PRON,13,31,_,_,17,nsubj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,have,VBP,VERB,14,31,_,_,17,aux,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,been,VBN,VERB,15,31,_,_,17,cop,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,so,RB,ADV,16,31,_,_,17,advmod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,good,JJ,ADJ,17,31,_,_,11,rcmod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,as,IN,ADP,18,31,_,_,20,mark,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,to,TO,PRT,19,31,_,_,20,aux,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,give,VB,VERB,20,31,_,_,17,dep,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,of,IN,ADP,21,31,_,_,20,prep,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,my,PRP$,PRON,22,31,_,_,25,poss,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,own,JJ,ADJ,23,31,_,_,25,amod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,small,JJ,ADJ,24,31,_,_,25,amod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,achievements,NNS,NOUN,25,31,_,_,21,pobj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,you,PRP,PRON,26,31,_,_,29,nsubj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,have,VBP,VERB,27,31,_,_,29,aux,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,habitually,RB,ADV,28,31,_,_,29,advmod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,underrated,VBN,VERB,29,31,_,_,25,rcmod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,your,PRP$,PRON,30,31,_,_,32,poss,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,own,JJ,ADJ,31,31,_,_,32,amod,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+43,abilities,NNS,NOUN,32,31,_,_,29,dobj,_,_,"""I am bound to say that in all the accounts which you have been so good as to give of my own small achievements you have habitually underrated your own abilities",True
+44,It,PRP,PRON,1,16,_,_,3,nsubj,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,may,MD,VERB,2,16,_,_,3,aux,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,be,VB,VERB,3,16,_,_,0,ROOT,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,that,IN,ADP,4,16,_,_,9,mark,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,you,PRP,PRON,5,16,_,_,9,nsubj,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,are,VBP,VERB,6,16,_,_,9,cop,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,not,RB,ADV,7,16,_,_,9,neg,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,yourself,PRP,PRON,8,16,_,_,9,npadvmod,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,luminous,JJ,ADJ,9,16,_,_,3,ccomp,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,,.,_,10,16,,,,_,3,punct,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,but,CC,CONJ,11,16,_,_,3,cc,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,you,PRP,PRON,12,16,_,_,15,nsubj,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,are,VBP,VERB,13,16,_,_,15,cop,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,a,DT,DET,14,16,_,_,15,det,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,conductor,NN,NOUN,15,16,_,_,3,conj,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,of,IN,ADP,16,16,_,_,15,prep,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+44,light,NN,NOUN,17,16,_,_,16,pobj,_,_,"It may be that you are not yourself luminous, but you are a conductor of light",False
+45,Some,DT,DET,1,12,_,_,2,det,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,people,NNS,NOUN,2,12,_,_,6,nsubj,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,without,IN,ADP,3,12,_,_,2,prep,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,possessing,VBG,VERB,4,12,_,_,3,pcomp,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,genius,NN,NOUN,5,12,_,_,4,dobj,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,have,VBP,VERB,6,12,_,_,0,ROOT,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,a,DT,DET,7,12,_,_,9,det,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,remarkable,JJ,ADJ,8,12,_,_,9,amod,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,power,NN,NOUN,9,12,_,_,6,dobj,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,of,IN,ADP,10,12,_,_,9,prep,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,stimulating,VBG,VERB,11,12,_,_,10,pcomp,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+45,it,PRP,PRON,12,12,_,_,11,dobj,_,_,Some people without possessing genius have a remarkable power of stimulating it,False
+46,I,PRP,PRON,1,13,_,_,2,nsubj,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,confess,VBP,VERB,2,13,_,_,0,ROOT,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,,.,_,3,13,,,,_,2,punct,"I confess, my dear fellow, that I am very much in your debt",False
+46,my,PRP$,PRON,4,13,_,_,6,poss,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,dear,JJ,ADJ,5,13,_,_,6,amod,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,fellow,NN,NOUN,6,13,_,_,2,dobj,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,,.,_,7,13,,,,_,2,punct,"I confess, my dear fellow, that I am very much in your debt",False
+46,that,IN,ADP,8,13,_,_,10,mark,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,I,PRP,PRON,9,13,_,_,10,nsubj,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,am,VBP,VERB,10,13,_,_,2,ccomp,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,very,RB,ADV,11,13,_,_,12,advmod,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,much,RB,ADV,12,13,_,_,10,advmod,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,in,IN,ADP,13,13,_,_,10,prep,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,your,PRP$,PRON,14,13,_,_,15,poss,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+46,debt,NN,NOUN,15,13,_,_,13,pobj,_,_,"I confess, my dear fellow, that I am very much in your debt",False
+47,He,PRP,PRON,1,44,_,_,4,nsubj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,had,VBD,VERB,2,44,_,_,4,aux,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,never,RB,ADV,3,44,_,_,4,neg,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,said,VBN,VERB,4,44,_,_,0,ROOT,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,as,RB,ADV,5,44,_,_,6,advmod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,much,RB,ADV,6,44,_,_,4,advmod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,before,RB,ADV,7,44,_,_,4,advmod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,,.,_,8,44,,,,_,4,punct,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,and,CC,CONJ,9,44,_,_,4,cc,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,I,PRP,PRON,10,44,_,_,12,nsubj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,must,MD,VERB,11,44,_,_,12,aux,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,admit,VB,VERB,12,44,_,_,4,conj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,that,IN,ADP,13,44,_,_,16,mark,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,his,PRP$,PRON,14,44,_,_,15,poss,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,words,NNS,NOUN,15,44,_,_,16,nsubj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,gave,VBD,VERB,16,44,_,_,12,ccomp,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,me,PRP,PRON,17,44,_,_,16,iobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,keen,JJ,ADJ,18,44,_,_,19,amod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,pleasure,NN,NOUN,19,44,_,_,16,dobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,,.,_,20,44,,,,_,16,punct,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,for,IN,ADP,21,44,_,_,26,mark,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,I,PRP,PRON,22,44,_,_,26,nsubj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,had,VBD,VERB,23,44,_,_,26,aux,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,often,RB,ADV,24,44,_,_,26,advmod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,been,VBN,VERB,25,44,_,_,26,auxpass,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,piqued,VBN,VERB,26,44,_,_,16,advcl,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,by,IN,ADP,27,44,_,_,26,prep,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,his,PRP$,PRON,28,44,_,_,29,poss,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,indifference,NN,NOUN,29,44,_,_,27,pobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,to,IN,ADP,30,44,_,_,29,prep,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,my,PRP$,PRON,31,44,_,_,32,poss,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,admiration,NN,NOUN,32,44,_,_,30,pobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,and,CC,CONJ,33,44,_,_,30,cc,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,to,IN,ADP,34,44,_,_,30,conj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,the,DT,DET,35,44,_,_,36,det,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,attempts,NNS,NOUN,36,44,_,_,34,pobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,which,WDT,DET,37,44,_,_,40,dobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,I,PRP,PRON,38,44,_,_,40,nsubj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,had,VBD,VERB,39,44,_,_,40,aux,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,made,VBN,VERB,40,44,_,_,36,rcmod,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,to,TO,PRT,41,44,_,_,42,aux,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,give,VB,VERB,42,44,_,_,40,xcomp,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,publicity,NN,NOUN,43,44,_,_,42,dobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,to,IN,ADP,44,44,_,_,42,prep,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,his,PRP$,PRON,45,44,_,_,46,poss,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+47,methods,NNS,NOUN,46,44,_,_,44,pobj,_,_,"He had never said as much before, and I must admit that his words gave me keen pleasure, for I had often been piqued by his indifference to my admiration and to the attempts which I had made to give publicity to his methods",False
+48,I,PRP,PRON,1,25,_,_,3,nsubj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,was,VBD,VERB,2,25,_,_,3,cop,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,proud,JJ,ADJ,3,25,_,_,0,ROOT,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,,.,_,4,25,,,,_,3,punct,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,too,RB,ADV,5,25,_,_,3,advmod,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,,.,_,6,25,,,,_,3,punct,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,to,TO,PRT,7,25,_,_,8,aux,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,think,VB,VERB,8,25,_,_,3,xcomp,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,that,IN,ADP,9,25,_,_,14,mark,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,I,PRP,PRON,10,25,_,_,14,nsubj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,had,VBD,VERB,11,25,_,_,14,aux,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,so,RB,ADV,12,25,_,_,13,advmod,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,far,RB,ADV,13,25,_,_,14,advmod,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,mastered,VBN,VERB,14,25,_,_,8,ccomp,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,his,PRP$,PRON,15,25,_,_,16,poss,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,system,NN,NOUN,16,25,_,_,14,dobj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,as,IN,ADP,17,25,_,_,19,mark,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,to,TO,PRT,18,25,_,_,19,aux,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,apply,VB,VERB,19,25,_,_,14,advcl,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,it,PRP,PRON,20,25,_,_,19,dobj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,in,IN,ADP,21,25,_,_,19,prep,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,a,DT,DET,22,25,_,_,23,det,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,way,NN,NOUN,23,25,_,_,21,pobj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,which,WDT,DET,24,25,_,_,25,nsubj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,earned,VBD,VERB,25,25,_,_,23,rcmod,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,his,PRP$,PRON,26,25,_,_,27,poss,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+48,approval,NN,NOUN,27,25,_,_,25,dobj,_,_,"I was proud, too, to think that I had so far mastered his system as to apply it in a way which earned his approval",False
+49,He,PRP,PRON,1,19,_,_,3,nsubj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,now,RB,ADV,2,19,_,_,3,advmod,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,took,VBD,VERB,3,19,_,_,0,ROOT,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,the,DT,DET,4,19,_,_,5,det,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,stick,NN,NOUN,5,19,_,_,3,dobj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,from,IN,ADP,6,19,_,_,3,prep,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,my,PRP$,PRON,7,19,_,_,8,poss,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,hands,NNS,NOUN,8,19,_,_,6,pobj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,and,CC,CONJ,9,19,_,_,3,cc,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,examined,VBD,VERB,10,19,_,_,3,conj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,it,PRP,PRON,11,19,_,_,10,dobj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,for,IN,ADP,12,19,_,_,10,prep,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,a,DT,DET,13,19,_,_,15,det,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,few,JJ,ADJ,14,19,_,_,15,amod,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,minutes,NNS,NOUN,15,19,_,_,12,pobj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,with,IN,ADP,16,19,_,_,15,prep,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,his,PRP$,PRON,17,19,_,_,19,poss,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,naked,JJ,ADJ,18,19,_,_,19,amod,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+49,eyes,NNS,NOUN,19,19,_,_,16,pobj,_,_,He now took the stick from my hands and examined it for a few minutes with his naked eyes,False
+50,Then,RB,ADV,1,27,_,_,8,advmod,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,with,IN,ADP,2,27,_,_,8,prep,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,an,DT,DET,3,27,_,_,4,det,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,expression,NN,NOUN,4,27,_,_,2,pobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,of,IN,ADP,5,27,_,_,4,prep,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,interest,NN,NOUN,6,27,_,_,5,pobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,he,PRP,PRON,7,27,_,_,8,nsubj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,laid,VBD,VERB,8,27,_,_,0,ROOT,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,down,RP,PRT,9,27,_,_,8,prt,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,his,PRP$,PRON,10,27,_,_,11,poss,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,cigarette,NN,NOUN,11,27,_,_,8,dobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,,.,_,12,27,,,,_,8,punct,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,and,CC,CONJ,13,27,_,_,8,cc,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,carrying,VBG,VERB,14,27,_,_,22,partmod,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,the,DT,DET,15,27,_,_,16,det,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,cane,NN,NOUN,16,27,_,_,14,dobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,to,IN,ADP,17,27,_,_,14,prep,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,the,DT,DET,18,27,_,_,19,det,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,window,NN,NOUN,19,27,_,_,17,pobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,,.,_,20,27,,,,_,22,punct,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,he,PRP,PRON,21,27,_,_,22,nsubj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,looked,VBD,VERB,22,27,_,_,8,conj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,over,IN,ADP,23,27,_,_,22,prep,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,it,PRP,PRON,24,27,_,_,23,pobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,again,RB,ADV,25,27,_,_,22,advmod,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,with,IN,ADP,26,27,_,_,22,prep,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,a,DT,DET,27,27,_,_,29,det,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,convex,NN,NOUN,28,27,_,_,29,nn,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+50,lens,NN,NOUN,29,27,_,_,26,pobj,_,_,"Then with an expression of interest he laid down his cigarette, and carrying the cane to the window, he looked over it again with a convex lens",False
+51,``,``,.,1,3,_,_,2,punct,_,_,"""Interesting, though elementary,""",True
+51,Interesting,JJ,ADJ,2,3,_,_,0,ROOT,_,_,"""Interesting, though elementary,""",True
+51,,.,_,3,3,,,,_,2,punct,"""Interesting, though elementary,""",True
+51,though,IN,ADP,4,3,_,_,5,mark,_,_,"""Interesting, though elementary,""",True
+51,elementary,NN,NOUN,5,3,_,_,2,advcl,_,_,"""Interesting, though elementary,""",True
+51,,.,_,6,3,,,,_,2,punct,"""Interesting, though elementary,""",True
+51,'','',.,7,3,_,_,2,punct,_,_,"""Interesting, though elementary,""",True
+52,said,VBD,VERB,1,12,_,_,0,ROOT,_,_,said he as he returned to his favourite corner of the settee,False
+52,he,PRP,PRON,2,12,_,_,1,nsubj,_,_,said he as he returned to his favourite corner of the settee,False
+52,as,IN,ADP,3,12,_,_,5,mark,_,_,said he as he returned to his favourite corner of the settee,False
+52,he,PRP,PRON,4,12,_,_,5,nsubj,_,_,said he as he returned to his favourite corner of the settee,False
+52,returned,VBD,VERB,5,12,_,_,1,advcl,_,_,said he as he returned to his favourite corner of the settee,False
+52,to,IN,ADP,6,12,_,_,5,prep,_,_,said he as he returned to his favourite corner of the settee,False
+52,his,PRP$,PRON,7,12,_,_,9,poss,_,_,said he as he returned to his favourite corner of the settee,False
+52,favourite,JJ,ADJ,8,12,_,_,9,amod,_,_,said he as he returned to his favourite corner of the settee,False
+52,corner,NN,NOUN,9,12,_,_,6,pobj,_,_,said he as he returned to his favourite corner of the settee,False
+52,of,IN,ADP,10,12,_,_,9,prep,_,_,said he as he returned to his favourite corner of the settee,False
+52,the,DT,DET,11,12,_,_,12,det,_,_,said he as he returned to his favourite corner of the settee,False
+52,settee,NN,NOUN,12,12,_,_,10,pobj,_,_,said he as he returned to his favourite corner of the settee,False
+53,``,``,.,1,10,_,_,3,punct,_,_,"""There are certainly one or two indications upon the stick",True
+53,There,EX,DET,2,10,_,_,3,expl,_,_,"""There are certainly one or two indications upon the stick",True
+53,are,VBP,VERB,3,10,_,_,0,ROOT,_,_,"""There are certainly one or two indications upon the stick",True
+53,certainly,RB,ADV,4,10,_,_,3,advmod,_,_,"""There are certainly one or two indications upon the stick",True
+53,one,CD,NUM,5,10,_,_,8,num,_,_,"""There are certainly one or two indications upon the stick",True
+53,or,CC,CONJ,6,10,_,_,5,cc,_,_,"""There are certainly one or two indications upon the stick",True
+53,two,CD,NUM,7,10,_,_,5,conj,_,_,"""There are certainly one or two indications upon the stick",True
+53,indications,NNS,NOUN,8,10,_,_,3,nsubj,_,_,"""There are certainly one or two indications upon the stick",True
+53,upon,IN,ADP,9,10,_,_,8,prep,_,_,"""There are certainly one or two indications upon the stick",True
+53,the,DT,DET,10,10,_,_,11,det,_,_,"""There are certainly one or two indications upon the stick",True
+53,stick,NN,NOUN,11,10,_,_,9,pobj,_,_,"""There are certainly one or two indications upon the stick",True
+54,It,PRP,PRON,1,8,_,_,2,nsubj,_,_,It gives us the basis for several deductions,False
+54,gives,VBZ,VERB,2,8,_,_,0,ROOT,_,_,It gives us the basis for several deductions,False
+54,us,PRP,PRON,3,8,_,_,2,iobj,_,_,It gives us the basis for several deductions,False
+54,the,DT,DET,4,8,_,_,5,det,_,_,It gives us the basis for several deductions,False
+54,basis,NN,NOUN,5,8,_,_,2,dobj,_,_,It gives us the basis for several deductions,False
+54,for,IN,ADP,6,8,_,_,5,prep,_,_,It gives us the basis for several deductions,False
+54,several,JJ,ADJ,7,8,_,_,8,amod,_,_,It gives us the basis for several deductions,False
+54,deductions,NNS,NOUN,8,8,_,_,6,pobj,_,_,It gives us the basis for several deductions,False
+55,``,``,.,1,4,_,_,4,punct,_,_,"""Has anything escaped me?""",True
+55,Has,VBZ,VERB,2,4,_,_,4,aux,_,_,"""Has anything escaped me?""",True
+55,anything,NN,NOUN,3,4,_,_,4,nsubj,_,_,"""Has anything escaped me?""",True
+55,escaped,VBD,VERB,4,4,_,_,0,ROOT,_,_,"""Has anything escaped me?""",True
+55,me,PRP,PRON,5,4,_,_,4,dobj,_,_,"""Has anything escaped me?""",True
+55,?,.,.,6,4,_,_,4,punct,_,_,"""Has anything escaped me?""",True
+55,'','',.,7,4,_,_,4,punct,_,_,"""Has anything escaped me?""",True
+56,I,PRP,PRON,1,5,_,_,2,nsubj,_,_,I asked with some self-importance,False
+56,asked,VBD,VERB,2,5,_,_,0,ROOT,_,_,I asked with some self-importance,False
+56,with,IN,ADP,3,5,_,_,2,prep,_,_,I asked with some self-importance,False
+56,some,DT,DET,4,5,_,_,5,det,_,_,I asked with some self-importance,False
+56,self-importance,NN,NOUN,5,5,_,_,3,pobj,_,_,I asked with some self-importance,False
+57,``,``,.,1,12,_,_,3,punct,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,I,PRP,PRON,2,12,_,_,3,nsubj,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,trust,VBP,VERB,3,12,_,_,0,ROOT,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,that,IN,ADP,4,12,_,_,6,mark,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,there,EX,DET,5,12,_,_,6,expl,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,is,VBZ,VERB,6,12,_,_,3,ccomp,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,nothing,NN,NOUN,7,12,_,_,6,nsubj,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,of,IN,ADP,8,12,_,_,7,prep,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,consequence,NN,NOUN,9,12,_,_,8,pobj,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,which,WDT,DET,10,12,_,_,13,dobj,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,I,PRP,PRON,11,12,_,_,13,nsubj,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,have,VBP,VERB,12,12,_,_,13,aux,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,overlooked,VBN,VERB,13,12,_,_,7,rcmod,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+57,?,.,.,14,12,_,_,3,punct,_,_,"""I trust that there is nothing of consequence which I have overlooked?   ",True
+58,``,``,.,1,13,_,_,4,punct,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,I,PRP,PRON,2,13,_,_,4,nsubj,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,am,VBP,VERB,3,13,_,_,4,cop,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,afraid,JJ,ADJ,4,13,_,_,0,ROOT,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,,.,_,5,13,,,,_,4,punct,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,my,PRP$,PRON,6,13,_,_,8,poss,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,dear,JJ,ADJ,7,13,_,_,8,nn,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,Watson,NNP,NOUN,8,13,_,_,4,dep,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,,.,_,9,13,,,,_,4,punct,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,that,IN,ADP,10,13,_,_,16,mark,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,most,JJS,ADJ,11,13,_,_,16,nsubj,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,of,IN,ADP,12,13,_,_,11,prep,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,your,PRP$,PRON,13,13,_,_,14,poss,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,conclusions,NNS,NOUN,14,13,_,_,12,pobj,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,were,VBD,VERB,15,13,_,_,16,cop,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+58,erroneous,JJ,ADJ,16,13,_,_,4,ccomp,_,_,"""I am afraid, my dear Watson, that most of your conclusions were erroneous",True
+59,When,WRB,ADV,1,24,_,_,3,advmod,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,I,PRP,PRON,2,24,_,_,3,nsubj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,said,VBD,VERB,3,24,_,_,23,advcl,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,that,IN,ADP,4,24,_,_,6,mark,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,you,PRP,PRON,5,24,_,_,6,nsubj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,stimulated,VBD,VERB,6,24,_,_,3,ccomp,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,me,PRP,PRON,7,24,_,_,6,dobj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,I,PRP,PRON,8,24,_,_,9,nsubj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,meant,VBD,VERB,9,24,_,_,7,rcmod,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,,.,_,10,24,,,,_,23,punct,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,to,TO,PRT,11,24,_,_,13,aux,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,be,VB,VERB,12,24,_,_,13,cop,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,frank,JJ,ADJ,13,24,_,_,23,advcl,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,,.,_,14,24,,,,_,23,punct,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,that,IN,ADP,15,24,_,_,23,mark,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,in,IN,ADP,16,24,_,_,23,prep,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,noting,VBG,VERB,17,24,_,_,16,pcomp,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,your,PRP$,PRON,18,24,_,_,19,poss,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,fallacies,NNS,NOUN,19,24,_,_,17,dobj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,I,PRP,PRON,20,24,_,_,23,nsubjpass,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,was,VBD,VERB,21,24,_,_,23,auxpass,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,occasionally,RB,ADV,22,24,_,_,23,advmod,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,guided,VBN,VERB,23,24,_,_,0,ROOT,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,towards,IN,ADP,24,24,_,_,23,prep,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,the,DT,DET,25,24,_,_,26,det,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+59,truth,NN,NOUN,26,24,_,_,24,pobj,_,_,"When I said that you stimulated me I meant, to be frank, that in noting your fallacies I was occasionally guided towards the truth",False
+60,Not,RB,ADV,1,9,_,_,0,ROOT,_,_,Not that you are entirely wrong in this instance,False
+60,that,IN,ADP,2,9,_,_,6,mark,_,_,Not that you are entirely wrong in this instance,False
+60,you,PRP,PRON,3,9,_,_,6,nsubj,_,_,Not that you are entirely wrong in this instance,False
+60,are,VBP,VERB,4,9,_,_,6,cop,_,_,Not that you are entirely wrong in this instance,False
+60,entirely,RB,ADV,5,9,_,_,6,advmod,_,_,Not that you are entirely wrong in this instance,False
+60,wrong,JJ,ADJ,6,9,_,_,1,dep,_,_,Not that you are entirely wrong in this instance,False
+60,in,IN,ADP,7,9,_,_,6,prep,_,_,Not that you are entirely wrong in this instance,False
+60,this,DT,DET,8,9,_,_,9,det,_,_,Not that you are entirely wrong in this instance,False
+60,instance,NN,NOUN,9,9,_,_,7,pobj,_,_,Not that you are entirely wrong in this instance,False
+61,The,DT,DET,1,7,_,_,2,det,_,_,The man is certainly a country practitioner,False
+61,man,NN,NOUN,2,7,_,_,7,nsubj,_,_,The man is certainly a country practitioner,False
+61,is,VBZ,VERB,3,7,_,_,7,cop,_,_,The man is certainly a country practitioner,False
+61,certainly,RB,ADV,4,7,_,_,7,advmod,_,_,The man is certainly a country practitioner,False
+61,a,DT,DET,5,7,_,_,7,det,_,_,The man is certainly a country practitioner,False
+61,country,NN,NOUN,6,7,_,_,7,nn,_,_,The man is certainly a country practitioner,False
+61,practitioner,NN,NOUN,7,7,_,_,0,ROOT,_,_,The man is certainly a country practitioner,False
+62,And,CC,CONJ,1,6,_,_,3,cc,_,_,And he walks a good deal,False
+62,he,PRP,PRON,2,6,_,_,3,nsubj,_,_,And he walks a good deal,False
+62,walks,VBZ,VERB,3,6,_,_,0,ROOT,_,_,And he walks a good deal,False
+62,a,DT,DET,4,6,_,_,6,det,_,_,And he walks a good deal,False
+62,good,JJ,ADJ,5,6,_,_,6,amod,_,_,And he walks a good deal,False
+62,deal,NN,NOUN,6,6,_,_,3,dobj,_,_,And he walks a good deal,False
+63,``,``,.,1,4,_,_,5,punct,_,_,"""Then I was right",True
+63,Then,RB,ADV,2,4,_,_,5,advmod,_,_,"""Then I was right",True
+63,I,PRP,PRON,3,4,_,_,5,nsubj,_,_,"""Then I was right",True
+63,was,VBD,VERB,4,4,_,_,5,cop,_,_,"""Then I was right",True
+63,right,JJ,ADJ,5,4,_,_,0,ROOT,_,_,"""Then I was right",True
+64,``,``,.,1,3,_,_,2,punct,_,_,"""To that extent",True
+64,To,IN,ADP,2,3,_,_,0,ROOT,_,_,"""To that extent",True
+64,that,DT,DET,3,3,_,_,4,det,_,_,"""To that extent",True
+64,extent,NN,NOUN,4,3,_,_,2,pobj,_,_,"""To that extent",True
+65,``,``,.,1,4,_,_,5,punct,_,_,"""But that was all",True
+65,But,CC,CONJ,2,4,_,_,5,cc,_,_,"""But that was all",True
+65,that,DT,DET,3,4,_,_,5,nsubj,_,_,"""But that was all",True
+65,was,VBD,VERB,4,4,_,_,5,cop,_,_,"""But that was all",True
+65,all,DT,DET,5,4,_,_,0,ROOT,_,_,"""But that was all",True
+66,``,``,.,1,11,_,_,16,punct,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,No,UH,X,2,11,_,_,16,discourse,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,,.,_,3,11,,,,_,2,punct,"""No, no, my dear Watson, not all, by no means all",True
+66,no,UH,X,4,11,_,_,2,dep,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,,.,_,5,11,,,,_,16,punct,"""No, no, my dear Watson, not all, by no means all",True
+66,my,PRP$,PRON,6,11,_,_,8,poss,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,dear,JJ,ADJ,7,11,_,_,8,amod,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,Watson,NNP,NOUN,8,11,_,_,16,nsubj,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,,.,_,9,11,,,,_,8,punct,"""No, no, my dear Watson, not all, by no means all",True
+66,not,RB,ADV,10,11,_,_,11,neg,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,all,DT,DET,11,11,_,_,8,appos,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,,.,_,12,11,,,,_,16,punct,"""No, no, my dear Watson, not all, by no means all",True
+66,by,IN,ADP,13,11,_,_,16,prep,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,no,DT,DET,14,11,_,_,15,det,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,means,NNS,NOUN,15,11,_,_,13,pobj,_,_,"""No, no, my dear Watson, not all, by no means all",True
+66,all,DT,DET,16,11,_,_,0,ROOT,_,_,"""No, no, my dear Watson, not all, by no means all",True
+67,I,PRP,PRON,1,29,_,_,3,nsubj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,would,MD,VERB,2,29,_,_,3,aux,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,suggest,VB,VERB,3,29,_,_,0,ROOT,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,,.,_,4,29,,,,_,3,punct,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,for,IN,ADP,5,29,_,_,3,prep,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,example,NN,NOUN,6,29,_,_,5,pobj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,,.,_,7,29,,,,_,3,punct,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,that,IN,ADP,8,29,_,_,16,mark,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,a,DT,DET,9,29,_,_,10,det,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,presentation,NN,NOUN,10,29,_,_,16,nsubj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,to,IN,ADP,11,29,_,_,10,prep,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,a,DT,DET,12,29,_,_,13,det,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,doctor,NN,NOUN,13,29,_,_,11,pobj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,is,VBZ,VERB,14,29,_,_,16,cop,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,more,RBR,ADV,15,29,_,_,16,advmod,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,likely,JJ,ADJ,16,29,_,_,3,ccomp,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,to,TO,PRT,17,29,_,_,18,aux,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,come,VB,VERB,18,29,_,_,16,xcomp,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,from,IN,ADP,19,29,_,_,18,prep,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,a,DT,DET,20,29,_,_,21,det,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,hospital,NN,NOUN,21,29,_,_,19,pobj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,than,IN,ADP,22,29,_,_,16,prep,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,from,IN,ADP,23,29,_,_,22,pcomp,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,a,DT,DET,24,29,_,_,25,det,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,hunt,NN,NOUN,25,29,_,_,23,pobj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,,.,_,26,29,,,,_,16,punct,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,and,CC,CONJ,27,29,_,_,16,cc,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,that,IN,ADP,28,29,_,_,16,conj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,when,WRB,ADV,29,29,_,_,32,advmod,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,the,DT,DET,30,29,_,_,31,det,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,initials,NNS,NOUN,31,29,_,_,32,nsubj,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+67,C,NN,NOUN,32,29,_,_,28,advcl,_,_,"I would suggest, for example, that a presentation to a doctor is more likely to come from a hospital than from a hunt, and that when the initials C",False
+68,C,NNP,NOUN,1,1,_,_,0,ROOT,_,_,C,False
+69,',``,.,1,14,_,_,3,punct,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,are,VBP,VERB,2,14,_,_,3,auxpass,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,placed,VBN,VERB,3,14,_,_,0,ROOT,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,before,IN,ADP,4,14,_,_,3,prep,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,that,DT,DET,5,14,_,_,6,det,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,hospital,NN,NOUN,6,14,_,_,4,pobj,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,the,DT,DET,7,14,_,_,8,det,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,words,NNS,NOUN,8,14,_,_,3,dobj,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,Charing,NNP,NOUN,9,14,_,_,10,nn,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,Cross,NNP,NOUN,10,14,_,_,14,nsubj,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,',POS,PRT,11,14,_,_,10,possessive,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,very,RB,ADV,12,14,_,_,13,advmod,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,naturally,RB,ADV,13,14,_,_,14,advmod,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,suggest,VBP,VERB,14,14,_,_,8,rcmod,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+69,themselves,PRP,PRON,15,14,_,_,14,dobj,_,_,' are placed before that hospital the words Charing Cross' very naturally suggest themselves,False
+70,``,``,.,1,4,_,_,5,punct,_,_,"""You may be right",True
+70,You,PRP,PRON,2,4,_,_,5,nsubj,_,_,"""You may be right",True
+70,may,MD,VERB,3,4,_,_,5,aux,_,_,"""You may be right",True
+70,be,VB,VERB,4,4,_,_,5,cop,_,_,"""You may be right",True
+70,right,RB,ADV,5,4,_,_,0,ROOT,_,_,"""You may be right",True
