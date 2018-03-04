@@ -419,10 +419,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 				# returns a sentence in range
 				new_sentence_to_add = " {0}".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
 
-				# TODO: PRONOUNS AND NOUNS DO NOT FIND IF THEY ARE PRECEDED OR FOLLOWS BY PUNCUATION
-				# TODO: Doesn't find all names in barrier and other text where it is present
-				# TODO: tag nouns with possesive: finds Scrooge and not Scrooge's
-
 				# tag pronouns first (from pos_dict)
 				if i in pos_dict.keys():
 					for pronoun in pos_dict[i]: # for all pronouns within the given sentence
@@ -483,25 +479,23 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 					#print("largest gne index values ALL = {0}".format(all_index_values))
 					all_index_values = sorted([x for x in all_index_values if x not in to_remove]) # index in order based on start value
 					#print("shared (with removed encompassed) = {0}".format(all_index_values)) # remove all encompassed elements
-					#for index_val in all_index_values:
-					#	# print out the names in the given text range
-					#	#print(new_sentence_to_add[index_val[0]:index_val[1]])
+
 					updated_index = []
 					new_characters_from_update = 0 # new characters to keep track of character length when indexing
 					repeats_to_find = []
 					for counter, index_val in enumerate(all_index_values):
 						if counter > 0:
-							new_characters_from_update = len("[]_n")*counter
+							new_characters_from_update = len("[]_n ")*counter
 						start_word = index_val[0] + new_characters_from_update
 						end_word = index_val[1] + new_characters_from_update
 						updated_index.append([start_word, end_word])
 						find_repeats = new_sentence_to_add[start_word:end_word]
 						repeats_to_find.append(find_repeats)
-						replacement_string = "[{0}]_n".format(new_sentence_to_add[start_word:end_word])
+						replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
 						new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 						sub_counter = counter
 					# add repeated gne values
-					# if the same name appears more than once in a sentence
+					# if the same name appears more than once in a sentence 
 					sub_counter = 0
 					new_characters_from_update = 0 # new characters to keep track of character length when indexing
 					for find_additional in repeats_to_find:
@@ -511,16 +505,13 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							if [m.start()-1,m.end()-1] not in updated_index: # check that name hasn't been already assigned
 								start_word = m.start() + new_characters_from_update
 								end_word = m.end() + new_characters_from_update
-								# TODO: capture possesive [Mrs Darling]_n's11 
-								replacement_string = "[{0}]_n".format(new_sentence_to_add[start_word:end_word])
+								replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
 								new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 								sub_counter += 1
 				new_sent = new_sentence_to_add.split()
 				# label all proper nouns with an associated index value for noun
 				for index, word_string in enumerate(new_sent):
 					if ']_n' in word_string:
-						print(word_string)
-						
 						new_sent[index] = '{0}{1}'.format(word_string, gne_index)
 						new_sentence_to_add = " ".join(new_sent)
 						gne_index += 1
@@ -843,6 +834,7 @@ if __name__ == '__main__':
 	file_has_been_modified_recently = False
 	if os.path.isfile(csv_local_dir): # if file exists, then check if modified
 		file_has_been_modified_recently = os.path.getmtime("{0}/{1}".format(os.getcwd(), filename)) > os.path.getmtime(csv_local_dir)
+		#print("file has been modifed = {0}".format(file_has_been_modified_recently))
 	# if file does not exist in the csv folder
 	if not os.path.isfile(csv_local_dir) or file_has_been_modified_recently: 
 		#print("pos needs to be calculated...")
