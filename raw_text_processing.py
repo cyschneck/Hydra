@@ -474,8 +474,8 @@ def saveDatatoCSV(filename, percentDict):
 				  'PROPER_NOUNS_IN_ALL_WORDS', 'REGULAR_NOUNS_IN_ALL_NOUNS',
 				  'PROPER_NOUNS_IN_ALL_NOUNS']
 
-	if not os.path.isfile("csv_percent_data/{0}".format(output_filename)): # if it doesn't exist, create csv file with dict data
-		with open('csv_percent_data/{0}'.format(output_filename), 'w') as noun_data:
+	if not os.path.isfile("plot_percent_data/{0}".format(output_filename)): # if it doesn't exist, create csv file with dict data
+		with open('cplot_percent_data/{0}'.format(output_filename), 'w') as noun_data:
 			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
 			writer.writeheader() 
 			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
@@ -489,12 +489,12 @@ def saveDatatoCSV(filename, percentDict):
 		print("\n{0} created a new CSV NOUN DATA ".format(given_file.upper()))
 	else: # csv file exists, copy data and re-generate 
 		stored_results = [] # store old rows
-		with open('csv_percent_data/{0}'.format(output_filename), 'r') as noun_data:
+		with open('plot_percent_data/{0}'.format(output_filename), 'r') as noun_data:
 			reader = csv.DictReader(noun_data)
 			for row in reader:
 				stored_results.append(row) # store previous rows
 
-		with open('csv_percent_data/{0}'.format(output_filename), 'w') as noun_data:
+		with open('plot_percent_data/{0}'.format(output_filename), 'w') as noun_data:
 			new_file_to_append = os.path.basename(os.path.splitext(filename)[0])
 			to_append = True
 			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
@@ -528,7 +528,7 @@ def saveDatatoCSV(filename, percentDict):
 
 	# save information as dictionary of dictionary values for graphing purposes {filename: {attributes:}}
 	csv_data_results = {} # store old rows
-	with open('csv_percent_data/{0}'.format(output_filename), 'r') as noun_data:
+	with open('plot_percent_data/{0}'.format(output_filename), 'r') as noun_data:
 		reader = csv.DictReader(noun_data)
 		for row in reader:
 			csv_data_results[row['FILENAME']] = row # store previous rows
@@ -566,7 +566,7 @@ def graphPOSdata(csv_data):
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
-	plt.savefig('csv_percent_data/all_nouns_in_all_words.png')
+	plt.savefig('plot_percent_data/all_nouns_in_all_words.png')
 	
 	(fig, ax) = plt.subplots(1, 1)
 	ax.scatter(text_size, pronouns_in_all_words)
@@ -577,7 +577,7 @@ def graphPOSdata(csv_data):
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
-	plt.savefig('csv_percent_data/pronouns_in_all_words.png')
+	plt.savefig('plot_percent_data/pronouns_in_all_words.png')
 
 	(fig, ax) = plt.subplots(1, 1)
 	ax.scatter(text_size, regular_nouns_in_all_nouns)
@@ -588,7 +588,7 @@ def graphPOSdata(csv_data):
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
-	plt.savefig('csv_percent_data/regular_nouns_in_all_nouns.png')
+	plt.savefig('plot_percent_data/regular_nouns_in_all_nouns.png')
 
 	(fig, ax) = plt.subplots(1, 1)
 	ax.scatter(text_size, proper_nouns_in_all_nouns)
@@ -599,7 +599,7 @@ def graphPOSdata(csv_data):
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
-	plt.savefig('csv_percent_data/proper_nouns_in_all_nouns.png')
+	plt.savefig('plot_percent_data/proper_nouns_in_all_nouns.png')
 
 	print("DATA PLOT POS UPDATED")
 ########################################################################
