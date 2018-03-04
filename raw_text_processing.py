@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 ###########################################################################
 # Pre-processing raw text
 
@@ -16,7 +15,9 @@ from collections import namedtuple, Counter
 import itertools
 from itertools import imap # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
-
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -25,7 +26,7 @@ possessive_pronouns = "mine yours his hers ours theirs"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves"
 relative_pronouns = "that whic who whose whom where when"
 connecting_words = []#["of", "the"]
-words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR"]
+words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR", "CHAPTER", "VOLUME", "MAN"]
 
 def readFile(filename):
 	file_remove_extra = []
@@ -227,9 +228,9 @@ def groupSimilarEntities(grouped_nouns_dict):
 		for i in gne.split():
 			#print(i)
 			for gne_2 in gne_list_of_lists:
-				#print(i, gne_2)
 				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
-					if i not in words_to_ignore and len(i) > 1:
+					if i not in words_to_ignore and gne_2 not in words_to_ignore and len(i) > 1:
+						#print(i, gne_2)
 						sublist.append([i, gne_2])
 		subgrouping.append(sublist)
 	subgrouping = [x for x in subgrouping if x != []]
@@ -265,17 +266,26 @@ def lookupSubDictionary(shared_ent):
 		for i in range(len(group)):
 			for j in iterate_list_num:
 				if i != j:
-					if group[i] not in connecting_words: # ignore 'of', 'the'
-						sub_dictionary_lookup[group[i]].append(group[j])
+					#if group[i] not in connecting_words: # ignore 'of', 'the'
+					sub_dictionary_lookup[group[i]].append(group[j])
 		if len(group) == 1:
 			sub_dictionary_lookup[group[i]].append(group[i]) # for single instances, store {'Tarleton':'Tarleton'{ as its own reference
 
 	return dict(sub_dictionary_lookup)
+
+def mostCommonGNE(gne_grouped_dict):
+	# find the longest most common version of a name in gnes to become the global
+	#print("\nGlobal GNE")
+	#for key, value in gne_grouped_dict.iteritems():
+	#	print(key, value)
+	#print(gne_grouped_dict.values())
+	pass
+	
 ########################################################################
 ## INDEX PRONOUNS
 def findPronouns(pos_dict):
-	# return the index value for pronouns in each sentence
-	#{1: [1, 8, 11], 2: [1, 3], 3: [1, 4, 14], 4: [2, 5, 11, 22], 5: [4]}
+	# return the sentence index and pronouns for each sentence
+	#{0: ['he', 'himself', 'his'], 1: ['He', 'his', 'he', 'his', 'he', 'his']}
 	pos_type_lst = []
 	for row, pos_named in pos_dict.iteritems():
 		if "PRP" in pos_named.XPOSTAG:
@@ -286,53 +296,312 @@ def findPronouns(pos_dict):
 	for index in total_sentence_indices:
 		# create sub sentences for each sentence [[0], [1])
 		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
-	#print(sub_sentences)
 
-	grouped_pronouns = {}
-	pronoun_lst = []
-	sentence_index = []
-	for sentence_index in range(len(sub_sentences)):
-		noun_index = [s_index[1] for s_index in sub_sentences[sentence_index]] # noun location in a sentence (index)
-		grouped_pronouns[sentence_index] = noun_index
+	grouped_pronouns = 	{}
+	for pronoun_group in sub_sentences:
+		pronoun_lst = []
+		for pronoun in pronoun_group:
+			pronoun_lst.append(pronoun[2])
+		grouped_pronouns[pronoun[0]] = pronoun_lst
 
 	return grouped_pronouns
+
+def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, pos_dict):
+	# save into csv for manual labelling
+	# TODO: set up with average paragraph length as size_sentences
+	size_sentences = 21 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
+	rows_of_csv_tuple = csv_file.values()
+	all_sentences_in_csv = list(set([int(word.SENTENCE_INDEX) for word in csv_file.values()]))
+	'''
+	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
+		size_sentences = max(all_sentences_in_csv)+1
+	print("Size of sentences = {0}\n".format(size_sentences))
+	
+	# save chucks of text (size sentences = how many sentences in each chunk of text)
+	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
+	#print(character_entities_dict.keys())
+	
+	row_dict = {} # to print data into csv
+	gne_index = 0 # display word of interst as [Name]_index
+	pronoun_index = 0 # display word of interst as [Pronoun]_index
+	for sentences_tag in sub_sentences_to_tag:
+		print(sentences_tag)
+		if len(sentences_tag) == size_sentences: # ignores sentences at the end that aren't the right length
+			sentences_in_order = ''
+			for i in range(sentences_tag[0], sentences_tag[-1]+1):
+				new_sentence_to_add = list(set([row.SENTENCE for row in rows_of_csv_tuple if row.SENTENCE_INDEX == str(i)]))[0]
+				# returns a sentence in range
+				new_sentence_to_add = " {0}".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
+
+				# TODO: PRONOUNS AND NOUNS DO NOT FIND IF THEY ARE PRECEDED OR FOLLOWS BY PUNCUATION
+				# TODO: Doesn't find all names in barrier and other text where it is present
+
+				# tag pronouns first (from pos_dict)
+				if i in pos_dict.keys():
+					for pronoun in pos_dict[i]: # for all pronouns within the given sentence
+						total_found = re.findall(r'\b{0}\b'.format(pronoun), new_sentence_to_add)
+						if re.search(r' \b{0}\b '.format(pronoun), new_sentence_to_add): # match full word
+							for tf in range(len(total_found)):
+								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " [{0}]_p{1} ".format(pronoun, pronoun_index), tf+1)
+								pronoun_index += 1
+
+				# tag proper nouns
+				found_longest_match = ''
+				gne_found_in_sentence = False # if found, print and update the sentence value
+				
+				lst_gne = []
+				lst_gne = [gne_name for gne_name in character_entities_dict.keys() if gne_name in new_sentence_to_add]
+				lst_gne = [x for x in lst_gne if x != []]
+
+				index_range_list = [] # compare each index values
+				all_index_values = [] # contains all index values of gnes
+				to_remove = [] # if a value is encompassed, it should be removed
+				if len(lst_gne) > 0:
+					#print("\nlst_gne = {0}\n".format(lst_gne))
+					for gne in lst_gne: # create the index values for each enitity
+						#print("ran gne = '{0}' in {1}".format(gne, new_sentence_to_add))
+						search_item = re.search(r"\b{0}\b".format(gne), new_sentence_to_add)
+						if not search_item: # if it return none
+							break # skip item if not found
+						else:
+							start = search_item.start() # store the start index of the gne
+							end = search_item.end() # store the end index of the gne
+						index_range_word = [start, end]
+						all_index_values.append(index_range_word)
+						if len(index_range_list) == 0: # useful for debugging
+							#print("FIRST GNE {0} has index {1}".format(gne, index_range_word))
+							pass
+						else:
+							for range_index in index_range_list: # the index of the value is stored and new words are check to see if they are contained wtihing
+								# example: united is within 'united states'
+								if len(lst_gne) > 1:
+									if (range_index[0] == index_range_word[0]) and (index_range_word[1] == range_index[1]):
+										pass
+									else:
+										if (range_index[0] <= index_range_word[0]) and (index_range_word[1] <= range_index[1]):
+												#print("{0} <= {1}-{2} <= {3}".format(range_index[0], index_range_word[0], index_range_word[1], range_index[1]))
+												#print("{0} IS CONTAINED BY GNE = {1}\n".format(gne, new_sentence_to_add[range_index[0]:range_index[1]]))
+												to_remove.append(index_range_word)
+										if (index_range_word[0] <= range_index[0]) and(index_range_word[1] >= range_index[1]):
+												#pass # reprsents the larger word that encompassing the smaller word
+												#print("{0} <= {1}-{2} <= {3}".format(index_range_word[0], range_index[0],range_index[1], index_range_word[1]))
+												#print("{0} IS EMCOMPASSED BY GNE = {1}\n".format(gne, new_sentence_to_add[index_range_word[0]:index_range_word[1]]))
+												to_remove.append(range_index)
+												#print("{0} <= {1} = {2}".format(index_range_word[0], range_index[0], index_range_word[0] <= range_index[0]))
+												#print("{0} >= {1} = {2}".format(index_range_word[1], range_index[1], index_range_word[1] >= range_index[1]))
+												
+
+						index_range_list.append(index_range_word)
+					#print("remove index values = {0}".format(to_remove))
+					#print("largest gne index values ALL = {0}".format(all_index_values))
+					all_index_values = sorted([x for x in all_index_values if x not in to_remove]) # index in order based on start value
+					#print("shared (with removed encompassed) = {0}".format(all_index_values)) # remove all encompassed elements
+					for index_val in all_index_values:
+						print(new_sentence_to_add[index_val[0]:index_val[1]])
+					new_characters_from_update = 0 # new characters to keep track of character length when indexing
+					for counter, index_val in enumerate(all_index_values):
+						if counter > 0:
+							new_characters_from_update = len("[]_n{0}".format(gne_index))*counter
+						start_word = index_val[0] + new_characters_from_update
+						end_word = index_val[1] + new_characters_from_update
+						replacement_string = "[{0}]_n{1}".format(new_sentence_to_add[start_word:end_word], gne_index)
+						new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
+						gne_index += 1
+				sentences_in_order += new_sentence_to_add.strip() + '. '
+			print("\nFinal Sentence Format:\n{0}\n".format(sentences_in_order))
+
+	## corefernece will call the csv creator for each 'paragraph' of text
+	#print("\nTESTING: TODO SAVE NOUN (proper/pronoun) to CSV for manual labeling, {0} sentences each".format(size_sentences))
+
+	output_filename = "manualTaggingPOS.csv"
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+
+	fieldnames = ['FILENAME', 'TEXT_SIZE', 
+				  'TEXT', 'PROPER_NOUN', 'PRONOUN']
+	#'''
 
 ########################################################################
 # DATA ANAYLSIS
 def percentagePos(total_words, csv_dict):
 	# prints the percentage of the text that is pronouns vs. nouns
+	percentageDict =  {}
+        #TODO: finish percentages dictionary to pass into the csv and store if filename is new/modified
 	pronouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("PRP")
 	pronoun_percentage = float(pronouns_count)/float(total_words)
 	print("\npercent pronouns = {0:.3f}% of all text".format(pronoun_percentage*100.0))
+	percentageDict['pronoun_in_all_words'] = pronoun_percentage
 
 	proper_nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNP") # proper noun singular
 	proper_nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNPS") # proper noun plural: spaniards
-	print("percent proper nouns = {0:.3f}% of all text".format((float(proper_nouns_count)/float(total_words))*100))
+	proper_nouns_percentage = float(proper_nouns_count) / float(total_words)
+	print("percent proper nouns = {0:.3f}% of all text".format(proper_nouns_percentage*100))
+	percentageDict['proper_noun_in_all_words'] = proper_nouns_percentage
 
 	nouns_count = [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NN") # nouns: ship, language
 	nouns_count += [pos.XPOSTAG for _, pos in csv_dict.iteritems()].count("NNS") # plurla noun: limbs
-	print("percent nouns = {0:.3f}% of all text".format((float(nouns_count)/float(total_words))*100))
+	nouns_percentage = float(nouns_count) / float(total_words)
+	print("percent nouns = {0:.3f}% of all text".format(nouns_percentage*100))
+	percentageDict['all_noun_in_all_words'] = nouns_percentage
 
 	nouns_ratio= [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("NOUN")
-	print("proper nouns make up {0:.3f}% of all nouns".format((float(proper_nouns_count)/float(nouns_ratio))*100))
-	print("regular nouns make up {0:.3f}% of all nouns".format((float(nouns_count)/float(nouns_ratio))*100))
+	proper_to_ratio_percentage = float(proper_nouns_count) / float(nouns_ratio)
+	print("proper nouns make up {0:.3f}% of all nouns".format((proper_to_ratio_percentage*100)))
+	percentageDict['proper_noun_in_all_nouns'] = nouns_percentage
 
-	#verbs_count = [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("VERB")
-	#print("percent verbs = {0:.3f}%".format((float(nouns_count)/float(total_words))*100))
+	all_nouns_to_ratio_percentage = float(nouns_count) / float(nouns_ratio)
+	print("regular nouns make up {0:.3f}% of all nouns".format((all_nouns_to_ratio_percentage*100)))
+	percentageDict['regular_nouns_in_all_nouns'] = all_nouns_to_ratio_percentage
 
 	#print(set([pos.XPOSTAG for _, pos in csv_dict.iteritems()])) # unquie tags
-	noun_tags = []
-	for row_num, pos in csv_dict.iteritems():
-		if pos.UPOSTAG == "NOUN":
-			noun_tags.append(pos.XPOSTAG)
+	#noun_tags = []
+	#for row_num, pos in csv_dict.iteritems():
+	#	if pos.UPOSTAG == "NOUN":
+	#		noun_tags.append(pos.XPOSTAG)
 	#print(set(noun_tags))
 	
 	print("Text is approximately {0} words".format(total_words))
+	percentageDict['text_size'] = total_words
+	return percentageDict  
 
-def saveDatatoCSV():
+def saveDatatoCSV(filename, percentDict):
 	# save data from each run to a csv for graphing (if text is new or has been updated)
-	pass
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "nounData_allText.csv"
+	print("\n")
 
+	fieldnames = ['FILENAME', 'TEXT_SIZE', 
+				  'ALL_NOUNS_IN_ALL_WORDS', 'PRONOUNS_IN_ALL_WORDS',
+				  'PROPER_NOUNS_IN_ALL_WORDS', 'REGULAR_NOUNS_IN_ALL_NOUNS',
+				  'PROPER_NOUNS_IN_ALL_NOUNS']
+
+	if not os.path.isfile("csv_percent_data/{0}".format(output_filename)): # if it doesn't exist, create csv file with dict data
+		with open('csv_percent_data/{0}'.format(output_filename), 'w') as noun_data:
+			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
+			writer.writeheader() 
+			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
+							 'TEXT_SIZE': percentDict['text_size'],
+							 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
+							 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
+							 'PROPER_NOUNS_IN_ALL_WORDS':  percentDict['proper_noun_in_all_words'],
+							 'REGULAR_NOUNS_IN_ALL_NOUNS': percentDict['regular_nouns_in_all_nouns'],
+							 'PROPER_NOUNS_IN_ALL_NOUNS': percentDict['proper_noun_in_all_nouns']
+								})
+		print("\n{0} created a new CSV NOUN DATA ".format(given_file.upper()))
+	else: # csv file exists, copy data and re-generate 
+		stored_results = [] # store old rows
+		with open('csv_percent_data/{0}'.format(output_filename), 'r') as noun_data:
+			reader = csv.DictReader(noun_data)
+			for row in reader:
+				stored_results.append(row) # store previous rows
+
+		with open('csv_percent_data/{0}'.format(output_filename), 'w') as noun_data:
+			new_file_to_append = os.path.basename(os.path.splitext(filename)[0])
+			to_append = True
+			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
+			writer.writeheader() 
+			for data_row in stored_results:
+				if data_row['FILENAME'] == new_file_to_append:
+					to_append = False # updated to an existing row rather than appended
+					writer.writerow({'FILENAME':  new_file_to_append, 
+									 'TEXT_SIZE': percentDict['text_size'],
+									 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
+									 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
+									 'PROPER_NOUNS_IN_ALL_WORDS':  percentDict['proper_noun_in_all_words'],
+									 'REGULAR_NOUNS_IN_ALL_NOUNS': percentDict['regular_nouns_in_all_nouns'],
+									 'PROPER_NOUNS_IN_ALL_NOUNS': percentDict['proper_noun_in_all_nouns']
+										})
+					print("{0} updated in an existing CSV log".format(given_file.upper()))
+
+				else:
+					writer.writerow(data_row)
+			if to_append: # if the file wasn't found, append to the end
+				# add new data to the end (appended)
+				writer.writerow({'FILENAME':  new_file_to_append, 
+								 'TEXT_SIZE': percentDict['text_size'],
+								 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
+								 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
+								 'PROPER_NOUNS_IN_ALL_WORDS':  percentDict['proper_noun_in_all_words'],
+								 'REGULAR_NOUNS_IN_ALL_NOUNS': percentDict['regular_nouns_in_all_nouns'],
+								 'PROPER_NOUNS_IN_ALL_NOUNS': percentDict['proper_noun_in_all_nouns']
+									})
+				print("{0} (new) appended to end of CSV NOUN DATA ".format(given_file.upper()))
+
+	# save information as dictionary of dictionary values for graphing purposes {filename: {attributes:}}
+	csv_data_results = {} # store old rows
+	with open('csv_percent_data/{0}'.format(output_filename), 'r') as noun_data:
+		reader = csv.DictReader(noun_data)
+		for row in reader:
+			csv_data_results[row['FILENAME']] = row # store previous rows
+	return csv_data_results
+
+def graphPOSdata(csv_data):
+	# scatter plot of pronouns, nouns and word length (updated every run/edit)
+	'''
+	sample {'ALL_NOUNS_IN_ALL_WORDS': '0.17543859649122806',
+	'FILENAME': 'sample', 'REGULAR_NOUNS_IN_ALL_NOUNS': '0.7407407407407407',
+	'PROPER_NOUNS_IN_ALL_WORDS': '0.06140350877192982', 
+	'PRONOUNS_IN_ALL_WORDS': '0.08771929824561403',
+	'TEXT_SIZE': '114', 'PROPER_NOUNS_IN_ALL_NOUNS': '0.17543859649122806'}
+	'''
+	filenames = []
+	text_size = []
+	all_nouns_in_all_words = []
+	pronouns_in_all_words = []
+	regular_nouns_in_all_nouns = []
+	proper_nouns_in_all_nouns = []
+	for filename, subdict_attributes in csv_data.iteritems(): #store all rows in the same index of different lists
+		filenames.append(filename)
+		text_size.append(int(subdict_attributes['TEXT_SIZE']))
+		all_nouns_in_all_words.append(float(subdict_attributes['ALL_NOUNS_IN_ALL_WORDS']))
+		pronouns_in_all_words.append(float(subdict_attributes['PRONOUNS_IN_ALL_WORDS']))
+		regular_nouns_in_all_nouns.append(float(subdict_attributes['REGULAR_NOUNS_IN_ALL_NOUNS']))
+		proper_nouns_in_all_nouns.append(float(subdict_attributes['PROPER_NOUNS_IN_ALL_NOUNS']))
+
+	(fig, ax) = plt.subplots(1, 1)
+	ax.scatter(text_size, all_nouns_in_all_words)
+	plt.title("POS DATA: Text size and All Nouns in All Words")
+	for i, data in enumerate(filenames): # label all dots with text file name
+		ax.annotate(data, (text_size[i], all_nouns_in_all_words[i]), fontsize=5)
+	plt.ylabel("Percentage")
+	ax.set_ylim([0.0, 1.0])
+	ax.set_xlim(left=0)
+	plt.xlabel("File Text Size (words)")
+	plt.savefig('csv_percent_data/all_nouns_in_all_words.png')
+	
+	(fig, ax) = plt.subplots(1, 1)
+	ax.scatter(text_size, pronouns_in_all_words)
+	plt.title("POS DATA: Text size and Pronouns in All Words")
+	for i, data in enumerate(filenames): # label all dots with text file name
+		ax.annotate(data, (text_size[i], pronouns_in_all_words[i]), fontsize=5)
+	plt.ylabel("Percentage")
+	ax.set_ylim([0.0, 1.0])
+	ax.set_xlim(left=0)
+	plt.xlabel("File Text Size (words)")
+	plt.savefig('csv_percent_data/pronouns_in_all_words.png')
+
+	(fig, ax) = plt.subplots(1, 1)
+	ax.scatter(text_size, regular_nouns_in_all_nouns)
+	plt.title("POS DATA: Text size and Regular Nouns in All Nouns")
+	for i, data in enumerate(filenames): # label all dots with text file name
+		ax.annotate(data, (text_size[i], regular_nouns_in_all_nouns[i]), fontsize=5)
+	plt.ylabel("Percentage")
+	ax.set_ylim([0.0, 1.0])
+	ax.set_xlim(left=0)
+	plt.xlabel("File Text Size (words)")
+	plt.savefig('csv_percent_data/regular_nouns_in_all_nouns.png')
+
+	(fig, ax) = plt.subplots(1, 1)
+	ax.scatter(text_size, proper_nouns_in_all_nouns)
+	plt.title("POS DATA: Text size and Pronouns in All Nouns")
+	for i, data in enumerate(filenames): # label all dots with text file name
+		ax.annotate(data, (text_size[i], proper_nouns_in_all_nouns[i]), fontsize=5)
+	plt.ylabel("Percentage")
+	ax.set_ylim([0.0, 1.0])
+	ax.set_xlim(left=0)
+	plt.xlabel("File Text Size (words)")
+	plt.savefig('csv_percent_data/proper_nouns_in_all_nouns.png')
+
+	print("DATA PLOT POS UPDATED")
 ########################################################################
 ## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech, filednames):
@@ -445,33 +714,42 @@ if __name__ == '__main__':
 			id_count += 1
 			if pos_named_tuple.MISC != 'punct' and pos_named_tuple.XPOSTAG != 'POS': # if row isn't puntuation or 's
 				total_words += 1
-
 	# index proper nouns
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
 	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
-	#grouped_named_ent_lst = commonSurrouding(grouped_named_ent_lst) # updated
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
 	print("Characters in the text: {0}\n".format(character_entities_group))
-
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
+	global_ent_dict = mostCommonGNE(sub_dictionary_one_shot_lookup)
+
 	# index pronouns
 	pronoun_index_dict = findPronouns(pos_dict)
-	print("\npronoun index dictionary: {0}".format(pronoun_index_dict))
+	#print("\n\npronoun index dictionary: {0}".format(pronoun_index_dict))
 
-	percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+	# print/display graphs with pos data
+	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
+	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
+	graphPOSdata(csv_data)
+
+	# SET UP FOR MANUAL TESTING (coreference labels calls csv)
+	coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
 ## TODO: 
+	# TODO: set up text for manual labeling
+	# TODO: update plotting with sentence length
+	# TODO: test accuracy on sample page
 	# TODO: character should be taking actions and connect directly to the root, otherwise, remove
 	# TODO: split sentences with question marks (see 20k end)
 	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
-	# TODO: re-implement 'of' and 'the' connecting words
+	# TODO: set up progress bar for proper noun and pronoun splicing for large text
 	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: use percentagePos to generate normalized graphs for size of text vs. # of nouns/pronouns
+	# TODO: Predict name of first-person character
 
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
