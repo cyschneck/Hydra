@@ -59,8 +59,6 @@ ASCII tree
 
 ![image](https://user-images.githubusercontent.com/22159116/36015691-d2ef764e-0d2c-11e8-9702-72254ffb8c42.png)
 
-Run time: 41 (verne short) -> real 2m25.151s, user 3m27.610s, sys 0m45.450s
-
 Will only run the parser once, if the parser has been run already, the output will be stored in the csv file for future use
 
 ## Part of Speech Data
@@ -69,6 +67,10 @@ Will only run the parser once, if the parser has been run already, the output wi
 ![pronouns_all_words](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/pronouns_in_all_words.png)
 ![proper_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
 ![regular_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
+
+## Tagging text for Pronouns and Proper nouns
+
+```One morning, when [Gregor Samsa]_n0 woke from troubled dreams, [he]_p0 found [himself]_p1 transformed in [his]_p2 bed into a horrible vermin. [He]_p3 lay on [his]_p4 armour-like back, and if [he]_p7 lifted [his]_p5 head a little [he]_p8 could see [his]_p5 brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover [it]_p9 and seemed ready to slide off any moment. [His]_p10 many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as [he]_p11 looked.```
 
 
 ## Pre-Processing Text
