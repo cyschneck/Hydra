@@ -6,7 +6,7 @@ The code in this repo is the working version of the thesis found in the link bel
 
 Link to final PDF (coming soon)
 
-TODO: update GNE for most common surrouding elements, create global name as the shared elements of GNES, research pronoun features (binding theory), generate percentNouns graphs, label pronouns (gender, plurality), cut off counter based on the size of the given text, manual labeling, accuracy test
+TODO: update GNE for most common surrouding elements, research pronoun features (binding theory), label pronouns (gender, plurality), cut off counter based on the size of the given text, accuracy test
 
 ## Install and Run
 ```git clone https://github.com/cschneck/Ishmael.git```
@@ -96,8 +96,6 @@ A Princess of Mars (Burroughs)
 
 Tarzan of the Apes (Burroughs)
 
-The Book of a Thousand Nights and a Night (Burton)
-
 Alice’s Adventures in Wonderland (Carroll)
 
 The Mysterious Affair at Styles (Christie)
@@ -123,8 +121,6 @@ The Adventures of Sherlock Holmes (Doyle)
 The Hound of the Baskervilles (Doyle)
 
 The Sign of Four (Doyle)
-
-The Man in the Iron Mask (Dumas)
 
 Autobiography of Benjamin Franklin (Franklin)
 
