@@ -30,7 +30,7 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR",
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
 				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
-				   "If"]
+				   "If", "thy", "Thy", "thee", "suppose", "there", "'There"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -65,6 +65,8 @@ def readFile(filename):
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", ", ")
 		string_words = string_words.replace("_", "")
+		string_words = string_words.replace("'I", "I")
+		string_words = string_words.replace("'we", "we")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
@@ -232,6 +234,8 @@ def groupSimilarEntities(grouped_nouns_dict):
 	'''
 	counter_dict = dict(Counter([val for sublist in grouped_nouns_dict.values() for val in sublist]))
 
+	#print("counter={0}".format(counter_dict))
+
 	names_all = list(set([val for sublist in grouped_nouns_dict.values() for val in sublist])) # is a list of all unquie names in the list
 	compare_names_same_format = [val.upper() for val in names_all]
 	# loop through to group similar elements
@@ -255,36 +259,36 @@ def groupSimilarEntities(grouped_nouns_dict):
 		if len(gne.split()) == 1 and len(gne.split()[0]) > 1: # includes only single instance values that are not a single letter
 			sublist.append(gne.split()) # include values that only appear once in a setence
 		for i in gne.split():
-			#print(i)
 			for gne_2 in gne_list_of_lists:
 				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
-					if len(i) > 1:
-						#print(i, gne_2)
-						#if found_words_to_ignore:
-						#	print("\tFOUND WORD={0}".format(found_words_to_ignore))
-						chapter_titles = ["CHAPTER", "Chapter", "Volume", "VOLUME"]
-						# only save words that don't include the chapter titles
-						found_in_i = any(val in chapter_titles for val in i.split())
-						found_in_gne2 = any(val in chapter_titles for val in gne_2.split())
-						if found_in_i or found_in_gne2:
-							# 'CHAPTER XXII Mr Rochester' -> 'Mr Rochester'
-							for title in chapter_titles:
-								if found_in_i:
-									#print(" ".join(i.split()[2:]))
-									i = " ".join(i.split()[2:])
-									break
-								if found_in_gne2:
-									#print(" ".join(gne_2.split()[2:]))
-									gne_2 = " ".join(gne_2.split()[2:])
-									break
-							if i != '' and gne_2 != '':
-								#print("FINAL APPEND={0}\n".format((i, gne_2)))
-								sublist.append([i, gne_2])
-						else:
+					#print(i, gne_2)
+					#if found_words_to_ignore:
+					#	print("\tFOUND WORD={0}".format(found_words_to_ignore))
+					chapter_titles = ["CHAPTER", "Chapter", "Volume", "VOLUME"]
+					# only save words that don't include the chapter titles
+					found_in_i = any(val in chapter_titles for val in i.split())
+					found_in_gne2 = any(val in chapter_titles for val in gne_2.split())
+					if found_in_i or found_in_gne2:
+						# 'CHAPTER XXII Mr Rochester' -> 'Mr Rochester'
+						for title in chapter_titles:
+							if found_in_i:
+								#print(" ".join(i.split()[2:]))
+								i = " ".join(i.split()[2:])
+								break
+							if found_in_gne2:
+								#print(" ".join(gne_2.split()[2:]))
+								gne_2 = " ".join(gne_2.split()[2:])
+								break
+						if i != '' and gne_2 != '':
+							#print("FINAL APPEND={0}\n".format((i, gne_2)))
 							sublist.append([i, gne_2])
+				else:
+					if i != gne_2:
+						if i not in gne_2:
+							if [i] not in sublist: # only keep one iteration of the name
+								sublist.append([i])
 		subgrouping.append(sublist)
 	subgrouping = [x for x in subgrouping if x != []]
-
 	final_grouping = []
 	for subgroup in subgrouping:
 		final_grouping.append(list(set([item for sublist in subgroup for item in sublist])))
@@ -307,14 +311,13 @@ def groupSimilarEntities(grouped_nouns_dict):
 	# remove any word that is part of the 'words_to_ignore' list
 	for item in final_grouping:
 		sublist = []
-		if len(item) > 1:
-			for i in item:
-				if i in words_to_ignore:
-					count += 1
-					#print("in word to ignore = {0}".format(i))
-				else:
-					#print(i)
-					sublist.append(i)
+		for i in item:
+			if i in words_to_ignore:
+				count += 1
+				#print("in word to ignore = {0}".format(i))
+			else:
+				#print(i)
+				sublist.append(i)
 		if item[0] in words_to_ignore:
 			count += 1
 			if item[0] in words_to_ignore:
@@ -324,11 +327,12 @@ def groupSimilarEntities(grouped_nouns_dict):
 				sublist.append(item[0])
 		if sublist != []:
 			character_group_list.append(sublist)
+
 	character_group = [] # only save unquie lists
 	for i in character_group_list:
 		if i not in character_group:
 			character_group.append(i)
-	
+
 	#print("\nfinal group: \n{0}".format(final_grouping))
 	#print("\ncharacter group: \n{0}".format(character_group))
 	#print(len([item for item in final_grouping if item not in words_to_ignore]))
@@ -405,7 +409,9 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
-	#print(character_entities_dict.keys())
+	print("character entities dict: {0}\n".format(character_entities_dict))
+	print("character entities keys: {0}\n".format(character_entities_dict.keys()))
+	print("character entities values: {0}\n".format(character_entities_dict.values()))
 	
 	row_dict = {} # to print data into csv
 	gne_index = 0 # display word of interst as [Name]_index
@@ -428,6 +434,8 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " [{0}]_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
 
+				#TODO: Fails if the proper name/pronoun is close to a puncuation: doesn't see "We, or "'I"
+
 				# tag proper nouns
 				found_longest_match = ''
 				gne_found_in_sentence = False # if found, print and update the sentence value
@@ -439,10 +447,11 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 				index_range_list = [] # compare each index values
 				all_index_values = [] # contains all index values of gnes
 				to_remove = [] # if a value is encompassed, it should be removed
+				print(new_sentence_to_add)
 				if len(lst_gne) > 0:
-					#print("\nlst_gne = {0}\n".format(lst_gne))
+					#print("\nlst_gne = {0}".format(lst_gne))
 					for gne in lst_gne: # create the index values for each enitity
-						#print("ran gne = '{0}' in {1}".format(gne, new_sentence_to_add))
+						#print("{0}".format(new_sentence_to_add))
 						search_item = re.search(r"\b{0}\b".format(gne), new_sentence_to_add)
 						if not search_item: # if it return none
 							break # skip item if not found
@@ -517,9 +526,8 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						gne_index += 1
 				sentences_in_order += new_sentence_to_add.strip() + '. '
 				
-			#print("\nFinal Sentence Format:\n{0}\n".format(sentences_in_order))
-			print("\n")
-			saveTagforManualAccuracy(sentences_in_order)
+			print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
+			#saveTagforManualAccuracy(sentences_in_order)
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
@@ -857,9 +865,9 @@ if __name__ == '__main__':
 				total_words += 1
 	# index proper nouns
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
-	#print("Characters in the text: {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
+	print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
-	#print("Characters in the text: {0}\n".format(character_entities_group))
+	#print("Characters in the text (ent): {0}\n".format(character_entities_group))
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
@@ -888,7 +896,8 @@ if __name__ == '__main__':
 	# TODO: set up progress bar for proper noun and pronoun splicing for large text
 	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: Predict name of first-person character
-
+	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
+	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
 	#from sklearn.externals import joblib # save model to load
