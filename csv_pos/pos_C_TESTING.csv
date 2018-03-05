@@ -95,3 +95,12 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 8,'','',.,8,8,_,_,10,punct,_,_,"""She should keep her mouth shut"" he said",True
 8,he,PRP,PRON,9,8,_,_,10,nsubj,_,_,"""She should keep her mouth shut"" he said",True
 8,said,VBD,VERB,10,8,_,_,0,ROOT,_,_,"""She should keep her mouth shut"" he said",True
+9,``,``,.,1,6,_,_,5,punct,_,_,"""Robert was the first, then Mary",True
+9,Robert,NNP,NOUN,2,6,_,_,5,nsubj,_,_,"""Robert was the first, then Mary",True
+9,was,VBD,VERB,3,6,_,_,5,cop,_,_,"""Robert was the first, then Mary",True
+9,the,DT,DET,4,6,_,_,5,det,_,_,"""Robert was the first, then Mary",True
+9,first,JJ,ADJ,5,6,_,_,0,ROOT,_,_,"""Robert was the first, then Mary",True
+9,,.,_,6,6,,,,_,5,punct,"""Robert was the first, then Mary",True
+9,then,RB,ADV,7,6,_,_,5,advmod,_,_,"""Robert was the first, then Mary",True
+9,Mary,NNP,NOUN,8,6,_,_,5,dep,_,_,"""Robert was the first, then Mary",True
+10,``,``,.,1,1,_,_,0,ROOT,_,_,"""",True

@@ -410,7 +410,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	size_sentences = 2100000000 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
 	rows_of_csv_tuple = csv_file.values()
 	all_sentences_in_csv = list(set([int(word.SENTENCE_INDEX) for word in csv_file.values()]))
-
 	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
 		size_sentences = max(all_sentences_in_csv)+1
 	print("Size of sentence for manual tagging = {0}".format(size_sentences))
@@ -429,12 +428,12 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
 				new_sentence_to_add = list(set([row.SENTENCE for row in rows_of_csv_tuple if row.SENTENCE_INDEX == str(i)]))[0]
-				#print(new_sentence_to_add)
 				if "\"" in new_sentence_to_add:
-					new_sentence_to_add = new_sentence_to_add.replace('"', ' " ') # find all pronouns even with speech tags
+					pass
+					#new_sentence_to_add = new_sentence_to_add.replace('"', ' " ') # find all pronouns even with speech tags
 				# returns a sentence in range
 				new_sentence_to_add = " {0}".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
-
+				
 				# tag pronouns first (from pos_dict)
 				if i in pos_dict.keys():
 					for pronoun in pos_dict[i]: # for all pronouns within the given sentence
@@ -445,7 +444,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 								pronoun_index += 1
 
 				#TODO: Fails if the proper name/pronoun is close to a puncuation: doesn't see "We, or "'I"
-				#TODO: Fails for "My name is" where My is not found (end of barrie)
 
 				# tag proper nouns
 				found_longest_match = ''
@@ -492,8 +490,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 												to_remove.append(range_index)
 												#print("{0} <= {1} = {2}".format(index_range_word[0], range_index[0], index_range_word[0] <= range_index[0]))
 												#print("{0} >= {1} = {2}".format(index_range_word[1], range_index[1], index_range_word[1] >= range_index[1]))
-												
-
 						index_range_list.append(index_range_word)
 					#print("remove index values = {0}".format(to_remove))
 					#print("largest gne index values ALL = {0}".format(all_index_values))
@@ -529,7 +525,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 									replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
 									new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 									sub_counter += 1
-
 				new_sent = new_sentence_to_add.split()
 				# label all proper nouns with an associated index value for noun
 				for index, word_string in enumerate(new_sent):
@@ -538,12 +533,13 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							new_sent[index] = '{0}{1}'.format(word_string, gne_index)
 							new_sentence_to_add = " ".join(new_sent)
 							gne_index += 1
+				#print(new_sentence_to_add)
 				new_sentence_to_add = new_sentence_to_add.strip()
 				new_sentence_to_add = new_sentence_to_add.replace('" ', '"') # edit the speech puncutations
 				new_sentence_to_add = new_sentence_to_add.replace(' "', '"')
 				sentences_in_order += new_sentence_to_add + '. '
 			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
-			saveTagforManualAccuracy(sentences_in_order)
+			#saveTagforManualAccuracy(sentences_in_order)
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
@@ -556,7 +552,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 10 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 15 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -900,7 +896,7 @@ if __name__ == '__main__':
 	graphPOSdata(csv_data)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv)
-	coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
+	#coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
