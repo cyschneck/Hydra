@@ -256,7 +256,6 @@ def groupSimilarEntities(grouped_nouns_dict):
 	subgrouping = []
 	#print("\ngne_list_of_lists: {0}".format(gne_list_of_lists))
 	if len(gne_list_of_lists) > 1: # if there is only one name in all the text (debugging short texts)
-		print("len > 1")
 		for gne in gne_list_of_lists:
 			sublist = []
 			if len(gne.split()) == 1 and len(gne.split()[0]) > 1: # includes only single instance values that are not a single letter
@@ -420,6 +419,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
 	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
 	
+	#print("\n")
 	row_dict = {} # to print data into csv
 	gne_index = 0 # display word of interst as [Name]_index
 	pronoun_index = 0 # display word of interst as [Pronoun]_index
@@ -429,6 +429,9 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
 				new_sentence_to_add = list(set([row.SENTENCE for row in rows_of_csv_tuple if row.SENTENCE_INDEX == str(i)]))[0]
+				#print(new_sentence_to_add)
+				if "\"" in new_sentence_to_add:
+					new_sentence_to_add = new_sentence_to_add.replace('"', ' " ') # find all pronouns even with speech tags
 				# returns a sentence in range
 				new_sentence_to_add = " {0}".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
 
@@ -442,6 +445,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 								pronoun_index += 1
 
 				#TODO: Fails if the proper name/pronoun is close to a puncuation: doesn't see "We, or "'I"
+				#TODO: Fails for "My name is" where My is not found (end of barrie)
 
 				# tag proper nouns
 				found_longest_match = ''
@@ -517,22 +521,27 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 					for find_additional in repeats_to_find:
 						repeat_item = re.finditer(r"\b{0}\b".format(find_additional), new_sentence_to_add)
 						for m in repeat_item:
-							#index_to_check = [m.start(), m.end()]
+							index_to_check = [m.start(), m.end()]
 							if [m.start()-1,m.end()-1] not in updated_index: # check that name hasn't been already assigned
-								start_word = m.start() + new_characters_from_update
-								end_word = m.end() + new_characters_from_update
-								replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
-								new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
-								sub_counter += 1
+								if new_sentence_to_add[m.start()-1] != '[' and new_sentence_to_add[m.end():m.end()+3] != ']_n':
+									start_word = m.start() + new_characters_from_update
+									end_word = m.end() + new_characters_from_update
+									replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
+									new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
+									sub_counter += 1
+
 				new_sent = new_sentence_to_add.split()
 				# label all proper nouns with an associated index value for noun
 				for index, word_string in enumerate(new_sent):
 					if ']_n' in word_string:
-						new_sent[index] = '{0}{1}'.format(word_string, gne_index)
-						new_sentence_to_add = " ".join(new_sent)
-						gne_index += 1
-				sentences_in_order += new_sentence_to_add.strip() + '. '
-				
+						if word_string != "]_n":
+							new_sent[index] = '{0}{1}'.format(word_string, gne_index)
+							new_sentence_to_add = " ".join(new_sent)
+							gne_index += 1
+				new_sentence_to_add = new_sentence_to_add.strip()
+				new_sentence_to_add = new_sentence_to_add.replace('" ', '"') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace(' "', '"')
+				sentences_in_order += new_sentence_to_add + '. '
 			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
 			saveTagforManualAccuracy(sentences_in_order)
 
