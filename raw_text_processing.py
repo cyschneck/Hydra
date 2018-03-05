@@ -286,7 +286,8 @@ def groupSimilarEntities(grouped_nouns_dict):
 					if i != gne_2:
 						if i not in gne_2:
 							if [i] not in sublist: # only keep one iteration of the name
-								sublist.append([i])
+								if len(i) > 1: # exclude single letter
+									sublist.append([i])
 		subgrouping.append(sublist)
 	subgrouping = [x for x in subgrouping if x != []]
 	final_grouping = []
@@ -327,6 +328,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 				sublist.append(item[0])
 		if sublist != []:
 			character_group_list.append(sublist)
+	print("character_group_list: {0}".format(character_group_list))
 
 	character_group = [] # only save unquie lists
 	for i in character_group_list:
@@ -409,9 +411,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
-	print("character entities dict: {0}\n".format(character_entities_dict))
-	print("character entities keys: {0}\n".format(character_entities_dict.keys()))
-	print("character entities values: {0}\n".format(character_entities_dict.values()))
+	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
 	
 	row_dict = {} # to print data into csv
 	gne_index = 0 # display word of interst as [Name]_index
@@ -447,7 +447,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 				index_range_list = [] # compare each index values
 				all_index_values = [] # contains all index values of gnes
 				to_remove = [] # if a value is encompassed, it should be removed
-				print(new_sentence_to_add)
+
 				if len(lst_gne) > 0:
 					#print("\nlst_gne = {0}".format(lst_gne))
 					for gne in lst_gne: # create the index values for each enitity
@@ -526,8 +526,8 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						gne_index += 1
 				sentences_in_order += new_sentence_to_add.strip() + '. '
 				
-			print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
-			#saveTagforManualAccuracy(sentences_in_order)
+			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
+			saveTagforManualAccuracy(sentences_in_order)
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
