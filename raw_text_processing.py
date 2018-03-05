@@ -26,11 +26,12 @@ possessive_pronouns = "mine yours his hers ours theirs"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves"
 relative_pronouns = "that whic who whose whom where when"
 connecting_words = []#["of", "the"]
-words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "Sir", "SIR", "Dear", "DEAR", 
+words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
 				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
-				   "If", "thy", "Thy", "thee", "suppose", "there", "'There"]
+				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
+				   "good-night", "Good-night", "good-morning", "Good-moring"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -253,46 +254,51 @@ def groupSimilarEntities(grouped_nouns_dict):
 				gne_name_group.append(compared)
 
 	subgrouping = []
+	#print("\ngne_list_of_lists: {0}".format(gne_list_of_lists))
+	if len(gne_list_of_lists) > 1: # if there is only one name in all the text (debugging short texts)
+		print("len > 1")
+		for gne in gne_list_of_lists:
+			sublist = []
+			if len(gne.split()) == 1 and len(gne.split()[0]) > 1: # includes only single instance values that are not a single letter
+				sublist.append(gne.split()) # include values that only appear once in a setence
+			for i in gne.split():
+				for gne_2 in gne_list_of_lists:
+					if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
+						chapter_titles = ["CHAPTER", "Chapter", "Volume", "VOLUME"]
+						# only save words that don't include the chapter titles
+						found_in_i = any(val in chapter_titles for val in i.split())
+						found_in_gne2 = any(val in chapter_titles for val in gne_2.split())
+						if found_in_i or found_in_gne2:
+							# 'CHAPTER XXII Mr Rochester' -> 'Mr Rochester'
+							for title in chapter_titles:
+								if found_in_i:
+									#print(" ".join(i.split()[2:]))
+									i = " ".join(i.split()[2:])
+									break
+								if found_in_gne2:
+									#print(" ".join(gne_2.split()[2:]))
+									gne_2 = " ".join(gne_2.split()[2:])
+									break
+							if i != '' and gne_2 != '':
+								#print("FINAL APPEND={0}\n".format((i, gne_2)))
+								sublist.append([i, gne_2])
+					else:
+						if gne_2 != i:
+							if gne_2 not in i:
+								if [gne_2] not in sublist: # only keep one iteration of the name
+									if len(gne_2) > 1: # exclude single letter
+										sublist.append([gne_2])
+			subgrouping.append(sublist)
+	else:
+		subgrouping.append(gne_list_of_lists)
 
-	for gne in gne_list_of_lists:
-		sublist = []
-		if len(gne.split()) == 1 and len(gne.split()[0]) > 1: # includes only single instance values that are not a single letter
-			sublist.append(gne.split()) # include values that only appear once in a setence
-		for i in gne.split():
-			for gne_2 in gne_list_of_lists:
-				if i in gne_2 and i != gne_2 and (i != [] or gne_2 != []):
-					#print(i, gne_2)
-					#if found_words_to_ignore:
-					#	print("\tFOUND WORD={0}".format(found_words_to_ignore))
-					chapter_titles = ["CHAPTER", "Chapter", "Volume", "VOLUME"]
-					# only save words that don't include the chapter titles
-					found_in_i = any(val in chapter_titles for val in i.split())
-					found_in_gne2 = any(val in chapter_titles for val in gne_2.split())
-					if found_in_i or found_in_gne2:
-						# 'CHAPTER XXII Mr Rochester' -> 'Mr Rochester'
-						for title in chapter_titles:
-							if found_in_i:
-								#print(" ".join(i.split()[2:]))
-								i = " ".join(i.split()[2:])
-								break
-							if found_in_gne2:
-								#print(" ".join(gne_2.split()[2:]))
-								gne_2 = " ".join(gne_2.split()[2:])
-								break
-						if i != '' and gne_2 != '':
-							#print("FINAL APPEND={0}\n".format((i, gne_2)))
-							sublist.append([i, gne_2])
-				else:
-					if i != gne_2:
-						if i not in gne_2:
-							if [i] not in sublist: # only keep one iteration of the name
-								if len(i) > 1: # exclude single letter
-									sublist.append([i])
-		subgrouping.append(sublist)
-	subgrouping = [x for x in subgrouping if x != []]
 	final_grouping = []
-	for subgroup in subgrouping:
-		final_grouping.append(list(set([item for sublist in subgroup for item in sublist])))
+	if len(subgrouping) > 1:
+		subgrouping = [x for x in subgrouping if x != []]
+		for subgroup in subgrouping:
+			final_grouping.append(list(set([item for sublist in subgroup for item in sublist])))
+	else:
+		final_grouping = subgrouping # keep the single element
 
 	iterate_list_num = list(range(len(final_grouping)))
 	for i in range(len(final_grouping)):
@@ -302,6 +308,8 @@ def groupSimilarEntities(grouped_nouns_dict):
 				if extend_val:
 					final_grouping[i].extend(final_grouping[num])
 					final_grouping[i] = sorted(list(set(final_grouping[i]))) # extend list to include similar elements
+
+	#print("\nfinal_grouping: {0}".format(final_grouping))
 
 	final_grouping = sorted(final_grouping) # organize and sort
 	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
@@ -328,7 +336,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 				sublist.append(item[0])
 		if sublist != []:
 			character_group_list.append(sublist)
-	print("character_group_list: {0}".format(character_group_list))
+	#print("character_group_list: {0}".format(character_group_list))
 
 	character_group = [] # only save unquie lists
 	for i in character_group_list:
@@ -338,7 +346,6 @@ def groupSimilarEntities(grouped_nouns_dict):
 	#print("\nfinal group: \n{0}".format(final_grouping))
 	#print("\ncharacter group: \n{0}".format(character_group))
 	#print(len([item for item in final_grouping if item not in words_to_ignore]))
-	#print("\n")
 	#print(len(final_grouping))
 	#print(len(character_group))
 	#print("count = {0}".format(count))
@@ -544,6 +551,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
+	print("\n")
 	for sentence_tag in sentence_range:
 		print(''.join(sentence_tag))
 	#	print(''.join(sentence_tag).count("]_n"))
@@ -865,9 +873,9 @@ if __name__ == '__main__':
 				total_words += 1
 	# index proper nouns
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
-	print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
+	#print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
-	#print("Characters in the text (ent): {0}\n".format(character_entities_group))
+	print("Characters in the text (ent): {0}\n".format(character_entities_group))
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
