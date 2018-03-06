@@ -66,8 +66,10 @@ def readFile(filename):
 		string_words = string_words.replace(";" , " ")
 		string_words = string_words.replace("--", ", ")
 		string_words = string_words.replace("_", "")
-		string_words = string_words.replace("'I", "I")
-		string_words = string_words.replace("'we", "we")
+		string_words = string_words.replace("'I", "' I") # fix puncutation where I 
+		string_words = string_words.replace("'It", "' It")
+		string_words = string_words.replace("'we", "' we")
+		string_words = string_words.replace("'We", "' We")
 		string_words = string_words.replace("Mr.", "Mr") # period created breaks when spliting
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
@@ -428,12 +430,18 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
 				new_sentence_to_add = list(set([row.SENTENCE for row in rows_of_csv_tuple if row.SENTENCE_INDEX == str(i)]))[0]
-				if "\"" in new_sentence_to_add:
-					pass
-					#new_sentence_to_add = new_sentence_to_add.replace('"', ' " ') # find all pronouns even with speech tags
+				if i+1 < sentences_tag[-1]+1:
+					next_sentence_check = list(set([row.SENTENCE for row in rows_of_csv_tuple if row.SENTENCE_INDEX == str(i+1)]))[0]
+					if len(next_sentence_check) == 1:
+						#print("old: {0}".format(new_sentence_to_add))
+						#print("NEXT IS NEARLY EMPTY, APPEND TO PREVIOUS SENTENCE: '{0}'".format(next_sentence_check))
+						new_sentence_to_add += next_sentence_check # add the final dialouge tag into the previous sentence
+						#print("new: {0}".format(new_sentence_to_add))
 				# returns a sentence in range
-				new_sentence_to_add = " {0}".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
-				
+				new_sentence_to_add = " {0} ".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
+				if "\"" in new_sentence_to_add:
+					new_sentence_to_add = new_sentence_to_add.replace("\"", " \" ")
+
 				# tag pronouns first (from pos_dict)
 				if i in pos_dict.keys():
 					for pronoun in pos_dict[i]: # for all pronouns within the given sentence
@@ -443,7 +451,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " [{0}]_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
 
-				#TODO: Fails if the proper name/pronoun is close to a puncuation: doesn't see "We, or "'I"
 
 				# tag proper nouns
 				found_longest_match = ''
@@ -533,12 +540,14 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							new_sent[index] = '{0}{1}'.format(word_string, gne_index)
 							new_sentence_to_add = " ".join(new_sent)
 							gne_index += 1
-				#print(new_sentence_to_add)
-				new_sentence_to_add = new_sentence_to_add.strip()
+				new_sentence_to_add = new_sentence_to_add.strip() # remove precending whitespace
 				new_sentence_to_add = new_sentence_to_add.replace('" ', '"') # edit the speech puncutations
-				new_sentence_to_add = new_sentence_to_add.replace(' "', '"')
-				sentences_in_order += new_sentence_to_add + '. '
-			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
+				new_sentence_to_add = new_sentence_to_add.replace(' "', '" ') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace('\' ', '\'') # edit the speech puncutations
+				if new_sentence_to_add != '"': # if the value is just the end of a dialouge tag (already included, ignore)
+					sentences_in_order += new_sentence_to_add + '. '
+					#print(new_sentence_to_add + '. ')
+			print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
 			#saveTagforManualAccuracy(sentences_in_order)
 
 def saveTagforManualAccuracy(sentences_in_order):
@@ -550,9 +559,12 @@ def saveTagforManualAccuracy(sentences_in_order):
 				  'FOUND_PROPER_NOUN', 'MISSED_PROPER_NOUN',
 				  'FOUND_PRONOUN', 'MISSED_PRONOUN']
 
+	print("\n")
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
+	print(split_sentences_in_list)
+	print("\n")
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 15 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 10 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -896,7 +908,7 @@ if __name__ == '__main__':
 	graphPOSdata(csv_data)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv)
-	#coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
+	coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
