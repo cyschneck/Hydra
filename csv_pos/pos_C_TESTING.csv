@@ -103,25 +103,20 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 9,,.,_,6,6,,,,_,5,punct,"""Robert was the first, then Mary",True
 9,then,RB,ADV,7,6,_,_,5,advmod,_,_,"""Robert was the first, then Mary",True
 9,Mary,NNP,NOUN,8,6,_,_,5,dep,_,_,"""Robert was the first, then Mary",True
-10,``,``,.,1,6,_,_,6,punct,_,_,""" But John was less sure",True
-10,But,CC,CONJ,2,6,_,_,6,cc,_,_,""" But John was less sure",True
-10,John,NNP,NOUN,3,6,_,_,6,nsubj,_,_,""" But John was less sure",True
-10,was,VBD,VERB,4,6,_,_,6,cop,_,_,""" But John was less sure",True
-10,less,RBR,ADV,5,6,_,_,6,advmod,_,_,""" But John was less sure",True
-10,sure,JJ,ADJ,6,6,_,_,0,ROOT,_,_,""" But John was less sure",True
-11,``,``,.,1,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
-11,What,WP,PRON,2,8,_,_,5,dobj,_,_,"""What should we do about her?"" he asked",True
-11,should,MD,VERB,3,8,_,_,5,aux,_,_,"""What should we do about her?"" he asked",True
-11,we,PRP,PRON,4,8,_,_,5,nsubj,_,_,"""What should we do about her?"" he asked",True
-11,do,VB,VERB,5,8,_,_,11,ccomp,_,_,"""What should we do about her?"" he asked",True
-11,about,RB,ADV,6,8,_,_,5,prep,_,_,"""What should we do about her?"" he asked",True
-11,her,PRP,PRON,7,8,_,_,6,pobj,_,_,"""What should we do about her?"" he asked",True
-11,?,.,.,8,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
-11,'','',.,9,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
-11,he,PRP,PRON,10,8,_,_,11,nsubj,_,_,"""What should we do about her?"" he asked",True
-11,asked,VBD,VERB,11,8,_,_,0,ROOT,_,_,"""What should we do about her?"" he asked",True
-12,``,``,.,1,2,_,_,2,punct,_,_,"""Kill her!""",True
-12,Kill,VB,VERB,2,2,_,_,0,ROOT,_,_,"""Kill her!""",True
-12,her,PRP,PRON,3,2,_,_,2,dobj,_,_,"""Kill her!""",True
-12,!,.,.,4,2,_,_,2,punct,_,_,"""Kill her!""",True
-12,'','',.,5,2,_,_,2,punct,_,_,"""Kill her!""",True
+10,``,``,.,1,9,_,_,12,punct,_,_,""" ""What should we do about her?"" he asked",True
+10,``,``,.,2,9,_,_,6,punct,_,_,""" ""What should we do about her?"" he asked",True
+10,What,WP,PRON,3,9,_,_,6,dobj,_,_,""" ""What should we do about her?"" he asked",True
+10,should,MD,VERB,4,9,_,_,6,aux,_,_,""" ""What should we do about her?"" he asked",True
+10,we,PRP,PRON,5,9,_,_,6,nsubj,_,_,""" ""What should we do about her?"" he asked",True
+10,do,VB,VERB,6,9,_,_,12,ccomp,_,_,""" ""What should we do about her?"" he asked",True
+10,about,RB,ADV,7,9,_,_,6,prep,_,_,""" ""What should we do about her?"" he asked",True
+10,her,PRP,PRON,8,9,_,_,7,pobj,_,_,""" ""What should we do about her?"" he asked",True
+10,?,.,.,9,9,_,_,12,punct,_,_,""" ""What should we do about her?"" he asked",True
+10,'','',.,10,9,_,_,12,punct,_,_,""" ""What should we do about her?"" he asked",True
+10,he,PRP,PRON,11,9,_,_,12,nsubj,_,_,""" ""What should we do about her?"" he asked",True
+10,asked,VBD,VERB,12,9,_,_,0,ROOT,_,_,""" ""What should we do about her?"" he asked",True
+11,``,``,.,1,2,_,_,2,punct,_,_,"""Kill her!""",True
+11,Kill,VB,VERB,2,2,_,_,0,ROOT,_,_,"""Kill her!""",True
+11,her,PRP,PRON,3,2,_,_,2,dobj,_,_,"""Kill her!""",True
+11,!,.,.,4,2,_,_,2,punct,_,_,"""Kill her!""",True
+11,'','',.,5,2,_,_,2,punct,_,_,"""Kill her!""",True
