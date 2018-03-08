@@ -1,0 +1,7 @@
+FILENAME,TEXT,FOUND_PROPER_NOUN,MISSED_PROPER_NOUN,FOUND_PRONOUN,MISSED_PRONOUN
+sample,[Peter]_n0 knew a dragon once named [Isabelle]_n1 of the [Iron Trees]_n2.,3,0,0,0
+sample," [She]_p0 looked like a tall deer to [him]_p1,  and [her]_p2 wings were a pale,  almost transparent shade of blue.",0,0,3,0
+sample, [He]_p3 found [her]_p4 in a valley perpetually blackened by the shadow of the great mountain to the east.,0,0,2,0
+sample, [She]_p5 looked at [him]_p6 with a vast serenity but did not speak to [him]_p7 for another seventy-four years.,0,0,3,0
+sample, And [it]_p8 was only [his]_p9 youngest granddaughter [Mary]_n3 who convinced [her]_p10 to grant the old man a few soft words as [he]_p11 died.,1,0,4,0
+sample," [Isabelle]_n4 whispered in [his]_p12 ear stories of the far [North]_n5, of the world before the mountains grew to the sky and mankind forgot the sun.",2,0,1,0

@@ -1,0 +1,46 @@
+FILENAME,TEXT,FOUND_PROPER_NOUN,MISSED_PROPER_NOUN,FOUND_PRONOUN,MISSED_PRONOUN
+verne_20_test_short,[It]_p0 was the commander of the vessel who thus spoke.,0,0,1,0
+verne_20_test_short," At these words, [Ned Land]_n0 rose suddenly.",1,0,0,0
+verne_20_test_short," The steward,  nearly strangled,  tottered out on a sign from [his]_p1 master.",0,0,1,0
+verne_20_test_short," But such was the power of the commander on board,  that not a gesture betrayed the resentment which this man must have felt towards the Canadian.",0,0,0,0
+verne_20_test_short," [Conseil]_n1 interested in spite of [himself]_p2, [I]_p3 stupefied, awaited in silence the result of this scene.",1,0,2,0
+verne_20_test_short," The commander,  leaning against the corner of a table with [his]_p4 arms folded,  scanned [us]_p5 with profound attention.",0,0,2,0
+verne_20_test_short, Did [he]_p6 hesitate to speak? Did [he]_p7 regret the words which [he]_p7 had just spoken in [French]_n2 ? [One]_p9 might almost think so.,1,0,4,0
+verne_20_test_short," After some moments of silence, which not one of [us]_p10 dreamed of breaking ,""[Gentlemen]_n3 ,""said [he]_p11, in a calm and penetrating voice ,""[I]_p12 speak [French]_n4, [English]_n5, German, and [Latin]_n6 equally well.",4,0,3,0
+verne_20_test_short," [I]_p13 could,  therefore,  have answered [you]_p15 at [our]_p17 first interview,  but [I]_p14 wished to know [you]_p16 first,  then to reflect.",0,0,5,0
+verne_20_test_short," The story told by each one,  entirely agreeing in the main points,  convinced [me]_p18 of [your]_p19 identity.",0,0,2,0
+verne_20_test_short, [I]_p20 know now that chance has brought before [me]_p21 M.,0,0,2,0
+verne_20_test_short," [Pierre Aronnax]_n7, [Professor]_n8 of [Natural]_n9 History at the [Museum]_n10 of [Paris]_n11, entrusted with a scientific mission abroad, [Conseil]_n12, [his]_p22 servant, and [Ned Land]_n13, of Canadian origin, harpooner on board the frigate [Abraham Lincoln]_n14 of the navy of the [United States]_n15 of [America]_n16.",10,0,1,0
+verne_20_test_short," "" [I]_p23 bowed assent.",0,0,1,0
+verne_20_test_short, [It]_p24 was not a question that the commander put to [me]_p25.,0,0,2,0
+verne_20_test_short, Therefore there was no answer to be made.,0,0,0,0
+verne_20_test_short," This man expressed [himself]_p26 with perfect ease,  without any accent.",0,0,1,0
+verne_20_test_short," [His]_p27 sentences were well turned,  [his]_p28 words clear,  and [his]_p29 fluency of speech remarkable.",0,0,3,0
+verne_20_test_short," Yet,  [I]_p30 did not recognise in [him]_p31 a fellow-countryman.",0,0,2,0
+verne_20_test_short," [He]_p32 continued the conversation in these terms: ""[You]_p33 have doubtless thought,  sir,  that [I]_p34 have delayed long in paying [you]_p35 this second visit.",0,0,4,0
+verne_20_test_short," The reason is that,  [your]_p36 identity recognised,  [I]_p37 wished to weigh maturely what part to act towards [you]_p38.",0,0,3,0
+verne_20_test_short, [I]_p39 have hesitated much.,0,0,1,0
+verne_20_test_short, Most annoying circumstances have brought [you]_p40 into the presence of a man who has broken all the ties of humanity.,0,0,1,0
+verne_20_test_short, [You]_p41 have come to trouble [my]_p42 existence.,0,0,2,0
+verne_20_test_short," "" ""Unintentionally!"" said [I]_p43.",0,0,1,0
+verne_20_test_short," ""Unintentionally?"" replied the stranger,  raising [his]_p44 voice a little.",0,0,1,0
+verne_20_test_short," ""Was [it]_p45 unintentionally that the [Abraham Lincoln]_n17 pursued [me]_p49 all over the seas? Was [it]_p46 unintentionally that [you]_p51 took passage in this frigate? Was [it]_p46 unintentionally that [your]_p52 cannon-balls rebounded off the plating of [my]_p53 vessel? Was [it]_p47 unintentionally that [Mr Ned Land]_n18 struck [me]_p50 with [his]_p54 harpoon?""[I]_p55 detected a restrained irritation in these words.",2,0,11,0
+verne_20_test_short," But to these recriminations [I]_p56 had a very natural answer to make,  and [I]_p57 made [it]_p58.",0,0,3,0
+verne_20_test_short," ""Sir ,""said [I]_p59 ,""no doubt [you]_p60 are ignorant of the discussions which have taken place concerning [you]_p61 in [America]_n19 and [Europe]_n20.",2,0,3,0
+verne_20_test_short," [You]_p62 do not know that divers accidents,  caused by collisions with [your]_p63 submarine machine,  have excited public feeling in the two continents.",0,0,2,0
+verne_20_test_short, [I]_p64 omit the theories without number by which [it]_p65 was sought to explain that of which [you]_p66 alone possess the secret.,0,0,3,0
+verne_20_test_short," But [you]_p67 must understand that, in pursuing [you]_p68 over the high seas of the [Pacific]_n21, the [Abraham Lincoln]_n22 believed [itself]_p69 to be chasing some powerful sea-monster, of which [it]_p70 was necessary to rid the ocean at any price.",2,0,4,0
+verne_20_test_short," "" A half-smile curled the lips of the commander: then,  in a calmer tone: ""M.",0,0,0,0
+verne_20_test_short," [Aronnax]_n23 ,""[he]_p71 replied ,""dare [you]_p72 affirm that [your]_p73 frigate would not as soon have pursued and cannonaded a submarine boat as a monster?""This question embarrassed [me]_p74, for certainly [Captain Farragut]_n24 might not have hesitated.",2,0,4,0
+verne_20_test_short," [He]_p75 might have thought [it]_p76 [his]_p77 duty to destroy a contrivance of this kind,  as [he]_p78 would a gigantic narwhal.",0,0,4,0
+verne_20_test_short," ""[You]_p79 understand then,  sir, "" continued the stranger,  ""that [I]_p80 have the right to treat [you]_p82 as enemies?"" [I]_p81 answered nothing,  purposely.",0,0,4,0
+verne_20_test_short," For what good would [it]_p83 be to discuss such a proposition,  when force could destroy the best arguments? ""[I]_p84 have hesitated some time, "" continued the commander ""nothing obliged [me]_p85 to show [you]_p86 hospitality.",0,0,4,0
+verne_20_test_short," If [I]_p87 chose to separate [myself]_p91 from [you]_p92,  [I]_p88 should have no interest in seeing [you]_p93 again [I]_p88 could place [you]_p93 upon the deck of this vessel which has served [you]_p94 as a refuge,  [I]_p89 could sink beneath the waters,  and forget that [you]_p94 had ever existed.",0,0,10,0
+verne_20_test_short," Would not that be [my]_p97 right?"" ""[It]_p98 might be the right of a savage, "" [I]_p99 answered,  ""but not that of a civilised man.",0,0,3,0
+verne_20_test_short," """"[Professor]_n25 ,""replied the commander, quickly ,""[I]_p100 am not what [you]_p103 call a civilised man! [I]_p101 have done with society entirely, for reasons which [I]_p101 alone have the right of appreciating.",1,0,4,0
+verne_20_test_short," [I]_p104 do not,  therefore,  obey [its]_p106 laws,  and [I]_p105 desire [you]_p107 never to allude to [them]_p108 before [me]_p109 again!"" This was said plainly.",0,0,6,0
+verne_20_test_short," A flash of anger and disdain kindled in the eyes of the Unknown,  and [I]_p110 had a glimpse of a terrible past in the life of this man.",0,0,1,0
+verne_20_test_short," Not only had [he]_p111 put [himself]_p117 beyond the pale of human laws,  but [he]_p112 had made [himself]_p118 independent of [them]_p119,  free in the strictest acceptation of the word,  quite beyond [their]_p120 reach! Who then would dare to pursue [him]_p121 at the bottom of the sea,  when,  on [its]_p124 surface,  [he]_p112 defied all attempts made against him? What vessel could resist the shock of [his]_p125 submarine monitor? What cuirass,  however thick,  could withstand the blows of [his]_p126 spur? No man could demand from [him]_p122 an account of [his]_p126 actions God,  if [he]_p113 believed in one,  [his]_p127 conscience,  if [he]_p113 had one,  were the sole judges to whom [he]_p113 was answerable.",0,1,17,1
+verne_20_test_short," These reflections crossed [my]_p129 mind rapidly,  whilst the stranger personage was silent,  absorbed,  and as if wrapped up in [himself]_p130.",0,0,2,0
+verne_20_test_short," [I]_p131 regarded [him]_p132 with fear mingled with interest, as, doubtless, [OEdiphus]_n26 regarded the [Sphinx]_n27.",2,0,2,0
+verne_20_test_short," After rather a long silence,  the commander resumed the conversation.",0,0,0,0
