@@ -439,8 +439,16 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						#print("new: {0}".format(new_sentence_to_add))
 				# returns a sentence in range
 				new_sentence_to_add = " {0} ".format(new_sentence_to_add) # add whitespace to the begining to find pronouns that start a sentence
+				if "," in new_sentence_to_add:
+					new_sentence_to_add = new_sentence_to_add.replace(",", " , ")
 				if "\"" in new_sentence_to_add:
 					new_sentence_to_add = new_sentence_to_add.replace("\"", " \" ")
+				# add space to identify pronouns/nouns at the end of a sentence
+				if "!" in new_sentence_to_add:
+					new_sentence_to_add = new_sentence_to_add.replace("!", " ! ")
+				if "?" in new_sentence_to_add:
+					new_sentence_to_add = new_sentence_to_add.replace("?", " ? ")
+
 
 				# tag pronouns first (from pos_dict)
 				if i in pos_dict.keys():
@@ -450,7 +458,8 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							for tf in range(len(total_found)):
 								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " [{0}]_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
-
+	
+				#TODO: FIND PRONOUNS/PROPER NAMES close to puncation: what do you make of it? don't do it!
 
 				# tag proper nouns
 				found_longest_match = ''
@@ -542,13 +551,16 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							gne_index += 1
 				new_sentence_to_add = new_sentence_to_add.strip() # remove precending whitespace
 				new_sentence_to_add = new_sentence_to_add.replace('" ', '"') # edit the speech puncutations
-				new_sentence_to_add = new_sentence_to_add.replace(' "', '" ') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace(' "', '"') # edit the speech puncutations
 				new_sentence_to_add = new_sentence_to_add.replace('\' ', '\'') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace(' , ', ', ') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace(' ! ', '! ') # edit the speech puncutations
+				new_sentence_to_add = new_sentence_to_add.replace(' ? ', '? ') # edit the speech puncutations
 				if new_sentence_to_add != '"': # if the value is just the end of a dialouge tag (already included, ignore)
 					sentences_in_order += new_sentence_to_add + '. '
 					#print(new_sentence_to_add + '. ')
-			print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
-			#saveTagforManualAccuracy(sentences_in_order)
+			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
+			saveTagforManualAccuracy(sentences_in_order)
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
@@ -559,12 +571,9 @@ def saveTagforManualAccuracy(sentences_in_order):
 				  'FOUND_PROPER_NOUN', 'MISSED_PROPER_NOUN',
 				  'FOUND_PRONOUN', 'MISSED_PRONOUN']
 
-	print("\n")
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
-	print(split_sentences_in_list)
-	print("\n")
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 10 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 1#0 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -772,9 +781,11 @@ def graphPOSdata(csv_data):
 
 	print("DATA PLOT POS UPDATED")
 
-def ManualAccuracy(csv_data):
+def ManualCSVAccuracy(csv_data):
 	# create a graph for accuracy of set up
+	# collect the accuracy results for each manually tagged file into a single csv to graph
 	pass
+
 ########################################################################
 ## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech, filednames):
@@ -845,6 +856,7 @@ if __name__ == '__main__':
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	output_filename = "pos_{0}.csv".format(given_file.upper())
+	print(output_filename)
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
 	fieldnames = ['SENTENCE_INDEX',
@@ -907,21 +919,26 @@ if __name__ == '__main__':
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	graphPOSdata(csv_data)
 
-	# SET UP FOR MANUAL TESTING (coreference labels calls csv)
-	coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
-
+	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
+	#'''
+	#manual_tag_dir = "manual_tagging/tagged/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
+	#if not os.path.isfile(manual_tag_dir): # if file hasn't been manually tagged, include new file to be tagged
+	#coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
+	#ManualCSVAccuracy(csv_data)
+	#clea'''
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
 ## TODO: 
+	# TODO: add 'de' to names list to connect values: ex) Jeremiah de Saint-Amour
+	# TODO: find possesive 'you've' and 'my'
+	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
+
 	# TODO: update plotting with sentence length
 	# TODO: character should be taking actions and connect directly to the root, otherwise, remove
-	# TODO: split sentences with question marks (see 20k end)
 	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
 	# TODO: set up progress bar for proper noun and pronoun splicing for large text
-	# TODO: debug dialouge for "words" said person "words again"
 	# TODO: Predict name of first-person character
-	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
