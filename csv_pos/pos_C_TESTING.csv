@@ -27,19 +27,19 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 3,she,PRP,PRON,7,8,_,_,9,nsubj,_,_,"John beat Mary there, since she was late",False
 3,was,VBD,VERB,8,8,_,_,9,cop,_,_,"John beat Mary there, since she was late",False
 3,late,JJ,ADJ,9,8,_,_,2,advcl,_,_,"John beat Mary there, since she was late",False
-4,Mary,NNP,NOUN,1,12,_,_,3,nsubj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,was,VBD,VERB,2,12,_,_,3,aux,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,having,VBG,VERB,3,12,_,_,0,ROOT,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,a,DT,DET,4,12,_,_,6,det,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,sorid,NN,NOUN,5,12,_,_,6,nn,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,affair,NN,NOUN,6,12,_,_,3,dobj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,with,IN,ADP,7,12,_,_,6,prep,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,Robert,NNP,NOUN,8,12,_,_,9,nn,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,Cooper,NNP,NOUN,9,12,_,_,7,pobj,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,,.,_,10,12,,,,_,9,punct,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,her,PRP$,PRON,11,12,_,_,13,poss,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,secret,JJ,ADJ,12,12,_,_,13,amod,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
-4,lover,NN,NOUN,13,12,_,_,9,appos,_,_,"Mary was having a sorid affair with Robert Cooper, her secret lover",False
+4,Mary,NNP,NOUN,1,12,_,_,3,nsubj,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,was,VBD,VERB,2,12,_,_,3,aux,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,having,VBG,VERB,3,12,_,_,0,ROOT,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,a,DT,DET,4,12,_,_,6,det,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,sordid,JJ,ADJ,5,12,_,_,6,amod,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,affair,NN,NOUN,6,12,_,_,3,dobj,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,with,IN,ADP,7,12,_,_,6,prep,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,Robert,NNP,NOUN,8,12,_,_,9,nn,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,Cooper,NNP,NOUN,9,12,_,_,7,pobj,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,,.,_,10,12,,,,_,9,punct,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,her,PRP$,PRON,11,12,_,_,13,poss,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,secret,JJ,ADJ,12,12,_,_,13,amod,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
+4,lover,NN,NOUN,13,12,_,_,9,appos,_,_,"Mary was having a sordid affair with Robert Cooper, her secret lover",False
 5,Robert,NNP,NOUN,1,10,_,_,3,nsubjpass,_,_,"Robert was found dead, but Mary won't rat out John",False
 5,was,VBD,VERB,2,10,_,_,3,auxpass,_,_,"Robert was found dead, but Mary won't rat out John",False
 5,found,VBN,VERB,3,10,_,_,0,ROOT,_,_,"Robert was found dead, but Mary won't rat out John",False
@@ -103,4 +103,25 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 9,,.,_,6,6,,,,_,5,punct,"""Robert was the first, then Mary",True
 9,then,RB,ADV,7,6,_,_,5,advmod,_,_,"""Robert was the first, then Mary",True
 9,Mary,NNP,NOUN,8,6,_,_,5,dep,_,_,"""Robert was the first, then Mary",True
-10,``,``,.,1,1,_,_,0,ROOT,_,_,"""",True
+10,``,``,.,1,6,_,_,6,punct,_,_,""" But John was less sure",True
+10,But,CC,CONJ,2,6,_,_,6,cc,_,_,""" But John was less sure",True
+10,John,NNP,NOUN,3,6,_,_,6,nsubj,_,_,""" But John was less sure",True
+10,was,VBD,VERB,4,6,_,_,6,cop,_,_,""" But John was less sure",True
+10,less,RBR,ADV,5,6,_,_,6,advmod,_,_,""" But John was less sure",True
+10,sure,JJ,ADJ,6,6,_,_,0,ROOT,_,_,""" But John was less sure",True
+11,``,``,.,1,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
+11,What,WP,PRON,2,8,_,_,5,dobj,_,_,"""What should we do about her?"" he asked",True
+11,should,MD,VERB,3,8,_,_,5,aux,_,_,"""What should we do about her?"" he asked",True
+11,we,PRP,PRON,4,8,_,_,5,nsubj,_,_,"""What should we do about her?"" he asked",True
+11,do,VB,VERB,5,8,_,_,11,ccomp,_,_,"""What should we do about her?"" he asked",True
+11,about,RB,ADV,6,8,_,_,5,prep,_,_,"""What should we do about her?"" he asked",True
+11,her,PRP,PRON,7,8,_,_,6,pobj,_,_,"""What should we do about her?"" he asked",True
+11,?,.,.,8,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
+11,'','',.,9,8,_,_,11,punct,_,_,"""What should we do about her?"" he asked",True
+11,he,PRP,PRON,10,8,_,_,11,nsubj,_,_,"""What should we do about her?"" he asked",True
+11,asked,VBD,VERB,11,8,_,_,0,ROOT,_,_,"""What should we do about her?"" he asked",True
+12,``,``,.,1,2,_,_,2,punct,_,_,"""Kill her!""",True
+12,Kill,VB,VERB,2,2,_,_,0,ROOT,_,_,"""Kill her!""",True
+12,her,PRP,PRON,3,2,_,_,2,dobj,_,_,"""Kill her!""",True
+12,!,.,.,4,2,_,_,2,punct,_,_,"""Kill her!""",True
+12,'','',.,5,2,_,_,2,punct,_,_,"""Kill her!""",True
