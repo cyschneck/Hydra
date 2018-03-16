@@ -21,17 +21,19 @@ import matplotlib.pyplot as plt
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
+#TODO: move to a seperate file (up to readFile)
 basic_pronouns = "I Me You She He Him It We Us They Them Myself Yourself Himself Herself Itself Themselves My your Her Its Our Their His"
-possessive_pronouns = "mine yours his hers ours theirs"
-reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves"
+possessive_pronouns = "mine yours his hers ours theirs my"
+reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves you've"
 relative_pronouns = "that whic who whose whom where when"
-connecting_words = []#["of", "the"]
+connecting_words = ["of", "the", "De", "de"]
 words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
 				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
-				   "good-night", "Good-night", "good-morning", "Good-moring"]
+				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
+				   'To-day', 'To-morrow', 'to-night', 'To-night']
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -167,6 +169,9 @@ def findProperNamedEntity(pos_dict):
 		if "NNP" in pos_named.XPOSTAG: #"NN" in pos_named.XPOSTAG or "POS" in pos_named.XPOSTAG or "IN" in pos_named.XPOSTAG or "DT" in pos_named.XPOSTAG:
 			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
 			previous_nnp_index = int(pos_named.ID)
+		if pos_named.FORM in connecting_words:
+			pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
+			previous_nnp_index = int(pos_named.ID)
 		#if "the" in pos_named.FORM or "The" in pos_named.FORM:
 		#	if previous_nnp_index < int(pos_named.ID): # only store of if it is part of an existing sentence
 		#		pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
@@ -174,7 +179,6 @@ def findProperNamedEntity(pos_dict):
 		#	if previous_nnp_index < int(pos_named.ID): # only store of if it is part of an existing sentence
 		#		pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
 		
-
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
 
 	sub_sentences = []
@@ -192,9 +196,6 @@ def findProperNamedEntity(pos_dict):
 	for sentence in sub_sentences:
 		noun_index = [s_index[1] for s_index in sentence] # noun location in a sentence (index)
 		#print(sentence, noun_index)
-		#print(noun_index)
-		#print(sentence)
-		#print("\n")
 		consec_lst = []
 		for k, g in itertools.groupby(enumerate(noun_index), lambda x: x[1]-x[0]):
 			consec_order = list(map(itemgetter(1), g))
@@ -202,7 +203,6 @@ def findProperNamedEntity(pos_dict):
 				consec_lst.append(consec_order)
 		#consec_lst = [item for items in consec_lst for item in items]
 		for c_l in consec_lst:
-			#grouped_nouns.append([x[:3] for x in sentence if x[1] in c_l])
 			g_name = [x for x in sentence if x[1] in c_l]
 			nnp_in_sentence = False
 			for i, v in enumerate(g_name):
@@ -210,8 +210,38 @@ def findProperNamedEntity(pos_dict):
 				if nnp_in_sentence: # if the nnp exist in the sub-list, exit and save
 					break
 			if nnp_in_sentence:
-				names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
-				sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
+				#print(c_l)
+				#print([x[2] for x in sentence if x[1] in c_l])
+				#print(" ".join([x[2] for x in sentence if x[1] in c_l]))
+				start_with_connecting_ignore = [x[2] for x in sentence if x[1] in c_l][0] in connecting_words
+				end_with_connecting_ignore = [x[2] for x in sentence if x[1] in c_l][-1] in connecting_words
+				if start_with_connecting_ignore or end_with_connecting_ignore:
+				# if the gne starts with a connecting word, ignore the connecting name: 'of Divine Providence' -> 'Divine Providence'
+					new_start_index = 0
+					for first_words in [x[2] for x in sentence if x[1] in c_l]:
+						if first_words not in connecting_words:
+							break # if it doesn't start with a connecting word, ignore
+						else:
+							new_start_index += 1
+					#print([x[2] for x in sentence if x[1] in c_l][new_start_index:])
+					#print(" ".join([x[2] for x in sentence if x[1] in c_l][new_start_index:]))
+					new_end_index = len([x[2] for x in sentence if x[1] in c_l]) # last element after it is been updated
+					for last_words in reversed([x[2] for x in sentence if x[1] in c_l]):
+					# if the gne ends with a connecting word, ignore the connecting name: 'Tom of the' -> 'Tom'
+						if last_words not in connecting_words:
+							break
+						else:
+							new_end_index -= 1
+					#if new_end_index <  len([x[2] for x in sentence if x[1] in c_l]):
+					#	print("original: {0}".format(" ".join([x[2] for x in sentence if x[1] in c_l])))
+					#	print("update: {0}\n".format(" ".join([x[2] for x in sentence if x[1] in c_l][new_start_index:new_end_index])))
+					#	print(new_start_index, new_end_index)
+					if (new_end_index != 0) and (new_start_index != len([x[2] for x in sentence if x[1] in c_l])): # if the entire gne wasn't connecting words
+						names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l][new_start_index:new_end_index]))
+						sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l][new_start_index:new_end_index]))[0])
+				else:
+					names_lst.append(" ".join([x[2] for x in sentence if x[1] in c_l]))
+					sentence_index.append(list(set([x[0] for x in sentence if x[1] in c_l]))[0])
 
 	dic_tmp = zip(sentence_index, names_lst)
 	grouped_nouns = defaultdict(list)
@@ -328,6 +358,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 			else:
 				#print(i)
 				sublist.append(i)
+		#print("item = {0}".format(item))
 		if item[0] in words_to_ignore:
 			count += 1
 			if item[0] in words_to_ignore:
@@ -366,7 +397,6 @@ def lookupSubDictionary(shared_ent):
 		for i in range(len(group)):
 			for j in iterate_list_num:
 				if i != j:
-					#if group[i] not in connecting_words: # ignore 'of', 'the'
 					sub_dictionary_lookup[group[i]].append(group[j])
 		if len(group) == 1:
 			sub_dictionary_lookup[group[i]].append(group[i]) # for single instances, store {'Tarleton':'Tarleton'{ as its own reference
@@ -562,6 +592,86 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
 			saveTagforManualAccuracy(sentences_in_order)
 
+def gneHierarchy(character_entities_group):
+	# merge gne into a dict for look up
+	''' ('Hook', 'Hook') : 
+	[[['Captain', 'Captain', 'Captain Hook', 'Captain Pan'], 
+	['Hook', 'Hook']], [['James', 'James Hook'], ['Hook', 'Hook']], 
+	[['Captain', 'Captain', 'Captain Hook', 'Captain Pan'], ['Hook', 'Hook']],
+	 [['James', 'James Hook'], ['Hook', 'Hook']]]
+	 '''
+
+	#print("\ngne hierachy tree\n")
+	#print(character_entities_group)
+	character_split_group = [x.split() for x in character_entities_group]
+	character_split_group = sorted(character_split_group, key=len, reverse=True)
+	#print("split in reverse\n")
+	#print(character_split_group)
+	gne_tree = {}
+	
+	#TODO: create sub trees for names that don't share names: 'Dr Juvenal Urbino' vs. 'Dr Lacides Olivella'
+
+	for longer_name in character_split_group:
+		#print("{0} IS NOT in gne_tree: {1} IS {2}".format(" ".join(longer_name), gne_tree,  ))
+		#print("longer: {0}".format(longer_name))
+		already_in_tree = any(" ".join(longer_name) in g for g in gne_tree)
+		if not already_in_tree: # if not already in a sub tree
+			#print("base: {0}".format(longer_name))
+			#gne_tree_sub_tree.append(smaller_name)
+			gne_tree_sub_tree = []
+			for sub_long_name in longer_name:
+				gne_tree_word_tree = []
+				#print("sub: {0}".format(sub_long_name))
+				gne_tree_word_tree.append(sub_long_name)
+				for smaller_name in character_entities_group:
+					if smaller_name.split()[0] == sub_long_name:
+						#print("\tfound: {0}".format(smaller_name))
+						#if smaller_name not in gne_tree_word_tree:
+						gne_tree_word_tree.append(smaller_name)
+				if gne_tree_word_tree != []:
+					#print(gne_tree_word_tree)
+					gne_tree_sub_tree.append(gne_tree_word_tree)
+				gne_tree_word_tree = []
+				gne_tree[" ".join(longer_name)] = gne_tree_sub_tree
+			gne_tree_sub_tree = []
+			#print("\n")
+
+	#gne_tree = list(k for k,_ in itertools.groupby(gne_tree))
+	#print(gne_tree)
+	final_gne_merged_tree = {}
+	final_gne_merged_tree = defaultdict(list)
+	for key, val in gne_tree.iteritems():
+		for v in val:
+			#print("MATCH: {0}".format(v))
+			for match_key, match_value in gne_tree.iteritems():
+				if v in match_value:
+					#print("v:{0}".format(v), "match_value: {0}".format(match_value))
+					final_gne_merged_tree[tuple(v)].append(match_value)
+					#print("key: {0}\n\tvalue: {1}".format(match_key, match_value))
+	final_gne_merged_tree = dict(final_gne_merged_tree)
+	
+	'''
+	gne_common_element_dict = {}
+	for key, val in final_gne_merged_tree.iteritems():
+		#print(key)
+		#print(val)
+		single_list_of_list = list(itertools.chain.from_iterable(list(itertools.chain.from_iterable(val))))
+		#print(single_list_of_list)
+		most_common_element = max(itertools.groupby(sorted(single_list_of_list)), key=lambda(x, v):(len(list(v)),-single_list_of_list.index(x)))[0]
+		#print("MOST COMMON ELEMENT: {0}".format(most_common_element)
+		gne_common_element_dict[most_common_element] = list(set(single_list_of_list))
+	for key, val in gne_common_element_dict.iteritems():
+		print(key)
+		print(val)
+		print("\n")
+	'''
+	for k, v in final_gne_merged_tree.iteritems():
+		print(k)
+		print(v)
+		print("\n")
+	#print(final_gne_merged_tree)
+	return final_gne_merged_tree
+
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -624,7 +734,7 @@ def percentagePos(total_words, csv_dict):
 	nouns_ratio= [pos.UPOSTAG for _, pos in csv_dict.iteritems()].count("NOUN")
 	proper_to_ratio_percentage = float(proper_nouns_count) / float(nouns_ratio)
 	print("proper nouns make up {0:.3f}% of all nouns".format((proper_to_ratio_percentage*100)))
-	percentageDict['proper_noun_in_all_nouns'] = nouns_percentage
+	percentageDict['proper_noun_in_all_nouns'] = proper_to_ratio_percentage
 
 	all_nouns_to_ratio_percentage = float(nouns_count) / float(nouns_ratio)
 	print("regular nouns make up {0:.3f}% of all nouns".format((all_nouns_to_ratio_percentage*100)))
@@ -856,7 +966,7 @@ if __name__ == '__main__':
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	output_filename = "pos_{0}.csv".format(given_file.upper())
-	print(output_filename)
+	#print(output_filename)
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
 	fieldnames = ['SENTENCE_INDEX',
@@ -918,19 +1028,21 @@ if __name__ == '__main__':
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	graphPOSdata(csv_data)
+	
+	# gne hierarchy of names
+	gne_tree = gneHierarchy(character_entities_group[0])
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	#'''
 	#manual_tag_dir = "manual_tagging/tagged/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
 	#if not os.path.isfile(manual_tag_dir): # if file hasn't been manually tagged, include new file to be tagged
 	#coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
-	#ManualCSVAccuracy(csv_data)
-	#clea'''
+	#ManualCSVAccuracy(csv_data)'''
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
 ## TODO: 
-	# TODO: add 'de' to names list to connect values: ex) Jeremiah de Saint-Amour
+	# TODO: genearte a gne hierachy of names
 	# TODO: find possesive 'you've' and 'my'
 	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
 
