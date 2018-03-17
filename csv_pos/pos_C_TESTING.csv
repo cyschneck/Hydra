@@ -120,3 +120,24 @@ SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,D
 11,her,PRP,PRON,3,2,_,_,2,dobj,_,_,"""Kill her!""",True
 11,!,.,.,4,2,_,_,2,punct,_,_,"""Kill her!""",True
 11,'','',.,5,2,_,_,2,punct,_,_,"""Kill her!""",True
+12,William,NNP,NOUN,1,5,_,_,2,nn,_,_,William Smith wasn't so sure,False
+12,Smith,NNP,NOUN,2,5,_,_,6,nsubj,_,_,William Smith wasn't so sure,False
+12,was,VBD,VERB,3,5,_,_,6,cop,_,_,William Smith wasn't so sure,False
+12,n't,RB,ADV,4,5,_,_,6,neg,_,_,William Smith wasn't so sure,False
+12,so,RB,ADV,5,5,_,_,6,advmod,_,_,William Smith wasn't so sure,False
+12,sure,JJ,ADJ,6,5,_,_,0,ROOT,_,_,William Smith wasn't so sure,False
+13,Mr,NNP,NOUN,1,15,_,_,2,nn,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,Smith,NNP,NOUN,2,15,_,_,3,nsubj,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,had,VBD,VERB,3,15,_,_,0,ROOT,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,a,DT,DET,4,15,_,_,5,det,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,record,NN,NOUN,5,15,_,_,3,dobj,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,in,IN,ADP,6,15,_,_,5,prep,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,the,DT,DET,7,15,_,_,8,det,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,state,NN,NOUN,8,15,_,_,6,pobj,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,and,CC,CONJ,9,15,_,_,3,cc,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,was,VBD,VERB,10,15,_,_,11,cop,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,sure,JJ,ADJ,11,15,_,_,3,conj,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,they,PRP,PRON,12,15,_,_,15,nsubjpass,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,would,MD,VERB,13,15,_,_,15,aux,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,be,VB,VERB,14,15,_,_,15,auxpass,_,_,Mr Smith had a record in the state and was sure they would be caught,False
+13,caught,VBN,VERB,15,15,_,_,11,ccomp,_,_,Mr Smith had a record in the state and was sure they would be caught,False
