@@ -11,6 +11,11 @@ pip install progressbar
 echo 'y' | apt-get install python-pandas
 
 echo ""
+echo "installing networkx for visuals"
+pip install networkx
+echo 'y' | apt install python-pydot python-pydot-ng graphviz
+
+echo ""
 echo "install scikit learn"
 pip install -U scikit-learn
 
