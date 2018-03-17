@@ -26,14 +26,16 @@ basic_pronouns = "I Me You She He Him It We Us They Them Myself Yourself Himself
 possessive_pronouns = "mine yours his hers ours theirs my"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves you've"
 relative_pronouns = "that whic who whose whom where when"
+
 connecting_words = ["of", "the", "De", "de"]
+
 words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
 				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
-				   'To-day', 'To-morrow', 'to-night', 'To-night']
+				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine']
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -76,6 +78,7 @@ def readFile(filename):
 		string_words = string_words.replace("Ms.", "Ms")
 		string_words = string_words.replace("Mrs.", "Mrs")
 		string_words = string_words.replace("Dr.", "Dr")
+		string_words = string_words.replace("St.", "St")
 		# replace utf-8 elements
 		string_words = string_words.replace("’", "\'") # replace signal quotes
 		string_words = string_words.replace("“", "~\"") # isolate dialouge double quotes
@@ -600,7 +603,6 @@ def gneHierarchy(character_entities_group):
 	[['Captain', 'Captain', 'Captain Hook', 'Captain Pan'], ['Hook', 'Hook']],
 	 [['James', 'James Hook'], ['Hook', 'Hook']]]
 	 '''
-
 	#print("\ngne hierachy tree\n")
 	#print(character_entities_group)
 	character_split_group = [x.split() for x in character_entities_group]
@@ -616,38 +618,39 @@ def gneHierarchy(character_entities_group):
 		#print("longer: {0}".format(longer_name))
 		already_in_tree = any(" ".join(longer_name) in g for g in gne_tree)
 		if not already_in_tree: # if not already in a sub tree
-			#print("base: {0}".format(longer_name))
-			#gne_tree_sub_tree.append(smaller_name)
-			gne_tree_sub_tree = []
-			for sub_long_name in longer_name:
-				gne_tree_word_tree = []
-				#print("sub: {0}".format(sub_long_name))
-				gne_tree_word_tree.append(sub_long_name)
-				for smaller_name in character_entities_group:
-					if smaller_name.split()[0] == sub_long_name:
-						#print("\tfound: {0}".format(smaller_name))
-						#if smaller_name not in gne_tree_word_tree:
-						gne_tree_word_tree.append(smaller_name)
-				if gne_tree_word_tree != []:
-					#print(gne_tree_word_tree)
-					gne_tree_sub_tree.append(gne_tree_word_tree)
-				gne_tree_word_tree = []
-				gne_tree[" ".join(longer_name)] = gne_tree_sub_tree
-			gne_tree_sub_tree = []
-			#print("\n")
+			if len(longer_name) > 1: # ignore intials 'C'
+				#print("base: {0}".format(longer_name))
+				#gne_tree_sub_tree.append(smaller_name)
+				gne_tree_sub_tree = []
+				for sub_long_name in longer_name:
+					gne_tree_word_tree = []
+					#print("sub: {0}".format(sub_long_name))
+					gne_tree_word_tree.append(sub_long_name)
+					for smaller_name in character_entities_group:
+						if smaller_name.split()[0] == sub_long_name:
+							#print("\tfound: {0}".format(smaller_name))
+							#if smaller_name not in gne_tree_word_tree:
+							gne_tree_word_tree.append(smaller_name)
+					if gne_tree_word_tree != []:
+						#print(gne_tree_word_tree)
+						gne_tree_sub_tree.append(gne_tree_word_tree)
+					gne_tree_word_tree = []
+					gne_tree[" ".join(longer_name)] = gne_tree_sub_tree
+				gne_tree_sub_tree = []
 
 	#gne_tree = list(k for k,_ in itertools.groupby(gne_tree))
-	#print(gne_tree)
 	final_gne_merged_tree = {}
 	final_gne_merged_tree = defaultdict(list)
 	for key, val in gne_tree.iteritems():
 		for v in val:
-			#print("MATCH: {0}".format(v))
-			for match_key, match_value in gne_tree.iteritems():
-				if v in match_value:
-					#print("v:{0}".format(v), "match_value: {0}".format(match_value))
-					final_gne_merged_tree[tuple(v)].append(match_value)
-					#print("key: {0}\n\tvalue: {1}".format(match_key, match_value))
+			#print("{0} not in {1} = {2}".format(v[0], connecting_words, v[0] not in connecting_words))
+			if v[0] not in connecting_words: # 'of', 'the'
+				#print("MATCH: {0}\n".format(v))
+				for match_key, match_value in gne_tree.iteritems():
+					if v in match_value:
+						#print("v:{0}".format(v), "match_value: {0}\n".format(match_value))
+						final_gne_merged_tree[tuple(v)].append(match_value)
+						#print("key: {0}\n\tvalue: {1}".format(match_key, match_value))
 	final_gne_merged_tree = dict(final_gne_merged_tree)
 	
 	'''
