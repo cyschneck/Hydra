@@ -16,6 +16,9 @@ pip install networkx
 echo 'y' | apt install python-pydot python-pydot-ng graphviz python-pygraphviz
 echo 'y' | apt-get install graphviz
 pip install pydot
+echo 'y' | apt-get install python-dev graphviz libgraphviz-dev pkg-config
+pip install pygraphviz
+pip install graphvizi
 #pip install pygraphviz
 #pip install graphviz
 
