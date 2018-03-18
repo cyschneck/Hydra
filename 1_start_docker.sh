@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Linking repo volumne inside of syntaxnet docker container"
+echo "Linking repo volume inside of syntaxnet docker container"
 echo ""
 
 echo "DOCKER STARTING, entering docker...";

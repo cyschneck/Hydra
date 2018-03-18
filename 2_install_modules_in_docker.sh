@@ -13,7 +13,12 @@ echo 'y' | apt-get install python-pandas
 echo ""
 echo "installing networkx for visuals"
 pip install networkx
-echo 'y' | apt install python-pydot python-pydot-ng graphviz
+echo 'y' | apt install python-pydot python-pydot-ng graphviz python-pygraphviz
+echo 'y' | apt-get install graphviz
+pip install pydot
+#pip install pygraphviz
+#pip install graphviz
+
 
 echo ""
 echo "install scikit learn"
@@ -42,3 +47,6 @@ for file_j in $LOGCC; do
    chmod +x "${DIR}/${file_j}";
    sed -i "/LOG(INFO)*/d" "${DIR}/${file_j}";
 done
+
+echo ""
+echo "done installing, ready to run"
