@@ -1,0 +1,7 @@
+strict digraph "GNE name tree: Great Dane" {
+Dane;
+Great;
+"Great Dane";
+"Great Dane" -> Great;
+"Great Dane" -> Dane;
+}

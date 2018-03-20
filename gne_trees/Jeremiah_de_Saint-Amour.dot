@@ -1,0 +1,9 @@
+strict digraph "GNE name tree: Jeremiah de Saint-Amour" {
+"Jeremiah de Saint-Amour";
+de;
+"Saint-Amour";
+Jeremiah;
+"Jeremiah de Saint-Amour" -> de;
+"Jeremiah de Saint-Amour" -> "Saint-Amour";
+"Jeremiah de Saint-Amour" -> Jeremiah;
+}

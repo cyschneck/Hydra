@@ -18,9 +18,8 @@ echo 'y' | apt-get install graphviz
 pip install pydot
 echo 'y' | apt-get install python-dev graphviz libgraphviz-dev pkg-config
 pip install pygraphviz
-pip install graphvizi
-#pip install pygraphviz
-#pip install graphviz
+pip install graphviz
+pip install pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/" --upgrade --force-reinstall
 
 
 echo ""

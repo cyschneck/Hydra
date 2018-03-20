@@ -1,0 +1,7 @@
+strict digraph "GNE name tree: Divine Providence" {
+Providence;
+Divine;
+"Divine Providence";
+"Divine Providence" -> Providence;
+"Divine Providence" -> Divine;
+}
