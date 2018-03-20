@@ -8,6 +8,8 @@ import os
 import re
 import nltk # Natural Language toolkit
 from nltk.tokenize import sent_tokenize, word_tokenize # form tokens from words/sentences
+import matplotlib
+matplotlib.use('Agg')
 import string
 import csv
 from datetime import datetime
@@ -15,9 +17,7 @@ from collections import namedtuple, Counter
 import itertools
 from itertools import imap, permutations # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # graphs
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -597,19 +597,16 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 
 def gneHierarchy(character_entities_group):
 	# merge gne into a dict for look up
-	''' ('Hook', 'Hook') : 
-	[[['Captain', 'Captain', 'Captain Hook', 'Captain Pan'], 
-	['Hook', 'Hook']], [['James', 'James Hook'], ['Hook', 'Hook']], 
-	[['Captain', 'Captain', 'Captain Hook', 'Captain Pan'], ['Hook', 'Hook']],
-	 [['James', 'James Hook'], ['Hook', 'Hook']]]
+	'''
+	key: Dr Urbino
+	{'Dr': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']], 
+	'Urbino': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']]}
 	 '''
-	#print("\ngne hierachy tree\n")
-	#print(character_entities_group)
 	character_split_group = [x.split() for x in character_entities_group]
 	character_split_group = sorted(character_split_group, key=len, reverse=True)
 	#print("split in reverse\n")
-	#print(character_split_group)
-	gne_tree = {}
+	gne_tree = defaultdict(dict)
+	gne_dict_sub = {}
 	
 	#TODO: create sub trees for names that don't share names: 'Dr Juvenal Urbino' vs. 'Dr Lacides Olivella'
 
@@ -620,60 +617,31 @@ def gneHierarchy(character_entities_group):
 		if not already_in_tree: # if not already in a sub tree
 			if len(longer_name) > 1: # ignore intials 'C'
 				#print("base: {0}".format(longer_name))
+				#print("base: {0}".format(" ".join(longer_name)))
 				#gne_tree_sub_tree.append(smaller_name)
-				gne_tree_sub_tree = []
 				for sub_long_name in longer_name:
 					gne_tree_word_tree = []
 					#print("sub: {0}".format(sub_long_name))
 					gne_tree_word_tree.append(sub_long_name)
 					for smaller_name in character_entities_group:
-						if smaller_name.split()[0] == sub_long_name:
-							#print("\tfound: {0}".format(smaller_name))
-							#if smaller_name not in gne_tree_word_tree:
-							gne_tree_word_tree.append(smaller_name)
-					if gne_tree_word_tree != []:
-						#print(gne_tree_word_tree)
-						gne_tree_sub_tree.append(gne_tree_word_tree)
+						if sub_long_name in smaller_name.split() and sub_long_name not in connecting_words:
+							#print("\tfound: {0}".format(smaller_name.split()))
+							#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name)))
+							sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name):])
+							#print("\t\tnewfound: {0}".format(sub_name_join))
+							#gne_tree_word_tree.append(smaller_name)
+							if sub_name_join not in gne_tree_word_tree:
+								gne_tree_word_tree.append(sub_name_join)
+					#print("\ttotal found: {0}".format(gne_tree_word_tree))
+					#print("NEW DICT ITEM {0}:{1}".format(sub_long_name, gne_tree_sub_tree))
+					gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
-					gne_tree[" ".join(longer_name)] = gne_tree_sub_tree
-				gne_tree_sub_tree = []
 
-	#gne_tree = list(k for k,_ in itertools.groupby(gne_tree))
-	final_gne_merged_tree = {}
-	final_gne_merged_tree = defaultdict(list)
-	for key, val in gne_tree.iteritems():
-		for v in val:
-			#print("{0} not in {1} = {2}".format(v[0], connecting_words, v[0] not in connecting_words))
-			if v[0] not in connecting_words: # 'of', 'the'
-				#print("MATCH: {0}\n".format(v))
-				for match_key, match_value in gne_tree.iteritems():
-					if v in match_value:
-						#print("v:{0}".format(v), "match_value: {0}\n".format(match_value))
-						final_gne_merged_tree[tuple(v)].append(match_value)
-						#print("key: {0}\n\tvalue: {1}".format(match_key, match_value))
-	final_gne_merged_tree = dict(final_gne_merged_tree)
-	
-	'''
-	gne_common_element_dict = {}
-	for key, val in final_gne_merged_tree.iteritems():
-		#print(key)
-		#print(val)
-		single_list_of_list = list(itertools.chain.from_iterable(list(itertools.chain.from_iterable(val))))
-		#print(single_list_of_list)
-		most_common_element = max(itertools.groupby(sorted(single_list_of_list)), key=lambda(x, v):(len(list(v)),-single_list_of_list.index(x)))[0]
-		#print("MOST COMMON ELEMENT: {0}".format(most_common_element)
-		gne_common_element_dict[most_common_element] = list(set(single_list_of_list))
-	for key, val in gne_common_element_dict.iteritems():
-		print(key)
-		print(val)
-		print("\n")
-	'''
-	for k, v in final_gne_merged_tree.iteritems():
-		print(k)
-		print(v)
-		print("\n")
-	#print(final_gne_merged_tree)
-	return final_gne_merged_tree
+	#for key, value in gne_tree.iteritems():
+	#	print("key: {0}".format(key))
+	#	print(value)
+	#	print("\n")
+	return gne_tree
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
@@ -711,6 +679,78 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
+########################################################################
+# NETWORK GRAPHS
+def networkGraphs(gne_tree):
+	print("\ngenerating network graphs of interactions")
+
+	import networkx as nx
+	gne_labels = {} # set up same color for names in the same gne tree
+
+	fig = plt.figure()
+	fig.set_figheight(10)
+	fig.set_figwidth(10)
+	import graphviz
+
+	G = nx.MultiGraph(name="Testing graph")
+
+	for key, value in gne_tree.iteritems():
+		print(key)
+		G.add_node(key)
+		for value_lst in value[0]:
+			for v in value_lst:
+				if v not in connecting_words:
+					print(v)
+					c = 'r'
+					print(len(v))
+					G.add_edge(key, v, color='red')
+					#if len(v) > 10:
+					#	G.add_edge(key, v) # add a second edge
+		print("\n")
+
+	print(nx.info(G))
+	print("density={0}".format(nx.density(G)))
+	for node in nx.degree(G):
+		print("{0} has {1} connections".format(node[0], node[1]))
+	nx.draw(G, with_labels=True, cmap=plt.cm.Blues, node_color=range(len(G)), node_size=2300)
+	print("\n")
+	plt.savefig("relationships_gne.png")
+	print("finished generating graph")
+	'''
+	G=nx.star_graph(20)
+	pos=nx.spring_layout(G)
+	colors=range(20)
+	nx.draw(G,pos,node_color='#A0CBE2',edge_color=colors,width=4,edge_cmap=plt.cm.Blues,with_labels=False)
+
+	G=nx.random_geometric_graph(200,0.125)
+	# position is stored as node attribute data for random_geometric_graph
+	pos=nx.get_node_attributes(G,'pos')
+
+	# find node near center (0.5,0.5)
+	dmin=1
+	ncenter=0
+	for n in pos:
+		x,y=pos[n]
+		d=(x-0.5)**2+(y-0.5)**2
+		if d<dmin:
+			ncenter=n
+			dmin=d
+
+	# color by path length from node near center
+	p=nx.single_source_shortest_path_length(G,ncenter)
+
+	plt.figure(figsize=(8,8))
+	nx.draw_networkx_edges(G,pos,nodelist=[ncenter],alpha=0.4)
+	nx.draw_networkx_nodes(G,pos,nodelist=p.keys(),
+						   node_size=80,
+						   node_color=p.values(),
+						   cmap=plt.cm.Reds_r)
+
+	plt.xlim(-0.05,1.05)
+	plt.ylim(-0.05,1.05)
+	plt.axis('off')
+	'''
+	
 ########################################################################
 # DATA ANAYLSIS
 def percentagePos(total_words, csv_dict):
@@ -1017,7 +1057,7 @@ if __name__ == '__main__':
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
 	#print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
-	print("Characters in the text (ent): {0}\n".format(character_entities_group))
+	#print("Characters in the text (ent): {0}\n".format(character_entities_group))
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
@@ -1030,10 +1070,19 @@ if __name__ == '__main__':
 	# print/display graphs with pos data
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
-	graphPOSdata(csv_data)
+	#graphPOSdata(csv_data)
 	
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
+	for key, value in gne_tree.iteritems():
+		print("\ngne base name: {0}\n{1}".format(key, value))
+
+	# generate network graphs
+	#networkGraphs(gne_tree)
+
+
+
+
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	#'''
@@ -1045,7 +1094,6 @@ if __name__ == '__main__':
 
 ########################################################################
 ## TODO: 
-	# TODO: genearte a gne hierachy of names
 	# TODO: find possesive 'you've' and 'my'
 	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
 
