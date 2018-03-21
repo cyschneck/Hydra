@@ -18,6 +18,7 @@ import itertools
 from itertools import imap, permutations # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
 import matplotlib.pyplot as plt # graphs
+import networkx as nx
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -595,6 +596,72 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
 			saveTagforManualAccuracy(sentences_in_order)
 
+def saveTagforManualAccuracy(sentences_in_order):
+	## corefernece will call the csv creator for each 'paragraph' of text
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "manualTagging_{0}.csv".format(given_file.upper())
+
+	fieldnames = ['FILENAME', 'TEXT',
+				  'FOUND_PROPER_NOUN', 'MISSED_PROPER_NOUN',
+				  'FOUND_PRONOUN', 'MISSED_PRONOUN']
+
+	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
+	split_sentences_in_list.remove(' .') # remove empty sentences
+	sentence_size = 1#0 # size of the sentence/paragraph saved in manual tagging
+	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
+	# range stores the sentences in list of list based on the size of tag
+
+	print("\n")
+	for sentence_tag in sentence_range:
+		print(''.join(sentence_tag))
+	#	print(''.join(sentence_tag).count("]_n"))
+	#	print(''.join(sentence_tag).count("]_p"))
+		print("\n")
+
+	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
+		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		# leave MISSED empty for manual tagging
+		for sentence_tag in sentence_range:
+			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
+							 'TEXT': ''.join(sentence_tag),
+							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count("]_n"),
+							 'MISSED_PROPER_NOUN': None,
+							 'FOUND_PRONOUN': ''.join(sentence_tag).count("]_p"),
+							 'MISSED_PRONOUN': None 
+							})
+	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
+
+def findInteractions(manual_tag_dir, gne_tree):
+	# find all locations of character interactions
+	print("\nFIND INTERACTIONS in {0}\n".format(manual_tag_dir))
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	
+	tagged_text = [] # store old rows
+	with open(manual_tag_dir, 'r') as tag_data:
+		reader = csv.reader(tag_data)
+		next(reader) # skip header
+		for row in reader:
+			tagged_text.append(row[1]) # store the sentence in order
+
+	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
+
+	character_counter = dict.fromkeys(gne_tree.keys(), []) # {'Mr Land' : [] }
+	print(character_counter)
+
+	for row in tagged_text:
+		if "]_n" in row:
+			find_gne_in_sentence_pattern = r'(?<=\[)(.*?)(?=\])'
+			found_all_brackets = re.findall(find_gne_in_sentence_pattern, row) # everything together in the order that they appear
+			found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
+			found_name_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'n'] # store named ents
+			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
+			print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
+	
+	#if "Mr Land" in gne_tree.keys():
+	#	print(gne_tree["Mr Land"])
+
+
 def gneHierarchy(character_entities_group):
 	# merge gne into a dict for look up
 	'''
@@ -642,49 +709,41 @@ def gneHierarchy(character_entities_group):
 	#	print(value)
 	#	print("\n")
 	return gne_tree
-
-def saveTagforManualAccuracy(sentences_in_order):
-	## corefernece will call the csv creator for each 'paragraph' of text
-	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
-	output_filename = "manualTagging_{0}.csv".format(given_file.upper())
-
-	fieldnames = ['FILENAME', 'TEXT',
-				  'FOUND_PROPER_NOUN', 'MISSED_PROPER_NOUN',
-				  'FOUND_PRONOUN', 'MISSED_PRONOUN']
-
-	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
-	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 1#0 # size of the sentence/paragraph saved in manual tagging
-	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
-	# range stores the sentences in list of list based on the size of tag
-
-	print("\n")
-	for sentence_tag in sentence_range:
-		print(''.join(sentence_tag))
-	#	print(''.join(sentence_tag).count("]_n"))
-	#	print(''.join(sentence_tag).count("]_p"))
-		print("\n")
-
-	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
-		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
-		writer.writeheader() 
-		# leave MISSED empty for manual tagging
-		for sentence_tag in sentence_range:
-			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
-							 'TEXT': ''.join(sentence_tag),
-							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count("]_n"),
-							 'MISSED_PROPER_NOUN': None,
-							 'FOUND_PRONOUN': ''.join(sentence_tag).count("]_p"),
-							 'MISSED_PRONOUN': None 
-							})
-	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
-
 ########################################################################
-# NETWORK GRAPHS
+# NETWORK GRAPHS AND TREE
+def generateGNEtree(gne_tree, filename):
+	print("\nGENERATE TREE FROM GNE")
+	import pygraphviz
+	from networkx.drawing.nx_agraph import graphviz_layout
+
+
+	gne_imge_directory_name = os.path.splitext(filename)[0].upper()
+	if not os.path.exists("gne_trees/{0}".format(gne_imge_directory_name)):
+		os.makedirs("gne_trees/{0}".format(gne_imge_directory_name))
+	for key, value in gne_tree.iteritems():
+		print("\ngne base name: {0}\n{1}".format(key, value))
+	
+	for key, value in gne_tree.iteritems():
+		G = nx.DiGraph(name="GNE name tree: {0}".format(key))
+		G.add_node(key) # root is the gne base name (Dr Juvenal Urbino)
+		
+		# add child (the name broken into parts)
+		for split_name in key.split():
+			G.add_edge(key, split_name)
+		#for sub_name in value:
+		#	print(sub_name)
+		#G.add_edge(key, 
+	
+		nx.nx_pydot.write_dot(G, 'gne_trees/{0}/{1}.dot'.format(gne_imge_directory_name, key.replace(" ", "_")))
+		plt.title("GNE name tree: {0}".format(key))
+		pos=nx.drawing.nx_agraph.graphviz_layout(G, prog='dot')
+		nx.draw(G, pos, with_labels=True, arrows=False, node_size=1600, cmap=plt.cm.Blues, node_color=range(len(G)))
+		#nx.draw(G, with_labels=False, arrows=False)
+		plt.savefig("gne_trees/{0}/GNE_{1}.png".format(gne_imge_directory_name, key.replace(" ", "_")))
+
 def networkGraphs(gne_tree):
 	print("\ngenerating network graphs of interactions")
 
-	import networkx as nx
 	gne_labels = {} # set up same color for names in the same gne tree
 
 	fig = plt.figure()
@@ -934,11 +993,6 @@ def graphPOSdata(csv_data):
 
 	print("DATA PLOT POS UPDATED")
 
-def ManualCSVAccuracy(csv_data):
-	# create a graph for accuracy of set up
-	# collect the accuracy results for each manually tagged file into a single csv to graph
-	pass
-
 ########################################################################
 ## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech, filednames):
@@ -1074,22 +1128,29 @@ if __name__ == '__main__':
 	
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
-	for key, value in gne_tree.iteritems():
-		print("\ngne base name: {0}\n{1}".format(key, value))
+	#for key, value in gne_tree.iteritems():
+	#	print("\ngne base name: {0}\n{1}".format(key, value))
+	#print("\nVALUES:")
+	#for sub_value in gne_tree.keys():
+	#	print("\n{0}".format(sub_value))
 
+
+	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
+	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
+	if not os.path.isfile(manual_tag_dir): # if file hasn't been manually tagged, include new file to be tagged
+		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
+
+	findInteractions(manual_tag_dir, gne_tree)
+
+	# GENERATE NETWORKX
+	# generate a tree for gne names
+	# {Dr Urbino: {'Dr': ['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], 'Urbino': ['Urbino']} }
+	#generateGNEtree(gne_tree, filename)
 	# generate network graphs
 	#networkGraphs(gne_tree)
 
 
 
-
-
-	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
-	#'''
-	#manual_tag_dir = "manual_tagging/tagged/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
-	#if not os.path.isfile(manual_tag_dir): # if file hasn't been manually tagged, include new file to be tagged
-	#coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
-	#ManualCSVAccuracy(csv_data)'''
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
