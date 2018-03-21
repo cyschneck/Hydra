@@ -33,14 +33,16 @@ def DT_features(given_name):
 def determine_gender(name_list):
 	#return male/female for a given name
 	for name in name_list:
-		print("The name '{0}' is most likely {1}".format(name, pipeline.predict(DT_features([name]))))
-	#print(pipeline.predict(DT_features(name)))#[0]
+		prob_gender = pipeline.predict_proba(DT_features([name]))[0]
+		gender_is = 'Male' if prob_gender[1] > prob_gender[0] else 'Female'
+		print("The name '{0}' is most likely {1}".format(name, gender_is))
+		print("Odds: Female ({0}), Male ({1})\n".format(prob_gender[0], prob_gender[1]))
 	#return pipeline.predict(DT_features(name))#[0]
 
 if __name__ == '__main__':
 	gender_names_data = pd.read_csv('names_gender.csv')
 	gender_names_data = gender_names_data.as_matrix()[1:, :]
-	print(len(gender_names_data))
+	print("Size of training set: {0}".format(len(gender_names_data)))
 
 	gender_y = gender_names_data[:, 1]
 	DT_features = np.vectorize(DT_features) #vectorize dt_features function
@@ -59,7 +61,7 @@ if __name__ == '__main__':
 	#TODO: update with better model for testing (currently ~85% on testing, ~99% on training)
 	#TOD: shrink dataset to run faster
 	vectorizer = DictVectorizer()
-	dtc = DecisionTreeClassifier()
+	dtc = DecisionTreeClassifier(min_samples_leaf=75)
 	global pipeline
 	pipeline = Pipeline([('dict', vectorizer), ('dtc', dtc)])
 	pipeline.fit(x_train, y_train)
@@ -76,5 +78,5 @@ if __name__ == '__main__':
 	#testing on novel names
 	test_name = ["Nemo"]
 	determine_gender(test_name)
-	test_name = ["Atticus", "Shevek", "Emma", "Ishamel"]
+	test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah"]
 	determine_gender(test_name)
