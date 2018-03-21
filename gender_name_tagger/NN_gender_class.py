@@ -6,6 +6,7 @@
 import pandas as pd
 import numpy as np
 import os
+from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.tree import DecisionTreeClassifier
@@ -41,6 +42,7 @@ def determine_gender(name_list):
 	#return pipeline.predict(DT_features(name))#[0]
 
 if __name__ == '__main__':
+	start_time = datetime.now()
 	gender_names_data = pd.read_csv('names_gender.csv')
 	gender_names_data = gender_names_data.as_matrix()[1:, :]
 	print("Size of training set: {0}".format(len(gender_names_data)))
@@ -77,13 +79,15 @@ if __name__ == '__main__':
 	print("Accuracy on training: {0}".format(pipeline.score(x_train, y_train)))
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
 	if pipeline.score(x_test, y_test) > float(current_acc):
+		os.remove(current_saved_model_file)
 		joblib.dump(pipeline, 'gender_saved_model_{0}.sav'.format(pipeline.score(x_test, y_test)))
-		print("MODEL INCREASED ACCURACY, SAVED\n")
+		print("MODEL INCREASED ACCURACY, SAVED")
 	else:
-		print("NO CHANGE IN ACCURACY, NOT SAVED\n")
+		print("NO CHANGE IN ACCURACY, NOT SAVED")
 
 	#testing on novel names
-	test_name = ["Nemo"]
-	determine_gender(test_name)
-	test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah"]
-	determine_gender(test_name)
+	#test_name = ["Nemo"]
+	#determine_gender(test_name)
+	#test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah"]
+	#determine_gender(test_name)
+	print("ran for for {0}\n".format(datetime.now() - start_time))
