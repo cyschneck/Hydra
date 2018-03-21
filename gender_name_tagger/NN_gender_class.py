@@ -5,6 +5,7 @@
 ###########################################################################
 import pandas as pd
 import numpy as np
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.tree import DecisionTreeClassifier
@@ -67,13 +68,19 @@ if __name__ == '__main__':
 	pipeline.fit(x_train, y_train)
 
 	#Accuracy
+	current_saved_model_file = [f for f in os.listdir('.') if 'gender_saved_model' in f][0]
+	print("CURRENT FILE: {0}".format(current_saved_model_file))
+	current_acc = current_saved_model_file.split('.')[-2]#.split('_')
+	current_acc = '0.{0}'.format(current_acc)
+	print("CURRENT ACCURACY = {0}".format(current_acc))
+	
 	print("Accuracy on training: {0}".format(pipeline.score(x_train, y_train)))
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
-	if pipeline.score(x_test, y_test) > 0.854:
+	if pipeline.score(x_test, y_test) > float(current_acc):
 		joblib.dump(pipeline, 'gender_saved_model_{0}.sav'.format(pipeline.score(x_test, y_test)))
-		print("MODEL INCREASED ACCURACY, SAVED")
+		print("MODEL INCREASED ACCURACY, SAVED\n")
 	else:
-		print("NO CHANGE IN ACCURACY, NOT SAVED")
+		print("NO CHANGE IN ACCURACY, NOT SAVED\n")
 
 	#testing on novel names
 	test_name = ["Nemo"]
