@@ -670,7 +670,8 @@ def determineGenderName(full_name, loaded_gender_model):
 							 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
 							 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 							 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
-							 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince"]
+							 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
+							 'Gentlemen']
 	female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 							   'Madam', "Ma'am", "Dame", "Mother", "Sister",
 							   "Sr", "Her", "Kum", "Smt", "Ayah", "Daughter",
@@ -683,10 +684,10 @@ def determineGenderName(full_name, loaded_gender_model):
 	
 	# if name is part of a gendered honorific, return: Mr Anything is a male
 	if full_name_in_parts[0].title() in male_honorific_titles:
-		print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
+		print("'{0}' contains '{1}' found: Male\n".format(full_name, full_name_in_parts[0]))
 		return 'Male'
 	if full_name_in_parts[0].title() in female_honorific_titles:
-		print("'{0}' contains '{1}' found: Female".format(full_name, full_name_in_parts[0]))
+		print("'{0}' contains '{1}' found: Female\n".format(full_name, full_name_in_parts[0]))
 		return 'Female'
 	
 	# find the name for each part of the name, choose highest
@@ -708,25 +709,23 @@ def determineGenderName(full_name, loaded_gender_model):
 
 	for sub_name in full_name_in_parts:
 		if sub_name in connecting_words:
-			# do oot calculate for tiltes "Queen of England" shouldn't find for England
-			gender_is = 'Male' if male_prob > female_prob else 'Female'
-			print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
-			return gender_is
+			# do not calculate for titles "Queen of England" shouldn't find for England
+			break
 		else:
 			if sub_name not in ignore_neutral_titles:
 				# female [0], male [1]
-				print(sub_name)
+				#print(sub_name)
 				load_prob = loaded_gender_model.predict_proba(dt([sub_name]))[0]
-				print("\tprobability: {0}".format(load_prob))
+				#print("\tprobability: {0}".format(load_prob))
 				female_prob += load_prob[0]
 				male_prob += load_prob[1]
-		print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
+		#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
-	load_prob = loaded_gender_model.predict(DT_features([full_name_in_parts[0]]))[0]
-	print(load_prob)
-	#female_prob += load_prob[0]
-	#male_prob += load_prob[1]
-	gender_is = 'Male' if male_prob > female_prob else 'Female'
+	if (abs(male_prob - female_prob) < 0.09):
+		gender_is = "UNDETERMINED"
+	else:
+		gender_is = 'Male' if male_prob > female_prob else 'Female'
+
 	print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
 	return gender_is
 
