@@ -32,24 +32,26 @@ def DT_features(given_name):
 	features_list = dict(zip(FEATURE_TAGS, name_features))
 	return features_list
 
-def determine_gender(name_list):
+def determine_gender(name_list, loaded_pipeline):
 	#return male/female for a given name
 	for name in name_list:
-		prob_gender = pipeline.predict_proba(DT_features([name]))[0]
+		prob_gender = loaded_pipeline.predict_proba(dt([name]))[0]
 		gender_is = 'Male' if prob_gender[1] > prob_gender[0] else 'Female'
 		print("The name '{0}' is most likely {1}".format(name, gender_is))
+		#print(loaded_pipeline.decision_path(DT_features([name])))
 		print("Odds: Female ({0}), Male ({1})\n".format(prob_gender[0], prob_gender[1]))
 	#return pipeline.predict(DT_features(name))#[0]
 
 if __name__ == '__main__':
 	start_time = datetime.now()
+
 	gender_names_data = pd.read_csv('names_gender.csv')
 	gender_names_data = gender_names_data.as_matrix()[1:, :]
 	print("Size of training set: {0}".format(len(gender_names_data)))
 
 	gender_y = gender_names_data[:, 1]
-	DT_features = np.vectorize(DT_features) #vectorize dt_features function
-	names_x = DT_features(gender_names_data[:, 0]) # generate new list/list array with additional features
+	dt = np.vectorize(DT_features) #vectorize dt_features function
+	names_x = dt(gender_names_data[:, 0]) # generate new list/list array with additional features
 	
 	#shuffle to create train/test data
 	from sklearn.utils import shuffle
@@ -61,13 +63,12 @@ if __name__ == '__main__':
 	y_test = gender_y[int(TRAINING_PERCENT * len(gender_y)):]
 
 	#classifier
-	#TODO: update with better model for testing (currently ~85% on testing, ~99% on training)
-	#TOD: shrink dataset to run faster
 	vectorizer = DictVectorizer()
-	dtc = DecisionTreeClassifier(min_samples_leaf=75)
-	global pipeline
+	dtc = DecisionTreeClassifier(min_samples_leaf=25)
+	#global pipeline
 	pipeline = Pipeline([('dict', vectorizer), ('dtc', dtc)])
-	pipeline.fit(x_train, y_train)
+	
+	pipeline = pipeline.fit(x_train, y_train) # training
 
 	#Accuracy
 	current_saved_model_file = [f for f in os.listdir('.') if 'gender_saved_model' in f][0]
@@ -79,15 +80,25 @@ if __name__ == '__main__':
 	print("Accuracy on training: {0}".format(pipeline.score(x_train, y_train)))
 	print("Accuracy on testing: {0}".format(pipeline.score(x_test, y_test)))
 	if pipeline.score(x_test, y_test) > float(current_acc):
-		os.remove(current_saved_model_file)
-		joblib.dump(pipeline, 'gender_saved_model_{0}.sav'.format(pipeline.score(x_test, y_test)))
+		for old_model in [f for f in os.listdir('.') if 'gender_saved_model' in f]:
+			#print(old_model)
+			if old_model.endswith(".pkl"):
+				os.remove(old_model)
+		import pickle
+		with open('pipeline_gender_saved_model_{0}.pkl'.format(pipeline.score(x_test, y_test)), 'wb') as model_file:
+			pickle.dump(pipeline, model_file)
 		print("MODEL INCREASED ACCURACY, SAVED")
 	else:
 		print("NO CHANGE IN ACCURACY, NOT SAVED")
 
+	updated_saved_model = [f for f in os.listdir('.') if 'pipeline_gender_saved_model' in f][0]
+	print("RUNNING MODEL: {0}".format(updated_saved_model))
+
+	pipeline_loaded = joblib.load(updated_saved_model)
+	print("\n")
+	
 	#testing on novel names
 	#test_name = ["Nemo"]
-	#determine_gender(test_name)
-	#test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah"]
-	#determine_gender(test_name)
+	test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah", "Mary"]
+	determine_gender(test_name, pipeline_loaded)
 	print("ran for for {0}\n".format(datetime.now() - start_time))
