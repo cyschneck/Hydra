@@ -1,7 +1,0 @@
-strict digraph "GNE name tree: Dr Urbino" {
-Dr;
-"Dr Urbino";
-Urbino;
-"Dr Urbino" -> Dr;
-"Dr Urbino" -> Urbino;
-}

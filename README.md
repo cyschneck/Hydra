@@ -6,8 +6,6 @@ The code in this repo is the working version of the thesis found in the link bel
 
 Link to final PDF (coming soon)
 
-TODO: update GNE for most common surrouding elements, research pronoun features (binding theory), label pronouns (gender, plurality), cut off counter based on the size of the given text, accuracy test
-
 ## Install and Run
 ```git clone https://github.com/cschneck/Ishmael.git```
 
@@ -102,10 +100,6 @@ The Mysterious Affair at Styles (Christie)
 
 Heart of Darkness (Conrad)
 
-On the Origin of Species by Means of Natural Selection (Darwin)
-
-The Voyage of the Beagle (Darwin)
-
 The Life and Adventures of Robinson Cruseo (Defoe)
 
 A Christmas Carol in Prose (Dickens)
@@ -122,11 +116,9 @@ The Hound of the Baskervilles (Doyle)
 
 The Sign of Four (Doyle)
 
-Autobiography of Benjamin Franklin (Franklin)
-
-The Federalist Papers (Hamliton/Jay/Madison)
-
 The Scarlet Letter (Hawthorne)
+
+Metamorphosis (Kafka)
 
 The Trial (Kafka)
 
@@ -142,7 +134,11 @@ Le Morte d’Arthur v1 (Malory)
 
 Le Morte d’Arthur v2 (Malory)
 
+Love in the Time of Cholera (Marquez)
+
 Moby Dick (Melville)
+
+1984 (Orwell)
 
 The Raven (Poe)
 
@@ -157,8 +153,6 @@ The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)
 Treasure Island (Stevenson)
 
 Dracula (Stoker)
-
-Anna Karenina (Tolstoy)
 
 A Connecticut Yankee in King Arthur’s Court (Twain)
 
