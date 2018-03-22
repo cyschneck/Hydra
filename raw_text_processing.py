@@ -19,6 +19,7 @@ from itertools import imap, permutations # set up namedtuple
 from collections import defaultdict # create dictionary with empty list for values
 import matplotlib.pyplot as plt # graphs
 import networkx as nx
+import numpy as np
 ########################################################################
 ## READING AND TOKENIZATION OF RAW TEXT (PRE-PROCESSING)
 
@@ -607,7 +608,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 1#0 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 1 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -632,7 +633,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
-def findInteractions(manual_tag_dir, gne_tree):
+def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
 	# find all locations of character interactions
 	print("\nFIND INTERACTIONS in {0}\n".format(manual_tag_dir))
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -646,8 +647,8 @@ def findInteractions(manual_tag_dir, gne_tree):
 
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
 
-	character_counter = dict.fromkeys(gne_tree.keys(), []) # {'Mr Land' : [] }
-	print(character_counter)
+	#character_counter = dict.fromkeys(gne_tree.keys(), []) # {'Mr Land' : [] }
+	#print(character_counter)
 
 	for row in tagged_text:
 		if "]_n" in row:
@@ -656,11 +657,115 @@ def findInteractions(manual_tag_dir, gne_tree):
 			found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
 			found_name_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'n'] # store named ents
 			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
-			print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
-	
+			#print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
+			for given_name in found_name_value:
+				determineGenderName(given_name, loaded_gender_model)
 	#if "Mr Land" in gne_tree.keys():
 	#	print(gne_tree["Mr Land"])
 
+def determineGenderName(full_name, loaded_gender_model):
+	# use trained model to determine the likely gender of a name
+	male_honorific_titles = ['Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
+							 'Sire', "Esq", "Father", "Brother", "Rev", "Reverend",
+							 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
+							 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
+							 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
+							 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince"]
+	female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
+							   'Madam', "Ma'am", "Dame", "Mother", "Sister",
+							   "Sr", "Her", "Kum", "Smt", "Ayah", "Daughter",
+							   "Madame", "Mme", "Mademoiselle", "Mlle", "Baroness",
+							   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
+							   "Princess", "Duchess", "Sovereign Princess", "Countess",
+								"Gentlewoman"]
+
+	full_name_in_parts = full_name.split()
+	
+	# if name is part of a gendered honorific, return: Mr Anything is a male
+	if full_name_in_parts[0].title() in male_honorific_titles:
+		print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
+		return 'Male'
+	if full_name_in_parts[0].title() in female_honorific_titles:
+		print("'{0}' contains '{1}' found: Female".format(full_name, full_name_in_parts[0]))
+		return 'Female'
+	
+	# find the name for each part of the name, choose highest
+	
+	print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
+
+	ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
+							 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
+							 "Honourable", "Honorable",  "Chancellor", "Vice-Chancellor", 
+							 "President", "Vice-President", "Senator", "Prime", "Minster",
+							 "Principal", "Warden", "Dean", "Regent", "Rector",
+							 "Director", "Mayor", "Judge"]
+
+	# run test on each part of the name, return the largest so that last names don't overly effect
+	dt = np.vectorize(DT_features) #vectorize dt_features function
+
+	female_prob = 0.0
+	male_prob = 0.0
+
+	for sub_name in full_name_in_parts:
+		if sub_name in connecting_words:
+			# do oot calculate for tiltes "Queen of England" shouldn't find for England
+			gender_is = 'Male' if male_prob > female_prob else 'Female'
+			print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
+			return gender_is
+		else:
+			if sub_name not in ignore_neutral_titles:
+				# female [0], male [1]
+				print(sub_name)
+				load_prob = loaded_gender_model.predict_proba(dt([sub_name]))[0]
+				print("\tprobability: {0}".format(load_prob))
+				female_prob += load_prob[0]
+				male_prob += load_prob[1]
+		print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
+
+	load_prob = loaded_gender_model.predict(DT_features([full_name_in_parts[0]]))[0]
+	print(load_prob)
+	#female_prob += load_prob[0]
+	#male_prob += load_prob[1]
+	gender_is = 'Male' if male_prob > female_prob else 'Female'
+	print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
+	return gender_is
+
+def loadDTModel():
+	# load saved gender model from gender_name_tagger
+	from sklearn.externals import joblib # save model to load
+	'''
+	model_file_dir = 'gender_name_tagger'
+	model_file_name = ''
+	for i in os.listdir(model_file_dir):
+		if os.path.isfile(os.path.join(model_file_dir,i)) and 'gender_saved_model_' in i:
+			model_file_name = os.path.join(model_file_dir,i)
+	print("\nGENDER MODEL: {0}".format(model_file_name))
+	pipeline_loaded = joblib.load(model_file_name)
+	#with open(model_file_name, 'rb') as model_file:
+	#	loaded_pipeline = pickle.load(model_file)
+
+	'''
+	model_file_dir = 'gender_name_tagger'
+
+	updated_saved_model = [f for f in os.listdir(model_file_dir) if 'pipeline_gender_saved_model' in f][0]
+	print("GENDER NAME MODEL: {0}".format(updated_saved_model))
+	pipeline_loaded = joblib.load('{0}/{1}'.format(model_file_dir, updated_saved_model))
+	return pipeline_loaded
+
+def DT_features(given_name):
+	test_given_name = ['corette', 'corey', 'cori', 'corinne', 'william', 'mason', 'jacob', 'zorro'] #small test
+	FEATURE_TAGS = ['first_letter', 
+				'first_2_letters',
+				'first_half',
+				'last_half',
+				'last_2_letters',
+				'last_letter',
+				 'length_of_name']
+	features_list = []
+	name_features = [given_name[0], given_name[:2], given_name[:len(given_name)/2], given_name[len(given_name)/2:], given_name[-2:], given_name[-1:], len(given_name)]
+	#[['z', 'zo', 'zo', 'rro', 'ro', 'o', 5], ['z', 'zo', 'zo', 'rro', 'ro', 'o', 5]]
+	features_list = dict(zip(FEATURE_TAGS, name_features))
+	return features_list
 
 def gneHierarchy(character_entities_group):
 	# merge gne into a dict for look up
@@ -1137,10 +1242,21 @@ if __name__ == '__main__':
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
-	if not os.path.isfile(manual_tag_dir): # if file hasn't been manually tagged, include new file to be tagged
+	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	findInteractions(manual_tag_dir, gne_tree)
+	loaded_gender_model = loadDTModel() # load model once, then use to predict
+	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	
+	'''
+	print("\ntesting gender names and titles")
+	determineGenderName("MR NED LAND", loaded_gender_model) # should be male
+	determineGenderName("Mr Arronax", loaded_gender_model) # should be male
+	determineGenderName("Mistress Mary", loaded_gender_model) # should be female
+	determineGenderName("mrs piggle wiggle", loaded_gender_model) # should be female
+	determineGenderName("Captain Nemo", loaded_gender_model) # should be neutral (needs to calculate)
+	determineGenderName("The Right Honourable Judge Finch", loaded_gender_model) # should be neutral (needs to calculate)
+	'''
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
@@ -1149,26 +1265,16 @@ if __name__ == '__main__':
 	# generate network graphs
 	#networkGraphs(gne_tree)
 
-
-
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
 ########################################################################
 ## TODO: 
+	# TODO: Predict name of first-person character
 	# TODO: find possesive 'you've' and 'my'
 	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
 
-	# TODO: update plotting with sentence length
-	# TODO: character should be taking actions and connect directly to the root, otherwise, remove
 	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
 	# TODO: set up progress bar for proper noun and pronoun splicing for large text
-	# TODO: Predict name of first-person character
 	
 	#TODO Next: import local file to predict male/female (he/she) with a given list of names
 	#x number of sentences around to find proper noun
-	#from sklearn.externals import joblib # save model to load
-	#loaded_gender_model = joblib.load('name_preprocessing/gender_saved_model_0.853992787223.sav')
-	#test_name = ["Nemo"]
-	#print(loaded_gender_model.score(test_name))
-	#run gender tag once on the entire text, tag male/female and use for predictions
-	# TODO: predict gender with probailities to allow for abiguity
