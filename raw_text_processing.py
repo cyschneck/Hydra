@@ -29,7 +29,23 @@ possessive_pronouns = "mine yours his hers ours theirs my"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves you've"
 relative_pronouns = "that whic who whose whom where when"
 
-connecting_words = ["of", "the", "De", "de"]
+male_honorific_titles = ['Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
+						 'Sire', "Esq", "Father", "Brother", "Rev", "Reverend",
+						 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
+						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
+						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
+						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
+						 'Gentlemen']
+
+female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
+						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
+						   "Sr", "Her", "Kum", "Smt", "Ayah", "Daughter",
+						   "Madame", "Mme", "Mademoiselle", "Mlle", "Baroness",
+						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
+						   "Princess", "Duchess", "Sovereign Princess", "Countess",
+							"Gentlewoman"]
+
+connecting_words = ["of", "the", "De", "de", "La", "la"]
 
 words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
@@ -37,7 +53,7 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
-				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine']
+				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or']
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -612,12 +628,12 @@ def saveTagforManualAccuracy(sentences_in_order):
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
-	print("\n")
-	for sentence_tag in sentence_range:
-		print(''.join(sentence_tag))
+	#print("\n")
+	#for sentence_tag in sentence_range:
+	#	print(''.join(sentence_tag))
 	#	print(''.join(sentence_tag).count("]_n"))
 	#	print(''.join(sentence_tag).count("]_p"))
-		print("\n")
+	#	print("\n")
 
 	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
 		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
@@ -666,21 +682,6 @@ def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
 
 def determineGenderName(full_name, loaded_gender_model):
 	# use trained model to determine the likely gender of a name
-	male_honorific_titles = ['Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
-							 'Sire', "Esq", "Father", "Brother", "Rev", "Reverend",
-							 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
-							 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
-							 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
-							 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
-							 'Gentlemen']
-	female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
-							   'Madam', "Ma'am", "Dame", "Mother", "Sister",
-							   "Sr", "Her", "Kum", "Smt", "Ayah", "Daughter",
-							   "Madame", "Mme", "Mademoiselle", "Mlle", "Baroness",
-							   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
-							   "Princess", "Duchess", "Sovereign Princess", "Countess",
-								"Gentlewoman"]
-
 	full_name_in_parts = full_name.split()
 	
 	# if name is part of a gendered honorific, return: Mr Anything is a male
@@ -779,8 +780,8 @@ def gneHierarchy(character_entities_group):
 	#print("split in reverse\n")
 	gne_tree = defaultdict(dict)
 	gne_dict_sub = {}
-	
-	#TODO: create sub trees for names that don't share names: 'Dr Juvenal Urbino' vs. 'Dr Lacides Olivella'
+
+	all_honorific_titles = female_honorific_titles + male_honorific_titles
 
 	for longer_name in character_split_group:
 		#print("{0} IS NOT in gne_tree: {1}".format(" ".join(longer_name), gne_tree))
@@ -796,17 +797,32 @@ def gneHierarchy(character_entities_group):
 					#print("sub: {0}".format(sub_long_name))
 					gne_tree_word_tree.append(sub_long_name)
 					for smaller_name in character_entities_group:
-						if sub_long_name in smaller_name.split() and sub_long_name not in connecting_words:
-							#print("\tfound: {0}".format(smaller_name.split()))
-							#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name)))
-							sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name):])
-							#print("\t\tnewfound: {0}".format(sub_name_join))
-							#gne_tree_word_tree.append(smaller_name)
-							if sub_name_join not in gne_tree_word_tree:
-								gne_tree_word_tree.append(sub_name_join)
+						name_with_caps = sub_long_name
+						is_sub_capitalized = sub_long_name.isupper()
+						if is_sub_capitalized:
+							name_with_caps = sub_long_name.title()
+						if name_with_caps in smaller_name.split() and name_with_caps not in connecting_words:
+							# store only honorific titles that include elements of the same name
+							# 'Dr Juvenal Urbino' NOT 'Dr Lacides Olivella', but 'Dr Juvenal Urbino' and 'Dr Urbino' 
+							if name_with_caps in all_honorific_titles and len(longer_name) > 1:
+								if any(i.title() in longer_name for i in smaller_name.split() if i.title() not in all_honorific_titles):
+									#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name)))
+									sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name):])
+									#print("\t\t\n\n\nnewfound: {0}".format(sub_name_join))
+									if sub_name_join.title() not in gne_tree_word_tree:
+										gne_tree_word_tree.append(sub_name_join)
+							else:
+								if name_with_caps not in connecting_words:
+									# save non-caps version of a name
+									sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(name_with_caps):])
+									#print("\t\tsub orig: {0}".format(sub_long_name))
+									#print("\t\tnewfound: {0}\n".format(sub_name_join.upper()))
+									if sub_name_join not in gne_tree_word_tree:
+										gne_tree_word_tree.append(sub_name_join)
 					#print("\ttotal found: {0}".format(gne_tree_word_tree))
 					#print("NEW DICT ITEM {0}:{1}".format(sub_long_name, gne_tree_word_tree))
-					gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
+					if sub_long_name not in connecting_words:
+						gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
 
 	#for key, value in gne_tree.iteritems():
@@ -1247,16 +1263,6 @@ if __name__ == '__main__':
 
 	#loaded_gender_model = loadDTModel() # load model once, then use to predict
 	#findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
-	
-	'''
-	print("\ntesting gender names and titles")
-	determineGenderName("MR NED LAND", loaded_gender_model) # should be male
-	determineGenderName("Mr Arronax", loaded_gender_model) # should be male
-	determineGenderName("Mistress Mary", loaded_gender_model) # should be female
-	determineGenderName("mrs piggle wiggle", loaded_gender_model) # should be female
-	determineGenderName("Captain Nemo", loaded_gender_model) # should be neutral (needs to calculate)
-	determineGenderName("The Right Honourable Judge Finch", loaded_gender_model) # should be neutral (needs to calculate)
-	'''
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
