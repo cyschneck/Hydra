@@ -659,7 +659,8 @@ def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
 			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
 			#print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
 			for given_name in found_name_value:
-				determineGenderName(given_name, loaded_gender_model)
+				given_name_gender = determineGenderName(given_name, loaded_gender_model)
+	# TODO: set up trees with gender lieklyhood
 	#if "Mr Land" in gne_tree.keys():
 	#	print(gne_tree["Mr Land"])
 
@@ -782,11 +783,11 @@ def gneHierarchy(character_entities_group):
 	#TODO: create sub trees for names that don't share names: 'Dr Juvenal Urbino' vs. 'Dr Lacides Olivella'
 
 	for longer_name in character_split_group:
-		#print("{0} IS NOT in gne_tree: {1} IS {2}".format(" ".join(longer_name), gne_tree,  ))
+		#print("{0} IS NOT in gne_tree: {1}".format(" ".join(longer_name), gne_tree))
 		#print("longer: {0}".format(longer_name))
 		already_in_tree = any(" ".join(longer_name) in g for g in gne_tree)
 		if not already_in_tree: # if not already in a sub tree
-			if len(longer_name) > 1: # ignore intials 'C'
+			if len(longer_name[0]) > 1: # ignore intials 'C'
 				#print("base: {0}".format(longer_name))
 				#print("base: {0}".format(" ".join(longer_name)))
 				#gne_tree_sub_tree.append(smaller_name)
@@ -804,7 +805,7 @@ def gneHierarchy(character_entities_group):
 							if sub_name_join not in gne_tree_word_tree:
 								gne_tree_word_tree.append(sub_name_join)
 					#print("\ttotal found: {0}".format(gne_tree_word_tree))
-					#print("NEW DICT ITEM {0}:{1}".format(sub_long_name, gne_tree_sub_tree))
+					#print("NEW DICT ITEM {0}:{1}".format(sub_long_name, gne_tree_word_tree))
 					gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
 
@@ -1232,20 +1233,20 @@ if __name__ == '__main__':
 	
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
-	#for key, value in gne_tree.iteritems():
-	#	print("\ngne base name: {0}\n{1}".format(key, value))
-	#print("\nVALUES:")
-	#for sub_value in gne_tree.keys():
-	#	print("\n{0}".format(sub_value))
-
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	loaded_gender_model = loadDTModel() # load model once, then use to predict
-	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	for key, value in gne_tree.iteritems():
+		print("\ngne base name: {0}\n{1}".format(key, value))
+	#print("\nVALUES:")
+	#for sub_value in gne_tree.keys():
+	#	print("\n{0}".format(sub_value))
+
+	#loaded_gender_model = loadDTModel() # load model once, then use to predict
+	#findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
 	
 	'''
 	print("\ntesting gender names and titles")
