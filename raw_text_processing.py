@@ -35,17 +35,25 @@ male_honorific_titles = ['Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
-						 'Gentlemen']
+						 'Gentlemen', 'Uncle', 'Widower', 'Don']
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
 						   "Sr", "Her", "Kum", "Smt", "Ayah", "Daughter",
-						   "Madame", "Mme", "Mademoiselle", "Mlle", "Baroness",
+						   "Madame", "Mme", 'Madame', "Mademoiselle", "Mlle", "Baroness",
 						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
 						   "Princess", "Duchess", "Sovereign Princess", "Countess",
-							"Gentlewoman"]
+							"Gentlewoman", 'Aunt', 'Widow']
 
-connecting_words = ["of", "the", "De", "de", "La", "la"]
+ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
+						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
+						 "Honourable", "Honorable",  "Chancellor", "Vice-Chancellor", 
+						 "President", "Vice-President", "Senator", "Prime", "Minster",
+						 "Principal", "Warden", "Dean", "Regent", "Rector",
+						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
+						 'General', 'Secretary', 'St', 'Saint', 'San']
+
+connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le']
 
 words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
@@ -53,7 +61,7 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
-				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or']
+				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -695,14 +703,6 @@ def determineGenderName(full_name, loaded_gender_model):
 	# find the name for each part of the name, choose highest
 	
 	print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
-
-	ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
-							 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
-							 "Honourable", "Honorable",  "Chancellor", "Vice-Chancellor", 
-							 "President", "Vice-President", "Senator", "Prime", "Minster",
-							 "Principal", "Warden", "Dean", "Regent", "Rector",
-							 "Director", "Mayor", "Judge"]
-
 	# run test on each part of the name, return the largest so that last names don't overly effect
 	dt = np.vectorize(DT_features) #vectorize dt_features function
 
@@ -781,7 +781,7 @@ def gneHierarchy(character_entities_group):
 	gne_tree = defaultdict(dict)
 	gne_dict_sub = {}
 
-	all_honorific_titles = female_honorific_titles + male_honorific_titles
+	all_honorific_titles = female_honorific_titles + male_honorific_titles + ignore_neutral_titles
 
 	for longer_name in character_split_group:
 		#print("{0} IS NOT in gne_tree: {1}".format(" ".join(longer_name), gne_tree))
@@ -1255,14 +1255,14 @@ if __name__ == '__main__':
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	#for key, value in gne_tree.iteritems():
-	#	print("\ngne base name: {0}\n{1}".format(key, value))
+	for key, value in gne_tree.iteritems():
+		print("\ngne base name: {0}\n{1}".format(key, value))
 	#print("\nVALUES:")
 	#for sub_value in gne_tree.keys():
 	#	print("\n{0}".format(sub_value))
 
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
-	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	#findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
