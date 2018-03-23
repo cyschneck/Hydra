@@ -1068,7 +1068,7 @@ def graphPOSdata(csv_data):
 		regular_nouns_in_all_nouns.append(float(subdict_attributes['REGULAR_NOUNS_IN_ALL_NOUNS']))
 		proper_nouns_in_all_nouns.append(float(subdict_attributes['PROPER_NOUNS_IN_ALL_NOUNS']))
 
-	(fig, ax) = plt.subplots(1, 1)
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, all_nouns_in_all_words)
 	plt.title("POS DATA: Text size and All Nouns in All Words")
 	for i, data in enumerate(filenames): # label all dots with text file name
@@ -1079,7 +1079,7 @@ def graphPOSdata(csv_data):
 	plt.xlabel("File Text Size (words)")
 	plt.savefig('plot_percent_data/all_nouns_in_all_words.png')
 	
-	(fig, ax) = plt.subplots(1, 1)
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, pronouns_in_all_words)
 	plt.title("POS DATA: Text size and Pronouns in All Words")
 	for i, data in enumerate(filenames): # label all dots with text file name
@@ -1090,7 +1090,7 @@ def graphPOSdata(csv_data):
 	plt.xlabel("File Text Size (words)")
 	plt.savefig('plot_percent_data/pronouns_in_all_words.png')
 
-	(fig, ax) = plt.subplots(1, 1)
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, regular_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and Regular Nouns in All Nouns")
 	for i, data in enumerate(filenames): # label all dots with text file name
@@ -1101,7 +1101,7 @@ def graphPOSdata(csv_data):
 	plt.xlabel("File Text Size (words)")
 	plt.savefig('plot_percent_data/regular_nouns_in_all_nouns.png')
 
-	(fig, ax) = plt.subplots(1, 1)
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, proper_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and Pronouns in All Nouns")
 	for i, data in enumerate(filenames): # label all dots with text file name
