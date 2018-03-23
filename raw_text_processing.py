@@ -717,7 +717,7 @@ def determineGenderName(full_name, loaded_gender_model):
 			if sub_name not in ignore_neutral_titles:
 				# female [0], male [1]
 				#print(sub_name)
-				load_prob = loaded_gender_model.predict_proba(dt([sub_name]))[0]
+				load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
 				#print("\tprobability: {0}".format(load_prob))
 				female_prob += load_prob[0]
 				male_prob += load_prob[1]
@@ -1255,14 +1255,14 @@ if __name__ == '__main__':
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	for key, value in gne_tree.iteritems():
-		print("\ngne base name: {0}\n{1}".format(key, value))
+	#for key, value in gne_tree.iteritems():
+	#	print("\ngne base name: {0}\n{1}".format(key, value))
 	#print("\nVALUES:")
 	#for sub_value in gne_tree.keys():
 	#	print("\n{0}".format(sub_value))
 
-	#loaded_gender_model = loadDTModel() # load model once, then use to predict
-	#findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	loaded_gender_model = loadDTModel() # load model once, then use to predict
+	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
