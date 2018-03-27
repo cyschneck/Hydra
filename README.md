@@ -70,6 +70,8 @@ Will only run the parser once, if the parser has been run already, the output wi
 
 ```One morning, when <Gregor Samsa>_n0 woke from troubled dreams, <he>_p0 found <himself>_p1 transformed in <his>_p2 bed into a horrible vermin. <He>_p3 lay on <his>_p4 armour-like back,  and if <he>_p7 lifted <his>_p5 head a little <he>_p8 could see <his>_p5 brown belly,  slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover <it>_p9 and seemed ready to slide off any moment. <His>_p10 many legs,  pitifully thin compared with the size of the rest of <him>_p11,  waved about helplessly as <he>_p12 looked.```
 
+```<Scarlett O'Hara>_n0 was not beautiful, but men seldom realized <it>_p0 when caught by <her>_p1 charm as the <Tarleton>_n1 twins were. In <her>_p2 face were too sharply blended the delicate features of <her>_p3 mother, a <Coast>_n2 aristocrat of French descent, and the heavy ones of <her>_p3 florid Irish father.```
+
 
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
