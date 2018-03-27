@@ -707,19 +707,21 @@ def determineGenderName(full_name, loaded_gender_model, gne_tree):
 
 	female_prob = 0.0
 	male_prob = 0.0
+	weight_last_name_less = 0.3
 	
 	for sub_name in full_name_in_parts:
 		# determine if the name is likely to be the last name, if so, weight less than other parts of the name
-		isLikelyLastName(gne_tree, sub_name)
 		if sub_name in connecting_words:
 			# do not calculate for titles "Queen of England" shouldn't find for England
 			break
 		else:
 			if sub_name not in ignore_neutral_titles:
 				# female [0], male [1]
-				#print(sub_name)
+				is_a_last_name = isLastName(gne_tree, sub_name)
 				load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
-				#print("\tprobability: {0}".format(load_prob))
+				#print("\tprobability: {0}\n".format(load_prob))
+				if is_a_last_name: # if last name, weigh less than other names
+					load_prob = load_prob*weight_last_name_less
 				female_prob += load_prob[0]
 				male_prob += load_prob[1]
 		#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
@@ -729,22 +731,21 @@ def determineGenderName(full_name, loaded_gender_model, gne_tree):
 	else:
 		gender_is = 'Male' if male_prob > female_prob else 'Female'
 
-	print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
+	print("The name '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}\n".format(full_name, gender_is, female_prob, male_prob))
 	return gender_is
 
-def isLikelyLastName(gne_tree, sub_name):
+def isLastName(gne_tree, sub_name):
 	# determine if the name is likely to be the last name
 	#{'Samsa': ['Samsa'], 'Gregor': ['Gregor', 'Gregor Samsa']}
 	# last name is the most common last element in a name and has no futher sub-roots
-	print("\ncheck if {0} is the last name".format(sub_name))
+	# last name will be weighted less, if there are other elements present
 	is_last_name = False
-	last_name_prob = 0.0
-	for sub_tree in gne_tree.values():
-		print(sub_tree)
-		for branch in sub_tree:
-			print(branch)
-	
-	print("{0} is the last name ({1}): {2}\n\n".format(sub_name, is_last_name, last_name_prob))
+
+	for key, value in gne_tree.iteritems():
+		if sub_name in key:
+			if sub_name in key.split()[-1] and len(value) > 1: # if in the last position and isn't the only value {'John': ['John']}
+				is_last_name = True
+	#print("'{0}' is a last name = {1}".format(sub_name, is_last_name))
 	return is_last_name
 
 def loadDTModel():
