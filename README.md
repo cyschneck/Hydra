@@ -174,6 +174,21 @@ The Picture of Dorian Gray (Wells)
 
 My Man Jeeves (Wodehouse)
 
+## Gender Name Classifier (DecisionTreeClassifier)
+
+The name 'Atticus' is most likely Male
+Odds: Female (0.215384615385), Male (0.784615384615)
+
+The name 'Emma' is most likely Female
+Odds: Female (0.9), Male (0.1)
+
+The name 'Taako' is most likely Male
+Odds: Female (0.462962962963), Male (0.537037037037)
+
+The name 'Ishamel' is most likely Male
+Odds: Female (0.4), Male (0.6)
+
+
 
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
