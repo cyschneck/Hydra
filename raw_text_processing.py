@@ -657,7 +657,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
-def findInteractions(manual_tag_dir, gender_gne_tree, loaded_gender_model):
+def coreferenceResolution(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 	# find all locations of character interactions
 	print("\nFIND INTERACTIONS in {0}\n".format(manual_tag_dir))
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -687,24 +687,23 @@ def findInteractions(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
 
-	most_common_pronoun_dict = {}
-	#character_counter = dict.fromkeys(gne_tree.keys(), []) # {'Mr Land' : [] }
-	#print(character_counter)
-
-	print(gender_gne_tree)
-	print("\n")
-
 	for row in tagged_text:
 		print(row)
 		find_gne_in_sentence_pattern = r'(?<=\<)(.*?)(?=\>)'
 		found_all_brackets = re.findall(find_gne_in_sentence_pattern, row) # everything together in the order that they appear
-		found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
-		found_name_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'n'] # store named ents
-		found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
 		print('\n')
-		print(found_pronoun_value)
-		print('\n')
-		for given_name in found_name_value:
+		print(found_all_brackets)
+		all_found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
+		found_proper_name_value = [row[i[0]:i[1]] for i in all_found_name_index if row[i[1]+2] is 'n'] # store named ents
+		found_proper_name_index = [i for i in all_found_name_index if row[i[1]+2] is 'n'] # store named index of names
+		#for index_g in all_found_name_index:
+		#	print(row[index_g[0]:index_g[1]])
+		found_pronoun_value = [row[i[0]:i[1]] for i in all_found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
+		found_pronoun_index = [i for i in all_found_name_index if row[i[1]+2] is 'p'] # store named index of pronouns
+		#print("\nfound pronouns index: {0}".format(all_found_name_index))
+		#for index_g in all_found_name_index:
+		#	print(row[index_g[0]:index_g[1]])
+		for given_name in found_proper_name_value:
 			given_name_gender = gender_gne_tree[given_name]
 			print("{0} is {1}".format(given_name, given_name_gender))
 			#given_name_index = [index for index, value in enumerate(found_all_brackets) if value == given_name]
@@ -714,11 +713,11 @@ def findInteractions(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 			#most_common_pronoun_dict[given_name] = mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value)
 			#print(found_all_brackets)
 		print('\n')
+		print(found_pronoun_value)
 		for pron in found_pronoun_value:
 			print("{0} is {1}".format(pron, pronoun_gender[pron.capitalize()]))
-		print('\n')
-		print(found_all_brackets)
-		print('\n')
+
+
 
 def determineGenderName(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
@@ -1336,7 +1335,7 @@ if __name__ == '__main__':
 	#for key, value in gne_tree.iteritems():
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 
-	findInteractions(manual_tag_dir, gender_gne, loaded_gender_model)
+	coreferenceResolution(manual_tag_dir, gender_gne, loaded_gender_model)
 	
 	#identifyMainCharacter(manual_tag_dir)
 
