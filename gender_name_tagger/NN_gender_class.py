@@ -22,7 +22,6 @@ FEATURE_TAGS = ['first_letter',
 				'last_2_letters',
 				'last_letter',
 				 'length_of_name']
-#print(FEATURE_TAGS)
 
 def DT_features(given_name):
 	#test_given_name = ['corette', 'corey', 'cori', 'corinne', 'william', 'mason', 'jacob', 'zorro'] #small test
@@ -99,6 +98,6 @@ if __name__ == '__main__':
 	
 	#testing on novel names
 	#test_name = ["Nemo"]
-	test_name = ["Atticus", "Shevek", "Emma", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah", "Mary"]
+	test_name = ["Atticus", "Emma", "Taako", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah", "Mary"]
 	determine_gender(test_name, pipeline_loaded)
 	print("ran for for {0}\n".format(datetime.now() - start_time))
