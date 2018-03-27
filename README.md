@@ -68,7 +68,7 @@ Will only run the parser once, if the parser has been run already, the output wi
 
 ## Tagging text for Pronouns and Proper nouns
 
-```One morning, when [Gregor Samsa]_n0 woke from troubled dreams, [he]_p0 found [himself]_p1 transformed in [his]_p2 bed into a horrible vermin. [He]_p3 lay on [his]_p4 armour-like back, and if [he]_p7 lifted [his]_p5 head a little [he]_p8 could see [his]_p5 brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover [it]_p9 and seemed ready to slide off any moment. [His]_p10 many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as [he]_p11 looked.```
+```One morning, when <Gregor Samsa>_n0 woke from troubled dreams, <he>_p0 found <himself>_p1 transformed in <his>_p2 bed into a horrible vermin. <He>_p3 lay on <his>_p4 armour-like back,  and if <he>_p7 lifted <his>_p5 head a little <he>_p8 could see <his>_p5 brown belly,  slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover <it>_p9 and seemed ready to slide off any moment. <His>_p10 many legs,  pitifully thin compared with the size of the rest of <him>_p11,  waved about helplessly as <he>_p12 looked.```
 
 
 ## Pre-Processing Text
