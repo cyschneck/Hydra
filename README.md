@@ -188,6 +188,11 @@ Odds: Female (0.462962962963), Male (0.537037037037)
 The name 'Ishamel' is most likely Male
 Odds: Female (0.4), Male (0.6)
 
+## Identify Main Character and Perspective of Text
+
+IS FIRST PERSON TEXT: False
+Predicted gender of main character is 'Female': True
+MAIN CHARACTER IS: Wendy
 
 
 ## Datasets
