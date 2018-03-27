@@ -468,7 +468,7 @@ def findPronouns(pos_dict):
 def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, pos_dict):
 	# save into csv for manual labelling
 	# TODO: set up with average paragraph length as size_sentences
-	size_sentences = 2100000000 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
+	size_sentences = 21000000000 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
 	rows_of_csv_tuple = csv_file.values()
 	all_sentences_in_csv = list(set([int(word.SENTENCE_INDEX) for word in csv_file.values()]))
 	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
@@ -515,7 +515,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						total_found = re.findall(r'\b{0}\b'.format(pronoun), new_sentence_to_add)
 						if re.search(r' \b{0}\b '.format(pronoun), new_sentence_to_add): # match full word
 							for tf in range(len(total_found)):
-								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " [{0}]_p{1} ".format(pronoun, pronoun_index), tf+1)
+								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " <{0}>_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
 	
 				#TODO: FIND PRONOUNS/PROPER NAMES close to puncation: what do you make of it? don't do it!
@@ -576,13 +576,13 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 					repeats_to_find = []
 					for counter, index_val in enumerate(all_index_values):
 						if counter > 0:
-							new_characters_from_update = len("[]_n ")*counter
+							new_characters_from_update = len("<>_n ")*counter
 						start_word = index_val[0] + new_characters_from_update
 						end_word = index_val[1] + new_characters_from_update
 						updated_index.append([start_word, end_word])
 						find_repeats = new_sentence_to_add[start_word:end_word]
 						repeats_to_find.append(find_repeats)
-						replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
+						replacement_string = "<{0}>_n ".format(new_sentence_to_add[start_word:end_word])
 						new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 						sub_counter = counter
 					# add repeated gne values
@@ -594,17 +594,17 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						for m in repeat_item:
 							index_to_check = [m.start(), m.end()]
 							if [m.start()-1,m.end()-1] not in updated_index: # check that name hasn't been already assigned
-								if new_sentence_to_add[m.start()-1] != '[' and new_sentence_to_add[m.end():m.end()+3] != ']_n':
+								if new_sentence_to_add[m.start()-1] != '<' and new_sentence_to_add[m.end():m.end()+3] != '>_n':
 									start_word = m.start() + new_characters_from_update
 									end_word = m.end() + new_characters_from_update
-									replacement_string = "[{0}]_n ".format(new_sentence_to_add[start_word:end_word])
+									replacement_string = "<{0}>_n ".format(new_sentence_to_add[start_word:end_word])
 									new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 									sub_counter += 1
 				new_sent = new_sentence_to_add.split()
 				# label all proper nouns with an associated index value for noun
 				for index, word_string in enumerate(new_sent):
-					if ']_n' in word_string:
-						if word_string != "]_n":
+					if '>_n' in word_string:
+						if word_string != ">_n":
 							new_sent[index] = '{0}{1}'.format(word_string, gne_index)
 							new_sentence_to_add = " ".join(new_sent)
 							gne_index += 1
@@ -632,7 +632,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 1 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 21000000000 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -650,9 +650,9 @@ def saveTagforManualAccuracy(sentences_in_order):
 		for sentence_tag in sentence_range:
 			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
 							 'TEXT': ''.join(sentence_tag),
-							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count("]_n"),
+							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count(">_n"),
 							 'MISSED_PROPER_NOUN': None,
-							 'FOUND_PRONOUN': ''.join(sentence_tag).count("]_p"),
+							 'FOUND_PRONOUN': ''.join(sentence_tag).count(">_p"),
 							 'MISSED_PRONOUN': None 
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
@@ -671,23 +671,34 @@ def findInteractions(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
 
+	most_common_pronoun_dict = {}
 	#character_counter = dict.fromkeys(gne_tree.keys(), []) # {'Mr Land' : [] }
 	#print(character_counter)
+	pronouns_to_ignore = ['they', 'They', 'it', 'I', 'me', 'Me']
 
 	for row in tagged_text:
-		if "]_n" in row:
-			find_gne_in_sentence_pattern = r'(?<=\[)(.*?)(?=\])'
+		if ">_n" in row:
+			print(row)
+			find_gne_in_sentence_pattern = r'(?<=\<)(.*?)(?=\>)'
 			found_all_brackets = re.findall(find_gne_in_sentence_pattern, row) # everything together in the order that they appear
 			found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
 			found_name_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'n'] # store named ents
 			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
-			#print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
+			print('\n')
+			print(found_pronoun_value)
+			print('\n')
 			for given_name in found_name_value:
 				given_name_gender = gender_gne_tree[given_name]
 				print("{0} is {1}".format(given_name, given_name_gender))
-	# TODO: set up trees with gender lieklyhood
-	#if "Mr Land" in gne_tree.keys():
-	#	print(gne_tree["Mr Land"])
+				#given_name_index = [index for index, value in enumerate(found_all_brackets) if value == given_name]
+				#for index_name in given_name_index:
+				#	print(found_all_brackets[index_name:])
+				#print("\n")
+				#most_common_pronoun_dict[given_name] = mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value)
+				#print(found_all_brackets)
+			print('\n')
+			print(found_all_brackets)
+			print('\n')
 
 def determineGenderName(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
@@ -738,7 +749,7 @@ def determineGenderName(loaded_gender_model, gne_tree):
 						male_prob += load_prob[1]
 				#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
-			if (abs(male_prob - female_prob) < 0.09):
+			if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
 				gender_is = "UNDETERMINED"
 			else:
 				gender_is = 'Male' if male_prob > female_prob else 'Female'
@@ -764,22 +775,9 @@ def isLastName(gne_tree, sub_name):
 def loadDTModel():
 	# load saved gender model from gender_name_tagger
 	from sklearn.externals import joblib # save model to load
-	'''
 	model_file_dir = 'gender_name_tagger'
-	model_file_name = ''
-	for i in os.listdir(model_file_dir):
-		if os.path.isfile(os.path.join(model_file_dir,i)) and 'gender_saved_model_' in i:
-			model_file_name = os.path.join(model_file_dir,i)
-	print("\nGENDER MODEL: {0}".format(model_file_name))
-	pipeline_loaded = joblib.load(model_file_name)
-	#with open(model_file_name, 'rb') as model_file:
-	#	loaded_pipeline = pickle.load(model_file)
-
-	'''
-	model_file_dir = 'gender_name_tagger'
-
 	updated_saved_model = [f for f in os.listdir(model_file_dir) if 'pipeline_gender_saved_model' in f][0]
-	print("GENDER NAME MODEL: {0}".format(updated_saved_model))
+	print("LOADING SAVED GENDER NAME MODEL: {0}".format(updated_saved_model))
 	pipeline_loaded = joblib.load('{0}/{1}'.format(model_file_dir, updated_saved_model))
 	return pipeline_loaded
 
@@ -859,6 +857,27 @@ def gneHierarchy(character_entities_group):
 	#	print(value)
 	#	print("\n")
 	return dict(gne_tree)
+
+def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
+	# determine the most common pronouns for a given name for all the text
+	'''
+	x_closest_pronouns = 5
+	print("MOST COMMON PRONOUN IN ALL TEXT FOR '{0}'".format(given_name))
+	print(found_all_brackets)
+	given_name_index = [index for index, value in enumerate(found_all_brackets) if value == given_name]
+	for index_name in given_name_index:
+		print("\n")
+		print(found_all_brackets[index_name])
+		search_list = []
+		print("remaining list: {0}".format(found_all_brackets[index_name+1:]))
+		for i in found_all_brackets[index_name+1:]:
+			if i not in found_name_value:
+				if len(search_list) < x_closest_pronouns:
+					search_list.append(i)
+		print(search_list)
+	print("\n")
+	'''
+	
 ########################################################################
 # NETWORK GRAPHS AND TREE
 def generateGNEtree(gne_tree, filename):
@@ -1212,6 +1231,7 @@ if __name__ == '__main__':
 
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	print("RUNNING: {0}".format(given_file.upper()))
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 	#print(output_filename)
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
@@ -1286,10 +1306,10 @@ if __name__ == '__main__':
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	for key, value in gne_tree.iteritems():
-		print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
+	#for key, value in gne_tree.iteritems():
+	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 
-	#findInteractions(manual_tag_dir, gender_gne, loaded_gender_model)
+	findInteractions(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
