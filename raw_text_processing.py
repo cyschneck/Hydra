@@ -683,12 +683,12 @@ def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
 			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
 			#print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
 			for given_name in found_name_value:
-				given_name_gender = determineGenderName(given_name, loaded_gender_model)
+				given_name_gender = determineGenderName(given_name, loaded_gender_model, gne_tree)
 	# TODO: set up trees with gender lieklyhood
 	#if "Mr Land" in gne_tree.keys():
 	#	print(gne_tree["Mr Land"])
 
-def determineGenderName(full_name, loaded_gender_model):
+def determineGenderName(full_name, loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
 	full_name_in_parts = full_name.split()
 	
@@ -701,15 +701,16 @@ def determineGenderName(full_name, loaded_gender_model):
 		return 'Female'
 	
 	# find the name for each part of the name, choose highest
-	
 	print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
 	# run test on each part of the name, return the largest so that last names don't overly effect
 	dt = np.vectorize(DT_features) #vectorize dt_features function
 
 	female_prob = 0.0
 	male_prob = 0.0
-
+	
 	for sub_name in full_name_in_parts:
+		# determine if the name is likely to be the last name, if so, weight less than other parts of the name
+		isLikelyLastName(gne_tree, sub_name)
 		if sub_name in connecting_words:
 			# do not calculate for titles "Queen of England" shouldn't find for England
 			break
@@ -730,6 +731,21 @@ def determineGenderName(full_name, loaded_gender_model):
 
 	print("The name '{0}' is most likely {1}\n(F:{2}, M:{3})\n".format(full_name, gender_is, female_prob, male_prob))
 	return gender_is
+
+def isLikelyLastName(gne_tree, sub_name):
+	# determine if the name is likely to be the last name
+	#{'Samsa': ['Samsa'], 'Gregor': ['Gregor', 'Gregor Samsa']}
+	# last name is the most common last element in a name and has no futher sub-roots
+	print("\ncheck if {0} is the last name".format(sub_name))
+	is_last_name = False
+	last_name_prob = 0.0
+	for sub_tree in gne_tree.values():
+		print(sub_tree)
+		for branch in sub_tree:
+			print(branch)
+	
+	print("{0} is the last name ({1}): {2}\n\n".format(sub_name, is_last_name, last_name_prob))
+	return is_last_name
 
 def loadDTModel():
 	# load saved gender model from gender_name_tagger
@@ -777,7 +793,6 @@ def gneHierarchy(character_entities_group):
 	 '''
 	character_split_group = [x.split() for x in character_entities_group]
 	character_split_group = sorted(character_split_group, key=len, reverse=True)
-	#print("split in reverse\n")
 	gne_tree = defaultdict(dict)
 	gne_dict_sub = {}
 
@@ -829,7 +844,7 @@ def gneHierarchy(character_entities_group):
 	#	print("key: {0}".format(key))
 	#	print(value)
 	#	print("\n")
-	return gne_tree
+	return dict(gne_tree)
 ########################################################################
 # NETWORK GRAPHS AND TREE
 def generateGNEtree(gne_tree, filename):
@@ -1262,7 +1277,7 @@ if __name__ == '__main__':
 	#	print("\n{0}".format(sub_value))
 
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
-	#findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
