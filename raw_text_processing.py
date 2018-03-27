@@ -51,7 +51,7 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "President", "Vice-President", "Senator", "Prime", "Minster",
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
-						 'General', 'Secretary', 'St', 'Saint', 'San']
+						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant']
 
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le']
 
@@ -657,7 +657,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
-def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
+def findInteractions(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 	# find all locations of character interactions
 	print("\nFIND INTERACTIONS in {0}\n".format(manual_tag_dir))
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -683,56 +683,69 @@ def findInteractions(manual_tag_dir, gne_tree, loaded_gender_model):
 			found_pronoun_value = [row[i[0]:i[1]] for i in found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
 			#print("\n{0}\nfound all: {1}\nfound names: {2}\nfound pronouns: {3}".format(row,found_all_brackets,found_name_value, found_pronoun_value))
 			for given_name in found_name_value:
-				given_name_gender = determineGenderName(given_name, loaded_gender_model, gne_tree)
+				given_name_gender = gender_gne_tree[given_name]
+				print("{0} is {1}".format(given_name, given_name_gender))
 	# TODO: set up trees with gender lieklyhood
 	#if "Mr Land" in gne_tree.keys():
 	#	print(gne_tree["Mr Land"])
 
-def determineGenderName(full_name, loaded_gender_model, gne_tree):
+def determineGenderName(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
-	full_name_in_parts = full_name.split()
+	gender_gne = {}
 	
-	# if name is part of a gendered honorific, return: Mr Anything is a male
-	if full_name_in_parts[0].title() in male_honorific_titles:
-		print("'{0}' contains '{1}' found: Male\n".format(full_name, full_name_in_parts[0]))
-		return 'Male'
-	if full_name_in_parts[0].title() in female_honorific_titles:
-		print("'{0}' contains '{1}' found: Female\n".format(full_name, full_name_in_parts[0]))
-		return 'Female'
-	
-	# find the name for each part of the name, choose highest
-	print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
-	# run test on each part of the name, return the largest so that last names don't overly effect
-	dt = np.vectorize(DT_features) #vectorize dt_features function
+	for full_name, _ in gne_tree.iteritems():
+		found_with_title = False
+		female_prob = 0.0
+		male_prob = 0.0
 
-	female_prob = 0.0
-	male_prob = 0.0
-	weight_last_name_less = 0.3
-	
-	for sub_name in full_name_in_parts:
-		# determine if the name is likely to be the last name, if so, weight less than other parts of the name
-		if sub_name in connecting_words:
-			# do not calculate for titles "Queen of England" shouldn't find for England
-			break
-		else:
-			if sub_name not in ignore_neutral_titles:
-				# female [0], male [1]
-				is_a_last_name = isLastName(gne_tree, sub_name)
-				load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
-				#print("\tprobability: {0}\n".format(load_prob))
-				if is_a_last_name: # if last name, weigh less than other names
-					load_prob = load_prob*weight_last_name_less
-				female_prob += load_prob[0]
-				male_prob += load_prob[1]
-		#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
+		full_name_in_parts = full_name.split()
+		
+		# if name is part of a gendered honorific, return: Mr Anything is a male
+		if full_name_in_parts[0].title() in male_honorific_titles:
+			#print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
+			gender_is = 'Male'
+			male_prob += 1.0
+			found_with_title = True
+		if full_name_in_parts[0].title() in female_honorific_titles:
+			#print("'{0}' contains '{1}' found: Female".format(full_name, full_name_in_parts[0]))
+			gender_is = 'Female'
+			female_prob += 1.0
+			found_with_title = True
+		
+		# find the name for each part of the name, choose highest
+		#print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
+		# run test on each part of the name, return the largest so that last names don't overly effect
+		dt = np.vectorize(DT_features) #vectorize dt_features function
 
-	if (abs(male_prob - female_prob) < 0.09):
-		gender_is = "UNDETERMINED"
-	else:
-		gender_is = 'Male' if male_prob > female_prob else 'Female'
+		weight_last_name_less = 0.3
+		
+		if not found_with_title:
+			for sub_name in full_name_in_parts:
+				# determine if the name is likely to be the last name, if so, weight less than other parts of the name
+				if sub_name in connecting_words:
+					# do not calculate for titles "Queen of England" shouldn't find for England
+					break
+				else:
+					if sub_name not in ignore_neutral_titles:
+						# female [0], male [1]
+						is_a_last_name = isLastName(gne_tree, sub_name)
+						load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
+						#print("\tprobability: {0}\n".format(load_prob))
+						if is_a_last_name: # if last name, weigh less than other names
+							#print("'{0}' is a last name, will weight less".format(sub_name))
+							load_prob = load_prob*weight_last_name_less
+						female_prob += load_prob[0]
+						male_prob += load_prob[1]
+				#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
-	print("The name '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}\n".format(full_name, gender_is, female_prob, male_prob))
-	return gender_is
+			if (abs(male_prob - female_prob) < 0.09):
+				gender_is = "UNDETERMINED"
+			else:
+				gender_is = 'Male' if male_prob > female_prob else 'Female'
+
+		#print("The name '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}\n".format(full_name, gender_is, female_prob, male_prob))
+		gender_gne[full_name] = gender_is
+	return gender_gne
 
 def isLastName(gne_tree, sub_name):
 	# determine if the name is likely to be the last name
@@ -1265,6 +1278,8 @@ if __name__ == '__main__':
 	
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
+	loaded_gender_model = loadDTModel() # load model once, then use to predict
+	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
@@ -1272,13 +1287,9 @@ if __name__ == '__main__':
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
 	for key, value in gne_tree.iteritems():
-		print("\ngne base name: {0}\n{1}".format(key, value))
-	#print("\nVALUES:")
-	#for sub_value in gne_tree.keys():
-	#	print("\n{0}".format(sub_value))
+		print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 
-	loaded_gender_model = loadDTModel() # load model once, then use to predict
-	findInteractions(manual_tag_dir, gne_tree, loaded_gender_model)
+	#findInteractions(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
