@@ -42,7 +42,7 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
-						 'Gentlemen', 'Uncle', 'Widower', 'Don']
+						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -69,7 +69,7 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
 				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you", "o'er",
-				   "One", "'t"]
+				   "One", "'t", "Poor"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -100,9 +100,12 @@ def readFile(filename):
 	file_remove_extra = []
 	with open(filename, "r") as given_file:
 		string_words = given_file.read()
+		#line = [x for x in string_words]
+		#print(line)
+		string_words = string_words.replace("\r\n\r\n", ".") # create sentences for chapter titles
 		string_words = string_words.replace("\n", " ")
-		string_words = string_words.replace(";" , ", ")
 		string_words = string_words.replace("--", ", ")
+		string_words = string_words.replace("*", "")
 		string_words = string_words.replace("_", "")
 		string_words = string_words.replace("'I", "' I") # fix puncutation where I 
 		string_words = string_words.replace("'It", "' It")
@@ -484,8 +487,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
 		size_sentences = max(all_sentences_in_csv)+1
 	print("Size of sentence for manual tagging = {0}".format(size_sentences))
-	
-	
+
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
 	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
@@ -552,7 +554,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 				if len(lst_gne) > 0:
 					#print("\nlst_gne = {0}".format(lst_gne))
 					for gne in lst_gne: # create the index values for each enitity
-						#print("{0}".format(new_sentence_to_add))
+						#print("'{0}'  in         {1}".format(gne, new_sentence_to_add))
 						search_item = re.search(r"\b{0}\b".format(gne), new_sentence_to_add)
 						if not search_item: # if it return none
 							break # skip item if not found
@@ -1319,7 +1321,7 @@ def outputCSVconll(filename, dict_parts_speech, filednames):
 		for i in range(len(dict_parts_speech)):
 			sentence_pos_lst = dict_parts_speech[i][1]
 			for pos in sentence_pos_lst:
-				print(pos, i)
+				#print(pos, i)
 				writer.writerow({'SENTENCE_INDEX': i, 
 								'FORM': pos[1],
 								'XPOSTAG': pos[4],
@@ -1453,6 +1455,8 @@ if __name__ == '__main__':
 	#generateGNEtree(gne_tree, filename)
 	# generate network graphs
 	#networkGraphs(gne_tree)
+	print("this is a \rcarriage return verus a nerline\n")
+	print("this is an example of \r\n\r\nbtoth")
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
