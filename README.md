@@ -1,4 +1,4 @@
-# Ishmael
+# Hydra
 
 Department of Computer Science at the University of Colorado, Boulder
 
