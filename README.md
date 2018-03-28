@@ -200,12 +200,20 @@ Odds: Female (0.4), Male (0.6)
 
 ## Identify Main Character and Perspective of Text
 
+__Peter Pan (Barrie)__
+
 IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Female': True
 
-MAIN CHARACTER IS: Wendy
+CHARACTER OF INTEREST: ('Wendy', 11)
 
+
+__Time Machine (Wells)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Time Traveller', 67)
 
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
