@@ -214,13 +214,15 @@ Waltz of the Crowned Goddess (Love in the Time of Cholera)
 
 Director of the Astronomical Observatory (Love in the Time of Cholera)
 
-Two Minutes Hate
+Two Minutes Hate (1984)
 
-Eleventh Edition of the Dictionary
+Eleventh Edition of the Dictionary (1984)
 
-Eleventh Edition of the Newspeak Dictionary
+Eleventh Edition of the Newspeak Dictionary (1984)
 
-Order of Conspicuous Merit
+Order of Conspicuous Merit (1984)
+
+'Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
@@ -242,7 +244,6 @@ Odds: Female (0.462962962963), Male (0.537037037037)
 The name 'Ishamel' is most likely Male
 
 Odds: Female (0.4), Male (0.6)
-
 
 ## Identify Main Character and Perspective of Text
 
@@ -448,19 +449,80 @@ CHARACTER OF INTEREST: ('Emmanuel Goldstein Winston', 493)
 TOP CHARACTERS OF INTEREST: [('Labour Party', 213), ("O'Brien Julia", 188), ('Eleventh Edition of the Newspeak Dictionary', 71), ('Government of Oceania', 59)]
  
 __Raven (Poe)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Quoth the Raven', 10)
+
+TOP CHARACTERS OF INTEREST: [('Lenore', 8), ('Nevermore', 8), ('Perched', 2), ('December', 2)]
+
 __The Merry Adventures of Robin Hood (Pyle)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 1913)]: True
+
+CHARACTER OF INTEREST: ('Epilogue THUS END the Merry Adventures of Robin Hood', 691)
+
+TOP CHARACTERS OF INTEREST: [('Quoth the Sheriff of Nottingham', 351), ('quoth Robin Hood', 342), ('Little John thereupon', 335), ('stout William of the Scar', 192)]
+
 __Frankenstein (Shelley)__
-__The Jungle (Sinclair)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Elizabeth Lavenza', 89)
+
+TOP CHARACTERS OF INTEREST: [('Justine Moritz', 54), ('Dearest Clerval', 49), ('Felix', 48), ('Geneva', 36)]
+
 __The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Mr Utterson of Gaunt Street', 125)
+
+TOP CHARACTERS OF INTEREST: [('Edward Hyde', 65), ('Poole', 58), ('Poor Harry Jekyll', 45), ('Mr Hyde', 30)]
+
 __Tresure Island (Stevenson)__
-__Dracula (Stoker)__
-__A Connecticut Yankee in King Arthur's Court (Twain)__
-__The Adventures of Tom Sawyer (Twain)__
-__The Prince and the Pauper (Twain)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Long John Silver', 232)
+
+TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Captain Flint', 50), ('Dr Livesey', 47), ('John Trelawney Postscript', 47)]
+
 __20000 Leagues Under the Sea (Verne)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('To-morrow Captain Nemo', 283)
+
+TOP CHARACTERS OF INTEREST: [('Commander of the Nautilus', 195), ('Happily Conseil', 193), ('Canadian', 144), ('Captain Denham of the Herald', 126)]
+
 __Around the World in Eighty Days (Verne)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('his', 807)]: True
+
+CHARACTER OF INTEREST: ('Passepartout thereupon', 357)
+
+TOP CHARACTERS OF INTEREST: [('Dear Mr Fogg', 339), ('HAPPINESS Yes Phileas Fogg', 231), ('Monsieur Fix', 227), ('abandon Aouda', 127)]
+
 __The Island of Doctor Moreau (Wells)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Montgomery', 202)
+
+TOP CHARACTERS OF INTEREST: [('Island of Doctor Moreau', 134), ('Sayer of the Law', 61), ('Beast People', 45), ("M'ling", 40)]
+
 __The War of the Worlds (Wells)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Repulse of the Martians', 81)
+
+TOP CHARACTERS OF INTEREST: [('Pool of London', 46), ('Old Woking', 43), ('Heat-Ray', 27), ('Mars', 24)]
 
 __Time Machine (Wells)__
 
@@ -470,9 +532,6 @@ CHARACTER OF INTEREST: ('Time Traveller', 67)
 
 TOP CHARACTERS OF INTEREST: [("'Little Weena", 48), ('Time Machine', 33), ("Medical Man 'but", 23), ('Psychologist', 22)]
 
-__The Picture of Dorian Grey (Wilde)__
-
-
 __My Man Jeeves (Wodehouse)__
 
 IS FIRST PERSON TEXT: True
@@ -480,7 +539,6 @@ IS FIRST PERSON TEXT: True
 CHARACTER OF INTEREST: ('Jeeves', 229)
 
 TOP CHARACTERS OF INTEREST: [('Mr George Lattaker', 94), ('Rocky Todd', 60), ('Old Bicky', 56), ('Bobbie Cardew', 56)]
-
 
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
