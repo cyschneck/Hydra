@@ -192,6 +192,10 @@ Black Avenger of the Spanish Main (Tom Sawyer)
 
 President of the United States (Tom Sawyer)
 
+Captain Rollo Bickersteth of the Coldstream (My Man Jeeves)
+
+Serene Highness the Prince of Saxburg-Leignitz (My Man Jeeves)
+
 ## Gender Name Classifier (DecisionTreeClassifier)
 
 The name 'Atticus' is most likely Male
@@ -243,7 +247,7 @@ CHARACTER OF INTEREST: ('Good Witch Grants Dorothy', 386)
 
 TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Rescue of the Tin Woodman', 177), ('Cowardly Lion', 175), ('Wonderful City of Oz', 137)]
 
-__A Little Princess (Burnett)___
+__A Little Princess (Burnett)__
 
 IS FIRST PERSON TEXT: False
 
@@ -253,7 +257,7 @@ CHARACTER OF INTEREST: ('Miss Minchin', 244)
 
 TOP CHARACTERS OF INTEREST: [('Miss Ermengarde', 147), ('Becky', 142), ('Lottie Lavinia', 57), ('Emily', 56)]
 
-__Princess of Mars (Burroughs)___
+__Princess of Mars (Burroughs)__
 
 IS FIRST PERSON TEXT: True
 
@@ -261,7 +265,7 @@ CHARACTER OF INTEREST: ('Princess Dejah Thoris', 173)
 
 TOP CHARACTERS OF INTEREST: [('Tars Tarkas the Thark', 129), ('DOG Sola', 117), ('Tharks of Barsoom', 113), ('throng of Martians', 104)]
 
-__Tarzan of the Apes (Burroughs)___
+__Tarzan of the Apes (Burroughs)__
 
 IS FIRST PERSON TEXT: False
 
@@ -271,7 +275,7 @@ CHARACTER OF INTEREST: ('Tarzan of the Dum-Dum', 596)
 
 TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 239), ("Lieutenant D'Arnot", 173), ('Jane Porter', 163), ('Mr Philander', 98)]
 
-__Alices Adventures in Wonderland (Carroll)___
+__Alices Adventures in Wonderland (Carroll)__
 
 IS FIRST PERSON TEXT: False
 
@@ -281,7 +285,7 @@ CHARACTER OF INTEREST: ('Rabbit-Hole Alice', 370)
 
 TOP CHARACTERS OF INTEREST: [('Queen of Hearts', 69), ('King', 61), ('Mock Turtle Soup', 59), ('Hatter', 55)]
 
-__The Mysterious Affair at Styles (Christie)___
+__The Mysterious Affair at Styles (Christie)__
 
 IS FIRST PERSON TEXT: True
 
@@ -289,7 +293,7 @@ CHARACTER OF INTEREST: ('Show Monsieur Poirot', 370)
 
 TOP CHARACTERS OF INTEREST: [('Monsieur John Cavendish', 194), ('Monday Mrs Inglethorp', 127), ('Mademoiselle Cynthia', 97), ('Mr Hastings Miss Howard', 82)]
 
-__Heart of Darkness (Conrad)___
+__Heart of Darkness (Conrad)__
 
 IS FIRST PERSON TEXT: True
 
@@ -297,7 +301,7 @@ CHARACTER OF INTEREST: ('Mistah Kurtz', 65)
 
 TOP CHARACTERS OF INTEREST: [('Mr Kurtz', 51), ('Company', 13), ('Charlie Marlow', 11), ('English', 10)]
 
-__A Christmas Carol (Dickens)___
+__A Christmas Carol (Dickens)__
 
 IS FIRST PERSON TEXT: False
 
@@ -305,7 +309,7 @@ CHARACTER OF INTEREST: ('Scrooge the Baleful', 323)
 
 TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 128), ('Evil Spirit', 79), ('Bob Cratchit', 49), ('Ghost of Jacob Marley', 37)]
 
-__A Tale of Two Cities (Dickens)___
+__A Tale of Two Cities (Dickens)__
 
 IS FIRST PERSON TEXT: False
 
@@ -315,7 +319,7 @@ CHARACTER OF INTEREST: ('Citizeness Defarge', 148)
 
 TOP CHARACTERS OF INTEREST: [('Storm Doctor Manette', 146), ('Madame Defarge', 125), ('Mr Charles Darnay', 119), ('Miss Pross', 105)]
 
-__Great Expectations (Dickens)___
+__Great Expectations (Dickens)__
 
 IS FIRST PERSON TEXT: True
 
@@ -323,7 +327,7 @@ CHARACTER OF INTEREST: ('Mrs Joe Gargery', 612)
 
 TOP CHARACTERS OF INTEREST: [('Estella Miss Havisham', 536), ('Identity of Mr Pip', 255), ('Memorandum of Herbert', 240), ('Dear Biddy', 230)]
 
-__Sherlock Holmes (Doyle)___
+__Sherlock Holmes (Doyle)__
 
 IS FIRST PERSON TEXT: True
 
@@ -331,7 +335,7 @@ CHARACTER OF INTEREST: ('Mister Sherlock Holmes', 342)
 
 TOP CHARACTERS OF INTEREST: [('Dr Watson', 75), ('Mr Holmes', 67), ('Mr Lestrade of Scotland Yard', 42), ('City of London', 41)]
 
-__The Hound of the Baskervillies (Doyle)___
+__The Hound of the Baskervillies (Doyle)__
 
 IS FIRST PERSON TEXT: True
 
@@ -363,6 +367,15 @@ CHARACTER OF INTEREST: ('Mr Utterson of Gaunt Street', 125)
 TOP CHARACTERS OF INTEREST: [('Edward Hyde', 65), ('Poole', 58), ('Poor Harry Jekyll', 45), ('Mr Hyde', 30)]
 
 __Dracula (Stoker)__
+
+__My Man Jeeves (Wodehouse)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Jeeves', 229)
+
+TOP CHARACTERS OF INTEREST: [('Mr George Lattaker', 94), ('Rocky Todd', 60), ('Old Bicky', 56), ('Bobbie Cardew', 56)]
+
 
 
 ## Datasets
