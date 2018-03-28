@@ -42,7 +42,7 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
-						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah"]
+						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -50,7 +50,7 @@ female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   "Madame", "Mme", 'Madame', "Mademoiselle", "Mlle", "Baroness",
 						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
 						   "Princess", "Duchess", "Sovereign Princess", "Countess",
-							"Gentlewoman", 'Aunt', 'Widow']
+							"Gentlewoman", 'Aunt', 'Widow', 'Doha']
 
 ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
@@ -58,9 +58,9 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "President", "Vice-President", "Senator", "Prime", "Minster",
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
-						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant']
+						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director"]
 
-connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le']
+connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
 words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
 				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
@@ -69,10 +69,22 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
 				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you", "o'er",
-				   "One", "'t", "Poor"]
+				   "One", "'t", "Poor"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
+
+numbers_as_words = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
+					6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
+					11: 'Eleven', 12: 'Twelve', 13: 'Thirteen', 14: 'Fourteen',
+					15: 'Fifteen', 16: 'Sixteen', 17: 'Seventeen', 18: 'Eighteen',
+					19: 'Nineteen', 20: 'Twenty', 30: 'Thirty', 40: 'Forty',
+					50: 'Fifty', 60: 'Sixty', 70: 'Seventy', 80: 'Eighty',
+					90: 'Ninety', 0: 'Zero'}
+
+total_numbers = numbers_as_words.values()
+
+words_to_ignore += ["Chapter {0}".format("".join(a)) for a in []]
 
 words_to_ignore += ["Chapter {0}".format("".join(a)) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["Chapter {0}".format("".join(a)) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X']]
@@ -100,13 +112,13 @@ def readFile(filename):
 	file_remove_extra = []
 	with open(filename, "r") as given_file:
 		string_words = given_file.read()
-		#line = [x for x in string_words]
-		#print(line)
 		string_words = string_words.replace("\r\n\r\n", ".") # create sentences for chapter titles
 		string_words = string_words.replace("\n", " ")
 		string_words = string_words.replace("--", ", ")
+		string_words = string_words.replace("; ", ", ")
 		string_words = string_words.replace("*", "")
 		string_words = string_words.replace("_", "")
+		string_words = string_words.replace("!”", "!”.") # “Ah-h-h!”  “How true!”  “Amazing, amazing!” into sub-sentences (twain)
 		string_words = string_words.replace("'I", "' I") # fix puncutation where I 
 		string_words = string_words.replace("'It", "' It")
 		string_words = string_words.replace("'we", "' we")
@@ -499,12 +511,12 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	for sentences_tag in sub_sentences_to_tag:
 		#print(sentences_tag)
 		# Test that csv is in order
-		#from itertools import groupby
-		#from operator import itemgetter
-		#for k, g in groupby(enumerate(sentences_tag), lambda (i, x): i-x):
+		from itertools import groupby
+		from operator import itemgetter
+		for k, g in groupby(enumerate(sentences_tag), lambda (i, x): i-x):
 			#print(len(map(itemgetter(1), g)))
-		#	print(map(itemgetter(1), g))
-		#print(len(sentences_tag), size_sentences)
+			print(map(itemgetter(1), g))
+			#print(len(sentences_tag), size_sentences)
 		if len(sentences_tag) == size_sentences: # ignores sentences at the end that aren't the right length
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
@@ -1444,6 +1456,9 @@ if __name__ == '__main__':
 
 	#for key, value in gne_tree.iteritems():
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
+	
+	# TODO: remove all captilized words from the gne tree?
+	# TODO: set up a way to remove elements from GNES (example: 'Dear Peter', 'Dear Fogg')
 
 	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
@@ -1455,8 +1470,6 @@ if __name__ == '__main__':
 	#generateGNEtree(gne_tree, filename)
 	# generate network graphs
 	#networkGraphs(gne_tree)
-	print("this is a \rcarriage return verus a nerline\n")
-	print("this is an example of \r\n\r\nbtoth")
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
 
