@@ -32,7 +32,7 @@ pip install nltk
 echo -e "import nltk\nnltk.download('punkt')\nnltk.download('averaged_perceptron_tagger')" | python
 
 echo "copying tagger for POS, replaced demo.sh"
-cp /root/models/syntaxnet/Ishmael/pos_tagger.sh ~/models/syntaxnet/syntaxnet/
+cp /root/models/syntaxnet/Hydra/pos_tagger.sh ~/models/syntaxnet/syntaxnet/
 
 echo "remove logging verbosity for tensorflow"
 DIR=/root/models/syntaxnet/syntaxnet
