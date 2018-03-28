@@ -176,6 +176,22 @@ The Picture of Dorian Gray (Wells)
 
 My Man Jeeves (Wodehouse)
 
+## Examples of Long Global Named Entities Found
+
+Examples:
+
+New York Mathematical Society (Time Machine)
+
+Palace of Green Porcelain (Time Machine)
+
+Royal Highness the Duke of Cumberland (Treasure Island)
+
+Sign of the Spy-glass (Treasure Island)
+
+Black Avenger of the Spanish Main (Tom Sawyer)
+
+President of the United States (Tom Sawyer)
+
 ## Gender Name Classifier (DecisionTreeClassifier)
 
 The name 'Atticus' is most likely Male
@@ -200,20 +216,154 @@ Odds: Female (0.4), Male (0.6)
 
 ## Identify Main Character and Perspective of Text
 
+__Pride and Prejudice (Austen)__
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Female' [('her', 2132)]: True
+
+CHARACTER OF INTEREST: ('Miss Jane Bennet', 290)
+
+TOP CHARACTERS OF INTEREST: [('Mr Darcy', 215), ('Mrs Bennet', 153), ('Mr Fitzwilliam Darcy', 153), ('Miss Lydia Bennet', 135)]
+
 __Peter Pan (Barrie)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female': True
+Predicted gender of main character is 'Male' [('he', 873)]: True
 
-CHARACTER OF INTEREST: ('Wendy', 11)
+CHARACTER OF INTEREST: ('Peter the Great White Father', 373)
 
+TOP CHARACTERS OF INTEREST: [('Wendy Moira Angela Darling', 354), ('Captain Hook', 155), ('Johnny Corkscrew', 136), ('Michael', 109)]
+
+__The Wonderful Wizard of Oz (Baum)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Good Witch Grants Dorothy', 386)
+
+TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Rescue of the Tin Woodman', 177), ('Cowardly Lion', 175), ('Wonderful City of Oz', 137)]
+
+__A Little Princess (Burnett)___
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Female' [('she', 1685)]: True
+
+CHARACTER OF INTEREST: ('Miss Minchin', 244)
+
+TOP CHARACTERS OF INTEREST: [('Miss Ermengarde', 147), ('Becky', 142), ('Lottie Lavinia', 57), ('Emily', 56)]
+
+__Princess of Mars (Burroughs)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Princess Dejah Thoris', 173)
+
+TOP CHARACTERS OF INTEREST: [('Tars Tarkas the Thark', 129), ('DOG Sola', 117), ('Tharks of Barsoom', 113), ('throng of Martians', 104)]
+
+__Tarzan of the Apes (Burroughs)___
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 1493)]: True
+
+CHARACTER OF INTEREST: ('Tarzan of the Dum-Dum', 596)
+
+TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 239), ("Lieutenant D'Arnot", 173), ('Jane Porter', 163), ('Mr Philander', 98)]
+
+__Alices Adventures in Wonderland (Carroll)___
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Female' [('she', 492)]: True
+
+CHARACTER OF INTEREST: ('Rabbit-Hole Alice', 370)
+
+TOP CHARACTERS OF INTEREST: [('Queen of Hearts', 69), ('King', 61), ('Mock Turtle Soup', 59), ('Hatter', 55)]
+
+__The Mysterious Affair at Styles (Christie)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Show Monsieur Poirot', 370)
+
+TOP CHARACTERS OF INTEREST: [('Monsieur John Cavendish', 194), ('Monday Mrs Inglethorp', 127), ('Mademoiselle Cynthia', 97), ('Mr Hastings Miss Howard', 82)]
+
+__Heart of Darkness (Conrad)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Mistah Kurtz', 65)
+
+TOP CHARACTERS OF INTEREST: [('Mr Kurtz', 51), ('Company', 13), ('Charlie Marlow', 11), ('English', 10)]
+
+__A Christmas Carol (Dickens)___
+
+IS FIRST PERSON TEXT: False
+
+CHARACTER OF INTEREST: ('Scrooge the Baleful', 323)
+
+TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 128), ('Evil Spirit', 79), ('Bob Cratchit', 49), ('Ghost of Jacob Marley', 37)]
+
+__A Tale of Two Cities (Dickens)___
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('his', 1941)]: False
+
+CHARACTER OF INTEREST: ('Citizeness Defarge', 148)
+
+TOP CHARACTERS OF INTEREST: [('Storm Doctor Manette', 146), ('Madame Defarge', 125), ('Mr Charles Darnay', 119), ('Miss Pross', 105)]
+
+__Great Expectations (Dickens)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Mrs Joe Gargery', 612)
+
+TOP CHARACTERS OF INTEREST: [('Estella Miss Havisham', 536), ('Identity of Mr Pip', 255), ('Memorandum of Herbert', 240), ('Dear Biddy', 230)]
+
+__Sherlock Holmes (Doyle)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Mister Sherlock Holmes', 342)
+
+TOP CHARACTERS OF INTEREST: [('Dr Watson', 75), ('Mr Holmes', 67), ('Mr Lestrade of Scotland Yard', 42), ('City of London', 41)]
+
+__The Hound of the Baskervillies (Doyle)___
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Baskerville Hall Sir Henry Baskerville', 233)
+
+TOP CHARACTERS OF INTEREST: [('Mr Sherlock Holmes Mr Sherlock Holmes', 161), ('Second Report of Dr Watson', 110), ('Sir Charles Baskerville', 93), ('Dr Mortimer', 68)]
 
 __Time Machine (Wells)__
 
 IS FIRST PERSON TEXT: True
 
 CHARACTER OF INTEREST: ('Time Traveller', 67)
+
+TOP CHARACTERS OF INTEREST: [("'Little Weena", 48), ('Time Machine', 33), ("Medical Man 'but", 23), ('Psychologist', 22)]
+
+__Treasure Island (Stevenson)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: ('Long John Silver', 232)
+
+TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Captain Flint', 50), ('Dr Livesey', 47), ('John Trelawney Postscript', 47)]
+
+__The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
+
+IS FIRST PERSON TEXT: True
+CHARACTER OF INTEREST: ('Mr Utterson of Gaunt Street', 125)
+
+TOP CHARACTERS OF INTEREST: [('Edward Hyde', 65), ('Poole', 58), ('Poor Harry Jekyll', 45), ('Mr Hyde', 30)]
+
+__Dracula (Stoker)__
+
 
 ## Datasets
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
