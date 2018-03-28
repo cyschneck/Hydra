@@ -7,7 +7,7 @@ The code in this repo is the working version of the thesis found in the link bel
 Link to final PDF (coming soon)
 
 ## Install and Run
-```git clone https://github.com/cschneck/Ishmael.git```
+```git clone https://github.com/cschneck/Hydra.git```
 
 1. If first time setup:
 
@@ -61,10 +61,10 @@ Will only run the parser once, if the parser has been run already, the output wi
 
 ## Part of Speech Data
 
-![all_nouns_all_words](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/all_nouns_in_all_words.png)
-![pronouns_all_words](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/pronouns_in_all_words.png)
-![proper_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
-![regular_nouns_all_nouns](https://github.com/cschneck/Ishmael/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
+![all_nouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/all_nouns_in_all_words.png)
+![pronouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/pronouns_in_all_words.png)
+![proper_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
+![regular_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
 
 ## Tagging text for Pronouns and Proper nouns
 
