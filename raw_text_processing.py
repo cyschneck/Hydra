@@ -69,7 +69,7 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
 				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you", "o'er",
-				   "One"]
+				   "One", "'t"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -101,7 +101,7 @@ def readFile(filename):
 	with open(filename, "r") as given_file:
 		string_words = given_file.read()
 		string_words = string_words.replace("\n", " ")
-		string_words = string_words.replace(";" , " ")
+		string_words = string_words.replace(";" , ", ")
 		string_words = string_words.replace("--", ", ")
 		string_words = string_words.replace("_", "")
 		string_words = string_words.replace("'I", "' I") # fix puncutation where I 
@@ -302,6 +302,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 	['Sir'], ['Sphinx'], ['United States', 'States', 'United'],
 	['sir']]
 	'''
+	#print("grouped_nouns_dict = {0}".format(grouped_nouns_dict))
 	counter_dict = dict(Counter([val for sublist in grouped_nouns_dict.values() for val in sublist]))
 
 	#print("counter={0}".format(counter_dict))
@@ -381,6 +382,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 
 	final_grouping = sorted(final_grouping) # organize and sort
 	final_grouping = list(final_grouping for final_grouping,_ in itertools.groupby(final_grouping))
+	#final_grouping = [x for x in final_grouping if x != []] # remove empty lists
 
 	#print([item for item in final_grouping if item not in words_to_ignore])
 	count = 0
@@ -483,6 +485,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 		size_sentences = max(all_sentences_in_csv)+1
 	print("Size of sentence for manual tagging = {0}".format(size_sentences))
 	
+	
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
 	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
@@ -493,6 +496,13 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	pronoun_index = 0 # display word of interst as [Pronoun]_index
 	for sentences_tag in sub_sentences_to_tag:
 		#print(sentences_tag)
+		# Test that csv is in order
+		#from itertools import groupby
+		#from operator import itemgetter
+		#for k, g in groupby(enumerate(sentences_tag), lambda (i, x): i-x):
+			#print(len(map(itemgetter(1), g)))
+		#	print(map(itemgetter(1), g))
+		#print(len(sentences_tag), size_sentences)
 		if len(sentences_tag) == size_sentences: # ignores sentences at the end that aren't the right length
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
@@ -694,7 +704,7 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
 	#print("\n")
 	for full_text in tagged_text:
-		print(full_text)
+		#print(full_text)
 		pronoun_noun_dict['full_text'].append([full_text])
 		find_gne_in_sentence_pattern = r'(?<=\<)(.*?)(?=\>)'
 		found_all_brackets = re.findall(find_gne_in_sentence_pattern, full_text) # everything together in the order that they appear
@@ -873,8 +883,8 @@ def gneHierarchy(character_entities_group):
 							# 'Dr Juvenal Urbino' NOT 'Dr Lacides Olivella', but 'Dr Juvenal Urbino' and 'Dr Urbino' 
 							if name_with_caps in all_honorific_titles and len(longer_name) > 1:
 								if any(i.title() in longer_name for i in smaller_name.split() if i.title() not in all_honorific_titles):
-									#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name)))
-									sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name):])
+									#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name.title())))
+									sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name.title()):])
 									#print("\t\t\n\n\nnewfound: {0}".format(sub_name_join))
 									if sub_name_join.title() not in gne_tree_word_tree:
 										gne_tree_word_tree.append(sub_name_join)
@@ -899,7 +909,7 @@ def gneHierarchy(character_entities_group):
 	return dict(gne_tree)
 
 def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
-	print("IDENTIFY CHARACTER OF INTEREST\n")
+	print("\nIDENTIFY CHARACTER OF INTEREST\n")
 	'''
 	pronoun_noun_dict['found_proper_name_value']
 	pronoun_noun_dict['found_proper_name_index']
@@ -920,6 +930,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	main_character_is = ''
 	
 	pronoun_counter = Counter(pronoun_noun_dict['found_pronoun_value'])
+	print(pronoun_noun_dict['found_pronoun_value'])
 	most_common_pronoun = pronoun_counter.most_common(1)[0][0].title() 
 	first_person_pronouns = ['I', 'Me', 'Myself','My']
 	if most_common_pronoun in first_person_pronouns:
@@ -971,11 +982,12 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	main_character = max(name_counter.iteritems(), key=operator.itemgetter(1))[0]
 	if not is_first_person_text:
 		if most_common_pronoun in female_pronouns:
-			print("Predicted gender of main character is 'Female': {0}".format(gender_gne[main_character] == 'Female'))
+			print("\nPredicted gender of main character is 'Female' {0}: {1}".format(pronoun_counter.most_common(1), gender_gne[main_character] == 'Female'))
 		if most_common_pronoun in male_pronouns:
-			print("Predicted gender of main character is 'Male': {0}".format(gender_gne[main_character] == 'Male'))
-		print(pronoun_counter.most_common(1))
-	print("CHARACTER OF INTEREST: {0}\n".format(max(name_counter.iteritems(), key=operator.itemgetter(1))))
+			print("\nPredicted gender of main character is 'Male' {0}: {1}".format(pronoun_counter.most_common(1), gender_gne[main_character] == 'Male'))
+	print("\nCHARACTER OF INTEREST: {0}\n".format(max(name_counter.iteritems(), key=operator.itemgetter(1))))
+	top_characters = sorted(name_counter.items(), key=operator.itemgetter(1))[-5:-1]
+	print("TOP CHARACTERS OF INTEREST: {0}\n".format(list(top_characters)[::-1])) # print from highest to lowest
 
 
 def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
@@ -1307,6 +1319,7 @@ def outputCSVconll(filename, dict_parts_speech, filednames):
 		for i in range(len(dict_parts_speech)):
 			sentence_pos_lst = dict_parts_speech[i][1]
 			for pos in sentence_pos_lst:
+				print(pos, i)
 				writer.writerow({'SENTENCE_INDEX': i, 
 								'FORM': pos[1],
 								'XPOSTAG': pos[4],
@@ -1399,6 +1412,7 @@ if __name__ == '__main__':
 				total_words += 1
 	# index proper nouns
 	grouped_named_ent_lst = findProperNamedEntity(pos_dict) # return a list of tuples with elements in order for nnp
+	#print("Characters in the text : {0}\n".format(grouped_named_ent_lst))
 	#print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
 	#print("Characters in the text (ent): {0}\n".format(character_entities_group))
