@@ -130,12 +130,6 @@ The Call of the Wild (London)
 
 White Fang (London)
 
-Legends of King Arthur and his Knights (Malory)
-
-Le Morte d’Arthur v1 (Malory)
-
-Le Morte d’Arthur v2 (Malory)
-
 Love in the Time of Cholera (Marquez)
 
 Moby Dick (Melville)
@@ -195,6 +189,38 @@ President of the United States (Tom Sawyer)
 Captain Rollo Bickersteth of the Coldstream (My Man Jeeves)
 
 Serene Highness the Prince of Saxburg-Leignitz (My Man Jeeves)
+
+Rikk-tikk-tikki-tikki-tchk (The Jungle Book)
+
+Toomai of the Elephants (The Jungle Book) 
+
+Baloo of the Seeonee Wolf Pack (The Jungle Book)
+
+Hunting People of the Jungle (The Jungle Book)
+
+Dance of the Hunger of Kaa (The Jungle Book)
+
+Bagheera of the Council Rock (The Jungle Book)
+
+Superior of the Academy of the Presentation of the Blessed Virgin (Love in the Time of Cholera)
+
+Assembly Chamber of the Provincial (Love in the Time of Cholera)
+
+General Manager of the River Company of the Caribbean (Love in the Time of Cholera)
+
+Knight of the Order of the Holy Sepulcher (Love in the Time of Cholera)
+
+Waltz of the Crowned Goddess (Love in the Time of Cholera)
+
+Director of the Astronomical Observatory (Love in the Time of Cholera)
+
+Two Minutes Hate
+
+Eleventh Edition of the Dictionary
+
+Eleventh Edition of the Newspeak Dictionary
+
+Order of Conspicuous Merit
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
@@ -343,6 +369,99 @@ CHARACTER OF INTEREST: ('Baskerville Hall Sir Henry Baskerville', 233)
 
 TOP CHARACTERS OF INTEREST: [('Mr Sherlock Holmes Mr Sherlock Holmes', 161), ('Second Report of Dr Watson', 110), ('Sir Charles Baskerville', 93), ('Dr Mortimer', 68)]
 
+__The Scarlet Letter (Hawthorne)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Female' [('her', 934)]: False
+
+CHARACTER OF INTEREST: ('Interpreting Hester Prynne', 359)
+
+TOP CHARACTERS OF INTEREST: [('Little Pearl', 194), ('Reverend Mr Dimmesdale', 94), ('Old Roger Chillingworth', 70), ('Salem Custom-House', 36)]
+
+__Metamorphosis (Kafka)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('his', 524)]: True
+
+CHARACTER OF INTEREST: ('Gregor Samsa', 292)
+
+TOP CHARACTERS OF INTEREST: [('Grete', 25), ('Mr Samsa', 21), ('Mrs Samsa', 10), ('Mother', 4)]
+
+__The Trial (Kafka)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 1699)]: False
+
+CHARACTER OF INTEREST: ('Leni', 93)
+
+TOP CHARACTERS OF INTEREST: [('Then Miss B rstner', 73), ('No', 59), ('Alright Block', 57), ('Mrs Grubach', 52)]
+
+__The Jungle Book (Kipling)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 865)]: True
+
+CHARACTER OF INTEREST: ('Song of Mowgli', 206)
+
+TOP CHARACTERS OF INTEREST: [('Bagheera of the Council Rock', 151), ('Tell Baloo of the Seeonee Pack', 132), ('O Kala Nag', 98), ('Valiant Rikki-tikki', 95)]
+
+__The Call of the Wild (London)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 616)]: True
+
+CHARACTER OF INTEREST: ('Fang Buck', 351)
+
+TOP CHARACTERS OF INTEREST: [('John Thornton', 102), ('Spitzbergen', 60), ('Francois', 60), ('Perrault', 39)]
+
+__White Fang (London)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 1531)]: True
+
+CHARACTER OF INTEREST: ('SOUTHLAND White Fang', 598)
+
+TOP CHARACTERS OF INTEREST: [('Grey Beaver', 119), ('Henry', 95), ('DEATH Beauty Smith', 84), ('Matt', 82)]
+
+__Love in the Time of Cholera (Marquez)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 2921)]: False
+
+CHARACTER OF INTEREST: ('Doha Fermina Daza', 409)
+
+TOP CHARACTERS OF INTEREST: [('Dr Marco Aurelio Urbino Daza', 174), ('Dr Juvenal Urbino', 92), ('Captain Diego Samaritano', 60), ('Doctor of Theology', 46)]
+
+__1984 (orwell)__
+
+IS FIRST PERSON TEXT: False
+
+CHARACTER OF INTEREST: ('Emmanuel Goldstein Winston', 493)
+
+TOP CHARACTERS OF INTEREST: [('Labour Party', 213), ("O'Brien Julia", 188), ('Eleventh Edition of the Newspeak Dictionary', 71), ('Government of Oceania', 59)]
+ 
+__Raven (Poe)__
+__The Merry Adventures of Robin Hood (Pyle)__
+__Frankenstein (Shelley)__
+__The Jungle (Sinclair)__
+__The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
+__Tresure Island (Stevenson)__
+__Dracula (Stoker)__
+__A Connecticut Yankee in King Arthur's Court (Twain)__
+__The Adventures of Tom Sawyer (Twain)__
+__The Prince and the Pauper (Twain)__
+__20000 Leagues Under the Sea (Verne)__
+__Around the World in Eighty Days (Verne)__
+__The Island of Doctor Moreau (Wells)__
+__The War of the Worlds (Wells)__
+
 __Time Machine (Wells)__
 
 IS FIRST PERSON TEXT: True
@@ -351,22 +470,8 @@ CHARACTER OF INTEREST: ('Time Traveller', 67)
 
 TOP CHARACTERS OF INTEREST: [("'Little Weena", 48), ('Time Machine', 33), ("Medical Man 'but", 23), ('Psychologist', 22)]
 
-__Treasure Island (Stevenson)__
+__The Picture of Dorian Grey (Wilde)__
 
-IS FIRST PERSON TEXT: True
-
-CHARACTER OF INTEREST: ('Long John Silver', 232)
-
-TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Captain Flint', 50), ('Dr Livesey', 47), ('John Trelawney Postscript', 47)]
-
-__The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
-
-IS FIRST PERSON TEXT: True
-CHARACTER OF INTEREST: ('Mr Utterson of Gaunt Street', 125)
-
-TOP CHARACTERS OF INTEREST: [('Edward Hyde', 65), ('Poole', 58), ('Poor Harry Jekyll', 45), ('Mr Hyde', 30)]
-
-__Dracula (Stoker)__
 
 __My Man Jeeves (Wodehouse)__
 
@@ -375,7 +480,6 @@ IS FIRST PERSON TEXT: True
 CHARACTER OF INTEREST: ('Jeeves', 229)
 
 TOP CHARACTERS OF INTEREST: [('Mr George Lattaker', 94), ('Rocky Todd', 60), ('Old Bicky', 56), ('Bobbie Cardew', 56)]
-
 
 
 ## Datasets
