@@ -27,7 +27,7 @@ DOCKER STARTING, entering docker...
 2. Install modules within docker to run repo (will take a few minutes):
 
 ```
-cd Ishmael/
+cd Hydra/
 ./2_install_modules_in_docker.sh
 ```
 ```
@@ -74,7 +74,7 @@ Will only run the parser once, if the parser has been run already, the output wi
 
 
 ## Pre-Processing Text
-Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header, chapter headings. For original text find at www.gutenberg.org
+Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header and header information. For original text find at www.gutenberg.org
 
 The raw text including for testing are both first and third person for benchmarking purposes:
 
@@ -170,7 +170,7 @@ The Picture of Dorian Gray (Wells)
 
 My Man Jeeves (Wodehouse)
 
-## Examples of Long Global Named Entities Found
+## Examples of Global Named Entities Found
 
 Examples:
 
@@ -222,7 +222,7 @@ Eleventh Edition of the Newspeak Dictionary (1984)
 
 Order of Conspicuous Merit (1984)
 
-'Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
+Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
@@ -248,6 +248,7 @@ Odds: Female (0.4), Male (0.6)
 ## Identify Main Character and Perspective of Text
 
 __Pride and Prejudice (Austen)__
+
 IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Female' [('her', 2132)]: True
@@ -440,7 +441,7 @@ CHARACTER OF INTEREST: ('Doha Fermina Daza', 409)
 
 TOP CHARACTERS OF INTEREST: [('Dr Marco Aurelio Urbino Daza', 174), ('Dr Juvenal Urbino', 92), ('Captain Diego Samaritano', 60), ('Doctor of Theology', 46)]
 
-__1984 (orwell)__
+__1984 (Orwell)__
 
 IS FIRST PERSON TEXT: False
 
@@ -490,7 +491,7 @@ CHARACTER OF INTEREST: ('Long John Silver', 232)
 
 TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Captain Flint', 50), ('Dr Livesey', 47), ('John Trelawney Postscript', 47)]
 
-__20000 Leagues Under the Sea (Verne)__
+__20,000 Leagues Under the Sea (Verne)__
 
 IS FIRST PERSON TEXT: True
 
@@ -540,16 +541,10 @@ CHARACTER OF INTEREST: ('Jeeves', 229)
 
 TOP CHARACTERS OF INTEREST: [('Mr George Lattaker', 94), ('Rocky Todd', 60), ('Old Bicky', 56), ('Bobbie Cardew', 56)]
 
-## Datasets
+## Additional Citations
+
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
 
-## Benchmarking
-
-[Feuding Families and Former Friends: Unsupervised Learning for Dynamic Fictional Relationships](https://www.cs.umd.edu/~miyyer/pubs/2016_naacl_relationships.pdf)
-
-Code from paper found [here](https://github.com/miyyer/rmn)
-
-## Citations
 Names Corpus, Version 1.3 (1994-03-29)
 Copyright (C) 1991 Mark Kantrowitz
 Additions by Bill Ross
