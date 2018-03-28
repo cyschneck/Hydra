@@ -98,6 +98,6 @@ if __name__ == '__main__':
 	
 	#testing on novel names
 	#test_name = ["Nemo"]
-	test_name = ["Atticus", "Emma", "Taako", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah", "Mary"]
+	test_name = ["Atticus", "Emma", "Taako", "Ishamel", "Ldfafadoreli", 'Tars Tarkas', "Dejah", "Mary", "George"]
 	determine_gender(test_name, pipeline_loaded)
 	print("ran for for {0}\n".format(datetime.now() - start_time))

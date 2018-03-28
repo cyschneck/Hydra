@@ -29,7 +29,14 @@ possessive_pronouns = "mine yours his hers ours theirs my"
 reflexive_pronouns = "myself yourself himself herself itself oneself ourselves yourselves themselves you've"
 relative_pronouns = "that whic who whose whom where when"
 
-male_honorific_titles = ['Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
+neutral_pronouns = ['I', 'Me', 'You', 'It', 'We', 'Us', 'They', 'Them', 'Myself', 'Mine',
+					'Yourself', 'Itself', 'Themselves', 'My', 'Your', 'Its', 'Our', 'Their',
+					"One", "Ourselves", 'Yours']
+
+female_pronouns = ['Her', 'Hers', 'Herself', "She", 'Herself']
+male_pronouns =   ['He', 'Him', 'His', 'Himself']
+
+male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
 						 'Sire', "Esq", "Father", "Brother", "Rev", "Reverend",
 						 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
@@ -61,7 +68,8 @@ words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
 				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
 				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
-				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you"]
+				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you", "o'er",
+				   "One"]
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -517,7 +525,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							for tf in range(len(total_found)):
 								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " <{0}>_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
-	
 				#TODO: FIND PRONOUNS/PROPER NAMES close to puncation: what do you make of it? don't do it!
 
 				# tag proper nouns
@@ -632,7 +639,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 21000000000 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 50 # size of the sentence/paragraph saved in manual tagging
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -657,21 +664,17 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
-def coreferenceResolution(manual_tag_dir, gender_gne_tree, loaded_gender_model):
-	# find all locations of character interactions
-	print("\nFIND INTERACTIONS in {0}\n".format(manual_tag_dir))
+def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
+	# resolve gender and pronoun noun interactions (resolution)
+	pronoun_noun_dict = {}
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
 	
-	neutral_pronouns = ['I', 'Me', 'You', 'It', 'We', 'Us', 'They', 'Them', 'Myself',
-						'Yourself', 'Itself', 'Themselves', 'My', 'Your', 'Its', 'Our', 'Their']
-	female_pronouns = ['Her', 'Herself', "She", 'Herself']
-	male_pronouns =   ['He', 'Him', 'His', 'Himself']
+	# set up dict for pronouns and gender: {'His': 'Male', etc...}
 	pronoun_gender = {f: 'Female' for f in female_pronouns}
 	m_pronoun_gender = {m: 'Male' for m in male_pronouns}
 	pronoun_gender.update(m_pronoun_gender)
 	n_pronoun_gender = {n: 'Neutral' for n in neutral_pronouns}
 	pronoun_gender.update(n_pronoun_gender)
-	
 	#check that all pronouns have been included in the dictionary
 	test_full_list = female_pronouns + male_pronouns + neutral_pronouns
 	for i in test_full_list:
@@ -685,39 +688,50 @@ def coreferenceResolution(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 		for row in reader:
 			tagged_text.append(row[1]) # store the sentence in order
 
+	sub_dict_titles = ['full_text', 'found_all_brackets', 'found_proper_name_value', 
+					   'found_proper_name_index', 'found_pronoun_value', 'found_pronoun_index']
+	pronoun_noun_dict = {f: [] for f in sub_dict_titles}
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
-
-	for row in tagged_text:
-		print(row)
+	#print("\n")
+	for full_text in tagged_text:
+		print(full_text)
+		pronoun_noun_dict['full_text'].append([full_text])
 		find_gne_in_sentence_pattern = r'(?<=\<)(.*?)(?=\>)'
-		found_all_brackets = re.findall(find_gne_in_sentence_pattern, row) # everything together in the order that they appear
-		print('\n')
-		print(found_all_brackets)
-		all_found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, row)] # get index of all matches
-		found_proper_name_value = [row[i[0]:i[1]] for i in all_found_name_index if row[i[1]+2] is 'n'] # store named ents
-		found_proper_name_index = [i for i in all_found_name_index if row[i[1]+2] is 'n'] # store named index of names
+		found_all_brackets = re.findall(find_gne_in_sentence_pattern, full_text) # everything together in the order that they appear
+		pronoun_noun_dict['found_all_brackets'].append([found_all_brackets])
+		#print('\n')
+		#print(found_all_brackets)
+		all_found_name_index = [[m.start(), m.end()] for m in re.finditer(find_gne_in_sentence_pattern, full_text)] # get index of all matches
+
+		found_proper_name_value = [full_text[i[0]:i[1]] for i in all_found_name_index if full_text[i[1]+2] is 'n'] # store named ents
+		found_proper_name_index = [i for i in all_found_name_index if full_text[i[1]+2] is 'n'] # store named index of names
 		#for index_g in all_found_name_index:
-		#	print(row[index_g[0]:index_g[1]])
-		found_pronoun_value = [row[i[0]:i[1]] for i in all_found_name_index if row[i[1]+2] is 'p'] # store pronouns seperately
-		found_pronoun_index = [i for i in all_found_name_index if row[i[1]+2] is 'p'] # store named index of pronouns
+		#	print(full_text[index_g[0]:index_g[1]])
+		pronoun_noun_dict['found_proper_name_value'].extend([found_proper_name_value])
+		pronoun_noun_dict['found_proper_name_index'].extend([found_proper_name_index])
+
+		found_pronoun_value = [full_text[i[0]:i[1]] for i in all_found_name_index if full_text[i[1]+2] is 'p'] # store pronouns seperately
+		found_pronoun_index = [i for i in all_found_name_index if full_text[i[1]+2] is 'p'] # store named index of pronouns
+		pronoun_noun_dict['found_pronoun_value'].extend([found_pronoun_value])
+		pronoun_noun_dict['found_pronoun_index'].extend([found_pronoun_index])
 		#print("\nfound pronouns index: {0}".format(all_found_name_index))
 		#for index_g in all_found_name_index:
-		#	print(row[index_g[0]:index_g[1]])
-		for given_name in found_proper_name_value:
-			given_name_gender = gender_gne_tree[given_name]
-			print("{0} is {1}".format(given_name, given_name_gender))
-			#given_name_index = [index for index, value in enumerate(found_all_brackets) if value == given_name]
-			#for index_name in given_name_index:
-			#	print(found_all_brackets[index_name:])
-			#print("\n")
-			#most_common_pronoun_dict[given_name] = mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value)
-			#print(found_all_brackets)
-		print('\n')
-		print(found_pronoun_value)
-		for pron in found_pronoun_value:
-			print("{0} is {1}".format(pron, pronoun_gender[pron.capitalize()]))
-
-
+		#	print(full_text[index_g[0]:index_g[1]])
+		#print('\n')
+		#print(found_proper_name_value)
+		#for given_name in found_proper_name_value:
+		#	print("{0} is {1}".format(given_name, gender_gne_tree[given_name]))
+		#print('\n')
+		#print(found_pronoun_value)
+		#for pron in found_pronoun_value:
+			#print("{0} is {1}".format(pron, pronoun_gender[pron.capitalize()]))
+	
+	# compress dictionray from a list of list to a single list
+	for key, value in pronoun_noun_dict.iteritems():
+		pronoun_noun_dict[key] = [item for sublist in value for item in sublist]
+		if key == 'full_text':
+			pronoun_noun_dict[key] = [''.join(pronoun_noun_dict[key])] # join the sentences into a single sentence
+	return pronoun_noun_dict
 
 def determineGenderName(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
@@ -841,7 +855,7 @@ def gneHierarchy(character_entities_group):
 		#print("longer: {0}".format(longer_name))
 		already_in_tree = any(" ".join(longer_name) in g for g in gne_tree)
 		if not already_in_tree: # if not already in a sub tree
-			if len(longer_name[0]) > 1: # ignore intials 'C'
+			if len(longer_name) > 1 or len(longer_name[0]) > 1: # ignore intials 'C'
 				#print("base: {0}".format(longer_name))
 				#print("base: {0}".format(" ".join(longer_name)))
 				#gne_tree_sub_tree.append(smaller_name)
@@ -881,8 +895,88 @@ def gneHierarchy(character_entities_group):
 	#for key, value in gne_tree.iteritems():
 	#	print("key: {0}".format(key))
 	#	print(value)
-	#	print("\n")
+	#print("\n")
 	return dict(gne_tree)
+
+def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
+	print("IDENTIFY CHARACTER OF INTEREST\n")
+	'''
+	pronoun_noun_dict['found_proper_name_value']
+	pronoun_noun_dict['found_proper_name_index']
+	pronoun_noun_dict['full_text']
+	pronoun_noun_dict['found_pronoun_value']
+	pronoun_noun_dict['found_pronoun_index']
+	pronoun_noun_dict['found_all_brackets']
+	'''
+	# count instances of a name appearing
+	'''
+	{'Brussels': 1, 'Mrs Darling': 4, 'East': 1, 'Miss Fulsom': 1,
+	 'Neverland': 1, 'Michael': 2, 'Kindergarten': 1, 'Margaret': 3,
+	 'John': 2, 'Wendy': 11, 'Jane': 1, 'Mr Darling': 4, 'Peter': 3, 
+	 'George': 1, 'Napoleon': 1}
+	'''
+	name_counter = {}
+	is_first_person_text = False
+	main_character_is = ''
+	
+	pronoun_counter = Counter(pronoun_noun_dict['found_pronoun_value'])
+	most_common_pronoun = pronoun_counter.most_common(1)[0][0].title() 
+	first_person_pronouns = ['I', 'Me', 'Myself','My']
+	if most_common_pronoun in first_person_pronouns:
+		is_first_person_text = True
+		
+	#TODO: rather than find the longest name, keep a list of the most common word used between ['wendy', 'peter pan']
+	#use the most common element in the tree 'peter' rather than 'peter pan' or 'peter the great white father'
+
+	for counter, proper_name in enumerate(pronoun_noun_dict['found_proper_name_value']):
+		# weight the first name that appear in the text an additional amount
+		is_first_name_mentioned = False
+		if counter == 0:
+			is_first_name_mentioned = True
+			additional = 0#len(pronoun_noun_dict['found_proper_name_value'])/10 # random additional amount (TODO)
+			if additional < 1:
+				additional = 1
+		if proper_name not in gne_tree.keys():
+			#print("NOT FOUND IN TOP OF TREE")
+			contains_sub_name = [i for i in gne_tree.keys() if proper_name in i]
+			
+			# todo, remove fix below and fix
+			if contains_sub_name == []:
+				contains_sub_name = [proper_name]# TODO: remove
+		
+			contains_sub_name = max(contains_sub_name, key=len)
+			#print(contains_sub_name)
+			if contains_sub_name not in name_counter.keys():
+				name_counter[contains_sub_name] = 1
+				if is_first_name_mentioned:
+					name_counter[contains_sub_name] += additional
+			else:
+				name_counter[contains_sub_name] += 1
+		else:
+			if proper_name not in name_counter.keys():
+				name_counter[proper_name] = 1
+				if is_first_name_mentioned:
+					name_counter[proper_name] += additional
+			else:
+				name_counter[proper_name] += 1
+	import operator
+
+	print((sorted(name_counter.items(), key=operator.itemgetter(1))))
+	#print("\n")
+	#print(pronoun_noun_dict['full_text'])
+	#print("\n")
+	#for noun_index in pronoun_noun_dict['found_proper_name_index']:
+	#	print(pronoun_noun_dict['full_text'][noun_index[0]:noun_index[1]])
+	print("\nIS FIRST PERSON TEXT: {0}".format(is_first_person_text))
+	main_character = max(name_counter.iteritems(), key=operator.itemgetter(1))[0]
+	if not is_first_person_text:
+		if most_common_pronoun in female_pronouns:
+			print("Predicted gender of main character is 'Female': {0}".format(gender_gne[main_character] == 'Female'))
+		if most_common_pronoun in male_pronouns:
+			print("Predicted gender of main character is 'Male': {0}".format(gender_gne[main_character] == 'Male'))
+		print(pronoun_counter.most_common(1))
+	print("CHARACTER OF INTEREST: {0}\n".format(max(name_counter.iteritems(), key=operator.itemgetter(1))))
+
 
 def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
 	# determine the most common pronouns for a given name for all the text
@@ -1335,9 +1429,9 @@ if __name__ == '__main__':
 	#for key, value in gne_tree.iteritems():
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 
-	coreferenceResolution(manual_tag_dir, gender_gne, loaded_gender_model)
-	
-	#identifyMainCharacter(manual_tag_dir)
+	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
+
+	character_likelihood = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
 
 	# GENERATE NETWORKX
 	# generate a tree for gne names
