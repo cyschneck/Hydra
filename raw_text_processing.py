@@ -43,7 +43,7 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
 						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore",
-						 "Grandfather"]
+						 "Grandfather", "Mister", "Brother-in-Law"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -52,7 +52,7 @@ female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
 						   "Princess", "Duchess", "Sovereign Princess", "Countess",
 							"Gentlewoman", 'Aunt', 'Widow', 'Doha', 'Comtesse', 'Baronne',
-							"Grandmother"]
+							"Grandmother", "Sister-in-Law"]
 
 ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
@@ -66,13 +66,17 @@ all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_
 
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
-words_to_ignore = ["Sir", "Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ought", 
-				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though"
+words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ought", 
+				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T", "Poor",
-				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One",
-				   "Good-Night", "Good-Morning", 'To-Day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
+				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One", "Happily",
+				   "Good-Night", "Good-Morning", 'To-day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
 				   'To-day', 'To-morrow', 'To-Night', 'Thine', 'Or', "D'You", "O'Er", "Aye", "Men"
-				   "Ill", "Behold", "Beheld", "Nay", "Shall", "So-And-So", "Making-Up", "Ajar"] # ignores noun instances of these word by themselves
+				   "Ill", "Behold", "Beheld", "Nay", "Shall", "So-And-So", "Making-Up", "Ajar",
+				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
+				   "Abandon", "'But", "But", "'Twas", "Knelt", "Thou", "True", "False",
+				   "Overhead", "Ware", "Fortnight", "Good-looking", "Something", "Grants", "Rescue",
+				   "Head"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -514,12 +518,13 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	for sentences_tag in sub_sentences_to_tag:
 		#print(sentences_tag)
 		# Test that csv is in order
-		from itertools import groupby
-		from operator import itemgetter
-		for k, g in groupby(enumerate(sentences_tag), lambda (i, x): i-x):
-			#print(len(map(itemgetter(1), g)))
-			print(map(itemgetter(1), g))
-			#print(len(sentences_tag), size_sentences)
+		#from itertools import groupby
+		#from operator import itemgetter
+		#for k, g in groupby(enumerate(sentences_tag), lambda (i, x): i-x):
+		#	#print(len(map(itemgetter(1), g)))
+		#	print(map(itemgetter(1), g))
+		#	print("\n")
+		#	#print(len(sentences_tag), size_sentences)
 		if len(sentences_tag) == size_sentences: # ignores sentences at the end that aren't the right length
 			sentences_in_order = ''
 			for i in range(sentences_tag[0], sentences_tag[-1]+1):
@@ -676,7 +681,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 	#	print(''.join(sentence_tag).count("]_n"))
 	#	print(''.join(sentence_tag).count("]_p"))
 	#	print("\n")
-
+	print("opening manual tag: {0}".format('manual_tagging/{0}'.format(output_filename)))
 	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
 		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
 		writer.writeheader() 
@@ -914,11 +919,12 @@ def gneHierarchy(character_entities_group):
 									if sub_name_join not in gne_tree_word_tree:
 										gne_tree_word_tree.append(sub_name_join)
 					#print("\ttotal found: {0}".format(gne_tree_word_tree))
-					#print("NEW DICT ITEM {0}:{1}".format(sub_long_name, gne_tree_word_tree))
+					#print("NEW DICT ITEM {0}:{1}\n".format(sub_long_name, gne_tree_word_tree))
 					if sub_long_name not in connecting_words:
 						gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
 
+	gne_tree = dict(gne_tree)
 	# common first words to ignore: example (Poor, Dear, etc...)
 	# find elements to remove if they are part of words_to_ignore
 	tree_to_remove = []
@@ -929,20 +935,24 @@ def gneHierarchy(character_entities_group):
 		contains_words_to_ignore = False
 		for sub_name in key.split():
 			#print("{0} in words_to_ignore = {1}".format(sub_name, sub_name in words_to_ignore))
-			if sub_name.title() not in words_to_ignore:
-				new_key.append(sub_name) # only store values without words to ignore
+			if sub_name.title() not in words_to_ignore and not sub_name.isupper(): # Remove 'SOUTHLAND White Fang' from chapter titles
+				if sub_name not in connecting_words and not sub_name.islower():
+					new_key.append(sub_name) # only store values without words to ignore
 			else:
 				contains_words_to_ignore = True
 				found_sub_names_to_ignore.append(sub_name)
+			if sub_name.isupper():
+				contains_words_to_ignore = True
+				found_sub_names_to_ignore.append(sub_name)
 		if len(key.split()) == 1:
-			if key in all_honorific_titles: # remove gnes that are just 'Lord'
+			if key.title() in all_honorific_titles: # remove gnes that are just 'Lord'
 				tree_to_remove.append(key) # remove value
-		#print("contains_words_to_ignore = {0}, {1}".format(contains_words_to_ignore, new_key))
+		#print("contains_words_to_ignore = {0}, {1}\n".format(contains_words_to_ignore, new_key))
 		if contains_words_to_ignore: # if it contains words to ignore, use new key without the words to ignore
 			if not new_key: # if the entire word was only words to ignore
 				tree_to_remove.append(key) # remove value
 			else:
-				#print("'{0}' becomes '{1}'".format(key, " ".join(new_key)))
+				#print("'{0}' becomes '{1}'\n".format(key, " ".join(new_key)))
 				updated_key[key] = " ".join(new_key)
 			for sub_tree_to_delete in found_sub_names_to_ignore:
 				tree_to_remove.append(sub_tree_to_delete)
@@ -965,15 +975,16 @@ def gneHierarchy(character_entities_group):
 	# rename old key values
 	for old_key_to_update, new_key in updated_key.iteritems():
 		if old_key_to_update in gne_tree.keys():
-			gne_tree[new_key] = gne_tree.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
+			if new_key in gne_tree.keys():
+				gne_tree[new_key].update(gne_tree.pop(old_key_to_update)) # add to an existing dictionary
+			else:
+				gne_tree[new_key] = gne_tree.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
 
 	#print("\n")
 	#for key, value in gne_tree.iteritems():
 	#	print("key: {0}".format(key))
 	#	print("value: {0}\n".format(value))
-
-
-	return dict(gne_tree)
+	return gne_tree
 
 def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	print("\nIDENTIFY CHARACTER OF INTEREST\n")
@@ -997,39 +1008,42 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	main_character_is = ''
 	
 	pronoun_counter = Counter(pronoun_noun_dict['found_pronoun_value'])
-	print(pronoun_noun_dict['found_pronoun_value'])
+	#print(pronoun_noun_dict['found_pronoun_value'])
 	most_common_pronoun = pronoun_counter.most_common(1)[0][0].title() 
 	first_person_pronouns = ['I', 'Me', 'Myself','My']
 	if most_common_pronoun in first_person_pronouns:
 		is_first_person_text = True
 		
-	#TODO: rather than find the longest name, keep a list of the most common word used between ['wendy', 'peter pan']
-	#use the most common element in the tree 'peter' rather than 'peter pan' or 'peter the great white father'
-
+	# include all sub instances into a larger instance
 	for counter, proper_name in enumerate(pronoun_noun_dict['found_proper_name_value']):
 		# weight the first name that appear in the text an additional amount
+		#print("'{0}' in gne_tree.keys() = {1}".format(proper_name, proper_name in gne_tree.keys()))
 		is_first_name_mentioned = False
 		if counter == 0:
 			is_first_name_mentioned = True
 			additional = 0#len(pronoun_noun_dict['found_proper_name_value'])/10 # random additional amount (TODO)
 			if additional < 1:
 				additional = 1
-		if proper_name not in gne_tree.keys():
+		if proper_name not in gne_tree.keys(): # if not in keys, add to an existing key
 			#print("NOT FOUND IN TOP OF TREE")
-			contains_sub_name = [i for i in gne_tree.keys() if proper_name in i]
-			
-			# todo, remove fix below and fix
-			if contains_sub_name == []:
-				contains_sub_name = [proper_name]# TODO: remove
-		
-			contains_sub_name = max(contains_sub_name, key=len)
-			#print(contains_sub_name)
-			if contains_sub_name not in name_counter.keys():
-				name_counter[contains_sub_name] = 1
-				if is_first_name_mentioned:
-					name_counter[contains_sub_name] += additional
-			else:
-				name_counter[contains_sub_name] += 1
+			#print("'{0}' not in gne_tree.keys()".format(proper_name))
+			#print(gne_tree.keys())
+			contains_sub_name = []
+			for sub_proper_name in proper_name.split():
+				for gne_key in gne_tree.keys():
+					if sub_proper_name in gne_key:
+						contains_sub_name.append(gne_key)
+			#print("contains_sub_name = {0}".format(contains_sub_name))
+
+			if contains_sub_name != []:
+				contains_sub_name = max(contains_sub_name, key=len)
+				#print("max = {0}".format(contains_sub_name))
+				if contains_sub_name not in name_counter.keys():
+					name_counter[contains_sub_name] = 1
+					if is_first_name_mentioned:
+						name_counter[contains_sub_name] += additional
+				else:
+					name_counter[contains_sub_name] += 1
 		else:
 			if proper_name not in name_counter.keys():
 				name_counter[proper_name] = 1
@@ -1038,23 +1052,98 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 			else:
 				name_counter[proper_name] += 1
 	import operator
+	
+	# merge all final values together based on trees: so Mr. Holmes is matches with Sherlock Holmes (longer gne)
+	# convert dic to a list of tuples
+	sorted_reverse = sorted(name_counter.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
+	#print(sorted_reverse)
+	max_gne_tree = {}
+	found_sub_tree_for_comparison_length = defaultdict(list)
+	#print('\n')
+	for key, sub_tree in gne_tree.iteritems():
+		#print("key = {0}".format(key))
+		max_gne_tree[key] = 0
+		if key not in found_sub_tree_for_comparison_length[key]:
+			found_sub_tree_for_comparison_length[key].append(key)
+		if key in name_counter.keys():
+			#print("\t'{0}' in {1}".format(key, name_counter[key]))
+			max_gne_tree[key] += name_counter[key]
+		#print("sub tree = {0}".format(sub_tree))
+		for k, v in sub_tree.iteritems():
+			#print('\tfirst level sub-tree element = {0}'.format(k))
+			if k in name_counter.keys() and k not in max_gne_tree.keys():
+				if not k not in found_sub_tree_for_comparison_length[key]:
+					found_sub_tree_for_comparison_length[key].append(k)
+				#print("\t#########'{0}' in {1}".format(k, name_counter[k]))
+				max_gne_tree[key] += name_counter[k]
+			for sub in v:
+				#print('\t\tsecond level sub-tree element = {0}'.format(sub))
+				if sub in name_counter.keys() and sub not in max_gne_tree.keys():
+					#print("\t\t#########'{0}' in {1}".format(sub, name_counter[sub]))
+					if sub not in found_sub_tree_for_comparison_length[key]:
+						found_sub_tree_for_comparison_length[key].append(sub)
+					max_gne_tree[key] += name_counter[sub]
+		#print("final = {0}".format(max_gne_tree[key]))
+		#print("final c = {0}".format(found_sub_tree_for_comparison_length[key]))
+		#print('\n')
+		if max_gne_tree[key] == 0:
+			max_gne_tree.pop(key) # remove any element with no instances
+	found_sub_tree_for_comparison_length = dict(found_sub_tree_for_comparison_length)
+	sorted_final = sorted(max_gne_tree.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
+	
+	final_gne = {}
+	# merge two trees if they have the same comparison (use longer gne)
+	for key, v in found_sub_tree_for_comparison_length.iteritems():
+		longer_name = ''
+		#print("v = {0}".format(v))
+		compare_values = [y for x in gne_tree[key].values() for y in x]
+		if v not in compare_values:
+			compare_values.extend(v) # add the key to the list of branch values
+		compare_values = list(set(compare_values))
+		longer_name = max(compare_values, key=len)
+		#print("\nlongest name = {0}".format(longer_name))
+		#print("{0}: should create = {1}".format(key, longer_name not in final_gne.keys() and key not in final_gne.keys()))
+		#print("gne_tree[key] values = {0}".format(compare_values))
+		if longer_name not in final_gne.keys() and key not in final_gne.keys():
+			final_gne[longer_name] = 0
+			for sub_name in compare_values:
+				if sub_name in name_counter.keys():
+					#print(name_counter[sub_name])
+					final_gne[longer_name] += name_counter[sub_name]
+			#print("final count = {0}\n".format(final_gne[longer_name]))
 
-	print((sorted(name_counter.items(), key=operator.itemgetter(1))))
-	#print("\n")
+	# clean up final_gne: remove empty, update counters
+	for k in final_gne.keys():
+		if final_gne[k] == 0:
+			final_gne.pop(k) # if empty, remove
+
+	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
+	#print(sorted_final)
 	#print(pronoun_noun_dict['full_text'])
 	#print("\n")
 	#for noun_index in pronoun_noun_dict['found_proper_name_index']:
 	#	print(pronoun_noun_dict['full_text'][noun_index[0]:noun_index[1]])
-	print("\nIS FIRST PERSON TEXT: {0}".format(is_first_person_text))
-	main_character = max(name_counter.iteritems(), key=operator.itemgetter(1))[0]
+	print("IS FIRST PERSON TEXT: {0}".format(is_first_person_text))
+	main_character_high_value = sorted_final[0][1]
+	main_character_total = [k for k in sorted_final if k[1] == main_character_high_value]
+	tie_found = False
+	if len(main_character_total) > 1: # if more than one value have the same max
+		tie_found = True
+	main_character = sorted_final[0][0]
 	if not is_first_person_text:
+		if tie_found:
+			print("Tie for character of focus found")
+		lst_genders = []
+		for tie in main_character_total:
+			lst_genders.append(gender_gne[main_character])
+		#print(most_common_pronoun)
 		if most_common_pronoun in female_pronouns:
-			print("\nPredicted gender of main character is 'Female' {0}: {1}".format(pronoun_counter.most_common(1), gender_gne[main_character] == 'Female'))
+			print("\nPredicted gender of main character is 'Female' {0}: {1}".format(pronoun_counter.most_common(1), 'Female' in lst_genders))
 		if most_common_pronoun in male_pronouns:
-			print("\nPredicted gender of main character is 'Male' {0}: {1}".format(pronoun_counter.most_common(1), gender_gne[main_character] == 'Male'))
-	print("\nCHARACTER OF INTEREST: {0}\n".format(max(name_counter.iteritems(), key=operator.itemgetter(1))))
-	top_characters = sorted(name_counter.items(), key=operator.itemgetter(1))[-5:-1]
-	print("TOP CHARACTERS OF INTEREST: {0}\n".format(list(top_characters)[::-1])) # print from highest to lowest
+			print("\nPredicted gender of main character is 'Male' {0}: {1}".format(pronoun_counter.most_common(1), 'Male' in lst_genders))
+	print("\nCHARACTER OF INTEREST: {0}\n".format(main_character_total))
+	top_characters = sorted_final[len(main_character_total):len(main_character_total)+5]
+	print("ADDITIONAL TOP CHARACTERS OF INTEREST: {0}\n".format(top_characters)) # print from highest to lowest
 
 
 def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
@@ -1434,6 +1523,15 @@ if __name__ == '__main__':
 	print("RUNNING: {0}".format(given_file.upper()))
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 	#print(output_filename)
+	# create csv_pos and manual tagging directories if they do not exist
+	'''
+	if not os.path.isdir('csv_pos'):
+		os.makedir('csv_pos')
+	if not os.path.isdir('manual_tagging'):
+		os.makedir('manual_tagging')
+	if not os.path.isdir('testing'):
+		os.makedir('testing')
+	'''
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
 	fieldnames = ['SENTENCE_INDEX',
@@ -1499,7 +1597,7 @@ if __name__ == '__main__':
 
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
-	'''	loaded_gender_model = loadDTModel() # load model once, then use to predict
+	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
@@ -1510,14 +1608,12 @@ if __name__ == '__main__':
 	#for key, value in gne_tree.iteritems():
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 	
-	# TODO: remove all captilized words from the gne tree?
-	# TODO: set up a way to remove elements from GNES (example: 'Dear Peter', 'Dear Fogg')
 	# TODO: set up gender trees
 
 	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	character_likelihood = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
-	'''
+	#'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
 	# {Dr Urbino: {'Dr': ['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], 'Urbino': ['Urbino']} }
