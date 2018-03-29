@@ -1,0 +1,204 @@
+SENTENCE_INDEX,FORM,XPOSTAG,UPOSTAG,ID,SENTENCE_LENGTH,LEMMA,FEATS,HEAD,DEPREL,DEPS,MISC,SENTENCE,IS_DIALOUGE
+0,'T,DT,DET,1,23,_,_,3,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,was,VBD,VERB,2,23,_,_,3,cop,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,brillig,JJ,ADJ,3,23,_,_,0,ROOT,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,,.,_,4,23,,,,_,3,punct,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,and,CC,CONJ,5,23,_,_,3,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,the,DT,DET,6,23,_,_,8,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,slithy,JJ,ADJ,7,23,_,_,8,amod,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,toves,NNS,NOUN,8,23,_,_,10,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,Did,VBD,VERB,9,23,_,_,10,aux,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,gyre,VB,VERB,10,23,_,_,3,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,and,CC,CONJ,11,23,_,_,10,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,gimble,VB,VERB,12,23,_,_,10,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,in,IN,ADP,13,23,_,_,10,prep,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,the,DT,DET,14,23,_,_,15,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,wabe,NN,NOUN,15,23,_,_,13,pobj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,;,:,.,16,23,_,_,3,punct,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,All,DT,DET,17,23,_,_,18,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,mimsy,NN,NOUN,18,23,_,_,21,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,were,VBD,VERB,19,23,_,_,21,cop,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,the,DT,DET,20,23,_,_,21,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,borogoves,NNS,NOUN,21,23,_,_,3,parataxis,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,,.,_,22,23,,,,_,21,punct,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,And,CC,CONJ,23,23,_,_,21,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,the,DT,DET,24,23,_,_,25,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,mome,NN,NOUN,25,23,_,_,26,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,raths,NNS,NOUN,26,23,_,_,21,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+0,outgrabe,NN,NOUN,27,23,_,_,26,dobj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+1,``,``,.,1,22,_,_,7,punct,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,Beware,VB,VERB,2,22,_,_,7,dep,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,the,DT,DET,3,22,_,_,4,det,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,Jabberwock,NNP,NOUN,4,22,_,_,2,dobj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,,.,_,5,22,,,,_,7,punct,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,my,PRP$,PRON,6,22,_,_,7,poss,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,son,NN,NOUN,7,22,_,_,0,ROOT,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,The,DT,DET,8,22,_,_,9,det,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,jaws,NNS,NOUN,9,22,_,_,7,dep,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,that,WDT,DET,10,22,_,_,11,nsubj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,bite,VBP,VERB,11,22,_,_,9,rcmod,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,,.,_,12,22,,,,_,11,punct,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,the,DT,DET,13,22,_,_,14,det,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,claws,NNS,NOUN,14,22,_,_,11,dobj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,that,WDT,DET,15,22,_,_,16,nsubj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,catch,VBP,VERB,16,22,_,_,14,rcmod,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,!,.,.,17,22,_,_,11,punct,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,Beware,VB,VERB,18,22,_,_,11,conj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,the,DT,DET,19,22,_,_,21,det,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,Jubjub,NNP,NOUN,20,22,_,_,21,nn,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,bird,NN,NOUN,21,22,_,_,18,dobj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,,.,_,22,22,,,,_,11,punct,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,and,CC,CONJ,23,22,_,_,11,cc,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,shun,VB,VERB,24,22,_,_,11,conj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,The,DT,DET,25,22,_,_,27,det,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,frumious,JJ,ADJ,26,22,_,_,27,amod,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,Bandersnatch,NNP,NOUN,27,22,_,_,24,dobj,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,!,.,.,28,22,_,_,7,punct,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+1,'','',.,29,22,_,_,7,punct,_,_,"""Beware the Jabberwock, my son  The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun  The frumious Bandersnatch!""",True
+2,He,PRP,PRON,1,26,_,_,2,nsubj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,took,VBD,VERB,2,26,_,_,0,ROOT,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,his,PRP$,PRON,3,26,_,_,5,poss,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,vorpal,NN,NOUN,4,26,_,_,5,nn,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,sword,NN,NOUN,5,26,_,_,2,dobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,in,IN,ADP,6,26,_,_,2,prep,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,hand,NN,NOUN,7,26,_,_,6,pobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,,.,_,8,26,,,,_,2,punct,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,Long,IN,ADP,9,26,_,_,10,amod,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,time,NN,NOUN,10,26,_,_,2,dobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,the,DT,DET,11,26,_,_,13,det,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,manxome,NN,NOUN,12,26,_,_,13,nn,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,foe,NN,NOUN,13,26,_,_,17,nsubj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,he,PRP,PRON,14,26,_,_,15,nsubj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,sought,VBD,VERB,15,26,_,_,13,rcmod,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,So,RB,ADV,16,26,_,_,17,advmod,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,rested,VBN,VERB,17,26,_,_,10,rcmod,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,he,PRP,PRON,18,26,_,_,17,dobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,by,IN,ADP,19,26,_,_,18,prep,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,the,DT,DET,20,26,_,_,22,det,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,Tumtum,NNP,NOUN,21,26,_,_,22,nn,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,tree,NN,NOUN,22,26,_,_,19,pobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,,.,_,23,26,,,,_,2,punct,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,And,CC,CONJ,24,26,_,_,2,cc,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,stood,VBD,VERB,25,26,_,_,2,conj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,awhile,RB,ADV,26,26,_,_,25,advmod,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,in,IN,ADP,27,26,_,_,25,prep,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+2,thought,NN,NOUN,28,26,_,_,27,pobj,_,_,"He took his vorpal sword in hand,  Long time the manxome foe he sought  So rested he by the Tumtum tree,  And stood awhile in thought",False
+3,And,CC,CONJ,1,24,_,_,6,cc,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,,.,_,2,24,,,,_,6,punct,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,as,IN,ADP,3,24,_,_,6,prep,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,in,IN,ADP,4,24,_,_,3,pcomp,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,uffish,JJ,ADJ,5,24,_,_,4,pobj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,thought,VBD,VERB,6,24,_,_,0,ROOT,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,he,PRP,PRON,7,24,_,_,8,nsubj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,stood,VBD,VERB,8,24,_,_,6,ccomp,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,,.,_,9,24,,,,_,8,punct,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,The,DT,DET,10,24,_,_,11,det,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,Jabberwock,NNP,NOUN,11,24,_,_,8,dobj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,,.,_,12,24,,,,_,8,punct,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,with,IN,ADP,13,24,_,_,8,prep,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,eyes,NNS,NOUN,14,24,_,_,13,pobj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,of,IN,ADP,15,24,_,_,14,prep,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,flame,NN,NOUN,16,24,_,_,15,pobj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,,.,_,17,24,,,,_,8,punct,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,Came,NNP,NOUN,18,24,_,_,19,nsubj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,whiffling,VBG,VERB,19,24,_,_,8,dep,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,through,IN,ADP,20,24,_,_,19,prep,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,the,DT,DET,21,24,_,_,23,det,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,tulgey,NN,NOUN,22,24,_,_,23,nn,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,wood,NN,NOUN,23,24,_,_,20,pobj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,,.,_,24,24,,,,_,19,punct,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,And,CC,CONJ,25,24,_,_,19,cc,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,burbled,VBN,VERB,26,24,_,_,19,conj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,as,IN,ADP,27,24,_,_,29,mark,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,it,PRP,PRON,28,24,_,_,29,nsubj,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,came,VBD,VERB,29,24,_,_,26,advcl,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+3,!,.,.,30,24,_,_,6,punct,_,_,"And, as in uffish thought he stood,  The Jabberwock, with eyes of flame, Came whiffling through the tulgey wood,  And burbled as it came!",False
+4,One,CD,NUM,1,25,_,_,0,ROOT,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,,.,_,2,25,,,,_,1,punct,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,two,CD,NUM,3,25,_,_,1,num,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,!,,.,4,25,_,,_,1,punct,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,One,CD,NUM,5,25,_,_,1,num,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,,.,_,6,25,,,,_,1,punct,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,two,CD,NUM,7,25,_,_,1,num,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,!,:,.,8,25,_,_,1,punct,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,And,CC,CONJ,9,25,_,_,16,cc,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,through,IN,ADP,10,25,_,_,16,prep,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,and,CC,CONJ,11,25,_,_,10,cc,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,through,IN,ADP,12,25,_,_,10,conj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,The,DT,DET,13,25,_,_,15,det,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,vorpal,NN,NOUN,14,25,_,_,15,nn,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,blade,NN,NOUN,15,25,_,_,16,nsubj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,went,VBD,VERB,16,25,_,_,1,dep,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,snicker-snack,RB,ADV,17,25,_,_,16,advmod,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,!,.,.,18,25,_,_,16,punct,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,He,PRP,PRON,19,25,_,_,20,nsubj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,left,VBD,VERB,20,25,_,_,16,conj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,it,PRP,PRON,21,25,_,_,20,dobj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,dead,JJ,ADJ,22,25,_,_,20,dep,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,,.,_,23,25,,,,_,16,punct,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,and,CC,CONJ,24,25,_,_,16,cc,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,with,IN,ADP,25,25,_,_,29,prep,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,its,PRP$,PRON,26,25,_,_,27,poss,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,head,NN,NOUN,27,25,_,_,25,pobj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,He,PRP,PRON,28,25,_,_,29,nsubj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,went,VBD,VERB,29,25,_,_,16,conj,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,galumphing,VBG,VERB,30,25,_,_,29,xcomp,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+4,back,RP,PRT,31,25,_,_,30,advmod,_,_,"One, two! One, two! And through and through  The vorpal blade went snicker-snack! He left it dead, and with its head  He went galumphing back",False
+5,``,``,.,1,23,_,_,5,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,And,CC,CONJ,2,23,_,_,5,cc,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,hast,RB,ADV,3,23,_,_,5,advmod,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,thou,PRP,PRON,4,23,_,_,5,nsubj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,slain,VB,VERB,5,23,_,_,0,ROOT,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,the,DT,DET,6,23,_,_,7,det,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,Jabberwock,NNP,NOUN,7,23,_,_,5,dobj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,?,,.,8,23,_,,_,5,punct,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,Come,VB,VERB,9,23,_,_,5,dep,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,to,IN,ADP,10,23,_,_,9,prep,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,my,PRP$,PRON,11,23,_,_,12,poss,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,arms,NNS,NOUN,12,23,_,_,10,pobj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,,.,_,13,23,,,,_,5,punct,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,my,PRP$,PRON,14,23,_,_,16,poss,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,beamish,JJ,ADJ,15,23,_,_,16,amod,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,boy,NN,NOUN,16,23,_,_,5,dobj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,!,.,.,17,23,_,_,16,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,O,NFP,.,18,23,_,_,16,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,frabjous,JJ,ADJ,19,23,_,_,20,amod,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,day,NN,NOUN,20,23,_,_,16,dep,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,!,.,.,21,23,_,_,16,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,Callooh,NNP,NOUN,22,23,_,_,24,nn,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,!,.,.,23,23,_,_,24,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,Callay,NNP,NOUN,24,23,_,_,16,dep,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,!,.,.,25,23,_,_,5,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,'','',.,26,23,_,_,5,punct,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,He,PRP,PRON,27,23,_,_,28,nsubj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,chortled,VBD,VERB,28,23,_,_,5,parataxis,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,in,IN,ADP,29,23,_,_,28,prep,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,his,PRP$,PRON,30,23,_,_,31,poss,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+5,joy,NN,NOUN,31,23,_,_,29,pobj,_,_,"""And hast thou slain the Jabberwock?  Come to my arms, my beamish boy! O frabjous day! Callooh! Callay!""  He chortled in his joy",True
+6,'T,DT,DET,1,23,_,_,3,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,was,VBD,VERB,2,23,_,_,3,cop,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,brillig,JJ,ADJ,3,23,_,_,0,ROOT,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,,.,_,4,23,,,,_,3,punct,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,and,CC,CONJ,5,23,_,_,3,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,the,DT,DET,6,23,_,_,8,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,slithy,JJ,ADJ,7,23,_,_,8,amod,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,toves,NNS,NOUN,8,23,_,_,10,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,Did,VBD,VERB,9,23,_,_,10,aux,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,gyre,VB,VERB,10,23,_,_,3,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,and,CC,CONJ,11,23,_,_,10,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,gimble,VB,VERB,12,23,_,_,10,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,in,IN,ADP,13,23,_,_,10,prep,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,the,DT,DET,14,23,_,_,15,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,wabe,NN,NOUN,15,23,_,_,13,pobj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,;,:,.,16,23,_,_,3,punct,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,All,DT,DET,17,23,_,_,18,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,mimsy,NN,NOUN,18,23,_,_,21,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,were,VBD,VERB,19,23,_,_,21,cop,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,the,DT,DET,20,23,_,_,21,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,borogoves,NNS,NOUN,21,23,_,_,3,parataxis,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,,.,_,22,23,,,,_,21,punct,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,And,CC,CONJ,23,23,_,_,21,cc,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,the,DT,DET,24,23,_,_,25,det,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,mome,NN,NOUN,25,23,_,_,26,nsubj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,raths,NNS,NOUN,26,23,_,_,21,conj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
+6,outgrabe,NN,NOUN,27,23,_,_,26,dobj,_,_,"'Twas brillig, and the slithy toves  Did gyre and gimble in the wabe; All mimsy were the borogoves, And the mome raths outgrabe",False
