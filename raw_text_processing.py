@@ -42,7 +42,8 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
-						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore"]
+						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore",
+						 "Grandfather"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -50,7 +51,8 @@ female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   "Madame", "Mme", 'Madame', "Mademoiselle", "Mlle", "Baroness",
 						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
 						   "Princess", "Duchess", "Sovereign Princess", "Countess",
-							"Gentlewoman", 'Aunt', 'Widow', 'Doha']
+							"Gentlewoman", 'Aunt', 'Widow', 'Doha', 'Comtesse', 'Baronne',
+							"Grandmother"]
 
 ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
@@ -60,16 +62,17 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
 						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director"]
 
+all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_neutral_titles
+
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
-words_to_ignore = ["Mr", "Mrs", "Ms", "Dr", "sir", "Sir", "SIR", "Dear", "DEAR", 
-				   "CHAPTER", "VOLUME", "MAN", "God", "god", "O", "anon",
-				   "Ought", "ought", "thou", "thither", "yo", "Till", "ay",
-				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'d",
-				   "If", "thy", "Thy", "thee", "suppose", "there", "'There", "no-one", "No-one",
-				   "good-night", "Good-night", "good-morning", "Good-moring", 'to-day', 'to-morrow',
-				   'To-day', 'To-morrow', 'to-night', 'To-night', 'thine', 'Or', "d'you", "o'er",
-				   "One", "'t", "Poor"] # ignores noun instances of these word by themselves
+words_to_ignore = ["Sir", "Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ought", 
+				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though"
+				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T", "Poor",
+				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One",
+				   "Good-Night", "Good-Morning", 'To-Day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
+				   'To-day', 'To-morrow', 'To-Night', 'Thine', 'Or', "D'You", "O'Er", "Aye", "Men"
+				   "Ill", "Behold", "Beheld", "Nay", "Shall", "So-And-So", "Making-Up", "Ajar"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -916,10 +919,60 @@ def gneHierarchy(character_entities_group):
 						gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
 
+	# common first words to ignore: example (Poor, Dear, etc...)
+	# find elements to remove if they are part of words_to_ignore
+	tree_to_remove = []
+	found_sub_names_to_ignore = []
+	updated_key = {}
+	for key, sub_tree in gne_tree.iteritems():
+		new_key = []
+		contains_words_to_ignore = False
+		for sub_name in key.split():
+			#print("{0} in words_to_ignore = {1}".format(sub_name, sub_name in words_to_ignore))
+			if sub_name.title() not in words_to_ignore:
+				new_key.append(sub_name) # only store values without words to ignore
+			else:
+				contains_words_to_ignore = True
+				found_sub_names_to_ignore.append(sub_name)
+		if len(key.split()) == 1:
+			if key in all_honorific_titles: # remove gnes that are just 'Lord'
+				tree_to_remove.append(key) # remove value
+		#print("contains_words_to_ignore = {0}, {1}".format(contains_words_to_ignore, new_key))
+		if contains_words_to_ignore: # if it contains words to ignore, use new key without the words to ignore
+			if not new_key: # if the entire word was only words to ignore
+				tree_to_remove.append(key) # remove value
+			else:
+				#print("'{0}' becomes '{1}'".format(key, " ".join(new_key)))
+				updated_key[key] = " ".join(new_key)
+			for sub_tree_to_delete in found_sub_names_to_ignore:
+				tree_to_remove.append(sub_tree_to_delete)
+			for s_t in sub_tree:
+				if any(ig in " ".join(s_t) for ig in words_to_ignore):
+					# only keep the parts of substrings that have element
+					tree_to_remove.append(s_t)
+	
+	# remove all values in a named ent that are in words to ignore "Poor Dickens" Becomes "Dickens"
+	# also removes sub_trees for "poor"
+	for to_remove in tree_to_remove:
+		if to_remove in gne_tree.keys():
+			base_gne_key = gne_tree.pop(to_remove)
+			#print("base_gne_key = {0}".format(base_gne_key))
+		else:
+			for sub_dict in gne_tree.values():
+				if to_remove in sub_dict:
+					sub_tree_removed = sub_dict.pop(to_remove)
+					#print("subtree to remove from '{0}' = {0}".format(sub_dict, sub_tree_removed))
+	# rename old key values
+	for old_key_to_update, new_key in updated_key.iteritems():
+		if old_key_to_update in gne_tree.keys():
+			gne_tree[new_key] = gne_tree.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
+
+	#print("\n")
 	#for key, value in gne_tree.iteritems():
 	#	print("key: {0}".format(key))
-	#	print(value)
-	#print("\n")
+	#	print("value: {0}\n".format(value))
+
+
 	return dict(gne_tree)
 
 def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
@@ -1443,10 +1496,10 @@ if __name__ == '__main__':
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	#graphPOSdata(csv_data)
-	
+
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
-	loaded_gender_model = loadDTModel() # load model once, then use to predict
+	'''	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
@@ -1459,14 +1512,19 @@ if __name__ == '__main__':
 	
 	# TODO: remove all captilized words from the gne tree?
 	# TODO: set up a way to remove elements from GNES (example: 'Dear Peter', 'Dear Fogg')
+	# TODO: set up gender trees
 
 	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	character_likelihood = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
-
+	'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
 	# {Dr Urbino: {'Dr': ['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], 'Urbino': ['Urbino']} }
+	# {Mr Frank Churchill {'Frank': ['Frank', 'Frank Churchill'], 'Churchill': ['Churchill', 'Churchill of Enscombe'], 'Mr': ['Mr', 'Mr Churchill', 'Mr Frank Churchill']}}
+	# {Miss Harriet Smith {'Smith': ['Smith'], 'Harriet': ['Harriet', 'Harriet Smith'], 'Miss': ['Miss', 'Miss Harriet Smith', 'Miss Smith']} }
+
+
 	#generateGNEtree(gne_tree, filename)
 	# generate network graphs
 	#networkGraphs(gne_tree)
@@ -1475,12 +1533,5 @@ if __name__ == '__main__':
 
 ########################################################################
 ## TODO: 
-	# TODO: Predict name of first-person character
 	# TODO: find possesive 'you've' and 'my'
 	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
-
-	# TODO: clean up returned names based on Counter frequency (names should appear more than once)
-	# TODO: set up progress bar for proper noun and pronoun splicing for large text
-	
-	#TODO Next: import local file to predict male/female (he/she) with a given list of names
-	#x number of sentences around to find proper noun
