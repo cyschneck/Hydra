@@ -1520,7 +1520,7 @@ if __name__ == '__main__':
 
 	# check to see if file has already been saved in csv, otherwise run script
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
-	print("RUNNING: {0}".format(given_file.upper()))
+	print("RUNNING PRE-PROCESSING FOR: {0}".format(given_file.upper()))
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 	#print(output_filename)
 	# create csv_pos and manual tagging directories if they do not exist
@@ -1532,6 +1532,9 @@ if __name__ == '__main__':
 	if not os.path.isdir('manual_tagging'):
 		print("creating manual_tagging directory")
 		os.makedirs('manual_tagging')
+	if not os.path.isdir('plot_percent_data'):
+		print("creating plot_percent_data directory")
+		os.makedirs('plot_percent_data')
 
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
