@@ -1090,7 +1090,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 			max_gne_tree.pop(key) # remove any element with no instances
 	found_sub_tree_for_comparison_length = dict(found_sub_tree_for_comparison_length)
 	sorted_final = sorted(max_gne_tree.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
-	
+	#print(sorted_final)
 	final_gne = {}
 	# merge two trees if they have the same comparison (use longer gne)
 	for key, v in found_sub_tree_for_comparison_length.iteritems():
@@ -1118,7 +1118,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 			final_gne.pop(k) # if empty, remove
 
 	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
-	#print(sorted_final)
+	print(sorted_final)
 	#print(pronoun_noun_dict['full_text'])
 	#print("\n")
 	#for noun_index in pronoun_noun_dict['found_proper_name_index']:
@@ -1524,14 +1524,15 @@ if __name__ == '__main__':
 	output_filename = "pos_{0}.csv".format(given_file.upper())
 	#print(output_filename)
 	# create csv_pos and manual tagging directories if they do not exist
-	'''
+
+	# creating directories if they do not already exist
 	if not os.path.isdir('csv_pos'):
-		os.makedir('csv_pos')
+		print("creating csv_pos directory")
+		os.makedirs('csv_pos')
 	if not os.path.isdir('manual_tagging'):
-		os.makedir('manual_tagging')
-	if not os.path.isdir('testing'):
-		os.makedir('testing')
-	'''
+		print("creating manual_tagging directory")
+		os.makedirs('manual_tagging')
+
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
 	fieldnames = ['SENTENCE_INDEX',
@@ -1594,7 +1595,7 @@ if __name__ == '__main__':
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	#graphPOSdata(csv_data)
-
+	'''
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
