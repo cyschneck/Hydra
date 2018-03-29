@@ -224,6 +224,17 @@ Order of Conspicuous Merit (1984)
 
 Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
 
+King of the Winged Monkeys (Wonderful Wizard of Oz)
+
+Wicked Witch of the West (Wonderful Wizard of Oz)
+
+Country of the Quadlings (Wonderful Wizard of Oz)
+
+Sydney Cecil Vivian Montmorency (Little Princess)
+
+Lilian Evangeline Maud Marion (Little Princess)
+
+
 ## Gender Name Classifier (DecisionTreeClassifier)
 
 The name 'Atticus' is most likely Male
@@ -247,15 +258,24 @@ Odds: Female (0.4), Male (0.6)
 
 ## Identify Main Character and Perspective of Text
 
+__Emma (Austen)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: [('Emma Woodhouse', 821)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Miss Woodhouse of Hartfield', 451), ('Miss Harriet Smith', 426), ('Churchill of Enscombe', 341), ('Mr John Knightley', 338), ('Miss Jane Fairfax', 311)]
+
+
 __Pride and Prejudice (Austen)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female' [('her', 2132)]: True
+Predicted gender of main character is 'Female' [('her', 2131)]: True
 
-CHARACTER OF INTEREST: ('Miss Jane Bennet', 290)
+CHARACTER OF INTEREST: [('Miss Elizabeth Bennet', 543)]
 
-TOP CHARACTERS OF INTEREST: [('Mr Darcy', 215), ('Mrs Bennet', 153), ('Mr Fitzwilliam Darcy', 153), ('Miss Lydia Bennet', 135)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Fitzwilliam Darcy', 522), ('Mrs Bennet', 153), ('Brother-in-law of Wickham', 133), ('Mr Collins', 114), ('Mr Bingley', 98)]
 
 __Peter Pan (Barrie)__
 
@@ -263,27 +283,27 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 873)]: True
 
-CHARACTER OF INTEREST: ('Peter the Great White Father', 373)
+CHARACTER OF INTEREST: [('Peter the Great White Father', 349)]
 
-TOP CHARACTERS OF INTEREST: [('Wendy Moira Angela Darling', 354), ('Captain Hook', 155), ('Johnny Corkscrew', 136), ('Michael', 109)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Wendy Moira Angela Darling', 322), ('Captain Hook', 137), ('Johnny Corkscrew', 111), ('Michael', 96), ('Smee', 54)]
 
 __The Wonderful Wizard of Oz (Baum)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Good Witch Grants Dorothy', 386)
+CHARACTER OF INTEREST: [('Dorothy', 344)]
 
-TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Rescue of the Tin Woodman', 177), ('Cowardly Lion', 175), ('Wonderful City of Oz', 137)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Tin Woodman', 177), ('Cowardly Lion', 176), ('Wonderful City of Oz', 159), ('Wicked Witch of the West', 126)]
 
 __A Little Princess (Burnett)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female' [('she', 1685)]: True
+Predicted gender of main character is 'Female' [('she', 1685)]: False
 
-CHARACTER OF INTEREST: ('Miss Minchin', 244)
+CHARACTER OF INTEREST: [('Ermengarde St John', 149)]
 
-TOP CHARACTERS OF INTEREST: [('Miss Ermengarde', 147), ('Becky', 142), ('Lottie Lavinia', 57), ('Emily', 56)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Becky', 144), ('Lottie Legh', 60), ('Miss Amelia Minchin', 58), ('Emily', 56), ('Lavinia Herbert', 54)]
 
 __Princess of Mars (Burroughs)__
 
