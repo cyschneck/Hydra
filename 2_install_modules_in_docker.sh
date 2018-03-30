@@ -9,6 +9,7 @@ echo "install local modules"
 echo 'y' | apt-get install vim
 pip install progressbar
 echo 'y' | apt-get install python-pandas
+pip install textblob
 
 echo ""
 echo "installing networkx for visuals"

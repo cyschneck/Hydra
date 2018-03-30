@@ -411,11 +411,12 @@ def groupSimilarEntities(grouped_nouns_dict):
 	#print([item for item in final_grouping if item not in words_to_ignore])
 	count = 0
 	character_group_list = []
-	# remove any word that is part of the 'words_to_ignore' list
+	# remove any word that is part of the 'words_to_ignore' list or is a title by itself
 	for item in final_grouping:
 		sublist = []
 		for i in item:
-			if i in words_to_ignore:
+			#print("'{0}' to ignore = {1}".format(i, i in words_to_ignore or i.title() in all_honorific_titles))
+			if i in words_to_ignore or i.title() in all_honorific_titles:
 				count += 1
 				#print("in word to ignore = {0}".format(i))
 			else:
@@ -512,7 +513,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
-	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
+	print("character entities keys: {0}\n".format(character_entities_dict.keys()))
 	
 	#print("\n")
 	row_dict = {} # to print data into csv
@@ -560,7 +561,6 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 							for tf in range(len(total_found)):
 								new_sentence_to_add = new_sentence_to_add.replace(" {0} ".format(pronoun), " <{0}>_p{1} ".format(pronoun, pronoun_index), tf+1)
 								pronoun_index += 1
-				#TODO: FIND PRONOUNS/PROPER NAMES close to puncation: what do you make of it? don't do it!
 
 				# tag proper nouns
 				found_longest_match = ''
@@ -752,7 +752,7 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 		pronoun_noun_dict['found_pronoun_index'].extend([found_pronoun_index])
 
 		# store in a sub-dictionary for each line
-		line_by_line_dict[line_num] = {'full_text': full_text,
+		line_by_line_dict[line_num] = {'full_text': full_text.strip(),
 									   'found_all_brackets': found_all_brackets,
 									   'found_proper_name_value': found_proper_name_value,
 									   'found_proper_name_index': found_proper_name_index,
@@ -1187,10 +1187,30 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 		if final_gne[k] == 0:
 			final_gne.pop(k) # if empty, remove
 
-	#for key, value in character_with_sub_types.iteritems():
-	#	print(key)
-	#	print(value)
-	#	print("\n")
+	# include names with and without a title (if a title exists)
+	for key, sub_tree in character_with_sub_types.iteritems():
+		#print(key)
+		for name in sub_tree:
+			add_new_name = []
+			# create an instance of all names in sub directory with and without a title
+			if bool(set(name.split()) & set(all_honorific_titles)): # if word contains a title
+				new_name_without_title = []
+				for sub in name.split():
+					contains_title = False
+					if sub not in all_honorific_titles:
+						new_name_without_title.append(sub)
+						contains_title = True
+					if contains_title:
+						new_name = " ".join(new_name_without_title)
+						if new_name not in sub_tree:
+							#print("NEW NAME TO ADD TO '{0}' is {1}".format(key, new_name))
+							add_new_name.append(new_name)
+			sub_tree.extend(add_new_name) # add name without a title as well as the version with a title
+			character_with_sub_types[key] =  [x for x in sub_tree if x not in all_honorific_titles] # remove a title that appears by itself
+			# save updates to the dict
+		#print(sub_tree)
+		#print("\n")
+	
 	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
 	#print("ALL GROUPED CHARACTERS: \n{0}\n".format(sorted_final))
 	#print("TEXT: {0}".format(pronoun_noun_dict['full_text']))
@@ -1223,9 +1243,13 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	# return a dict with the top character name and the sub elements:
 	# { Master Colin: ['Master Colin', 'Colin', 'Master', 'Colin Craven']}
 
+	#for key, value in character_with_sub_types.iteritems():
+	#	if "Holmes" in key:
+	#		print(key)
+	#		print(value)
 	return character_with_sub_types
 
-def mapInteractions(character_gne_tree_dict, line_by_line_dict):
+def mapInteractions(character_gne_tree_dict, line_by_line_dict, filename):
 	# break apart text into interactions
 	# each number in the chunk is a sentence
 	print("MAP INTERACTIONS\n")
@@ -1251,8 +1275,13 @@ def mapInteractions(character_gne_tree_dict, line_by_line_dict):
 	split_num = 1.0/split_sentences*len(ordered_lines)
 	for i in range(split_sentences):
 		list_with_chunks.append(ordered_lines[int(round(i*split_num)):int(round((i+1)*split_num))]) # break into roughly thirds
-	#print(list_with_chunks)
 	
+	grouping_of_chunks = {} # maps group id to the sentences: {0: [0, 1], 1: [2, 3], 2: [4, 5]}
+	for group_id, sub_list in enumerate(list_with_chunks):
+		grouping_of_chunks[group_id] = sub_list
+	#print(list_with_chunks)
+	#print(grouping_of_chunks)
+
 	# find proper noun in raw text
 	grouping_of_characters = {} # group id: characters interacting in a scan of text
 	characters_in_thirds = [[line_by_line_dict[x]['found_proper_name_value'] for x in sublist] for sublist in list_with_chunks]
@@ -1263,10 +1292,15 @@ def mapInteractions(character_gne_tree_dict, line_by_line_dict):
 			#print("\tline_num = {0}".format(line_num))
 			#print("\tcharacters in group = {0}".format(found_c))
 			grouping_of_characters[group_num].extend(found_c)
-	print("Grouping Characters from raw text (ORIGINAL): \n{0}".format(grouping_of_characters))
-	print("\n")
+	#print("Grouping Characters from raw text (ORIGINAL): \n{0}".format(grouping_of_characters))
+	#print("\n")
 	# convert proper noun to gne tree max (from character interactions)
 	# Colin mapped with Colin Craven
+	for top_gne, sub_tree in character_gne_tree_dict.iteritems():
+		if "Holmes" in top_gne:
+			print(top_gne)
+			print(sub_tree)
+	print("\n")
 	for group_id, characters_interacting in grouping_of_characters.iteritems():
 		for lst_id, character in enumerate(characters_interacting):
 			#print("Character = {0}".format(character))
@@ -1274,10 +1308,63 @@ def mapInteractions(character_gne_tree_dict, line_by_line_dict):
 				#print("NEED TO UPDATE TO MATCH TOP OF TREE")
 				for key, sub_tree_name in character_gne_tree_dict.iteritems():
 					if character in sub_tree_name:
-						#print("FOUND UPPER TREE MATCH IN '{0}'".format(key))
+						#print("FOUND UPPER TREE MATCH IN '{0}' for '{1}'\n".format(key, character))
 						characters_interacting[lst_id] = key
-	print("Updated grouping characters with top of gne (UPDATED): \n{0}".format(grouping_of_characters))
+			#print("\n")
+	# keep only one instance of a character name
+	for sentence_id, character_lst in grouping_of_characters.iteritems():
+		grouping_of_characters[sentence_id] = list(set(character_lst))
+		
+	print("\nGrouping characters with top of gne (UPDATED): \n{0}\n".format(grouping_of_characters))
 	
+	# Sentiment anaylsis for each sentence in a chunk
+	from textblob import TextBlob
+	sentence_id_polarity = {}
+	for group_id, sub_sentences in grouping_of_chunks.iteritems():
+		for sentence_id in sub_sentences:
+			text_sentence = TextBlob(line_by_line_dict[sentence_id]['full_text'])
+			sentiment_pole = text_sentence.sentiment.polarity
+			# TODO: if sentiment is neutral, make it similar to the previous value
+			sentence_id_polarity[sentence_id] = sentiment_pole # store each sentiment in a sublist
+	#print(sentence_id_polarity)
+	# Save polarity and tagged sentence to a csv for graphing
+
+
+	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
+	output_filename = "sent_{0}.csv".format(given_file.upper())
+
+	fieldnames = ['GROUP_ID', 'SENTENCE_INDEX', 'CHARACTERS', 'POLARITY']
+	with open('sentiment_csv/{0}'.format(output_filename), 'w') as sent_data:
+		writer = csv.DictWriter(sent_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		for group_id, sentence_lst in grouping_of_chunks.iteritems():
+			for sentence_id in sentence_lst:
+				writer.writerow({'GROUP_ID': group_id,
+								'SENTENCE_INDEX': sentence_id,
+								'CHARACTERS': ", ".join(grouping_of_characters[group_id]),
+								'POLARITY': sentence_id_polarity[sentence_id]})
+
+	print("\nSENTIMENT CSV output saved as {0}".format(output_filename))
+
+	# map each interaction and find polarity of relationships over time
+	character_interactions_polarity = {}
+	for group_id, sentence_lst in grouping_of_chunks.iteritems():
+		if grouping_of_characters[group_id] != []: # if there are characters in a group of sentences
+			for sentence_id in sentence_lst:
+				# set a list of characters to the polairty of the sentences
+				characters_as_dict_key = ", ".join(sorted(grouping_of_characters[group_id])) # save as a string to use a key
+				if characters_as_dict_key in character_interactions_polarity.keys():
+					character_interactions_polarity[characters_as_dict_key] += sentence_id_polarity[sentence_id]
+				else:
+					character_interactions_polarity[characters_as_dict_key] = sentence_id_polarity[sentence_id]
+	
+	# contains a list of characters in a section and the polarity of the section
+	for characters, polarity in character_interactions_polarity.iteritems():
+		print(characters)
+		
+		print(polarity)
+		print("\n")
+	return character_interactions_polarity
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -1648,6 +1735,9 @@ if __name__ == '__main__':
 	if not os.path.isdir('plot_percent_data'):
 		print("creating plot_percent_data directory")
 		os.makedirs('plot_percent_data')
+	if not os.path.isdir('sentiment_csv'):
+		print("creating sentiment_csv directory")
+		os.makedirs('sentiment_csv')
 
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
@@ -1697,7 +1787,7 @@ if __name__ == '__main__':
 	#print("Characters in the text : {0}\n".format(grouped_named_ent_lst))
 	#print("Characters in the text (set): {0}\n".format(list(set(x for l in grouped_named_ent_lst.values() for x in l))))
 	character_entities_group = groupSimilarEntities(grouped_named_ent_lst)
-	#print("Characters in the text (ent): {0}\n".format(character_entities_group))
+	#print("Characters in the text (ent): {0}".format(character_entities_group))
 	sub_dictionary_one_shot_lookup = lookupSubDictionary(character_entities_group)
 	#print("dictionary for one degree of nouns: {0}".format(sub_dictionary_one_shot_lookup))
 
@@ -1729,6 +1819,7 @@ if __name__ == '__main__':
 	# TODO: set up interactions
 	# TODO: update proper noun to total words with gne "_n#" / total words
 	# TODO: visual gender name database classifier
+	# TODO: move all imports to top
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
@@ -1737,7 +1828,7 @@ if __name__ == '__main__':
 	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
 	
 	# find and graph all interactions
-	map_interactions = mapInteractions(characters_with_sub_names, line_by_line_dict)
+	map_interactions = mapInteractions(characters_with_sub_names, line_by_line_dict, filename)
 
 	#'''
 	# GENERATE NETWORKX
@@ -1745,7 +1836,6 @@ if __name__ == '__main__':
 	# {Dr Urbino: {'Dr': ['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], 'Urbino': ['Urbino']} }
 	# {Mr Frank Churchill {'Frank': ['Frank', 'Frank Churchill'], 'Churchill': ['Churchill', 'Churchill of Enscombe'], 'Mr': ['Mr', 'Mr Churchill', 'Mr Frank Churchill']}}
 	# {Miss Harriet Smith {'Smith': ['Smith'], 'Harriet': ['Harriet', 'Harriet Smith'], 'Miss': ['Miss', 'Miss Harriet Smith', 'Miss Smith']} }
-
 
 	#generateGNEtree(gne_tree, filename)
 	# generate network graphs
