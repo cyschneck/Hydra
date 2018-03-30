@@ -43,7 +43,7 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
 						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore",
-						 "Grandfather", "Mister", "Brother-in-Law"]
+						 "Grandfather", "Mister", "Brother-in-Law", "Mester"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -76,7 +76,7 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ough
 				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
 				   "Abandon", "'But", "But", "'Twas", "Knelt", "Thou", "True", "False",
 				   "Overhead", "Ware", "Fortnight", "Good-looking", "Something", "Grants", "Rescue",
-				   "Head"] # ignores noun instances of these word by themselves
+				   "Head", "'Poor", "Tha'", "Tha'Rt"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -927,14 +927,35 @@ def gneHierarchy(character_entities_group):
 	gne_tree = dict(gne_tree)
 	# common first words to ignore: example (Poor, Dear, etc...)
 	# find elements to remove if they are part of words_to_ignore
+
+	# update keys
+	gne_tree = removeIgnoreWordsKeySubtree(gne_tree, is_sub_tree=False)
+	# update values within the sub-dictionaries
+	for key, sub_tree in gne_tree.iteritems():
+		print("######################REMOVE FROM SUBTREE###################")
+		print("before: {0}".format(gne_tree[key]))
+		gne_tree[key] = removeIgnoreWordsKeySubtree(sub_tree, is_sub_tree=True)
+		print("after: {0}".format(gne_tree[key]))
+
+	#print("\n")
+	#for key, value in gne_tree.iteritems():
+	#	if key == 'Mr Archibald Craven':
+	#		print("key: {0}".format(key))
+	#		print("value: {0}\n".format(value))
+	return gne_tree
+
+def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
+	# remove all keys that contain words to ignore and then ignore all values in the sub-trees dictionaries
 	tree_to_remove = []
 	found_sub_names_to_ignore = []
 	updated_key = {}
-	for key, sub_tree in gne_tree.iteritems():
+	for key, sub_tree in tree_to_update.iteritems():
 		new_key = []
 		contains_words_to_ignore = False
+		# REMOVE KEYS THAT CONTAIN WORDS TO IGNORE
 		for sub_name in key.split():
-			#print("{0} in words_to_ignore = {1}".format(sub_name, sub_name in words_to_ignore))
+			#print("{0} in words_to_ignore = {1}".format(sub_name.title(), sub_name.title() in words_to_ignore))
+			#print("{0} not in words_to_ignore = {1} and not sub_name.isupper() = {1}".format(sub_name.title() not in words_to_ignore, not sub_name.isupper()))
 			if sub_name.title() not in words_to_ignore and not sub_name.isupper(): # Remove 'SOUTHLAND White Fang' from chapter titles
 				if sub_name not in connecting_words and not sub_name.islower():
 					new_key.append(sub_name) # only store values without words to ignore
@@ -944,15 +965,43 @@ def gneHierarchy(character_entities_group):
 			if sub_name.isupper():
 				contains_words_to_ignore = True
 				found_sub_names_to_ignore.append(sub_name)
-		if len(key.split()) == 1:
-			if key.title() in all_honorific_titles: # remove gnes that are just 'Lord'
-				tree_to_remove.append(key) # remove value
+		if not is_sub_tree:
+			if len(key.split()) == 1:
+				if key.title() in all_honorific_titles: # remove gnes that are just 'Lord'
+					tree_to_remove.append(key) # remove value
+		else:
+			new_value = []
+			for sub_value in sub_tree:
+				contains_value_to_ignore = False
+				print("sub_value = {0}".format(sub_value))
+				for cnt, word in enumerate(sub_value.split()):
+					print("current new value = {0}".format(new_value))
+					print("{0} in words_to_ignore = {1}".format(word.title(), word.title() in words_to_ignore))
+					if word.title() not in words_to_ignore:
+						print("\tword to include = {0}".format(word))
+						new_value.append(word)
+					else:
+						print("word to ignore = {0}".format(word))
+						contains_value_to_ignore = True
+				if contains_value_to_ignore:
+					print(new_value)
+					join_word = " ".join(new_value)
+					sub_tree[cnt] = join_word
+					print("NEW VALUE = {0}".format(" ".join(new_value)))
+					print(sub_tree)
+				print("\n")
+				new_value = []
+			# remove duplicates if updating word makes it the same as another
+			if is_sub_tree:
+				for key, values in tree_to_update.iteritems():
+					tree_to_update[key] = list(set(values))
+		
 		#print("contains_words_to_ignore = {0}, {1}\n".format(contains_words_to_ignore, new_key))
 		if contains_words_to_ignore: # if it contains words to ignore, use new key without the words to ignore
 			if not new_key: # if the entire word was only words to ignore
 				tree_to_remove.append(key) # remove value
 			else:
-				#print("'{0}' becomes '{1}'\n".format(key, " ".join(new_key)))
+				print("'{0}' becomes '{1}'\n".format(key, " ".join(new_key)))
 				updated_key[key] = " ".join(new_key)
 			for sub_tree_to_delete in found_sub_names_to_ignore:
 				tree_to_remove.append(sub_tree_to_delete)
@@ -960,31 +1009,26 @@ def gneHierarchy(character_entities_group):
 				if any(ig in " ".join(s_t) for ig in words_to_ignore):
 					# only keep the parts of substrings that have element
 					tree_to_remove.append(s_t)
-	
+						
 	# remove all values in a named ent that are in words to ignore "Poor Dickens" Becomes "Dickens"
 	# also removes sub_trees for "poor"
 	for to_remove in tree_to_remove:
-		if to_remove in gne_tree.keys():
-			base_gne_key = gne_tree.pop(to_remove)
+		if to_remove in tree_to_update.keys():
+			base_gne_key = tree_to_update.pop(to_remove)
 			#print("base_gne_key = {0}".format(base_gne_key))
 		else:
-			for sub_dict in gne_tree.values():
+			for sub_dict in tree_to_update.values():
 				if to_remove in sub_dict:
 					sub_tree_removed = sub_dict.pop(to_remove)
 					#print("subtree to remove from '{0}' = {0}".format(sub_dict, sub_tree_removed))
 	# rename old key values
 	for old_key_to_update, new_key in updated_key.iteritems():
-		if old_key_to_update in gne_tree.keys():
-			if new_key in gne_tree.keys():
-				gne_tree[new_key].update(gne_tree.pop(old_key_to_update)) # add to an existing dictionary
+		if old_key_to_update in tree_to_update.keys():
+			if new_key in tree_to_update.keys():
+				tree_to_update[new_key].update(tree_to_update.pop(old_key_to_update)) # add to an existing dictionary
 			else:
-				gne_tree[new_key] = gne_tree.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
-
-	#print("\n")
-	#for key, value in gne_tree.iteritems():
-	#	print("key: {0}".format(key))
-	#	print("value: {0}\n".format(value))
-	return gne_tree
+				tree_to_update[new_key] = tree_to_update.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
+	return tree_to_update
 
 def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	print("\nIDENTIFY CHARACTER OF INTEREST\n")
@@ -1118,8 +1162,8 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 			final_gne.pop(k) # if empty, remove
 
 	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
-	print(sorted_final)
-	#print(pronoun_noun_dict['full_text'])
+	#print("ALL GROUPED CHARACTERS: \n{0}\n".format(sorted_final))
+	#print("TEXT: {0}".format(pronoun_noun_dict['full_text']))
 	#print("\n")
 	#for noun_index in pronoun_noun_dict['found_proper_name_index']:
 	#	print(pronoun_noun_dict['full_text'][noun_index[0]:noun_index[1]])
@@ -1145,6 +1189,9 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	top_characters = sorted_final[len(main_character_total):len(main_character_total)+5]
 	print("ADDITIONAL TOP CHARACTERS OF INTEREST: {0}\n".format(top_characters)) # print from highest to lowest
 
+def mapInteractions():
+	# break apart text into interactions
+	print("MAP INTERACTIONS")
 
 def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
 	# determine the most common pronouns for a given name for all the text
@@ -1165,7 +1212,7 @@ def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_valu
 		print(search_list)
 	print("\n")
 	'''
-	
+
 ########################################################################
 # NETWORK GRAPHS AND TREE
 def generateGNEtree(gne_tree, filename):
@@ -1598,7 +1645,7 @@ if __name__ == '__main__':
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	#graphPOSdata(csv_data)
-	'''
+
 	# gne hierarchy of names
 	gne_tree = gneHierarchy(character_entities_group[0])
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
@@ -1617,6 +1664,8 @@ if __name__ == '__main__':
 	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	character_likelihood = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
+	
+	map_interactions = mapInteractions()
 	#'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
