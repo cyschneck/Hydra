@@ -262,38 +262,38 @@ __Emma (Austen)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: [('Emma Woodhouse', 821)]
+CHARACTER OF INTEREST: [('Emma Woodhouse', 963)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Miss Woodhouse of Hartfield', 451), ('Miss Harriet Smith', 426), ('Churchill of Enscombe', 341), ('Mr John Knightley', 338), ('Miss Jane Fairfax', 311)]
-
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr John Knightley', 663), ('Miss Harriet Smith', 568), ('Miss Jane Fairfax', 453), ('Mr Perry', 351), ('Mr Robert Martin', 327)]
 
 __Pride and Prejudice (Austen)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female' [('her', 2131)]: True
+Predicted gender of main character is 'Female' [('her', 2131)]: False
 
-CHARACTER OF INTEREST: [('Miss Elizabeth Bennet', 543)]
+CHARACTER OF INTEREST: [('Mr Fitzwilliam Darcy', 522)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Fitzwilliam Darcy', 522), ('Mrs Bennet', 153), ('Brother-in-law of Wickham', 133), ('Mr Collins', 114), ('Mr Bingley', 98)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Jane Bennet', 289), ('Lydia Wickham', 257), ('Mr Wickham', 183), ('Mrs Bennet', 158), ('George Wickham', 139)]
+
 
 __Peter Pan (Barrie)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Male' [('he', 873)]: True
+Predicted gender of main character is 'Male' [('he', 873)]: False
 
-CHARACTER OF INTEREST: [('Peter the Great White Father', 349)]
+CHARACTER OF INTEREST: [('Wendy Moira Angela Darling', 322)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Wendy Moira Angela Darling', 322), ('Captain Hook', 137), ('Johnny Corkscrew', 111), ('Michael', 96), ('Smee', 54)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Peter the Great White Father', 309), ('Captain Hook', 137), ('Johnny Corkscrew', 111), ('Michael', 96), ('Nana', 64)]
 
 __The Wonderful Wizard of Oz (Baum)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: [('Dorothy', 344)]
+CHARACTER OF INTEREST: [('Dorothy', 345)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Tin Woodman', 177), ('Cowardly Lion', 176), ('Wonderful City of Oz', 159), ('Wicked Witch of the West', 126)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Wise Scarecrow', 224), ('Tin Woodman', 180), ('Cowardly Lion', 176), ('Wonderful City of Oz', 159), ('Wicked Witch of the West', 126)]
 
 __A Little Princess (Burnett)__
 
@@ -305,13 +305,23 @@ CHARACTER OF INTEREST: [('Ermengarde St John', 149)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Becky', 144), ('Lottie Legh', 60), ('Miss Amelia Minchin', 58), ('Emily', 56), ('Lavinia Herbert', 54)]
 
+__Secret Garden (Burnett)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('he', 1365)]: False
+
+CHARACTER OF INTEREST: [('Martha Phoebe Sowerby', 357)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mistress Mary Quite Contrary', 221), ('Master Colin', 109), ('Dickon', 84), ('Mrs Medlock', 44), ('Magic', 21)]
+
 __Princess of Mars (Burroughs)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Princess Dejah Thoris', 173)
+CHARACTER OF INTEREST: [('Princess Dejah Thoris', 172)]
 
-TOP CHARACTERS OF INTEREST: [('Tars Tarkas the Thark', 129), ('DOG Sola', 117), ('Tharks of Barsoom', 113), ('throng of Martians', 104)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Tars Tarkas the Thark', 132), ('Sola', 118), ('Tharks of Barsoom', 113), ('throng of Martians', 107), ('Mors Kajak of Helium', 104)]
 
 __Tarzan of the Apes (Burroughs)__
 
@@ -319,9 +329,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 1493)]: True
 
-CHARACTER OF INTEREST: ('Tarzan of the Dum-Dum', 596)
+CHARACTER OF INTEREST: [('Tarzan of the Dum-Dum', 604)]
 
-TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 239), ("Lieutenant D'Arnot", 173), ('Jane Porter', 163), ('Mr Philander', 98)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 293), ('Lieutenant Charpentier', 195), ('Jane Porter', 168), ('Mr Philander', 100), ('Professor Porter', 95)]
 
 __Alices Adventures in Wonderland (Carroll)__
 
@@ -329,43 +339,53 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Female' [('she', 492)]: True
 
-CHARACTER OF INTEREST: ('Rabbit-Hole Alice', 370)
+CHARACTER OF INTEREST: [('Miss Alice', 370)]
 
-TOP CHARACTERS OF INTEREST: [('Queen of Hearts', 69), ('King', 61), ('Mock Turtle Soup', 59), ('Hatter', 55)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Queen of Hearts', 73), ('Mock Turtle Soup', 62), ('Hatter', 55), ('Gryphon', 53), ('Rabbit Sends', 41)]
+
+__Jaberwocky (Carroll)__
+
+IS FIRST PERSON TEXT: False
+
+Predicted gender of main character is 'Male' [('He', 4)]: True
+
+CHARACTER OF INTEREST: [('Jabberwock', 4)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Came', 1), ('Callooh', 1), ('Jubjub', 1), ('Tumtum', 1), ('Callay', 1)]
 
 __The Mysterious Affair at Styles (Christie)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Show Monsieur Poirot', 370)
+CHARACTER OF INTEREST: [('Monsieur Poirot', 374)]
 
-TOP CHARACTERS OF INTEREST: [('Monsieur John Cavendish', 194), ('Monday Mrs Inglethorp', 127), ('Mademoiselle Cynthia', 97), ('Mr Hastings Miss Howard', 82)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Monsieur John Cavendish', 200), ('Murder of Emily Agnes Inglethorp', 162), ('Mr Hastings Miss Murdoch', 116), ('Mademoiselle Cynthia', 104), ('Mr Lawrence Cavendish', 74)]
 
 __Heart of Darkness (Conrad)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Mistah Kurtz', 65)
+CHARACTER OF INTEREST: [('Mistah Kurtz', 65)]
 
-TOP CHARACTERS OF INTEREST: [('Mr Kurtz', 51), ('Company', 13), ('Charlie Marlow', 11), ('English', 10)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Kurtz', 51), ('Company', 13), ('Charlie Marlow', 11), ('English', 10), ('Europe', 8)]
 
 __A Christmas Carol (Dickens)__
 
 IS FIRST PERSON TEXT: False
 
-CHARACTER OF INTEREST: ('Scrooge the Baleful', 323)
+CHARACTER OF INTEREST: [('Scrooge the Baleful', 329)]
 
-TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 128), ('Evil Spirit', 79), ('Bob Cratchit', 49), ('Ghost of Jacob Marley', 37)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 174), ('Evil Spirit', 76), ('Bob Cratchit', 51), ('Tiny Tim', 22), ('Mrs Cratchit', 19)]
 
 __A Tale of Two Cities (Dickens)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Male' [('his', 1941)]: False
+Predicted gender of main character is 'Male' [('his', 1940)]: True
 
-CHARACTER OF INTEREST: ('Citizeness Defarge', 148)
+CHARACTER OF INTEREST: [('Mr Jeremiah Cruncher', 180)]
 
-TOP CHARACTERS OF INTEREST: [('Storm Doctor Manette', 146), ('Madame Defarge', 125), ('Mr Charles Darnay', 119), ('Miss Pross', 105)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Charles Darnay', 168), ('Citizeness Defarge', 148), ('Madame Defarge', 125), ('Miss Pross', 109), ('Monsieur the Marquis', 109)]
 
 __Great Expectations (Dickens)__
 
