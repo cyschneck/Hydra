@@ -60,12 +60,14 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "President", "Vice-President", "Senator", "Prime", "Minster",
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
-						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director"]
+						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director",
+						 "The Right Honorable", "The Right Honourable", "Highness"]
 
 all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_neutral_titles
 
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
+# WORDS TO IGNORE (parser has mislabeled)
 words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ought", 
 				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T", "Poor",
@@ -76,7 +78,7 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ough
 				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
 				   "Abandon", "'But", "But", "'Twas", "Knelt", "Thou", "True", "False",
 				   "Overhead", "Ware", "Fortnight", "Good-looking", "Something", "Grants", "Rescue",
-				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh"] # ignores noun instances of these word by themselves
+				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh", "Whither", "Ah"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -501,6 +503,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	# save into csv for manual labelling
 	# TODO: set up with average paragraph length as size_sentences
 	size_sentences = 21000000000 # looking at x sentences at a time (could be automatically re-adjusted to fix max size of text)
+	# set to large number so it runs through all sentences (could be set to look at x number of sentences)
 	rows_of_csv_tuple = csv_file.values()
 	all_sentences_in_csv = list(set([int(word.SENTENCE_INDEX) for word in csv_file.values()]))
 	if size_sentences > max(all_sentences_in_csv)+1: # do not go out of range while creating sentences
@@ -671,7 +674,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 
 	split_sentences_in_list = [e+'.' for e in sentences_in_order.split('.') if e] # split sentence based on periods
 	split_sentences_in_list.remove(' .') # remove empty sentences
-	sentence_size = 50 # size of the sentence/paragraph saved in manual tagging
+	sentence_size = 1 # size of the sentence/paragraph saved in manual tagging (one line for one sentence)
 	sentence_range = [split_sentences_in_list[i:i+sentence_size] for i in xrange(0, len(split_sentences_in_list), sentence_size)]
 	# range stores the sentences in list of list based on the size of tag
 
@@ -722,10 +725,11 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 
 	sub_dict_titles = ['full_text', 'found_all_brackets', 'found_proper_name_value', 
 					   'found_proper_name_index', 'found_pronoun_value', 'found_pronoun_index']
+	line_by_line_dict = {}
 	pronoun_noun_dict = {f: [] for f in sub_dict_titles}
 	total_sentences_to_check_behind = 3 # TODO: update with pronouns average information
 	#print("\n")
-	for full_text in tagged_text:
+	for line_num, full_text in enumerate(tagged_text):
 		#print(full_text)
 		pronoun_noun_dict['full_text'].append([full_text])
 		find_gne_in_sentence_pattern = r'(?<=\<)(.*?)(?=\>)'
@@ -746,6 +750,15 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 		found_pronoun_index = [i for i in all_found_name_index if full_text[i[1]+2] is 'p'] # store named index of pronouns
 		pronoun_noun_dict['found_pronoun_value'].extend([found_pronoun_value])
 		pronoun_noun_dict['found_pronoun_index'].extend([found_pronoun_index])
+
+		# store in a sub-dictionary for each line
+		line_by_line_dict[line_num] = {'full_text': full_text,
+									   'found_all_brackets': found_all_brackets,
+									   'found_proper_name_value': found_proper_name_value,
+									   'found_proper_name_index': found_proper_name_index,
+									   'found_pronoun_value': found_pronoun_value,
+									   'found_pronoun_index': found_pronoun_index }
+
 		#print("\nfound pronouns index: {0}".format(all_found_name_index))
 		#for index_g in all_found_name_index:
 		#	print(full_text[index_g[0]:index_g[1]])
@@ -763,7 +776,7 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 		pronoun_noun_dict[key] = [item for sublist in value for item in sublist]
 		if key == 'full_text':
 			pronoun_noun_dict[key] = [''.join(pronoun_noun_dict[key])] # join the sentences into a single sentence
-	return pronoun_noun_dict
+	return pronoun_noun_dict, line_by_line_dict
 
 def determineGenderName(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
@@ -879,8 +892,6 @@ def gneHierarchy(character_entities_group):
 	character_split_group = sorted(character_split_group, key=len, reverse=True)
 	gne_tree = defaultdict(dict)
 	gne_dict_sub = {}
-
-	all_honorific_titles = female_honorific_titles + male_honorific_titles + ignore_neutral_titles
 
 	for longer_name in character_split_group:
 		#print("{0} IS NOT in gne_tree: {1}".format(" ".join(longer_name), gne_tree))
@@ -1031,14 +1042,6 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 
 def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	print("\nIDENTIFY CHARACTER OF INTEREST\n")
-	'''
-	pronoun_noun_dict['found_proper_name_value']
-	pronoun_noun_dict['found_proper_name_index']
-	pronoun_noun_dict['full_text']
-	pronoun_noun_dict['found_pronoun_value']
-	pronoun_noun_dict['found_pronoun_index']
-	pronoun_noun_dict['found_all_brackets']
-	'''
 	# count instances of a name appearing
 	'''
 	{'Brussels': 1, 'Mrs Darling': 4, 'East': 1, 'Miss Fulsom': 1,
@@ -1222,10 +1225,59 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 
 	return character_with_sub_types
 
-def mapInteractions(character_with_sub_names, pronoun_noun_dict):
+def mapInteractions(character_gne_tree_dict, line_by_line_dict):
 	# break apart text into interactions
-	print("MAP INTERACTIONS")
-	#print(pronoun_noun_dict['found_proper_name_value'])
+	# each number in the chunk is a sentence
+	print("MAP INTERACTIONS\n")
+	'''
+	for key, sub_dict in line_by_line_dict.iteritems():
+		print(key)
+		print(sub_dict['full_text'])
+		print(sub_dict['found_proper_name_value'])
+		print(sub_dict['found_proper_name_index'])
+		print(sub_dict['found_pronoun_value'])
+		print(sub_dict['found_pronoun_index'])
+		print(sub_dict['found_all_brackets'])
+		print("\n")
+	'''
+	# create a sub_list of the line id to organize
+	# [0, 1, 2, 3, 4, 5] -> [[0, 1], [2, 3], [4, 5]]
+	# 
+	ordered_lines = line_by_line_dict.keys()
+	split_sentences = 8 # sentences
+	if split_sentences > len(ordered_lines):
+		split_sentences = 3 # debugging smaller text
+	list_with_chunks = []
+	split_num = 1.0/split_sentences*len(ordered_lines)
+	for i in range(split_sentences):
+		list_with_chunks.append(ordered_lines[int(round(i*split_num)):int(round((i+1)*split_num))]) # break into roughly thirds
+	#print(list_with_chunks)
+	
+	# find proper noun in raw text
+	grouping_of_characters = {} # group id: characters interacting in a scan of text
+	characters_in_thirds = [[line_by_line_dict[x]['found_proper_name_value'] for x in sublist] for sublist in list_with_chunks]
+	for group_num, character in enumerate(characters_in_thirds):
+		#print("group_num = {0}".format(group_num))
+		grouping_of_characters[group_num] = []
+		for line_num, found_c in enumerate(character):
+			#print("\tline_num = {0}".format(line_num))
+			#print("\tcharacters in group = {0}".format(found_c))
+			grouping_of_characters[group_num].extend(found_c)
+	print("Grouping Characters from raw text (ORIGINAL): \n{0}".format(grouping_of_characters))
+	print("\n")
+	# convert proper noun to gne tree max (from character interactions)
+	# Colin mapped with Colin Craven
+	for group_id, characters_interacting in grouping_of_characters.iteritems():
+		for lst_id, character in enumerate(characters_interacting):
+			#print("Character = {0}".format(character))
+			if character not in character_gne_tree_dict.keys():
+				#print("NEED TO UPDATE TO MATCH TOP OF TREE")
+				for key, sub_tree_name in character_gne_tree_dict.iteritems():
+					if character in sub_tree_name:
+						#print("FOUND UPPER TREE MATCH IN '{0}'".format(key))
+						characters_interacting[lst_id] = key
+	print("Updated grouping characters with top of gne (UPDATED): \n{0}".format(grouping_of_characters))
+	
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -1664,7 +1716,7 @@ if __name__ == '__main__':
 	gne_tree = gneHierarchy(character_entities_group[0])
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
-
+	
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
@@ -1676,15 +1728,17 @@ if __name__ == '__main__':
 	# TODO: set up gender trees
 	# TODO: set up interactions
 	# TODO: update proper noun to total words with gne "_n#" / total words
+	# TODO: visual gender name database classifier
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
-	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
+	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
 	# identify the characters of interest and condense the trees
 	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
 	
 	# find and graph all interactions
-	map_interactions = mapInteractions(characters_with_sub_names, noun_pronoun_dict)
+	map_interactions = mapInteractions(characters_with_sub_names, line_by_line_dict)
+
 	#'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
