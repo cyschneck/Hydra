@@ -52,7 +52,7 @@ female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   "Maid", "Empress", "Queen", "Archduchess", "Grand Princess",
 						   "Princess", "Duchess", "Sovereign Princess", "Countess",
 							"Gentlewoman", 'Aunt', 'Widow', 'Doha', 'Comtesse', 'Baronne',
-							"Grandmother", "Sister-in-Law"]
+							"Grandmother", "Sister-in-Law", "Missus"]
 
 ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
@@ -70,13 +70,13 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ough
 				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T", "Poor",
 				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One", "Happily",
-				   "Good-Night", "Good-Morning", 'To-day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
+				   "Good-Night", "Good-Morning", 'To-Day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
 				   'To-day', 'To-morrow', 'To-Night', 'Thine', 'Or', "D'You", "O'Er", "Aye", "Men"
 				   "Ill", "Behold", "Beheld", "Nay", "Shall", "So-And-So", "Making-Up", "Ajar",
 				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
 				   "Abandon", "'But", "But", "'Twas", "Knelt", "Thou", "True", "False",
 				   "Overhead", "Ware", "Fortnight", "Good-looking", "Something", "Grants", "Rescue",
-				   "Head", "'Poor", "Tha'", "Tha'Rt"] # ignores noun instances of these word by themselves
+				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh"] # ignores noun instances of these word by themselves
 
 words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -821,10 +821,10 @@ def determineGenderName(loaded_gender_model, gne_tree):
 						male_prob += load_prob[1]
 				#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
-			if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
-				gender_is = "UNDETERMINED"
-			else:
-				gender_is = 'Male' if male_prob > female_prob else 'Female'
+			#if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
+			#	gender_is = "UNDETERMINED"
+			#else:
+			gender_is = 'Male' if male_prob > female_prob else 'Female'
 
 		#print("The name '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}\n".format(full_name, gender_is, female_prob, male_prob))
 		gender_gne[full_name] = gender_is
@@ -932,10 +932,10 @@ def gneHierarchy(character_entities_group):
 	gne_tree = removeIgnoreWordsKeySubtree(gne_tree, is_sub_tree=False)
 	# update values within the sub-dictionaries
 	for key, sub_tree in gne_tree.iteritems():
-		print("######################REMOVE FROM SUBTREE###################")
-		print("before: {0}".format(gne_tree[key]))
+		#print("######################REMOVE FROM SUBTREE###################")
+		#print("before: {0}".format(gne_tree[key]))
 		gne_tree[key] = removeIgnoreWordsKeySubtree(sub_tree, is_sub_tree=True)
-		print("after: {0}".format(gne_tree[key]))
+		#print("after: {0}".format(gne_tree[key]))
 
 	#print("\n")
 	#for key, value in gne_tree.iteritems():
@@ -973,23 +973,22 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 			new_value = []
 			for sub_value in sub_tree:
 				contains_value_to_ignore = False
-				print("sub_value = {0}".format(sub_value))
+				#print("sub_value = {0}".format(sub_value))
 				for cnt, word in enumerate(sub_value.split()):
-					print("current new value = {0}".format(new_value))
-					print("{0} in words_to_ignore = {1}".format(word.title(), word.title() in words_to_ignore))
+					#print("current new value = {0}".format(new_value))
+					#print("{0} in words_to_ignore = {1}".format(word.title(), word.title() in words_to_ignore))
 					if word.title() not in words_to_ignore:
-						print("\tword to include = {0}".format(word))
+						#print("\tword to include = {0}".format(word))
 						new_value.append(word)
 					else:
-						print("word to ignore = {0}".format(word))
+						#print("word to ignore = {0}".format(word))
 						contains_value_to_ignore = True
 				if contains_value_to_ignore:
-					print(new_value)
 					join_word = " ".join(new_value)
 					sub_tree[cnt] = join_word
-					print("NEW VALUE = {0}".format(" ".join(new_value)))
-					print(sub_tree)
-				print("\n")
+					#print("NEW VALUE = {0}".format(" ".join(new_value)))
+					#print(sub_tree)
+				#print("\n")
 				new_value = []
 			# remove duplicates if updating word makes it the same as another
 			if is_sub_tree:
@@ -1001,7 +1000,7 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 			if not new_key: # if the entire word was only words to ignore
 				tree_to_remove.append(key) # remove value
 			else:
-				print("'{0}' becomes '{1}'\n".format(key, " ".join(new_key)))
+				#print("'{0}' becomes '{1}'\n".format(key, " ".join(new_key)))
 				updated_key[key] = " ".join(new_key)
 			for sub_tree_to_delete in found_sub_names_to_ignore:
 				tree_to_remove.append(sub_tree_to_delete)
@@ -1096,7 +1095,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 			else:
 				name_counter[proper_name] += 1
 	import operator
-	
+
 	# merge all final values together based on trees: so Mr. Holmes is matches with Sherlock Holmes (longer gne)
 	# convert dic to a list of tuples
 	sorted_reverse = sorted(name_counter.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
@@ -1136,6 +1135,8 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	sorted_final = sorted(max_gne_tree.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
 	#print(sorted_final)
 	final_gne = {}
+	character_with_sub_types = {}
+	found_list = []
 	# merge two trees if they have the same comparison (use longer gne)
 	for key, v in found_sub_tree_for_comparison_length.iteritems():
 		longer_name = ''
@@ -1146,27 +1147,54 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 		compare_values = list(set(compare_values))
 		longer_name = max(compare_values, key=len)
 		#print("\nlongest name = {0}".format(longer_name))
+		#print("existing keys = {0}".format(final_gne.keys()))
 		#print("{0}: should create = {1}".format(key, longer_name not in final_gne.keys() and key not in final_gne.keys()))
 		#print("gne_tree[key] values = {0}".format(compare_values))
-		if longer_name not in final_gne.keys() and key not in final_gne.keys():
-			final_gne[longer_name] = 0
-			for sub_name in compare_values:
-				if sub_name in name_counter.keys():
-					#print(name_counter[sub_name])
-					final_gne[longer_name] += name_counter[sub_name]
-			#print("final count = {0}\n".format(final_gne[longer_name]))
-
+		if longer_name not in final_gne.keys() and key not in final_gne.keys(): # check that key doesn't already exist for the name to use
+			#print("longer name not in found list = {0}".format(longer_name not in found_list))
+			if longer_name not in found_list: # do not include values that are already in list (even if they have a different sub_tree)
+				to_update_key_with_longer_key = False
+				if bool(set(final_gne.keys()) & set(compare_values)):
+					#print("a key with the same sub_tree already exist = {0}".format(bool(set(final_gne.keys()) & set(compare_values))))
+					existing_key = list(set(compare_values).intersection(final_gne.keys()))[0]
+					#print("shared key = {0}".format(existing_key))
+					#print("len(longer_name) {0} > len(existing_key) {1} = {2}".format(len(longer_name), len(existing_key), len(longer_name) > len(existing_key)))
+					if len(longer_name) >= len(existing_key): # if current longer is greater than or equal, replace existing
+						found_list.extend(compare_values)
+						#print("IS LONGER REPLACE '{0}' with '{1}'".format(existing_key, longer_name))
+						to_update_key_with_longer_key = True
+						#print("{0} in final_gne = {1}".format(existing_key, existing_key in final_gne.keys()))
+						final_gne.pop(existing_key) # remove existing key to replace
+						#print("{0} in final_gne = {1}".format(existing_key, existing_key in final_gne.keys()))
+						character_with_sub_types.pop(existing_key)
+				else:
+					to_update_key_with_longer_key = True
+				if to_update_key_with_longer_key: 
+					found_list.extend(compare_values)
+					final_gne[longer_name] = 0
+					character_with_sub_types[longer_name] = compare_values
+					for sub_name in compare_values:
+						if sub_name in name_counter.keys():
+							#print("final_gne[{0}] += {1}".format(sub_name, name_counter[sub_name]))
+							#print(name_counter[sub_name])
+							final_gne[longer_name] += name_counter[sub_name]
+						#print("final count = {0}\n".format(final_gne[longer_name]))
 	# clean up final_gne: remove empty, update counters
 	for k in final_gne.keys():
 		if final_gne[k] == 0:
 			final_gne.pop(k) # if empty, remove
 
+	#for key, value in character_with_sub_types.iteritems():
+	#	print(key)
+	#	print(value)
+	#	print("\n")
 	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
 	#print("ALL GROUPED CHARACTERS: \n{0}\n".format(sorted_final))
 	#print("TEXT: {0}".format(pronoun_noun_dict['full_text']))
 	#print("\n")
 	#for noun_index in pronoun_noun_dict['found_proper_name_index']:
 	#	print(pronoun_noun_dict['full_text'][noun_index[0]:noun_index[1]])
+
 	print("IS FIRST PERSON TEXT: {0}".format(is_first_person_text))
 	main_character_high_value = sorted_final[0][1]
 	main_character_total = [k for k in sorted_final if k[1] == main_character_high_value]
@@ -1188,30 +1216,16 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne):
 	print("\nCHARACTER OF INTEREST: {0}\n".format(main_character_total))
 	top_characters = sorted_final[len(main_character_total):len(main_character_total)+5]
 	print("ADDITIONAL TOP CHARACTERS OF INTEREST: {0}\n".format(top_characters)) # print from highest to lowest
+	
+	# return a dict with the top character name and the sub elements:
+	# { Master Colin: ['Master Colin', 'Colin', 'Master', 'Colin Craven']}
 
-def mapInteractions():
+	return character_with_sub_types
+
+def mapInteractions(character_with_sub_names, pronoun_noun_dict):
 	# break apart text into interactions
 	print("MAP INTERACTIONS")
-
-def mostCommonSurroudingPronouns(given_name, found_all_brackets, found_name_value, found_pronoun_value):
-	# determine the most common pronouns for a given name for all the text
-	'''
-	x_closest_pronouns = 5
-	print("MOST COMMON PRONOUN IN ALL TEXT FOR '{0}'".format(given_name))
-	print(found_all_brackets)
-	given_name_index = [index for index, value in enumerate(found_all_brackets) if value == given_name]
-	for index_name in given_name_index:
-		print("\n")
-		print(found_all_brackets[index_name])
-		search_list = []
-		print("remaining list: {0}".format(found_all_brackets[index_name+1:]))
-		for i in found_all_brackets[index_name+1:]:
-			if i not in found_name_value:
-				if len(search_list) < x_closest_pronouns:
-					search_list.append(i)
-		print(search_list)
-	print("\n")
-	'''
+	#print(pronoun_noun_dict['found_proper_name_value'])
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -1660,12 +1674,17 @@ if __name__ == '__main__':
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
 	
 	# TODO: set up gender trees
+	# TODO: set up interactions
+	# TODO: update proper noun to total words with gne "_n#" / total words
 
+	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
 
-	character_likelihood = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
+	# identify the characters of interest and condense the trees
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne)
 	
-	map_interactions = mapInteractions()
+	# find and graph all interactions
+	map_interactions = mapInteractions(characters_with_sub_names, noun_pronoun_dict)
 	#'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
