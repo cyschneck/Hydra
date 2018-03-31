@@ -61,7 +61,8 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
 						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director",
-						 "The Right Honorable", "The Right Honourable", "Highness", "Cuz"]
+						 "The Right Honorable", "The Right Honourable", "Highness", "Cuz", "Poor",
+						 "Silly", "Old"]
 
 all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_neutral_titles
 
@@ -81,9 +82,9 @@ potential_names_with_equal_titles = []
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
 # WORDS TO IGNORE (parser has mislabeled)
-words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ought", 
+words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought", 
 				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
-				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T", "Poor",
+				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T",
 				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One", "Happily",
 				   "Good-Night", "Good-Morning", 'To-Day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
 				   'To-day', 'To-morrow', 'To-Night', 'Thine', 'Or', "D'You", "O'Er", "Aye", "Men"
@@ -91,10 +92,13 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "God", "O", "Anon", "Ough
 				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
 				   "Abandon", "'But", "But", "'Twas", "Knelt", "Thou", "True", "False",
 				   "Overhead", "Ware", "Fortnight", "Good-looking", "Something", "Grants", "Rescue",
-				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh", "Whither", "Ah"] # ignores noun instances of these word by themselves
+				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh", "Whither", "Ah", "Sends",
+				   "Silly", "Methought", "Come", "Dost", "Wilt", "Wherefore", "Doth", "Betwixt",
+				   "Dat", "Midsummer", "Withal", "Thyself", "Shoots", "Came", "Sayeth",
+				   "Aids", "Wilt", "Thou", "Whereupon", "Spake"] # ignores noun instances of these word by themselves
 
-words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
-words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
+#words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
+#words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
 
 numbers_as_words = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
 					6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
@@ -458,7 +462,6 @@ def groupSimilarEntities(grouped_nouns_dict):
 	#print(len(final_grouping))
 	#print(len(character_group))
 	#print("count = {0}".format(count))
-	#print(words_to_ignore)
 	return character_group
 
 def lookupSubDictionary(shared_ent):
@@ -1073,10 +1076,12 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 					tree_to_remove.append(key) # remove value
 		else:
 			new_value = []
-			for sub_value in sub_tree:
+			#print(sub_tree)
+			for cnt, sub_value in enumerate(sub_tree):
 				contains_value_to_ignore = False
-				#print("sub_value = {0}".format(sub_value))
-				for cnt, word in enumerate(sub_value.split()):
+				#print("\nsub_value = {0}".format(sub_value))
+				for word in sub_value.split():
+					#print(cnt)
 					#print("current new value = {0}".format(new_value))
 					#print("{0} in words_to_ignore = {1}".format(word.title(), word.title() in words_to_ignore))
 					if word.title() not in words_to_ignore:
@@ -1085,10 +1090,14 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 					else:
 						#print("word to ignore = {0}".format(word))
 						contains_value_to_ignore = True
-				if contains_value_to_ignore:
-					join_word = " ".join(new_value)
-					sub_tree[cnt] = join_word
-					#print("NEW VALUE = {0}".format(" ".join(new_value)))
+					if contains_value_to_ignore:
+						join_word = " ".join(new_value)
+						#print("NEW VALUE = {0}".format(" ".join(new_value)))
+						#print("join word = {0}".format(join_word))
+						if join_word == '':
+							del sub_tree[cnt] # remove element if it is empty
+						else:
+							sub_tree[cnt] = join_word
 					#print(sub_tree)
 				#print("\n")
 				new_value = []
@@ -1188,7 +1197,6 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 					name_counter[proper_name] += additional
 			else:
 				name_counter[proper_name] += 1
-
 	import operator
 	# merge all final values together based on trees: so Mr. Holmes is matches with Sherlock Holmes (longer gne)
 	# convert dic to a list of tuples
@@ -1239,8 +1247,24 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 		if v not in compare_values:
 			compare_values.extend(v) # add the key to the list of branch values
 		compare_values = list(set(compare_values))
+
+		# REMOVE WORDS TO IGNORE THAT STILL EXIST
+		temp_list = list(compare_values)
+		for sub_name in temp_list:
+			check_title = [item.title() for item in sub_name.split()]
+			#print("NEW LIST TO COMPARE = {0}".format(check_title))
+			if bool(set(check_title) & set(words_to_ignore)):
+				#print("NAME WITH WORD TO IGNORE (remove) = {0}".format(sub_name))
+				compare_values.remove(sub_name) # remove an name that contains elements to be ignored
+
+		# REMOVE THE FIRST WORD IF IT IS LOWERCASE
+		#for sub_name in temp_list:
+		#	if len(sub_name.split()) > 1 and sub_name.split()[0].islower():
+		#		compare_values.remove(sub_name)
+
 		longer_name = max(compare_values, key=len)
 		#print("\nlongest name = {0}".format(longer_name))
+		#print(compare_values)
 		#print("existing keys = {0}".format(final_gne.keys()))
 		#print("{0}: should create = {1}".format(key, longer_name not in final_gne.keys() and key not in final_gne.keys()))
 		#print("gne_tree[key] values = {0}".format(compare_values))
@@ -1277,7 +1301,6 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 	for k in final_gne.keys():
 		if final_gne[k] == 0:
 			final_gne.pop(k) # if empty, remove
-
 	# include names with and without a title (if a title exists)
 	for key, sub_tree in character_with_sub_types.iteritems():
 		#print(key)
@@ -1464,6 +1487,11 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 	#for i in sorted_groups:
 	#	print(i)
 	return character_interactions_polarity
+
+def characterInteractionsNetwork(characters_with_sub_names, group_polarity):
+	# find each character interaction and polarity over time
+	print("TODO: GRAPH CHARACTER INTERACTIONS IN A NETWORK")
+
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -1919,7 +1947,7 @@ def plotTagData():
 	plt.title("Runtime: Parsey McParseface")
 	plt.ylabel("Time (Seconds)")
 	plt.xlabel("Text Size (Words)")
-	ax.set_xlim(left = 0)
+	#ax.set_xlim(left = 0)
 	ax.scatter(text_size, time_parsey)
 	plt.savefig('plot_percent_data/runtime_parsey_data.png')
 
@@ -1927,7 +1955,7 @@ def plotTagData():
 	plt.title("Runtime: Manual Tagging")
 	plt.ylabel("Time (Seconds)")
 	plt.xlabel("Text Size (Words)")
-	ax.set_xlim(left = 0)
+	#ax.set_xlim(left = 0)
 	ax.scatter(text_size, time_manualTag)
 	plt.savefig('plot_percent_data/runtime_manualTag_data.png')
 
@@ -2087,9 +2115,9 @@ if __name__ == '__main__':
 	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
 		# checks if csv has been updated more recently than the plot data
 		plotTagData()
-
+	'''
 	# gne hierarchy of names
-	over_correct_for_multiple_title = False # a potential option if the text includes lots of titles
+	over_correct_for_multiple_title = False # a potential option (toggle) if the text includes lots of titles
 	gne_tree = gneHierarchy(character_entities_group[0], over_correct_for_multiple_title)
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
@@ -2101,12 +2129,6 @@ if __name__ == '__main__':
 
 	#for key, value in gne_tree.iteritems():
 	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
-	
-	# TODO: set up gender trees
-	# TODO: visual gender name database classifier
-	# TODO: move all imports to top
-	# TODO: fix pos data for gnes to run for each row rather than the last text
-	# TODO: set up a network with relationships with polarity over time
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
@@ -2121,7 +2143,18 @@ if __name__ == '__main__':
 	# (group_id) : polarity
 	group_polarity = interactionsPolarity(characters_with_sub_names, line_by_line_dict, filename)
 	plotPolarity(group_polarity, given_file)
-	
+
+	# generate a network of interactions with given polarity
+	characterInteractionsNetwork(characters_with_sub_names, group_polarity)
+
+	# TODO: set up gender trees
+	# TODO: visual gender name database classifier
+	# TODO: move all imports to top
+	# TODO: fix pos data for gnes to run for each row rather than the last text
+	# TODO: set up a network with relationships with polarity over time
+	# TODO: original scarlet letter includes 'Old Roger Chillingworth', new doesn't, find cause
+
+
 	#'''
 	# GENERATE NETWORKX
 	# generate a tree for gne names
