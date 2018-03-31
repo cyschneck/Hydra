@@ -61,9 +61,22 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
 						 'General', 'Secretary', 'St', 'Saint', 'San', 'Assistant', "Director",
-						 "The Right Honorable", "The Right Honourable", "Highness"]
+						 "The Right Honorable", "The Right Honourable", "Highness", "Cuz"]
 
 all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_neutral_titles
+
+
+male_equ_titles = [['M', 'Mr', 'Mister', 'Mistah', 'Mester']]
+female_equ_titles = [['Ms', 'Miss', 'Missus', 'Mademoiselle', 'Mlle'],
+					['Madam', "Ma'am", "Madame", "Mme"]]
+neutral_equ_titles = [['Dr', 'Doctor'], ['Capt', 'Captain'],
+					  ['Professor', 'Prof'], ['St', 'Saint'], 
+					  ["Cousin", "Cuz"]]
+
+all_equal_titles = male_equ_titles + female_equ_titles + neutral_equ_titles
+all_equal_titles = [item for sublist in all_equal_titles for item in sublist] # flat list of all titles for checking
+potential_names_with_equal_titles = []
+
 
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
@@ -881,13 +894,16 @@ def DT_features(given_name):
 	features_list = dict(zip(FEATURE_TAGS, name_features))
 	return features_list
 
-def gneHierarchy(character_entities_group):
+def gneHierarchy(character_entities_group, over_correct_for_multiple_title):
 	# merge gne into a dict for look up
 	'''
 	key: Dr Urbino
 	{'Dr': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']], 
 	'Urbino': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']]}
 	 '''
+	# if there are a name with a different version of the title, include both
+	if over_correct_for_multiple_title:
+		character_entities_group, found_similar = addNameWithSameTitle(character_entities_group) # add names with different titles
 	character_split_group = [x.split() for x in character_entities_group]
 	character_split_group = sorted(character_split_group, key=len, reverse=True)
 	gne_tree = defaultdict(dict)
@@ -901,7 +917,6 @@ def gneHierarchy(character_entities_group):
 			if len(longer_name) > 1 or len(longer_name[0]) > 1: # ignore intials 'C'
 				#print("base: {0}".format(longer_name))
 				#print("base: {0}".format(" ".join(longer_name)))
-				#gne_tree_sub_tree.append(smaller_name)
 				for sub_long_name in longer_name:
 					gne_tree_word_tree = []
 					#print("sub: {0}".format(sub_long_name))
@@ -919,8 +934,28 @@ def gneHierarchy(character_entities_group):
 									#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name.title())))
 									sub_name_join = " ".join(smaller_name.split()[smaller_name.split().index(sub_long_name.title()):])
 									#print("\t\t\n\n\nnewfound: {0}".format(sub_name_join))
+									#print("sub_name_join.title() not in gne_tree_word_tree = {0}".format(sub_name_join.title() not in gne_tree_word_tree))
 									if sub_name_join.title() not in gne_tree_word_tree:
 										gne_tree_word_tree.append(sub_name_join)
+										if over_correct_for_multiple_title:
+											# add other versions of the same name: "Capt Nemo" and "Captian Nemo"
+											for potential_conflict in found_similar:
+												#print("sub_name_join in potential_conflict = {0}".format(sub_name_join in potential_conflict))
+												if sub_name_join in potential_conflict:
+													for other_name in potential_conflict:
+														if other_name != sub_name_join:
+															if len(other_name.split()) > 1:
+																sub_name_first_name = sub_name_join.split()[1]
+																sub_name_last_name = sub_name_join.split()[-1]
+																other_name_first_name = other_name.split()[1]
+																other_name_last_name = other_name.split()[-1]
+																if sub_name_first_name == other_name_first_name or other_name_last_name == sub_name_last_name:
+																	#print("current = {0}".format(sub_name_join))
+																	#print("first '{0}' = '{1}'".format(sub_name_first_name, other_name_first_name))
+																	#print("last '{0}' = '{1}'".format(sub_name_last_name, other_name_last_name))
+																	#print("new = {0}".format(other_name))
+																	#print("\n")
+																	gne_tree_word_tree.append(other_name)
 							else:
 								if name_with_caps not in connecting_words:
 									# save non-caps version of a name
@@ -934,12 +969,11 @@ def gneHierarchy(character_entities_group):
 					if sub_long_name not in connecting_words:
 						gne_tree[" ".join(longer_name)][sub_long_name] = gne_tree_word_tree
 					gne_tree_word_tree = []
-
 	gne_tree = dict(gne_tree)
 	# common first words to ignore: example (Poor, Dear, etc...)
 	# find elements to remove if they are part of words_to_ignore
 
-	# update keys
+	# update keys to exclude words to ignore
 	gne_tree = removeIgnoreWordsKeySubtree(gne_tree, is_sub_tree=False)
 	# update values within the sub-dictionaries
 	for key, sub_tree in gne_tree.iteritems():
@@ -948,12 +982,69 @@ def gneHierarchy(character_entities_group):
 		gne_tree[key] = removeIgnoreWordsKeySubtree(sub_tree, is_sub_tree=True)
 		#print("after: {0}".format(gne_tree[key]))
 
-	#print("\n")
 	#for key, value in gne_tree.iteritems():
-	#	if key == 'Mr Archibald Craven':
 	#		print("key: {0}".format(key))
 	#		print("value: {0}\n".format(value))
+	#print("\n")
 	return gne_tree
+
+def addNameWithSameTitle(name_list):
+	# run for all potential names to include both Mister and Mr in a name's subtree
+	# final step: if the character has the same gender title "Mister Kurtz" and "Mistah Kurtz", group together
+	# does not run for all male titles, just ones that are the same meaning
+	updated_list = list(name_list)
+
+	for p_n in name_list:
+		if bool(set(p_n.split()) & set(all_equal_titles)):
+			#print("NAME WITH TITLE THAT HAS MULTIPLE VERSION = {0}".format(key))
+			potential_names_with_equal_titles.append(p_n)
+
+	found_similar = defaultdict(list)
+	if potential_names_with_equal_titles != []:
+		if len(potential_names_with_equal_titles) > 1: # if there might be a conflict
+			for conflict_name in potential_names_with_equal_titles:
+				male_found  = [sublist for sublist in male_equ_titles if conflict_name.split()[0] in sublist]
+				female_found  = [sublist for sublist in female_equ_titles if conflict_name.split()[0] in sublist]
+				neutral_found  = [sublist for sublist in neutral_equ_titles if conflict_name.split()[0] in sublist]
+				# find all versions of the name and the title that exist
+				if male_found != []:
+					#print("found in male")
+					found_similar[", ".join(male_found[0])].append(conflict_name)
+				if female_found != []:
+					#print("found in female")
+					found_similar[", ".join(female_found[0])].append(conflict_name)
+				if neutral_found != []:
+					#print("found in neutral")
+					found_similar[", ".join(neutral_found[0])].append(conflict_name)
+
+	# remove the other versions of the name, keep the longest name
+	found_similar = dict(found_similar)
+	list_of_similar = []
+	for group, name_list in found_similar.iteritems():
+		if len(name_list) > 1:
+			#print(group.split(", "))
+			check_list = list(name_list)
+			#print(name_list)
+			for name_p in name_list:
+				title = name_p.split()[0]
+				if name_p.split()[1:] != []:
+					check_name = " ".join(name_p.split()[1:])
+					for name_c in check_list:
+						if name_p != name_c:
+							if check_name.split()[0] in name_c or check_name.split()[-1] in name_c: # match the first name or the last name
+								duplicate_title = name_c.split()[0]
+								#print("duplicate found: {0}".format(name_c))
+								new_name_to_add = duplicate_title + " " + check_name
+								#print("NEW TO ADD: {0}".format(new_name_to_add))
+								updated_list.append(new_name_to_add)
+								for sub_list_index, similar_potential in enumerate(found_similar.values()):
+									if name_c in similar_potential:
+										if new_name_to_add not in found_similar.values()[sub_list_index]:
+											found_similar.values()[sub_list_index].append(new_name_to_add) # add new value to sub instex for comparison in gne tree
+								
+	updated_list = list(set(updated_list))
+	list_of_similar = found_similar.values()
+	return updated_list, list_of_similar
 
 def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 	# remove all keys that contain words to ignore and then ignore all values in the sub-trees dictionaries
@@ -1097,8 +1188,8 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 					name_counter[proper_name] += additional
 			else:
 				name_counter[proper_name] += 1
-	import operator
 
+	import operator
 	# merge all final values together based on trees: so Mr. Holmes is matches with Sherlock Holmes (longer gne)
 	# convert dic to a list of tuples
 	sorted_reverse = sorted(name_counter.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
@@ -1771,8 +1862,6 @@ def plotPolarity(group_polarity, given_file):
 	group_id_x = [x[0] for x in ordered_polarity]
 	polarity_y = [x[1] for x in ordered_polarity]
 
-	# TODO: set up a dotted plot line for the mean (bot)
-	#ax.scatter(group_id_x, polarity_y)
 	neg_pol =[]
 	pos_pol = []
 	for pol in polarity_y:
@@ -1797,7 +1886,52 @@ def plotPolarity(group_polarity, given_file):
 	plt.savefig('sentiment_csv/{0}'.format(output_file))
 	print("SENTIMENT PLOT {0} SAVED TO SENTIMENT_CSV".format(output_file))
 
+def plotTagData():
+	# plot data related to how long parsing and tagging takes
+	time_data_results = {} # store old rows
+	with open('plot_percent_data/timedTagging.csv', 'r') as timing_data:
+		reader = csv.DictReader(timing_data)
+		for row in reader:
+			time_data_results[row['FILENAME']] = row # store previous rows
+	text_size = []
+	time_parsey = []
+	time_manualTag = []
+	for filename_given, sub_headers in time_data_results.iteritems():
+		size_data = sub_headers['TEXT_SIZE']
+		if size_data != '':
+			text_size.append(size_data)
+		else:
+			text_size.append(np.nan)
+		
+		parse_data = sub_headers['PARSEY_TAGGING_TIME_SECONDS']
+		if parse_data != '':
+			time_parsey.append(parse_data)
+		else:
+			time_parsey.append(np.nan)
+		
+		tag_data = sub_headers['MANUAL_TAGGING_TIME_SECONDS']
+		if tag_data != '':
+			time_manualTag.append(tag_data)
+		else:
+			time_manualTag.append(np.nan)
 
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
+	plt.title("Runtime: Parsey McParseface")
+	plt.ylabel("Time (Seconds)")
+	plt.xlabel("Text Size (Words)")
+	ax.set_xlim(left = 0)
+	ax.scatter(text_size, time_parsey)
+	plt.savefig('plot_percent_data/runtime_parsey_data.png')
+
+	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
+	plt.title("Runtime: Manual Tagging")
+	plt.ylabel("Time (Seconds)")
+	plt.xlabel("Text Size (Words)")
+	ax.set_xlim(left = 0)
+	ax.scatter(text_size, time_manualTag)
+	plt.savefig('plot_percent_data/runtime_manualTag_data.png')
+
+	print("RUNTIME PLOTS UPDATED")
 ########################################################################
 ## Output pos into csv
 def outputCSVconll(filename, dict_parts_speech, filednames):
@@ -1948,12 +2082,18 @@ if __name__ == '__main__':
 	# print/display graphs with pos data
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
-	'''
+	time_data_csv = "plot_percent_data/timedTagging.csv"
+	time_plot_data = "plot_percent_data/runtime_parsey_data.png"
+	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
+		# checks if csv has been updated more recently than the plot data
+		plotTagData()
+
 	# gne hierarchy of names
-	gne_tree = gneHierarchy(character_entities_group[0])
+	over_correct_for_multiple_title = False # a potential option if the text includes lots of titles
+	gne_tree = gneHierarchy(character_entities_group[0], over_correct_for_multiple_title)
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
-	
+
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
@@ -1966,6 +2106,7 @@ if __name__ == '__main__':
 	# TODO: visual gender name database classifier
 	# TODO: move all imports to top
 	# TODO: fix pos data for gnes to run for each row rather than the last text
+	# TODO: set up a network with relationships with polarity over time
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
@@ -1974,7 +2115,7 @@ if __name__ == '__main__':
 	graphPOSdata(updated_csv_data) # graph data
 
 	# identify the characters of interest and condense the trees
-	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=False)
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=True)
 
 	# find and graph all interactions
 	# (group_id) : polarity
