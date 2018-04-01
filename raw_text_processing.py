@@ -805,73 +805,77 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 	male_prob = 0.0
 
 	for full_name in list_of_names:
-		found_with_title = False
-		#print(full_name)
-
-		full_name_in_parts = full_name.split(" ")
-		#print(full_name_in_parts)
-		if bool(set(full_name_in_parts) & set(connecting_words)): #if connecting words in name
-			found_connecting_ignore_following = False
-			for part in full_name_in_parts:
-				if part in connecting_words:
-					found_connecting_ignore_following = True
-					determine_words_to_weight_less.append(part)
-				if found_connecting_ignore_following and part not in connecting_words: # if word that following connecting word
-					determine_words_to_weight_less.append(part)
-				# weight of and the less, but also 'Queen Elizabeth of England', weigh 'of England' less
-					
-		#print("words to weigh less = {0}".format(determine_words_to_weight_less))
-		# if name is part of a gendered honorific, return: Mr Anything is a male
-		if full_name_in_parts[0].title() in male_honorific_titles:
-			#print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
+		if bool(re.search(r'\d', full_name)): # if incorrectly labeled a number
+			# number, give a default tag Male since numbres can't be checked for value
 			gender_is = 'Male'
-			male_prob += 1.0
-			found_with_title = True
-		if full_name_in_parts[0].title() in female_honorific_titles:
-			#print("'{0}' contains '{1}' found: Female".format(full_name, full_name_in_parts[0]))
-			gender_is = 'Female'
-			female_prob += 1.0
-			found_with_title = True
-		
-		# find the name for each part of the name, choose highest
-		#print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
-		# run test on each part of the name, return the largest so that last names don't overly effect
-		dt = np.vectorize(DT_features) #vectorize dt_features function
+		else:
+			found_with_title = False
+			#print(full_name)
 
-		weight_last_name_less = 0.3
-		weight_connecting_words_less = 0.2 # weight words that follow 'of' less
-		
-		if not found_with_title:
-			for sub_name in full_name_in_parts:
-				# determine if the name is likely to be the last name, if so, weight less than other parts of the name
-				if sub_name in connecting_words:
-					# do not calculate for titles "Queen of England" shouldn't find for England
-					break
-				else:
-					if sub_name not in ignore_neutral_titles:
-						# female [0], male [1]
-						load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
-						if sub_name in determine_words_to_weight_less:
-							#print("this should be weighted less = '{0}'".format(sub_name))
-							load_prob = load_prob*weight_connecting_words_less
-						else: # if not in connecting words, check if last name
-							is_a_last_name = isLastName(gne_tree, sub_name)
-							#print("\tprobability: {0}\n".format(load_prob))
-							if is_a_last_name: # if last name, weigh less than other names
-								#print("'{0}' is a last name, will weight less".format(sub_name))
-								load_prob = load_prob*weight_last_name_less
-						female_prob += load_prob[0]
-						male_prob += load_prob[1]
+			full_name_in_parts = full_name.split(" ")
+			#print(full_name_in_parts)
+			if bool(set(full_name_in_parts) & set(connecting_words)): #if connecting words in name
+				found_connecting_ignore_following = False
+				for part in full_name_in_parts:
+					if part in connecting_words:
+						found_connecting_ignore_following = True
+						determine_words_to_weight_less.append(part)
+					if found_connecting_ignore_following and part not in connecting_words: # if word that following connecting word
+						determine_words_to_weight_less.append(part)
+					# weight of and the less, but also 'Queen Elizabeth of England', weigh 'of England' less
+						
+			#print("words to weigh less = {0}".format(determine_words_to_weight_less))
+			# if name is part of a gendered honorific, return: Mr Anything is a male
+			if full_name_in_parts[0].title() in male_honorific_titles:
+				#print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
+				gender_is = 'Male'
+				male_prob += 1.0
+				found_with_title = True
+			if full_name_in_parts[0].title() in female_honorific_titles:
+				#print("'{0}' contains '{1}' found: Female".format(full_name, full_name_in_parts[0]))
+				gender_is = 'Female'
+				female_prob += 1.0
+				found_with_title = True
+			
+			# find the name for each part of the name, choose highest
+			#print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
+			# run test on each part of the name, return the largest so that last names don't overly effect
+			dt = np.vectorize(DT_features) #vectorize dt_features function
 
-				#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
+			weight_last_name_less = 0.3
+			weight_connecting_words_less = 0.2 # weight words that follow 'of' less
+			
+			if not found_with_title:
+				for sub_name in full_name_in_parts:
+					# determine if the name is likely to be the last name, if so, weight less than other parts of the name
+					if sub_name in connecting_words:
+						# do not calculate for titles "Queen of England" shouldn't find for England
+						break
+					else:
+						if sub_name not in ignore_neutral_titles:
+							# female [0], male [1]
+							load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
+							if sub_name in determine_words_to_weight_less:
+								#print("this should be weighted less = '{0}'".format(sub_name))
+								load_prob = load_prob*weight_connecting_words_less
+							else: # if not in connecting words, check if last name
+								is_a_last_name = isLastName(gne_tree, sub_name)
+								#print("\tprobability: {0}\n".format(load_prob))
+								if is_a_last_name: # if last name, weigh less than other names
+									#print("'{0}' is a last name, will weight less".format(sub_name))
+									load_prob = load_prob*weight_last_name_less
+							female_prob += load_prob[0]
+							male_prob += load_prob[1]
 
-			#if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
-			#	gender_is = "UNDETERMINED"
-			#else:
-			gender_is = 'Male' if male_prob > female_prob else 'Female'
+					#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
-		#print("The subname '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}".format(full_name, gender_is, female_prob, male_prob))
-	#print("\tFINAL: The list '{0}' is most likely {1}\n\tFemale: {2:.5f}, Male: {3:.5f}\n".format(list_of_names, gender_is, female_prob, male_prob))
+				#if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
+				#	gender_is = "UNDETERMINED"
+				#else:
+				gender_is = 'Male' if male_prob > female_prob else 'Female'
+
+			#print("The subname '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}".format(full_name, gender_is, female_prob, male_prob))
+		#print("\tFINAL: The list '{0}' is most likely {1}\n\tFemale: {2:.5f}, Male: {3:.5f}\n".format(list_of_names, gender_is, female_prob, male_prob))
 	return gender_is
 
 def determineGenderNameDict(loaded_gender_model, gne_tree):
@@ -1615,34 +1619,71 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 
 def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_interaction_dict, loaded_gender_model):
 	# use gender model to see how different genders feel over time
-
-	male_female_character_dict = {'Female': [], 'Male': []}
-	male_female_polarity_dict = {'Female': [], 'Male': []}
 	overall_polarity = [0.0]*len(each_interaction_dict.values()[0]) # create a list to add that equals the polairty size
-	print(overall_polarity)
+	male_female_polarity_dict = {'Female': overall_polarity, 'Male': overall_polarity}
 	for interaction, polarity_list in each_interaction_dict.iteritems():
-		print("Character interacting = {0}".format(interaction))
+		#print("Character interacting = {0}".format(interaction))
+		gender_to_add = []
+		#print(interaction)
 		for individual in interaction:
-			most_likely_gender = determineGenderOfListOfNames(loaded_gender_model, long_name_with_sub_name[individual])
+			if interaction in long_name_with_sub_name.keys():
+				#print(long_name_with_sub_name[individual])
+				most_likely_gender = determineGenderOfListOfNames(loaded_gender_model, long_name_with_sub_name[individual])
+			else:
+				most_likely_gender = determineGenderOfListOfNames(loaded_gender_model, [individual])
+			gender_to_add.append(most_likely_gender)
 			#print("{0} is most likely '{1}'".format(individual, most_likely_gender))
-			if individual not in [item for sublist in male_female_character_dict.values() for item in sublist]:
-				# if the name isn't already included in the dictionary
-				male_female_character_dict[most_likely_gender].append(individual)
-			print(polarity_list) # index of polarity = group_id
-			#overall_polarity = [x + y for x, y in zip(overall_polarity, polarity_list)] # add two lists together [1,2]+[3,4] =[4,6]
-			male_female_polarity_dict[most_likely_gender] = overall_polarity
+		if gender_to_add[0] == gender_to_add[1]: # add to one gender (once)
+			#print("Add {0} once to {1}".format(polarity_list, gender_to_add[0]))
+			updated_polarity = [x + y for x, y in zip(male_female_polarity_dict[gender_to_add[0]], polarity_list)] # add two lists together [1,2]+[3,4] =[4,6]
+			male_female_polarity_dict[most_likely_gender] = updated_polarity
+		else:
+			# it is different genders, add to both
+			#print("Add {0} to both genders list".format(polarity_list))
+			updated_polarity = [x + y for x, y in zip(male_female_polarity_dict['Male'], polarity_list)] # add two lists together [1,2]+[3,4] =[4,6]
+			male_female_polarity_dict['Male'] = updated_polarity
+			updated_polarity = [x + y for x, y in zip(male_female_polarity_dict['Female'], polarity_list)] # add two lists together [1,2]+[3,4] =[4,6]
+			male_female_polarity_dict['Female'] = updated_polarity
+		#print("current: {0}".format(male_female_polarity_dict))
+		#print("\n")
+		#print(polarity_list) # index of polarity = group_id
 		#print("\n")
 
-	male_pol = []
-	female_pol = []
-	print(male_female_character_dict)
-	print(male_female_polarity_dict)
+	y_max = max([item for sublist in male_female_polarity_dict.values() for item in sublist])
+	y_min = min([item for sublist in male_female_polarity_dict.values() for item in sublist])
+	for gender, polarity_lst in male_female_polarity_dict.iteritems():
+		x_axis_groups = list(range(len(polarity_lst))) # create x axis
+		#print(x_axis_groups)
+		img_title = file_name.upper() + '_' + gender.lower() + '.png'
+		#print(img_title)
+		#print(polarity_lst)
+	
+		(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
+		neg_pol =[]
+		pos_pol = []
+		for pol in polarity_lst:
+			if pol <= 0.0:
+				neg_pol.append(pol)
+				pos_pol.append(np.nan)
+			if pol > 0.0:
+				neg_pol.append(np.nan)
+				pos_pol.append(pol)
+		
+		avg_line = [(float(a)+float(b))/2 for a, b in zip(polarity_lst[:], polarity_lst[1:])]
+		avg_line.append((float(polarity_lst[-2])+float(polarity_lst[-1]))/2)
 
-	'''
-	# create a sub_directory for the file with all its characters within
-	if not os.path.isdir('sentiment_csv/{0}'.format(file_name.upper())):
-		os.makedirs('sentiment_csv/{0}'.format(file_name.upper()))
-	'''
+		ax.scatter(x_axis_groups, pos_pol, color='red')
+		ax.scatter(x_axis_groups, neg_pol, color='blue')
+		ax.plot(x_axis_groups, avg_line, '--', color='black')
+		plt.title("Polarity {0}: {1}".format(given_file.upper(), gender))
+		plt.ylabel("Polarity")
+		plt.xlabel("Group ID (Sentences)")
+		ax.set_xlim(0, len(x_axis_groups))
+		ax.set_ylim(y_min, y_max) # give both gender graphs the same scale
+		output_file = "{0}.png".format(given_file.upper())
+		plt.savefig('sentiment_csv/{0}'.format(img_title))
+	
+	print("GENDER PLOTS FOR {0} SAVED TO SENTIMENT_CSV".format(file_name.upper()))
 	
 
 ########################################################################
@@ -2289,7 +2330,7 @@ if __name__ == '__main__':
 	graphPOSdata(updated_csv_data) # graph data
 
 	# identify the characters of interest and condense the trees
-	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=False)
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=True)
 
 	# find and graph all interactions
 	# (group_id) : polarity
