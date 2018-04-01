@@ -59,12 +59,17 @@ ASCII tree
 
 Will only run the parser once, if the parser has been run already, the output will be stored in the csv file for future use
 
+Runtime for Parsey
+![runtime_parsey](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/runtime_parsey_data.png)
+
 ## Part of Speech Data
 
 ![all_nouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/all_nouns_in_all_words.png)
 ![pronouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/pronouns_in_all_words.png)
 ![proper_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
 ![regular_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
+![gne_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_words.png)
+![gne_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_nouns.png)
 
 ## Tagging text for Pronouns and Proper nouns
 
@@ -97,6 +102,8 @@ A Princess of Mars (Burroughs)
 Tarzan of the Apes (Burroughs)
 
 Alice’s Adventures in Wonderland (Carroll)
+
+Jabberwocky (Carroll)
 
 The Mysterious Affair at Styles (Christie)
 
@@ -234,6 +241,11 @@ Sydney Cecil Vivian Montmorency (Little Princess)
 
 Lilian Evangeline Maud Marion (Little Princess)
 
+Sir Richard of the Lea Paid
+
+Gilbert of the White Hand
+
+Sheriff of Nottinghamshire
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
@@ -262,9 +274,9 @@ __Emma (Austen)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: [('Emma Woodhouse', 963)]
+CHARACTER OF INTEREST: [('Emma Woodhouse', 821)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr John Knightley', 663), ('Miss Harriet Smith', 568), ('Miss Jane Fairfax', 453), ('Mr Perry', 351), ('Mr Robert Martin', 327)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Miss Harriet Smith', 437), ('Mr John Knightley', 355), ('Miss Jane Fairfax', 313), ('Weston Churchill', 251), ('Miss Woodhouse of Hartfield', 129)]
 
 __Pride and Prejudice (Austen)__
 
@@ -299,11 +311,11 @@ __A Little Princess (Burnett)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female' [('she', 1685)]: False
+Predicted gender of main character is 'Female' [('she', 1685)]: True
 
-CHARACTER OF INTEREST: [('Ermengarde St John', 149)]
+CHARACTER OF INTEREST: [('Miss Amelia Minchin', 249)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Becky', 144), ('Lottie Legh', 60), ('Miss Amelia Minchin', 58), ('Emily', 56), ('Lavinia Herbert', 54)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Ermengarde St John', 149), ('Becky', 145), ('Lottie Legh', 61), ('Emily', 56), ('Lavinia Herbert', 54)]
 
 __Secret Garden (Burnett)__
 
@@ -311,15 +323,15 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 1365)]: False
 
-CHARACTER OF INTEREST: [('Martha Phoebe Sowerby', 357)]
+CHARACTER OF INTEREST: [('Mistress Mary Quite Contrary', 669)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mistress Mary Quite Contrary', 221), ('Master Colin', 109), ('Dickon', 84), ('Mrs Medlock', 44), ('Magic', 21)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Martha Phoebe Sowerby', 481), ('Dickon', 221), ('Mrs Medlock', 130), ('Ben Weatherstaff', 112), ('Master Colin', 111)]
 
 __Princess of Mars (Burroughs)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: [('Princess Dejah Thoris', 172)]
+CHARACTER OF INTEREST: [('Princess Dejah Thoris', 171)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Tars Tarkas the Thark', 132), ('Sola', 118), ('Tharks of Barsoom', 113), ('throng of Martians', 107), ('Mors Kajak of Helium', 104)]
 
@@ -331,7 +343,7 @@ Predicted gender of main character is 'Male' [('he', 1493)]: True
 
 CHARACTER OF INTEREST: [('Tarzan of the Dum-Dum', 604)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 293), ('Lieutenant Charpentier', 195), ('Jane Porter', 168), ('Mr Philander', 100), ('Professor Porter', 95)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 286), ('Lieutenant Charpentier', 195), ('Jane Porter', 168), ('Mr Philander', 100), ('Professor Porter', 95)]
 
 __Alices Adventures in Wonderland (Carroll)__
 
@@ -339,9 +351,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Female' [('she', 492)]: True
 
-CHARACTER OF INTEREST: [('Miss Alice', 370)]
+CHARACTER OF INTEREST: [('Miss Alice', 369)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Queen of Hearts', 73), ('Mock Turtle Soup', 62), ('Hatter', 55), ('Gryphon', 53), ('Rabbit Sends', 41)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mock Turtle Soup', 62), ('Hatter', 55), ('Gryphon', 53), ('White Rabbit', 41), ('Dormouse', 40)]
 
 __Jaberwocky (Carroll)__
 
@@ -351,7 +363,7 @@ Predicted gender of main character is 'Male' [('He', 4)]: True
 
 CHARACTER OF INTEREST: [('Jabberwock', 4)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Came', 1), ('Callooh', 1), ('Jubjub', 1), ('Tumtum', 1), ('Callay', 1)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Callooh', 1), ('Jubjub', 1), ('Tumtum', 1), ('Bandersnatch', 1), ('Callay', 1)]
 
 __The Mysterious Affair at Styles (Christie)__
 
@@ -359,15 +371,15 @@ IS FIRST PERSON TEXT: True
 
 CHARACTER OF INTEREST: [('Monsieur Poirot', 374)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Monsieur John Cavendish', 200), ('Murder of Emily Agnes Inglethorp', 162), ('Mr Hastings Miss Murdoch', 116), ('Mademoiselle Cynthia', 104), ('Mr Lawrence Cavendish', 74)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Murder of Emily Agnes Inglethorp', 289), ('Monsieur John Cavendish', 201), ('Mr Hastings Miss Murdoch', 116), ('Mademoiselle Cynthia', 93), ('Mr Lawrence Cavendish', 76)]
 
 __Heart of Darkness (Conrad)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: [('Mistah Kurtz', 65)]
+CHARACTER OF INTEREST: [('Mistah Kurtz', 116)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Kurtz', 51), ('Company', 13), ('Charlie Marlow', 11), ('English', 10), ('Europe', 8)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Company', 13), ('Charlie Marlow', 11), ('English', 10), ('Europe', 8), ('Russian', 7)]
 
 __A Christmas Carol (Dickens)__
 
@@ -375,7 +387,7 @@ IS FIRST PERSON TEXT: False
 
 CHARACTER OF INTEREST: [('Scrooge the Baleful', 329)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 174), ('Evil Spirit', 76), ('Bob Cratchit', 51), ('Tiny Tim', 22), ('Mrs Cratchit', 19)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Ghost of Christmas Present', 175), ('Evil Spirit', 79), ('Bob Cratchit', 51), ('Tiny Tim', 22), ('Master Peter Cratchit', 19)]
 
 __A Tale of Two Cities (Dickens)__
 
@@ -385,31 +397,39 @@ Predicted gender of main character is 'Male' [('his', 1940)]: True
 
 CHARACTER OF INTEREST: [('Mr Jeremiah Cruncher', 180)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Charles Darnay', 168), ('Citizeness Defarge', 148), ('Madame Defarge', 125), ('Miss Pross', 109), ('Monsieur the Marquis', 109)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Citizeness Defarge', 149), ('Madame Defarge', 120), ('Miss Pross', 110), ('Monsieur the Marquis', 102), ('Mr Carton', 96)]
 
 __Great Expectations (Dickens)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Mrs Joe Gargery', 612)
+CHARACTER OF INTEREST: [('Mrs Joe Gargery', 562)]
 
-TOP CHARACTERS OF INTEREST: [('Estella Miss Havisham', 536), ('Identity of Mr Pip', 255), ('Memorandum of Herbert', 240), ('Dear Biddy', 230)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Memorandum of Herbert', 450), ('Miss Havisham', 309), ('Mr Pip', 268), ('Biddy', 230), ('Miss Estella', 228)]
 
 __Sherlock Holmes (Doyle)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Mister Sherlock Holmes', 342)
+CHARACTER OF INTEREST: [('Mister Sherlock Holmes', 453)]
 
-TOP CHARACTERS OF INTEREST: [('Dr Watson', 75), ('Mr Holmes', 67), ('Mr Lestrade of Scotland Yard', 42), ('City of London', 41)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Dr Watson', 80), ('City of London', 51), ('Mr Lestrade of Scotland Yard', 48), ('Mr John Turner', 40), ('Mr James Windibank', 38)]
 
 __The Hound of the Baskervillies (Doyle)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Baskerville Hall Sir Henry Baskerville', 233)
+CHARACTER OF INTEREST: [('Sir William Baskerville', 299)]
 
-TOP CHARACTERS OF INTEREST: [('Mr Sherlock Holmes Mr Sherlock Holmes', 161), ('Second Report of Dr Watson', 110), ('Sir Charles Baskerville', 93), ('Dr Mortimer', 68)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Sherlock Holmes', 192), ('Second Report of Dr Watson', 112), ('Dr James Mortimer', 93), ('Stapletons of Merripit House', 68), ('Mrs Barrymore', 66)]
+
+__The Sign of Four (Doyle)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: [('Mr Sherlock Holmes', 118)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Bartholomew Sholto', 72), ('Miss Mary Morstan', 37), ('Mr Athelney Jones', 33), ('Strange Story of Jonathan Small', 33), ('Toby', 26)]
 
 __The Scarlet Letter (Hawthorne)__
 
@@ -427,9 +447,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('his', 524)]: True
 
-CHARACTER OF INTEREST: ('Gregor Samsa', 292)
+CHARACTER OF INTEREST: [('Gregor Samsa', 296)]
 
-TOP CHARACTERS OF INTEREST: [('Grete', 25), ('Mr Samsa', 21), ('Mrs Samsa', 10), ('Mother', 4)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Grete', 25), ('Mr Samsa', 21), ('Mrs Samsa', 10), ('Christmas', 3), ('Charlottenstrasse', 3)]
 
 __The Trial (Kafka)__
 
@@ -437,9 +457,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 1699)]: False
 
-CHARACTER OF INTEREST: ('Leni', 93)
+CHARACTER OF INTEREST: [('Miss Montag', 101)]
 
-TOP CHARACTERS OF INTEREST: [('Then Miss B rstner', 73), ('No', 59), ('Alright Block', 57), ('Mrs Grubach', 52)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Leni', 94), ('Mrs Grubach', 77), ('Fetch Block', 55), ('Mr Block', 54), ('Italian', 34)]
 
 __The Jungle Book (Kipling)__
 
@@ -447,9 +467,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 865)]: True
 
-CHARACTER OF INTEREST: ('Song of Mowgli', 206)
+CHARACTER OF INTEREST: [('Song of Mowgli', 170)]
 
-TOP CHARACTERS OF INTEREST: [('Bagheera of the Council Rock', 151), ('Tell Baloo of the Seeonee Pack', 132), ('O Kala Nag', 98), ('Valiant Rikki-tikki', 95)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Bagheera of the Council Rock', 161), ('Baloo of the Seeonee Wolf Pack', 124), ('Kala Nag', 98), ('Valiant Rikki-tikki', 95), ('Little Nightingale Island', 91)]
 
 __The Call of the Wild (London)__
 
@@ -457,9 +477,9 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 616)]: True
 
-CHARACTER OF INTEREST: ('Fang Buck', 351)
+CHARACTER OF INTEREST: [('Buck', 358)]
 
-TOP CHARACTERS OF INTEREST: [('John Thornton', 102), ('Spitzbergen', 60), ('Francois', 60), ('Perrault', 39)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('John Thornton', 102), ('Spitz', 60), ('Francois', 60), ('Perrault', 39), ('Hal', 37)]
 
 __White Fang (London)__
 
@@ -467,35 +487,35 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('he', 1531)]: True
 
-CHARACTER OF INTEREST: ('SOUTHLAND White Fang', 598)
+CHARACTER OF INTEREST: [('White Fang', 569)]
 
-TOP CHARACTERS OF INTEREST: [('Grey Beaver', 119), ('Henry', 95), ('DEATH Beauty Smith', 84), ('Matt', 82)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Grey Beaver', 119), ('Henry', 95), ('Beauty Smith', 84), ('Matt', 82), ('Bill', 81)]
 
 __Love in the Time of Cholera (Marquez)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Male' [('he', 2921)]: False
+Predicted gender of main character is 'Male' [('he', 2921)]: True
 
-CHARACTER OF INTEREST: ('Doha Fermina Daza', 409)
+CHARACTER OF INTEREST: [('Dr Marco Aurelio Urbino Daza', 820)]
 
-TOP CHARACTERS OF INTEREST: [('Dr Marco Aurelio Urbino Daza', 174), ('Dr Juvenal Urbino', 92), ('Captain Diego Samaritano', 60), ('Doctor of Theology', 46)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Pentecost Communion', 47), ('Cousin Hildebranda Sanchez', 33), ('Jeremiah de Saint-Amour', 32), ('Plaza of the Customhouse', 28), ('secret', 22)]
 
 __1984 (Orwell)__
 
 IS FIRST PERSON TEXT: False
 
-CHARACTER OF INTEREST: ('Emmanuel Goldstein Winston', 493)
+CHARACTER OF INTEREST: [('Opposite Winston', 487)]
 
-TOP CHARACTERS OF INTEREST: [('Labour Party', 213), ("O'Brien Julia", 188), ('Eleventh Edition of the Newspeak Dictionary', 71), ('Government of Oceania', 59)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Labour Party', 231), ("O'Brien", 190), ("'the Party", 121), ('Eleventh Edition of the Newspeak Dictionary', 104), ('Big Brother', 63)]
  
 __Raven (Poe)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Quoth the Raven', 10)
+CHARACTER OF INTEREST: [('Quoth the Raven', 10)]
 
-TOP CHARACTERS OF INTEREST: [('Lenore', 8), ('Nevermore', 8), ('Perched', 2), ('December', 2)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Lenore', 8), ('Nevermore', 8), ('Nightly', 3), ('Perched', 2), ('December', 2)]
 
 __The Merry Adventures of Robin Hood (Pyle)__
 
@@ -511,9 +531,12 @@ __Frankenstein (Shelley)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Elizabeth Lavenza', 89)
+CHARACTER OF INTEREST: [('Elizabeth Lavenza', 80)]
 
-TOP CHARACTERS OF INTEREST: [('Justine Moritz', 54), ('Dearest Clerval', 49), ('Felix', 48), ('Geneva', 36)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Henry Clerval', 72), ('Justine Moritz', 52), ('Felix', 49), ('Genevan', 35), ('Victor', 23)]
+
+__The Jungle (Sinclair)__
+
 
 __The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
 
