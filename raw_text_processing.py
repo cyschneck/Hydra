@@ -95,7 +95,7 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought",
 				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh", "Whither", "Ah", "Sends",
 				   "Silly", "Methought", "Come", "Dost", "Wilt", "Wherefore", "Doth", "Betwixt",
 				   "Dat", "Midsummer", "Withal", "Thyself", "Shoots", "Came", "Sayeth",
-				   "Aids", "Wilt", "Thou", "Whereupon", "Spake"] # ignores noun instances of these word by themselves
+				   "Aids", "Wilt", "Thou", "Whereupon", "Spake", "Poor", "Describe"] # ignores noun instances of these word by themselves
 
 #words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 #words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -715,7 +715,7 @@ def saveTagforManualAccuracy(sentences_in_order):
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
-def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
+def breakTextPandN(manual_tag_dir, loaded_gender_model):
 	# resolve gender and pronoun noun interactions (resolution)
 	pronoun_noun_dict = {}
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
@@ -794,24 +794,33 @@ def breakTextPandN(manual_tag_dir, gender_gne_tree, loaded_gender_model):
 			pronoun_noun_dict[key] = [''.join(pronoun_noun_dict[key])] # join the sentences into a single sentence
 	return pronoun_noun_dict, line_by_line_dict
 
-def determineGenderName(loaded_gender_model, gne_tree):
-	# use trained model to determine the likely gender of a name
-	gender_gne = {}
+def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
+	# use trained model to determine liekly gender of a name and the sub-names to find max likelyhood
+	#print("DETERMINE GENDER OF: {0}".format(list_of_names))
+	most_likely_gender_label = [] # label and prob: ['Male', (Female: 0.28571, Male: 0.71429)]
+
 	
-	all_gne_values =  gne_tree.keys()
-	for key, values in gne_tree.iteritems():
-		for k, v in values.iteritems():
-			# add all sub_trees to list
-			all_gne_values += [k]
-			all_gne_values += v
+	determine_words_to_weight_less = []
+	female_prob = 0.0
+	male_prob = 0.0
 
-	for full_name in all_gne_values:
+	for full_name in list_of_names:
 		found_with_title = False
-		female_prob = 0.0
-		male_prob = 0.0
+		#print(full_name)
 
-		full_name_in_parts = full_name.split()
-		
+		full_name_in_parts = full_name.split(" ")
+		#print(full_name_in_parts)
+		if bool(set(full_name_in_parts) & set(connecting_words)): #if connecting words in name
+			found_connecting_ignore_following = False
+			for part in full_name_in_parts:
+				if part in connecting_words:
+					found_connecting_ignore_following = True
+					determine_words_to_weight_less.append(part)
+				if found_connecting_ignore_following and part not in connecting_words: # if word that following connecting word
+					determine_words_to_weight_less.append(part)
+				# weight of and the less, but also 'Queen Elizabeth of England', weigh 'of England' less
+					
+		#print("words to weigh less = {0}".format(determine_words_to_weight_less))
 		# if name is part of a gendered honorific, return: Mr Anything is a male
 		if full_name_in_parts[0].title() in male_honorific_titles:
 			#print("'{0}' contains '{1}' found: Male".format(full_name, full_name_in_parts[0]))
@@ -830,6 +839,7 @@ def determineGenderName(loaded_gender_model, gne_tree):
 		dt = np.vectorize(DT_features) #vectorize dt_features function
 
 		weight_last_name_less = 0.3
+		weight_connecting_words_less = 0.2 # weight words that follow 'of' less
 		
 		if not found_with_title:
 			for sub_name in full_name_in_parts:
@@ -840,14 +850,19 @@ def determineGenderName(loaded_gender_model, gne_tree):
 				else:
 					if sub_name not in ignore_neutral_titles:
 						# female [0], male [1]
-						is_a_last_name = isLastName(gne_tree, sub_name)
 						load_prob = loaded_gender_model.predict_proba(dt([sub_name.title()]))[0]
-						#print("\tprobability: {0}\n".format(load_prob))
-						if is_a_last_name: # if last name, weigh less than other names
-							#print("'{0}' is a last name, will weight less".format(sub_name))
-							load_prob = load_prob*weight_last_name_less
+						if sub_name in determine_words_to_weight_less:
+							#print("this should be weighted less = '{0}'".format(sub_name))
+							load_prob = load_prob*weight_connecting_words_less
+						else: # if not in connecting words, check if last name
+							is_a_last_name = isLastName(gne_tree, sub_name)
+							#print("\tprobability: {0}\n".format(load_prob))
+							if is_a_last_name: # if last name, weigh less than other names
+								#print("'{0}' is a last name, will weight less".format(sub_name))
+								load_prob = load_prob*weight_last_name_less
 						female_prob += load_prob[0]
 						male_prob += load_prob[1]
+
 				#print("\t  updated: f={0}, m={1}".format(female_prob, male_prob))
 
 			#if (abs(male_prob - female_prob) < 0.02): #within 2 percent, undeterminex
@@ -855,8 +870,25 @@ def determineGenderName(loaded_gender_model, gne_tree):
 			#else:
 			gender_is = 'Male' if male_prob > female_prob else 'Female'
 
-		#print("The name '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}\n".format(full_name, gender_is, female_prob, male_prob))
-		gender_gne[full_name] = gender_is
+		#print("The subname '{0}' is most likely {1}\nFemale: {2:.5f}, Male: {3:.5f}".format(full_name, gender_is, female_prob, male_prob))
+	#print("\tFINAL: The list '{0}' is most likely {1}\n\tFemale: {2:.5f}, Male: {3:.5f}\n".format(list_of_names, gender_is, female_prob, male_prob))
+	return gender_is
+
+def determineGenderNameDict(loaded_gender_model, gne_tree):
+	# use trained model to determine the likely gender of a name
+	gender_gne = {}
+	
+	all_gne_values =  gne_tree.keys()
+	for key, values in gne_tree.iteritems():
+		for k, v in values.iteritems():
+			# add all sub_trees to list
+			all_gne_values += [k]
+			all_gne_values += v
+
+	all_gne_values = [[x] for x in all_gne_values] # covert each element to a list to use generic gender determine function
+	for full_name in all_gne_values:
+		gender_is = determineGenderOfListOfNames(loaded_gender_model, full_name)
+		gender_gne[full_name[0]] = gender_is
 	return gender_gne
 
 def isLastName(gne_tree, sub_name):
@@ -1486,12 +1518,132 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 	#sorted_groups = sorted(character_interactions_polarity.items(), key=lambda x:x[0])
 	#for i in sorted_groups:
 	#	print(i)
-	return character_interactions_polarity
+	return character_interactions_polarity, grouping_of_characters
 
-def characterInteractionsNetwork(characters_with_sub_names, group_polarity):
+def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_with_polarity, group_id_with_characters):
 	# find each character interaction and polarity over time
-	print("TODO: GRAPH CHARACTER INTERACTIONS IN A NETWORK")
+	print("\nGRAPH CHARACTER INTERACTIONS IN A NETWORK")
 
+	all_characters = long_name_with_sub_name.keys()
+	print("Total character = {0}\n{1}\n".format(len(all_characters), all_characters))
+	
+	# {group id: [(Holmes, Holmes), (Watson, Watson), (Holmes, Watson)]}
+	# include a one to one interaction between a character and themselves
+	group_into_one_to_one_interactions = {}
+	for group_id, character_cluster in group_id_with_characters.iteritems():
+		#print("group id = {0}".format(group_id))
+		interactions_doubles = list(itertools.combinations(character_cluster, 2))
+		for single_character in character_cluster:
+			#print("\t{0}".format(single_character))
+			interactions_doubles.append((single_character, single_character))
+		interactions_doubles = sorted(interactions_doubles) # alphaebatical order for reading
+		#for doubles in interactions_doubles:
+		#	print("\t{0}".format(doubles))
+		group_into_one_to_one_interactions[group_id] = interactions_doubles
+
+	#print(group_id_with_characters)
+	#print("\n")
+	#print(group_into_one_to_one_interactions)
+	all_interactions = group_into_one_to_one_interactions.values()
+	all_interactions = [item for sublist in all_interactions for item in sublist] # flat
+	#print("Total interactions = {0}\n{1}\n".format(len(all_interactions), all_interactions))
+
+	#print("\n")
+	character_interactions_over_time = {two_c: [] for two_c in all_interactions}
+	for group_id, interactions_characters in group_into_one_to_one_interactions.iteritems():
+		#print("group id = {0}".format(group_id))
+		for characters, polarity_list_to_update in character_interactions_over_time.iteritems():
+			if characters in interactions_characters:
+				#print("Found: {0}".format(characters))
+				character_interactions_over_time[characters].append(group_id_with_polarity[group_id])
+			else:
+				#print("Not found: {0}".format(characters))
+				character_interactions_over_time[characters].append(0.0)
+
+	#print("\n")
+	#for characters_interacting, polarity_lst in character_interactions_over_time.iteritems():
+	#	print(characters_interacting)
+	#	print(polarity_lst)
+	#	print("\n")
+	
+	'''
+	# PLOTTING NETWORKS FOR EACH CHARACTER INTERACTION
+	# create a sub_directory for the file with all its characters within
+	if not os.path.isdir('sentiment_csv/{0}'.format(file_name.upper())):
+		os.makedirs('sentiment_csv/{0}'.format(file_name.upper()))
+
+	x_text_chunk = group_id_with_polarity.keys() # set x-axis to the size of the list of chunks
+
+	import math
+	for characters_interacting, polarity_lst in character_interactions_over_time.iteritems():
+		# output title example: chap_1_doyle_dr_mortimer_dr_mortimer.png
+		img_title = file_name + "_" + "_".join(characters_interacting).replace(" ", "_").lower() + ".png"
+		(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
+		neg_pol =[]
+		pos_pol = []
+		for pol in polarity_lst:
+			if math.isnan(pol):
+				pos_pol.append(np.nan)
+				neg_pol.append(np.nan)
+			else:
+				if pol <= 0.0:
+					neg_pol.append(pol)
+					pos_pol.append(np.nan)
+				if pol > 0.0:
+					neg_pol.append(np.nan)
+					pos_pol.append(pol)
+			
+		avg_line = [(float(a)+float(b))/2 for a, b in zip(polarity_lst[:], polarity_lst[1:])]
+		avg_line.append((float(polarity_lst[-2])+float(polarity_lst[-1]))/2)
+		#print(x_text_chunk)
+		#print(pos_pol)
+		#print(neg_pol)
+		ax.scatter(x_text_chunk, pos_pol, color='red')
+		ax.scatter(x_text_chunk, neg_pol, color='blue')
+		ax.plot(x_text_chunk, avg_line, '--', color='black')
+		plt.title("Character Polarity {0}: {1}".format(given_file.upper(), ", ".join(characters_interacting)))
+		plt.ylabel("Polarity")
+		plt.xlabel("Group ID (Sentences)")
+		ax.set_xlim(0, len(x_text_chunk))
+		output_file = "{0}.png".format(given_file.upper())
+		plt.savefig('sentiment_csv/{0}/{1}'.format(file_name.upper(), img_title))
+		plt.close() # close plot to prevent runtime warnings
+	
+	print("CHARACTER PLOTS FOR {0} SAVED TO SENTIMENT_CSV".format(file_name.upper()))
+	'''
+	return character_interactions_over_time
+
+def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_interaction_dict, loaded_gender_model):
+	# use gender model to see how different genders feel over time
+
+	male_female_character_dict = {'Female': [], 'Male': []}
+	male_female_polarity_dict = {'Female': [], 'Male': []}
+	overall_polarity = [0.0]*len(each_interaction_dict.values()[0]) # create a list to add that equals the polairty size
+	print(overall_polarity)
+	for interaction, polarity_list in each_interaction_dict.iteritems():
+		print("Character interacting = {0}".format(interaction))
+		for individual in interaction:
+			most_likely_gender = determineGenderOfListOfNames(loaded_gender_model, long_name_with_sub_name[individual])
+			#print("{0} is most likely '{1}'".format(individual, most_likely_gender))
+			if individual not in [item for sublist in male_female_character_dict.values() for item in sublist]:
+				# if the name isn't already included in the dictionary
+				male_female_character_dict[most_likely_gender].append(individual)
+			print(polarity_list) # index of polarity = group_id
+			#overall_polarity = [x + y for x, y in zip(overall_polarity, polarity_list)] # add two lists together [1,2]+[3,4] =[4,6]
+			male_female_polarity_dict[most_likely_gender] = overall_polarity
+		#print("\n")
+
+	male_pol = []
+	female_pol = []
+	print(male_female_character_dict)
+	print(male_female_polarity_dict)
+
+	'''
+	# create a sub_directory for the file with all its characters within
+	if not os.path.isdir('sentiment_csv/{0}'.format(file_name.upper())):
+		os.makedirs('sentiment_csv/{0}'.format(file_name.upper()))
+	'''
+	
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -2115,12 +2267,12 @@ if __name__ == '__main__':
 	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
 		# checks if csv has been updated more recently than the plot data
 		plotTagData()
-	'''
+
 	# gne hierarchy of names
 	over_correct_for_multiple_title = False # a potential option (toggle) if the text includes lots of titles
 	gne_tree = gneHierarchy(character_entities_group[0], over_correct_for_multiple_title)
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
-	gender_gne = determineGenderName(loaded_gender_model, gne_tree)
+	gender_gne = determineGenderNameDict(loaded_gender_model, gne_tree)
 
 	# SET UP FOR MANUAL TESTING (coreference labels calls csv to be tagged by hand for accuracy)
 	manual_tag_dir = "manual_tagging/manualTagging_{0}.csv".format(os.path.basename(os.path.splitext(filename)[0]).upper())
@@ -2128,31 +2280,32 @@ if __name__ == '__main__':
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
 	#for key, value in gne_tree.iteritems():
-	#	print("\ngne base name: {0} is {1}\n{2}".format(key, gender_gne[key], value))
+	#	print("\ngne base name: {0}\n{2}".format(key,  value))
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
-	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, gender_gne, loaded_gender_model)
+	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, loaded_gender_model)
 	
 	updated_csv_data = graphGNEvText(csv_data, percent_ratio_dict, noun_pronoun_dict)
 	graphPOSdata(updated_csv_data) # graph data
 
 	# identify the characters of interest and condense the trees
-	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=True)
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=False)
 
 	# find and graph all interactions
 	# (group_id) : polarity
-	group_polarity = interactionsPolarity(characters_with_sub_names, line_by_line_dict, filename)
+	group_polarity, character_groups = interactionsPolarity(characters_with_sub_names, line_by_line_dict, filename)
 	plotPolarity(group_polarity, given_file)
 
-	# generate a network of interactions with given polarity
-	characterInteractionsNetwork(characters_with_sub_names, group_polarity)
-
+	# generate a network of interactions with given polarity and plots
+	individual_character_interactions = characterInteractionsNetwork(given_file, characters_with_sub_names, group_polarity, character_groups)
+	plotGenderInteractionsNetwork(given_file, characters_with_sub_names, individual_character_interactions, loaded_gender_model)
 	# TODO: set up gender trees
 	# TODO: visual gender name database classifier
 	# TODO: move all imports to top
 	# TODO: fix pos data for gnes to run for each row rather than the last text
 	# TODO: set up a network with relationships with polarity over time
 	# TODO: original scarlet letter includes 'Old Roger Chillingworth', new doesn't, find cause
+	# TODO: Update counter for each name
 
 
 	#'''
