@@ -109,8 +109,6 @@ The Mysterious Affair at Styles (Christie)
 
 Heart of Darkness (Conrad)
 
-The Life and Adventures of Robinson Cruseo (Defoe)
-
 A Christmas Carol in Prose (Dickens)
 
 A Tale of Two Cities (Dickens)
@@ -139,17 +137,11 @@ White Fang (London)
 
 Love in the Time of Cholera (Marquez)
 
-Moby Dick (Melville)
-
 1984 (Orwell)
 
 The Raven (Poe)
 
-The Merry Adventures of Robin Hood (Pyle)
-
 Frankenstein (Shelley)
-
-The Jungle (Sinclair)
 
 The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)
 
@@ -241,11 +233,12 @@ Sydney Cecil Vivian Montmorency (Little Princess)
 
 Lilian Evangeline Maud Marion (Little Princess)
 
-Sir Richard of the Lea Paid
+Principal of the Theological College of St George (Sherlock Holmes)
 
-Gilbert of the White Hand
+League of the Red-headed Men (Sherlock Holmes)
 
-Sheriff of Nottinghamshire
+Wilhelm Gottsreich Sigismond von Ormstein (Sherlock Holmes)
+
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
@@ -345,7 +338,7 @@ CHARACTER OF INTEREST: [('Tarzan of the Dum-Dum', 604)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr William Cecil Clayton', 286), ('Lieutenant Charpentier', 195), ('Jane Porter', 168), ('Mr Philander', 100), ('Professor Porter', 95)]
 
-__Alices Adventures in Wonderland (Carroll)__
+__Alice's Adventures in Wonderland (Carroll)__
 
 IS FIRST PERSON TEXT: False
 
@@ -435,11 +428,11 @@ __The Scarlet Letter (Hawthorne)__
 
 IS FIRST PERSON TEXT: False
 
-Predicted gender of main character is 'Female' [('her', 934)]: False
+Predicted gender of main character is 'Female' [('her', 934)]: True
 
-CHARACTER OF INTEREST: ('Interpreting Hester Prynne', 359)
+CHARACTER OF INTEREST: [('Madame Hester', 293)]
 
-TOP CHARACTERS OF INTEREST: [('Little Pearl', 194), ('Reverend Mr Dimmesdale', 94), ('Old Roger Chillingworth', 70), ('Salem Custom-House', 36)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Little Pearl', 202), ('Mr Dimmesdale', 71), ('Old Roger Chillingworth', 56), ('Reverend Master Dimmesdale', 54), ('New England Clergyman', 39)]
 
 __Metamorphosis (Kafka)__
 
@@ -449,7 +442,7 @@ Predicted gender of main character is 'Male' [('his', 524)]: True
 
 CHARACTER OF INTEREST: [('Gregor Samsa', 296)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Grete', 25), ('Mr Samsa', 21), ('Mrs Samsa', 10), ('Christmas', 3), ('Charlottenstrasse', 3)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Grete', 25), ('Mr Samsa', 21), ('Mrs Samsa', 10), ('God', 7), ('Christmas', 3)]
 
 __The Trial (Kafka)__
 
@@ -469,7 +462,7 @@ Predicted gender of main character is 'Male' [('he', 865)]: True
 
 CHARACTER OF INTEREST: [('Song of Mowgli', 170)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Bagheera of the Council Rock', 161), ('Baloo of the Seeonee Wolf Pack', 124), ('Kala Nag', 98), ('Valiant Rikki-tikki', 95), ('Little Nightingale Island', 91)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Bagheera of the Council Rock', 161), ('Baloo of the Seeonee Wolf Pack', 125), ('Kala Nag', 98), ('Valiant Rikki-tikki', 95), ('Little Nightingale Island', 91)]
 
 __The Call of the Wild (London)__
 
@@ -505,7 +498,7 @@ __1984 (Orwell)__
 
 IS FIRST PERSON TEXT: False
 
-CHARACTER OF INTEREST: [('Opposite Winston', 487)]
+CHARACTER OF INTEREST: [('Winston Smith', 486)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Labour Party', 231), ("O'Brien", 190), ("'the Party", 121), ('Eleventh Edition of the Newspeak Dictionary', 104), ('Big Brother', 63)]
  
@@ -515,17 +508,7 @@ IS FIRST PERSON TEXT: True
 
 CHARACTER OF INTEREST: [('Quoth the Raven', 10)]
 
-ADDITIONAL TOP CHARACTERS OF INTEREST: [('Lenore', 8), ('Nevermore', 8), ('Nightly', 3), ('Perched', 2), ('December', 2)]
-
-__The Merry Adventures of Robin Hood (Pyle)__
-
-IS FIRST PERSON TEXT: False
-
-Predicted gender of main character is 'Male' [('he', 1913)]: True
-
-CHARACTER OF INTEREST: ('Epilogue THUS END the Merry Adventures of Robin Hood', 691)
-
-TOP CHARACTERS OF INTEREST: [('Quoth the Sheriff of Nottingham', 351), ('quoth Robin Hood', 342), ('Little John thereupon', 335), ('stout William of the Scar', 192)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Lenore', 8), ('Nevermore', 8), ('Perched', 2), ('December', 2), ('Night', 2)]
 
 __Frankenstein (Shelley)__
 
@@ -535,32 +518,45 @@ CHARACTER OF INTEREST: [('Elizabeth Lavenza', 80)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Henry Clerval', 72), ('Justine Moritz', 52), ('Felix', 49), ('Genevan', 35), ('Victor', 23)]
 
-__The Jungle (Sinclair)__
-
-
 __The Strange Case of Dr. Jekyll and Mr. Hyde (Stevenson)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Mr Utterson of Gaunt Street', 125)
+CHARACTER OF INTEREST: [('Mr Utterson of Gaunt Street', 126)]
 
-TOP CHARACTERS OF INTEREST: [('Edward Hyde', 65), ('Poole', 58), ('Poor Harry Jekyll', 45), ('Mr Hyde', 30)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Dr Henry Jekyll', 62), ('Edward Hyde', 60), ('Poole', 58), ('Dr Lanyon', 30), ('Mr Hyde', 27)]
 
-__Tresure Island (Stevenson)__
+__Treasure Island (Stevenson)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Long John Silver', 232)
+CHARACTER OF INTEREST: [('Long John Silver', 295)]
 
-TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Captain Flint', 50), ('Dr Livesey', 47), ('John Trelawney Postscript', 47)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Jim Hawkins', 96), ('Doctor Livesey', 63), ('Admiral Benbow', 52), ('Captain Flint', 50), ('Tom Redruth', 46)]
+
+__Dracula (Stoker)__
+
+IS FIRST PERSON TEXT: True
+
+CHARACTER OF INTEREST: [('Dr Van Helsing', 306)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Professor Van Helsing', 284), ('Abraham Van Helsing', 281), ('Honourable Arthur Holmwood', 168), ('Fenchurch Street Lord Godalming', 168), ('Dr John Seward', 113)]
+
+__Adventures of Tom Sawyer (Twain)__
+
+IS FIRST PERSON TEXT: False
+
+CHARACTER OF INTEREST: [('Tom Sawyer the Pirate', 795)]
+
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Huck Finn the Red-Handed', 244), ('Joe Harper', 147), ('Mr Siddy', 66), ('Daily Muff Potter', 46), ('Aunt Polly', 45)]
 
 __20,000 Leagues Under the Sea (Verne)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('To-morrow Captain Nemo', 283)
+CHARACTER OF INTEREST: ('Captain Nemo', 283)
 
-TOP CHARACTERS OF INTEREST: [('Commander of the Nautilus', 195), ('Happily Conseil', 193), ('Canadian', 144), ('Captain Denham of the Herald', 126)]
+TOP CHARACTERS OF INTEREST: [('Commander of the Nautilus', 195), ('Conseil', 193), ('Canadian', 144), ('Captain Denham of the Herald', 126)]
 
 __Around the World in Eighty Days (Verne)__
 
@@ -568,41 +564,41 @@ IS FIRST PERSON TEXT: False
 
 Predicted gender of main character is 'Male' [('his', 807)]: True
 
-CHARACTER OF INTEREST: ('Passepartout thereupon', 357)
+CHARACTER OF INTEREST: [('Monsieur Phileas Fogg', 600)]
 
-TOP CHARACTERS OF INTEREST: [('Dear Mr Fogg', 339), ('HAPPINESS Yes Phileas Fogg', 231), ('Monsieur Fix', 227), ('abandon Aouda', 127)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Jean Passepartout', 365), ('Mr Passepartout', 363), ('Monsieur Fix', 243), ('Aouda', 128), ('Illustrated London News', 63)]
 
 __The Island of Doctor Moreau (Wells)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Montgomery', 202)
+CHARACTER OF INTEREST: [('Montgomery', 202)]
 
-TOP CHARACTERS OF INTEREST: [('Island of Doctor Moreau', 134), ('Sayer of the Law', 61), ('Beast People', 45), ("M'ling", 40)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Island of Doctor Moreau', 136), ('Beast People', 74), ('Sayer of the Law', 61), ("M'ling", 40)]
 
 __The War of the Worlds (Wells)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Repulse of the Martians', 81)
+CHARACTER OF INTEREST: [('Repulse of the Martians', 83)]
 
-TOP CHARACTERS OF INTEREST: [('Pool of London', 46), ('Old Woking', 43), ('Heat-Ray', 27), ('Mars', 24)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Pool of London', 48), ('Old Woking', 45), ('Heat-Ray', 27), ('Mars', 24), ('Ogilvy', 22)]
 
 __Time Machine (Wells)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Time Traveller', 67)
+CHARACTER OF INTEREST: [('Time Traveller', 104)]
 
-TOP CHARACTERS OF INTEREST: [("'Little Weena", 48), ('Time Machine', 33), ("Medical Man 'but", 23), ('Psychologist', 22)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [("'Little Weena", 49), ('Advancement of Mankind', 28), ('Psychologist', 22), ('moon', 19), ('Editor', 19)]
 
 __My Man Jeeves (Wodehouse)__
 
 IS FIRST PERSON TEXT: True
 
-CHARACTER OF INTEREST: ('Jeeves', 229)
+CHARACTER OF INTEREST: [('Jeeves', 233)]
 
-TOP CHARACTERS OF INTEREST: [('Mr George Lattaker', 94), ('Rocky Todd', 60), ('Old Bicky', 56), ('Bobbie Cardew', 56)]
+ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Blooming Lattaker', 101), ('Rocky Todd', 60), ('Old Bicky', 57), ('Bobbie Cardew', 56), ('Corky', 53)]
 
 ## Additional Citations
 
