@@ -43,7 +43,7 @@ male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
 						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore",
-						 "Grandfather", "Mister", "Brother-in-Law", "Mester"]
+						 "Grandfather", "Mister", "Brother-in-Law", "Mester", "Comrade"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -67,7 +67,7 @@ ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 all_honorific_titles = male_honorific_titles + female_honorific_titles + ignore_neutral_titles
 
 
-male_equ_titles = [['M', 'Mr', 'Mister', 'Mistah', 'Mester']]
+male_equ_titles = [['M', 'Mr', 'Mister', 'Mistah', 'Mester', 'Monsieur']]
 female_equ_titles = [['Ms', 'Miss', 'Missus', 'Mademoiselle', 'Mlle'],
 					['Madam', "Ma'am", "Madame", "Mme"]]
 neutral_equ_titles = [['Dr', 'Doctor'], ['Capt', 'Captain'],
@@ -86,7 +86,7 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought",
 				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T",
 				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One", "Happily",
-				   "Good-Night", "Good-Morning", 'To-Day', 'To-Mmorrow', "Compare", "Tis", "Good-Will",
+				   "Good-Night", "Good-Morning", 'To-Day', 'To-Morrow', "Compare", "Tis", "Good-Will",
 				   'To-day', 'To-morrow', 'To-Night', 'Thine', 'Or', "D'You", "O'Er", "Aye", "Men"
 				   "Ill", "Behold", "Beheld", "Nay", "Shall", "So-And-So", "Making-Up", "Ajar",
 				   "Show", "Interpreting", "Then", "No", "Alright", "Tell", "Thereupon", "Yes",
@@ -95,7 +95,8 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought",
 				   "Head", "'Poor", "Tha'", "Tha'Rt", "Eh", "Whither", "Ah", "Sends",
 				   "Silly", "Methought", "Come", "Dost", "Wilt", "Wherefore", "Doth", "Betwixt",
 				   "Dat", "Midsummer", "Withal", "Thyself", "Shoots", "Came", "Sayeth",
-				   "Aids", "Wilt", "Thou", "Whereupon", "Spake", "Poor", "Describe"] # ignores noun instances of these word by themselves
+				   "Aids", "Wilt", "Thou", "Whereupon", "Spake", "Poor", "Describe", "Opposite",
+				   "Found", "Fish", "Woke", "Dim", "Alone", "Gwine", "`The", "O'Er"] # ignores noun instances of these word by themselves
 
 #words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 #words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -1529,7 +1530,11 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 	print("\nGRAPH CHARACTER INTERACTIONS IN A NETWORK")
 
 	all_characters = long_name_with_sub_name.keys()
-	print("Total character = {0}\n{1}\n".format(len(all_characters), all_characters))
+	#print("Total character = {0}\n{1}\n".format(len(all_characters), all_characters))
+
+	check_existing_character = [item for sublist in long_name_with_sub_name.values() for item in sublist]
+	check_existing_character += long_name_with_sub_name.keys()
+	# does not include values that aren't in the characters list
 	
 	# {group id: [(Holmes, Holmes), (Watson, Watson), (Holmes, Watson)]}
 	# include a one to one interaction between a character and themselves
@@ -1538,11 +1543,16 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 		#print("group id = {0}".format(group_id))
 		interactions_doubles = list(itertools.combinations(character_cluster, 2))
 		for single_character in character_cluster:
-			#print("\t{0}".format(single_character))
+		#	print("\t{0}".format(single_character))
 			interactions_doubles.append((single_character, single_character))
 		interactions_doubles = sorted(interactions_doubles) # alphaebatical order for reading
 		#for doubles in interactions_doubles:
 		#	print("\t{0}".format(doubles))
+		check_temp = list(interactions_doubles)
+		for index, group_character in enumerate(check_temp):
+			if group_character[0] not in check_existing_character or group_character[1] not in check_existing_character:
+				#print("REMOVE: {0}".format(group_character))
+				interactions_doubles.remove(group_character)
 		group_into_one_to_one_interactions[group_id] = interactions_doubles
 
 	#print(group_id_with_characters)
@@ -1620,6 +1630,8 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_interaction_dict, loaded_gender_model):
 	# use gender model to see how different genders feel over time
 	overall_polarity = [0.0]*len(each_interaction_dict.values()[0]) # create a list to add that equals the polairty size
+
+	male_female_character_dict = {'Female': [], 'Male': []}
 	male_female_polarity_dict = {'Female': overall_polarity, 'Male': overall_polarity}
 	for interaction, polarity_list in each_interaction_dict.iteritems():
 		#print("Character interacting = {0}".format(interaction))
@@ -1632,6 +1644,8 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 			else:
 				most_likely_gender = determineGenderOfListOfNames(loaded_gender_model, [individual])
 			gender_to_add.append(most_likely_gender)
+			if individual not in male_female_character_dict[most_likely_gender]:
+				male_female_character_dict[most_likely_gender].append(individual)
 			#print("{0} is most likely '{1}'".format(individual, most_likely_gender))
 		if gender_to_add[0] == gender_to_add[1]: # add to one gender (once)
 			#print("Add {0} once to {1}".format(polarity_list, gender_to_add[0]))
@@ -1648,6 +1662,19 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 		#print("\n")
 		#print(polarity_list) # index of polarity = group_id
 		#print("\n")
+
+	#print(male_female_character_dict)
+	#BOXPLOTS
+	'''
+	plt.title("Polarity {0}: 'Female'".format(given_file.upper()))
+	plt.boxplot(male_female_polarity_dict['Female'])
+	plt.savefig('sentiment_csv/{0}_boxplot.png'.format(file_name.upper() + '_female'))
+	
+	plt.title("Polarity {0}: 'Male'".format(given_file.upper()))
+	plt.boxplot(male_female_polarity_dict['Male'])
+	plt.savefig('sentiment_csv/{0}_boxplot.png'.format(file_name.upper() + '_male'))
+	plt.close()
+	'''
 
 	y_max = max([item for sublist in male_female_polarity_dict.values() for item in sublist])
 	y_min = min([item for sublist in male_female_polarity_dict.values() for item in sublist])
@@ -1682,8 +1709,26 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 		ax.set_ylim(y_min, y_max) # give both gender graphs the same scale
 		output_file = "{0}.png".format(given_file.upper())
 		plt.savefig('sentiment_csv/{0}'.format(img_title))
+
 	
+	# Save polarity and tagged sentence to a csv for graphing
+	output_filename = "sent_gender_{0}.csv".format(file_name.upper())
+
+	fieldnames = ['FEMALE', 'MALE']
+	with open('sentiment_csv/{0}'.format(output_filename), 'w') as sent_data:
+		writer = csv.DictWriter(sent_data, fieldnames=fieldnames)
+		writer.writeheader() 
+		for male_pole, female_pole in zip(male_female_polarity_dict['Male'], male_female_polarity_dict['Female']):
+			writer.writerow({'FEMALE': female_pole, 'MALE': male_pole})
+
+	print("Average polarity {0}: Male ({1}) [{2:.5f}] vs. Female ({3}) [{4:.5f}]".format(len(male_female_polarity_dict['Male']), 
+																					len(male_female_character_dict['Male']),
+																					float(sum(male_female_polarity_dict['Male'])) / len(male_female_polarity_dict['Male']), 
+																					len(male_female_character_dict['Female']),
+																					float(sum(male_female_polarity_dict['Female'])) / len(male_female_polarity_dict['Female'])))
+
 	print("GENDER PLOTS FOR {0} SAVED TO SENTIMENT_CSV".format(file_name.upper()))
+	return male_female_character_dict
 	
 
 ########################################################################
@@ -1717,75 +1762,98 @@ def generateGNEtree(gne_tree, filename):
 		#nx.draw(G, with_labels=False, arrows=False)
 		plt.savefig("gne_trees/{0}/GNE_{1}.png".format(gne_imge_directory_name, key.replace(" ", "_")))
 
-def networkGraphs(gne_tree):
+def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict, group_characters_dict):
 	print("\ngenerating network graphs of interactions")
+	# generate text file to use: http://webgraphviz.com/
+	gender_color = {'Female': 'MediumSeaGreen', 'Male': 'MediumPurple'}
+	polarity_colors = {-0.1: 'Lightblue',
+					   -0.5: 'LightSkyBlue',
+					   -1.0: 'SkyBlue',
+					   -2.0: 'SteelBlue',
+					   0.1: 'LightSalmon',
+					   0.5: 'LightPink',
+					   1.0: 'IndianRed',
+					   2.0: 'Crimson',
+					   }
 
-	gne_labels = {} # set up same color for names in the same gne tree
+	network_filename = "network_interactions/" + "{0}_network_interactions".format(file_name).upper() + '.txt'
+	all_characters_check = [item for sublist in male_female_character_dict.values() for item in sublist]
+	print("Nodes in graph: {0}".format(len(all_characters_check)))
+	#print("\n")
+	edge_exists = {}
+	found_edge = []
+	with open(network_filename, "w") as network_file:
+		network_file.write("digraph prof {\n")
+		network_file.write('	graph[ size = "36.00, 36.00"\n')
+		network_file.write('		dpi = 300];\n')
+		node_size = 75
+		if len(all_characters_check) >= 35:
+			node_size = 700
+		if len(all_characters_check) >= 65:
+			node_size = 2000
+		network_file.write('	node [ fontsize = {0}];\n'.format(node_size))
+		network_file.write("	ratio = fill;\n")
+		network_file.write("	node [style=filled];\n")
+		for group_id, polarity in group_polarity_dict.iteritems():
+			for each_character in group_characters_dict[group_id]:
+				if each_character in all_characters_check: # do not include words to ignore (only a small sub-list of total charactesr)
+					gender_print = "Female" if each_character in male_female_character_dict['Female'] else "Male"
+					network_file.write('	"{0}" [color={1}];\n'.format(each_character, gender_color[gender_print])) # create each node
+					character_to_use = [item for item in group_characters_dict[group_id] if item in all_characters_check]
+					for interaction in character_to_use:
+						p_val = 0.0
+						if polarity <= -0.1:
+							p_val = -0.1
+							if polarity <= -0.5:
+								p_val = -0.5
+								if polarity <= -1.0:
+									p_val = -1.0
+									if polarity <= -2.0:
+										p_val = -2.0
+						else: # determine postive color
+							if polarity >= 0.1:
+								p_val = 0.1
+								if polarity >= 0.5:
+									p_val = 0.5
+									if polarity >= 1.0:
+										p_val = 1.0
+										if polarity >= 2.0:
+											p_val = 2.0
+						if p_val != 0.0: # do not inclue neutral interactions
+							if [each_character, interaction] not in found_edge or [interaction, each_character] not in found_edge:
+								# does not exists, add new edge
+								found_edge.append([each_character, interaction])
+								found_edge.append([interaction, each_character])
+								edge_exists[", ".join([each_character, interaction])] = polarity_colors[p_val]
+								edge_size = 7
+								if len(all_characters_check) > 35: # increase penwidth
+									edge_size = 15
+								network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themsleves								
+							else:
+								# does exist, either keep existing, or create a new edge (if different sentiment)
+								#print("do not include = {0} {1}\n\n".format(each_character, interaction))
+								if ", ".join([each_character, interaction]) in edge_exists.keys():
+									edge_color = edge_exists[", ".join([each_character, interaction])]
+								else:
+									edge_color = edge_exists[", ".join([interaction, each_character])]
+								current_value = polarity_colors[p_val]
+								#print("edge color existing = {0}, updated = {1}, add = {2}".format(edge_color, current_value, current_value != edge_color))
+								if current_value != edge_color: # if the current edge isn't the same sentiment
+									network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themselves
+		network_file.write("}\n")
+	#print(found_edge)
+	#print("\n")
+	with open(network_filename, "r") as read_saved:
+		all_file_lines = read_saved.read()
+	#print(all_file_lines)
+	from graphviz import Source
+	save_name = "network_interactions/" + "{0}_network_interactions".format(file_name).upper() + '.gv'
+	save_image_from_source = Source(all_file_lines, filename=save_name, format="png")
+	save_image_from_source.render()
+	os.remove(save_name) # remove extraneous .gv file
+	os.remove(network_filename) # remove extraneous .txt file (comment out to keep text file version of the file)
+	print("NETWORK GRAPH FOR {0} SAVED".format(file_name))
 
-	fig = plt.figure()
-	fig.set_figheight(10)
-	fig.set_figwidth(10)
-	import graphviz
-
-	G = nx.MultiGraph(name="Testing graph")
-
-	for key, value in gne_tree.iteritems():
-		print(key)
-		G.add_node(key)
-		for value_lst in value[0]:
-			for v in value_lst:
-				if v not in connecting_words:
-					print(v)
-					c = 'r'
-					print(len(v))
-					G.add_edge(key, v, color='red')
-					#if len(v) > 10:
-					#	G.add_edge(key, v) # add a second edge
-		print("\n")
-
-	print(nx.info(G))
-	print("density={0}".format(nx.density(G)))
-	for node in nx.degree(G):
-		print("{0} has {1} connections".format(node[0], node[1]))
-	nx.draw(G, with_labels=True, cmap=plt.cm.Blues, node_color=range(len(G)), node_size=2300)
-	print("\n")
-	plt.savefig("relationships_gne.png")
-	print("finished generating graph")
-	'''
-	G=nx.star_graph(20)
-	pos=nx.spring_layout(G)
-	colors=range(20)
-	nx.draw(G,pos,node_color='#A0CBE2',edge_color=colors,width=4,edge_cmap=plt.cm.Blues,with_labels=False)
-
-	G=nx.random_geometric_graph(200,0.125)
-	# position is stored as node attribute data for random_geometric_graph
-	pos=nx.get_node_attributes(G,'pos')
-
-	# find node near center (0.5,0.5)
-	dmin=1
-	ncenter=0
-	for n in pos:
-		x,y=pos[n]
-		d=(x-0.5)**2+(y-0.5)**2
-		if d<dmin:
-			ncenter=n
-			dmin=d
-
-	# color by path length from node near center
-	p=nx.single_source_shortest_path_length(G,ncenter)
-
-	plt.figure(figsize=(8,8))
-	nx.draw_networkx_edges(G,pos,nodelist=[ncenter],alpha=0.4)
-	nx.draw_networkx_nodes(G,pos,nodelist=p.keys(),
-						   node_size=80,
-						   node_color=p.values(),
-						   cmap=plt.cm.Reds_r)
-
-	plt.xlim(-0.05,1.05)
-	plt.ylim(-0.05,1.05)
-	plt.axis('off')
-	'''
-	
 ########################################################################
 # DATA ANAYLSIS
 def percentagePos(total_words, csv_dict):
@@ -1910,7 +1978,7 @@ def saveDatatoCSV(filename, percentDict):
 			csv_data_results[row['FILENAME']] = row # store previous rows
 	return csv_data_results
 
-def graphGNEvText(previous_csv_data, percent_ratio_dict, noun_pronoun_dict):
+def graphGNEvText(current_filename, previous_csv_data, percent_ratio_dict, noun_pronoun_dict):
 	# add column to nounData csv for gne percentage
 	print("ADDING COLUMNS FOR GNE PERCENTAGE TO nounData_allText.csv\n")
 	output_filename = "nounData_allText.csv"
@@ -1927,10 +1995,12 @@ def graphGNEvText(previous_csv_data, percent_ratio_dict, noun_pronoun_dict):
 		saved_filenames_in_alpha_order.append(sub_header['FILENAME'])
 	saved_filenames_in_alpha_order = sorted(saved_filenames_in_alpha_order)
 	#print("previous files = {0}".format(saved_filenames_in_alpha_order))
-
+	given_file
 	total_gnes = len(noun_pronoun_dict['found_proper_name_value'])
 	gne_in_all_nouns = float(total_gnes) / percent_ratio_dict['nouns_count']
 	gne_in_all_words = float(total_gnes) / percent_ratio_dict['text_size']
+	previous_csv_data[current_filename]["GNE_IN_ALL_WORDS"] = gne_in_all_words
+	previous_csv_data[current_filename]["GNE_IN_ALL_NOUNS"] = gne_in_all_nouns
 
 	with open('plot_percent_data/{0}'.format(output_filename), 'w') as gne_data:
 		writer = csv.DictWriter(gne_data, fieldnames=fieldnames)
@@ -1943,8 +2013,8 @@ def graphGNEvText(previous_csv_data, percent_ratio_dict, noun_pronoun_dict):
 							 'PROPER_NOUNS_IN_ALL_WORDS':  previous_csv_data[previous_file]['PROPER_NOUNS_IN_ALL_WORDS'],
 							 'REGULAR_NOUNS_IN_ALL_NOUNS': previous_csv_data[previous_file]['REGULAR_NOUNS_IN_ALL_NOUNS'],
 							 'PROPER_NOUNS_IN_ALL_NOUNS': previous_csv_data[previous_file]['PROPER_NOUNS_IN_ALL_NOUNS'],
-							 'GNE_IN_ALL_WORDS': gne_in_all_words,
-							 'GNE_IN_ALL_NOUNS': gne_in_all_nouns
+							 'GNE_IN_ALL_WORDS': previous_csv_data[previous_file]["GNE_IN_ALL_WORDS"],
+							 'GNE_IN_ALL_NOUNS': previous_csv_data[previous_file]["GNE_IN_ALL_NOUNS"] 
 							})
 	# save information as dictionary of dictionary values for graphing purposes {filename: {attributes:}}
 	csv_data_results = {} # store old rows
@@ -2049,6 +2119,7 @@ def graphPOSdata(csv_data):
 	plt.savefig('plot_percent_data/gnes_in_all_words.png')
 	
 	#BOXPLOTS
+	'''
 	plt.title("POS DATA: Text size and All Nouns in All Words")
 	plt.boxplot(all_nouns_in_all_words)
 	plt.savefig('plot_percent_data/all_nouns_in_all_words_box.png')
@@ -2072,6 +2143,7 @@ def graphPOSdata(csv_data):
 	plt.title("POS DATA: Text size and GNES in All Words")
 	plt.boxplot(gnes_nouns_in_all_words)
 	plt.savefig('plot_percent_data/gnes_in_all_words_box.png')
+	'''
 
 	print("DATA PLOT POS UPDATED")
 
@@ -2241,6 +2313,9 @@ if __name__ == '__main__':
 	if not os.path.isdir('sentiment_csv'):
 		print("creating sentiment_csv directory")
 		os.makedirs('sentiment_csv')
+	if not os.path.isdir('network_interactions'):
+		print("creating network_interactions directory")
+		os.makedirs('network_interactions')
 
 	csv_local_dir = "{0}/csv_pos/{1}".format(os.getcwd(), output_filename)
 
@@ -2299,7 +2374,7 @@ if __name__ == '__main__':
 	# index pronouns
 	pronoun_index_dict = findPronouns(pos_dict)
 	#print("\n\npronoun index dictionary: {0}".format(pronoun_index_dict))
-
+	
 	# print/display graphs with pos data
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
@@ -2310,8 +2385,10 @@ if __name__ == '__main__':
 		plotTagData()
 
 	# gne hierarchy of names
-	over_correct_for_multiple_title = False # a potential option (toggle) if the text includes lots of titles
+	over_correct_for_multiple_title = True # a potential option (toggle) if the text includes lots of titles
 	gne_tree = gneHierarchy(character_entities_group[0], over_correct_for_multiple_title)
+	#for key, value in gne_tree.iteritems():
+	#	print("\ngne base name: {0}\n{1}".format(key,  value))
 	loaded_gender_model = loadDTModel() # load model once, then use to predict
 	gender_gne = determineGenderNameDict(loaded_gender_model, gne_tree)
 
@@ -2320,17 +2397,14 @@ if __name__ == '__main__':
 	if not os.path.isfile(manual_tag_dir) or file_has_been_modified_recently: # checks csv again to see if it has been updated
 		coreferenceLabels(filename, pos_dict, sub_dictionary_one_shot_lookup, global_ent_dict, pronoun_index_dict)
 
-	#for key, value in gne_tree.iteritems():
-	#	print("\ngne base name: {0}\n{2}".format(key,  value))
-
 	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, loaded_gender_model)
 	
-	updated_csv_data = graphGNEvText(csv_data, percent_ratio_dict, noun_pronoun_dict)
+	updated_csv_data = graphGNEvText(given_file, csv_data, percent_ratio_dict, noun_pronoun_dict)
 	graphPOSdata(updated_csv_data) # graph data
 
 	# identify the characters of interest and condense the trees
-	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=True)
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=False)
 
 	# find and graph all interactions
 	# (group_id) : polarity
@@ -2339,30 +2413,12 @@ if __name__ == '__main__':
 
 	# generate a network of interactions with given polarity and plots
 	individual_character_interactions = characterInteractionsNetwork(given_file, characters_with_sub_names, group_polarity, character_groups)
-	plotGenderInteractionsNetwork(given_file, characters_with_sub_names, individual_character_interactions, loaded_gender_model)
-	# TODO: set up gender trees
-	# TODO: visual gender name database classifier
+	male_female_character_dict = plotGenderInteractionsNetwork(given_file, characters_with_sub_names, individual_character_interactions, loaded_gender_model)
+
 	# TODO: move all imports to top
-	# TODO: fix pos data for gnes to run for each row rather than the last text
-	# TODO: set up a network with relationships with polarity over time
-	# TODO: original scarlet letter includes 'Old Roger Chillingworth', new doesn't, find cause
-	# TODO: Update counter for each name
 
+	# Generate Networks of Interactions
+	PlotNetworkGraphs(given_file, male_female_character_dict, group_polarity, character_groups)
 
-	#'''
-	# GENERATE NETWORKX
-	# generate a tree for gne names
-	# {Dr Urbino: {'Dr': ['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], 'Urbino': ['Urbino']} }
-	# {Mr Frank Churchill {'Frank': ['Frank', 'Frank Churchill'], 'Churchill': ['Churchill', 'Churchill of Enscombe'], 'Mr': ['Mr', 'Mr Churchill', 'Mr Frank Churchill']}}
-	# {Miss Harriet Smith {'Smith': ['Smith'], 'Harriet': ['Harriet', 'Harriet Smith'], 'Miss': ['Miss', 'Miss Harriet Smith', 'Miss Smith']} }
-
-	#generateGNEtree(gne_tree, filename)
-	# generate network graphs
-	#networkGraphs(gne_tree)
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
-
-########################################################################
-## TODO: 
-	# TODO: find possesive 'you've' and 'my'
-	# TODO: check CAPTALIZED WORDS as their lower case counterparts before saving
