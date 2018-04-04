@@ -1767,8 +1767,8 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 	# generate text file to use: http://webgraphviz.com/
 	gender_color = {'Female': 'MediumSeaGreen', 'Male': 'MediumPurple'}
 	polarity_colors = {-0.1: 'Lightblue',
-					   -0.5: 'LightSkyBlue',
-					   -1.0: 'SkyBlue',
+					   -0.5: 'SkyBlue',
+					   -1.0: 'DeepSkyBlue',
 					   -2.0: 'SteelBlue',
 					   0.1: 'LightSalmon',
 					   0.5: 'LightPink',
@@ -1778,7 +1778,6 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 
 	network_filename = "network_interactions/" + "{0}_network_interactions".format(file_name).upper() + '.txt'
 	all_characters_check = [item for sublist in male_female_character_dict.values() for item in sublist]
-	print("Nodes in graph: {0}".format(len(all_characters_check)))
 	#print("\n")
 	edge_exists = {}
 	found_edge = []
@@ -1827,7 +1826,7 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 								edge_exists[", ".join([each_character, interaction])] = polarity_colors[p_val]
 								edge_size = 7
 								if len(all_characters_check) > 35: # increase penwidth
-									edge_size = 15
+									edge_size = 25
 								network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themsleves								
 							else:
 								# does exist, either keep existing, or create a new edge (if different sentiment)
@@ -1841,6 +1840,8 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 								if current_value != edge_color: # if the current edge isn't the same sentiment
 									network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themselves
 		network_file.write("}\n")
+	print("Nodes in graph: {0}, Edge Width: {1}, Node Width: {2}".format(len(all_characters_check), edge_size, node_size))
+
 	#print(found_edge)
 	#print("\n")
 	with open(network_filename, "r") as read_saved:
