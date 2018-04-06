@@ -2369,9 +2369,9 @@ if __name__ == '__main__':
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	time_data_csv = "plot_percent_data/timedTagging.csv"
 	time_plot_data = "plot_percent_data/runtime_parsey_data.png"
-	#if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
+	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
 		# checks if csv has been updated more recently than the plot data
-	plotTagData()
+		plotTagData()
 
 	# gne hierarchy of names
 	over_correct_for_multiple_title = True # a potential option (toggle) if the text includes lots of titles
@@ -2409,6 +2409,5 @@ if __name__ == '__main__':
 
 	# Generate Networks of Interactions
 	PlotNetworkGraphs(given_file, male_female_character_dict, group_polarity, character_groups)
-
 
 	print("\nPre-processing ran for {0}".format(datetime.now() - start_time))
