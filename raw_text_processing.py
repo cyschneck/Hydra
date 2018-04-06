@@ -2056,8 +2056,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, all_nouns_in_all_words)
 	plt.title("POS DATA: Text size and All Nouns in All Words")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], all_nouns_in_all_words[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2067,8 +2065,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, pronouns_in_all_words)
 	plt.title("POS DATA: Text size and Pronouns in All Words")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], pronouns_in_all_words[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2078,8 +2074,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, regular_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and Regular Nouns in All Nouns")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], regular_nouns_in_all_nouns[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2089,8 +2083,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, proper_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and Pronouns in All Nouns")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], proper_nouns_in_all_nouns[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2100,8 +2092,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, proper_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and GNES in All Nouns")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], gnes_nouns_in_all_nouns[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2111,8 +2101,6 @@ def graphPOSdata(csv_data):
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, proper_nouns_in_all_nouns)
 	plt.title("POS DATA: Text size and GNES in All Words")
-	for i, data in enumerate(filenames): # label all dots with text file name
-		ax.annotate(data, (text_size[i], gnes_nouns_in_all_words[i]), fontsize=5)
 	plt.ylabel("Percentage")
 	ax.set_ylim([0.0, 1.0])
 	ax.set_xlim(left=0)
@@ -2381,9 +2369,9 @@ if __name__ == '__main__':
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	time_data_csv = "plot_percent_data/timedTagging.csv"
 	time_plot_data = "plot_percent_data/runtime_parsey_data.png"
-	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
+	#if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
 		# checks if csv has been updated more recently than the plot data
-		plotTagData()
+	plotTagData()
 
 	# gne hierarchy of names
 	over_correct_for_multiple_title = True # a potential option (toggle) if the text includes lots of titles
@@ -2417,6 +2405,7 @@ if __name__ == '__main__':
 	male_female_character_dict = plotGenderInteractionsNetwork(given_file, characters_with_sub_names, individual_character_interactions, loaded_gender_model)
 
 	# TODO: move all imports to top
+	# TODO: fix oz network (add 'wizard' and 'witch')
 
 	# Generate Networks of Interactions
 	PlotNetworkGraphs(given_file, male_female_character_dict, group_polarity, character_groups)
