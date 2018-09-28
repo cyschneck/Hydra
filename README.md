@@ -77,6 +77,27 @@ Runtime for Parsey
 
 ```<Scarlett O'Hara>_n0 was not beautiful, but men seldom realized <it>_p0 when caught by <her>_p1 charm as the <Tarleton>_n1 twins were. In <her>_p2 face were too sharply blended the delicate features of <her>_p3 mother, a <Coast>_n2 aristocrat of French descent, and the heavy ones of <her>_p3 florid Irish father.```
 
+## Network Interactions
+
+Further examples found in [/network_interactions](https://github.com/cyschneck/Hydra/tree/master/network_interactions)
+
+Legend:
+Green Node - Female Named Entity
+Purple Node - Male Named Entity
+Blue Link - Negative Interaction (sadness, loss, etc...)
+Red Link - Postive Interaction (passion, hatred, love, etc..)
+
+__The Wonderful Wizard of Oz (Baum)__
+
+![wonderful_wizard_network_interactions](https://github.com/cyschneck/Hydra/blob/master/network_interactions/BAUM_THE_WONDERFUL_WIZARD_OF_OZ_NETWORK_INTERACTIONS.gv.png)
+
+__The Secret Garden (Burnett)__
+
+![secret_garden_network_interactions](https://github.com/cyschneck/Hydra/blob/master/network_interactions/BURNETT_SECRET_GARDEN_NETWORK_INTERACTIONS.gv.png)
+
+__Metamorphosis (Kafka)__
+![metamorphosis_network_interactions](https://github.com/cyschneck/Hydra/blob/master/network_interactions/KAFKA_METAMORPHOSIS_NETWORK_INTERACTIONS.gv.png)
+
 
 ## Pre-Processing Text
 Text is from Project Gutenberg and has been slightly modified for research purposes to run with the given scripts. This includes: removing Gutenberg UTF-8 header and header information. For original text find at www.gutenberg.org
