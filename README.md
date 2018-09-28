@@ -4,7 +4,7 @@ Department of Computer Science at the University of Colorado, Boulder
 
 The code in this repo is the working version of the thesis found in the link below. To run, follow instructions below
 
-![Final Undergraduate Honors Thesis](https://scholar.colorado.edu/honr_theses/1566/)
+[Final Undergraduate Honors Thesis](https://scholar.colorado.edu/honr_theses/1566/)
 
 ## Install and Run
 ```git clone https://github.com/cschneck/Hydra.git```
