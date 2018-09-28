@@ -81,10 +81,14 @@ Runtime for Parsey
 
 Further examples found in [/network_interactions](https://github.com/cyschneck/Hydra/tree/master/network_interactions)
 
-Legend:
+**Legend:**
+
 Green Node - Female Named Entity
+
 Purple Node - Male Named Entity
+
 Blue Link - Negative Interaction (sadness, loss, etc...)
+
 Red Link - Postive Interaction (passion, hatred, love, etc..)
 
 __The Wonderful Wizard of Oz (Baum)__
