@@ -64,12 +64,11 @@ Runtime for Parsey
 
 ## Part of Speech Data
 
-![all_nouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/all_nouns_in_all_words.png)
-![pronouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/pronouns_in_all_words.png)
-![proper_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png)
-![regular_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png)
-![gne_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_words.png)
-![gne_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_nouns.png)
+
+| ![all_nouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/all_nouns_in_all_words.png) | ![pronouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/pronouns_in_all_words.png) |
+| ------------- | ------------- |
+| ![proper_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/proper_nouns_in_all_nouns.png) | ![regular_nouns_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/regular_nouns_in_all_nouns.png) |
+| ![gne_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_words.png) | ![gne_all_nouns](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/gnes_in_all_nouns.png) |
 
 ## Tagging text for Pronouns and Proper nouns
 
