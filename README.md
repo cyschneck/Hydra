@@ -624,6 +624,25 @@ CHARACTER OF INTEREST: [('Jeeves', 233)]
 
 ADDITIONAL TOP CHARACTERS OF INTEREST: [('Mr Blooming Lattaker', 101), ('Rocky Todd', 60), ('Old Bicky', 57), ('Bobbie Cardew', 56), ('Corky', 53)]
 
+## Differences in Sentiment between Female and Male Characters
+
+Determines if sentiment differs betweens male and female characters with a statistically significant amount
+
+__Princess of Mars (Burroughs)__
+![overall_polarity_princess_of_mars](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURROUGHS_A_PRINCESS_OF_MARS.png)
+![female_polarity_princess_of_mars](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURROUGHS_A_PRINCESS_OF_MARS_female.png)
+![male_polarity_princess_of_mars](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURROUGHS_A_PRINCESS_OF_MARS_male.png)
+
+__The Scarlet Letter (Hawthorne)__
+![overall_polarity_scarlet_letter](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/HAWTHORNE_THE_SCARLET_LETTER.png)
+![female_polarity_scarlet_letter](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/HAWTHORNE_THE_SCARLET_LETTER_female.png)
+![male_polarity_scarlet_letter](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/HAWTHORNE_THE_SCARLET_LETTER_male.png)
+
+__Secret Garden (Burnett)__
+![overall_polarity_secret_garden](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURNETT_SECRET_GARDEN.png)
+![female_polarity_secret_garden](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURNETT_SECRET_GARDEN_female.png)
+![male_polarity_secret_garden](https://github.com/cyschneck/Hydra/blob/master/sentiment_csv/BURNETT_SECRET_GARDEN_male.png)
+
 ## Additional Citations
 
 [Kaggle Names Corpus](https://www.kaggle.com/nltkdata/names/data "5001 female names and 2943 male")
