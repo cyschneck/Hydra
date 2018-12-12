@@ -1,12 +1,82 @@
 # Hydra
 
-Department of Computer Science at the University of Colorado, Boulder
+Honors Thesis for Department of Computer Science at the University of Colorado, Boulder (2018)
 
 The code in this repo is the working version of the thesis found in the link below. To run, follow instructions below
 
 [Final Undergraduate Honors Thesis - **Hail Hydra: Named Entity Resolution, Extraction, and Linking of Lexically Similar Names**](https://scholar.colorado.edu/honr_theses/1566/)
 
-## Install and Run
+## Examples of Global Named Entities Found
+
+Examples:
+
+New York Mathematical Society (Time Machine)
+
+Palace of Green Porcelain (Time Machine)
+
+Royal Highness the Duke of Cumberland (Treasure Island)
+
+Sign of the Spy-glass (Treasure Island)
+
+Black Avenger of the Spanish Main (Tom Sawyer)
+
+President of the United States (Tom Sawyer)
+
+Captain Rollo Bickersteth of the Coldstream (My Man Jeeves)
+
+Serene Highness the Prince of Saxburg-Leignitz (My Man Jeeves)
+
+Rikk-tikk-tikki-tikki-tchk (The Jungle Book)
+
+Toomai of the Elephants (The Jungle Book) 
+
+Baloo of the Seeonee Wolf Pack (The Jungle Book)
+
+Hunting People of the Jungle (The Jungle Book)
+
+Dance of the Hunger of Kaa (The Jungle Book)
+
+Bagheera of the Council Rock (The Jungle Book)
+
+Superior of the Academy of the Presentation of the Blessed Virgin (Love in the Time of Cholera)
+
+Assembly Chamber of the Provincial (Love in the Time of Cholera)
+
+General Manager of the River Company of the Caribbean (Love in the Time of Cholera)
+
+Knight of the Order of the Holy Sepulcher (Love in the Time of Cholera)
+
+Waltz of the Crowned Goddess (Love in the Time of Cholera)
+
+Director of the Astronomical Observatory (Love in the Time of Cholera)
+
+Two Minutes Hate (1984)
+
+Eleventh Edition of the Dictionary (1984)
+
+Eleventh Edition of the Newspeak Dictionary (1984)
+
+Order of Conspicuous Merit (1984)
+
+Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
+
+King of the Winged Monkeys (Wonderful Wizard of Oz)
+
+Wicked Witch of the West (Wonderful Wizard of Oz)
+
+Country of the Quadlings (Wonderful Wizard of Oz)
+
+Sydney Cecil Vivian Montmorency (Little Princess)
+
+Lilian Evangeline Maud Marion (Little Princess)
+
+Principal of the Theological College of St George (Sherlock Holmes)
+
+League of the Red-headed Men (Sherlock Holmes)
+
+Wilhelm Gottsreich Sigismond von Ormstein (Sherlock Holmes)
+
+## How to Install and Run
 ```git clone https://github.com/cschneck/Hydra.git```
 
 1. If first time setup:
@@ -63,7 +133,6 @@ Runtime for Parsey
 ![runtime_parsey](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/runtime_parsey_data.png)
 
 ## Part of Speech Data
-
 
 | ![all_nouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/all_nouns_in_all_words.png) | ![pronouns_all_words](https://github.com/cschneck/Hydra/blob/master/plot_percent_data/pronouns_in_all_words.png) |
 | ------------- | ------------- |
@@ -192,77 +261,6 @@ The Time Machine (Wells)
 The Picture of Dorian Gray (Wells)
 
 My Man Jeeves (Wodehouse)
-
-## Examples of Global Named Entities Found
-
-Examples:
-
-New York Mathematical Society (Time Machine)
-
-Palace of Green Porcelain (Time Machine)
-
-Royal Highness the Duke of Cumberland (Treasure Island)
-
-Sign of the Spy-glass (Treasure Island)
-
-Black Avenger of the Spanish Main (Tom Sawyer)
-
-President of the United States (Tom Sawyer)
-
-Captain Rollo Bickersteth of the Coldstream (My Man Jeeves)
-
-Serene Highness the Prince of Saxburg-Leignitz (My Man Jeeves)
-
-Rikk-tikk-tikki-tikki-tchk (The Jungle Book)
-
-Toomai of the Elephants (The Jungle Book) 
-
-Baloo of the Seeonee Wolf Pack (The Jungle Book)
-
-Hunting People of the Jungle (The Jungle Book)
-
-Dance of the Hunger of Kaa (The Jungle Book)
-
-Bagheera of the Council Rock (The Jungle Book)
-
-Superior of the Academy of the Presentation of the Blessed Virgin (Love in the Time of Cholera)
-
-Assembly Chamber of the Provincial (Love in the Time of Cholera)
-
-General Manager of the River Company of the Caribbean (Love in the Time of Cholera)
-
-Knight of the Order of the Holy Sepulcher (Love in the Time of Cholera)
-
-Waltz of the Crowned Goddess (Love in the Time of Cholera)
-
-Director of the Astronomical Observatory (Love in the Time of Cholera)
-
-Two Minutes Hate (1984)
-
-Eleventh Edition of the Dictionary (1984)
-
-Eleventh Edition of the Newspeak Dictionary (1984)
-
-Order of Conspicuous Merit (1984)
-
-Museum of the Faculty of Medicine of Paris (20,000 Leagues Under the Sea)
-
-King of the Winged Monkeys (Wonderful Wizard of Oz)
-
-Wicked Witch of the West (Wonderful Wizard of Oz)
-
-Country of the Quadlings (Wonderful Wizard of Oz)
-
-Sydney Cecil Vivian Montmorency (Little Princess)
-
-Lilian Evangeline Maud Marion (Little Princess)
-
-Principal of the Theological College of St George (Sherlock Holmes)
-
-League of the Red-headed Men (Sherlock Holmes)
-
-Wilhelm Gottsreich Sigismond von Ormstein (Sherlock Holmes)
-
 
 ## Gender Name Classifier (DecisionTreeClassifier)
 
