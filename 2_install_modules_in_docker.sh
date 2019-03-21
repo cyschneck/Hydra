@@ -25,7 +25,10 @@ pip install pygraphviz --install-option="--include-path=/usr/include/graphviz" -
 
 echo ""
 echo "install scikit learn"
-pip install -U scikit-learn
+pip install -U scikit-learn==0.19.1
+#using most recent version gives: USERWARNING: Trying to unpickle estimator DictVectorizer from version 0.19.1 when using version XXXX. This might lead to breaking code or invalid results. Use at your own risk.
+#cython is using a deprecated Numpy API, so this warning can be ignored, scikit-learn will still be installed
+#Reference:http://docs.cython.org/en/latest/src/reference/compilation.html#configuring-the-c-build
 
 echo ""
 echo "install nltk for tokens"
