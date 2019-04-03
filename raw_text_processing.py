@@ -36,14 +36,14 @@ neutral_pronouns = ['I', 'Me', 'You', 'It', 'We', 'Us', 'They', 'Them', 'Myself'
 female_pronouns = ['Her', 'Hers', 'Herself', "She", 'Herself']
 male_pronouns =   ['He', 'Him', 'His', 'Himself']
 
-male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman', 
+male_honorific_titles = ['M', 'Mr', 'Sir', 'Lord', 'Master', 'Gentleman',
 						 'Sire', "Esq", "Father", "Brother", "Rev", "Reverend",
 						 "Fr", "Pr", "Paster", "Br", "His", "Rabbi", "Imam",
 						 "Sri", "Thiru", "Raj", "Son", "Monsieur", "M", "Baron",
 						 "Prince", "King", "Emperor", "Grand Prince", "Grand Duke",
 						 "Duke", "Sovereign Prince", "Count", "Viscount", "Crown Prince",
 						 'Gentlemen', 'Uncle', 'Widower', 'Don', "Mistah", "Commodore",
-						 "Grandfather", "Mister", "Brother-in-Law", "Mester", "Comrade"]
+						 "Grandfather", "Mister", "Brother-in-Law", "Mester", "Comrade", "Lordship"]
 
 female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 						   'Madam', "Ma'am", "Dame", "Mother", "Sister",
@@ -56,7 +56,7 @@ female_honorific_titles = ['Mrs', 'Ms', 'Miss', 'Lady', 'Mistress',
 
 ignore_neutral_titles = ['Dr', 'Doctor', 'Captain', 'Capt',
 						 'Professor', 'Prof', 'Hon', 'Honor', "Excellency",
-						 "Honourable", "Honorable",  "Chancellor", "Vice-Chancellor", 
+						 "Honourable", "Honorable",  "Chancellor", "Vice-Chancellor",
 						 "President", "Vice-President", "Senator", "Prime", "Minster",
 						 "Principal", "Warden", "Dean", "Regent", "Rector",
 						 "Director", "Mayor", "Judge", "Cousin", 'Archbishop',
@@ -71,7 +71,7 @@ male_equ_titles = [['M', 'Mr', 'Mister', 'Mistah', 'Mester', 'Monsieur']]
 female_equ_titles = [['Ms', 'Miss', 'Missus', 'Mademoiselle', 'Mlle'],
 					['Madam', "Ma'am", "Madame", "Mme"]]
 neutral_equ_titles = [['Dr', 'Doctor'], ['Capt', 'Captain'],
-					  ['Professor', 'Prof'], ['St', 'Saint'], 
+					  ['Professor', 'Prof'], ['St', 'Saint'],
 					  ["Cousin", "Cuz"]]
 
 all_equal_titles = male_equ_titles + female_equ_titles + neutral_equ_titles
@@ -82,8 +82,8 @@ potential_names_with_equal_titles = []
 connecting_words = ["of", "the", "De", "de", "La", "la", 'al', 'y', 'Le', 'Las']
 
 # WORDS TO IGNORE (parser has mislabeled)
-words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought", 
-				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though", 
+words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought",
+				   "Thou", "Thither", "Yo", "Till", "Ay", "Dearest", "Dearer", "Though",
 				   "Hitherto", "Ahoy", "Alas", "Yo", "Chapter", "Again", "'D", "One", "'T",
 				   "If", "thy", "Thy", "Thee", "Suppose", "There", "'There", "No-One", "Happily",
 				   "Good-Night", "Good-Morning", 'To-Day', 'To-Morrow', "Compare", "Tis", "Good-Will",
@@ -96,7 +96,7 @@ words_to_ignore = ["Dear", "Chapter", "Volume", "Man", "O", "Anon", "Ought",
 				   "Silly", "Methought", "Come", "Dost", "Wilt", "Wherefore", "Doth", "Betwixt",
 				   "Dat", "Midsummer", "Withal", "Thyself", "Shoots", "Came", "Sayeth",
 				   "Aids", "Wilt", "Thou", "Whereupon", "Spake", "Poor", "Describe", "Opposite",
-				   "Found", "Fish", "Woke", "Dim", "Alone", "Gwine", "`The", "O'Er"] # ignores noun instances of these word by themselves
+				   "Found", "Fish", "Woke", "Dim", "Alone", "Gwine", "`The", "O'Er", "Into", "mid-word"] # ignores noun instances of these word by themselves
 
 #words_to_ignore += ["".join(a) for a in permutations(['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X'], 2)]
 #words_to_ignore += ["".join(a) for a in ['I', 'II','III', 'IV', 'VI', 'XX', 'V', 'X', 'XV']]
@@ -146,7 +146,10 @@ def readFile(filename):
 		string_words = string_words.replace("*", "")
 		string_words = string_words.replace("_", "")
 		string_words = string_words.replace("!”", "!”.") # “Ah-h-h!”  “How true!”  “Amazing, amazing!” into sub-sentences (twain)
-		string_words = string_words.replace("'I", "' I") # fix puncutation where I 
+		string_words = string_words.replace(".”", "”.") # splits the .". into two sentences at the end of a quote
+		string_words = string_words.replace("?”", "?”.") # splits ? into a sub-sentence
+		string_words = string_words.replace("—”", "”.") # splits dash into a sub-sentence
+		string_words = string_words.replace("'I", "' I") # fix puncutation where I
 		string_words = string_words.replace("'It", "' It")
 		string_words = string_words.replace("'we", "' we")
 		string_words = string_words.replace("'We", "' We")
@@ -190,14 +193,14 @@ def tokenizeSentence(string_sentence):
 
 def partsOfSpeech(token_dict):
 	'''EXAMPLE
-	60: ('After rather a long silence, the commander resumed the conversation.', 
+	60: ('After rather a long silence, the commander resumed the conversation.',
 	[('After', 'IN'), ('rather', 'RB'), ('a', 'DT'), ('long', 'JJ'), ('silence', 'NN'),
-	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'), 
+	 (',', ','), ('the', 'DT'), ('commander', 'NN'), ('resumed', 'VBD'), ('the', 'DT'),
 	 ('conversation', 'NN'), ('.', '.')])}
 	'''
 	from subprocess import check_output
 	import progressbar as pb
-	widgets = ['Running POS tagger: ', pb.Percentage(), ' ', 
+	widgets = ['Running POS tagger: ', pb.Percentage(), ' ',
 				pb.Bar(marker=pb.RotatingMarker()), ' ', pb.ETA()]
 	timer = pb.ProgressBar(widgets=widgets, maxval=len(token_dict)).start()
 
@@ -257,7 +260,7 @@ def findProperNamedEntity(pos_dict):
 		#if "of" in pos_named.FORM:
 		#	if previous_nnp_index < int(pos_named.ID): # only store of if it is part of an existing sentence
 		#		pos_type_lst.append((int(pos_named.SENTENCE_INDEX), int(pos_named.ID), pos_named.FORM, int(pos_named.SENTENCE_LENGTH), pos_named.XPOSTAG))
-		
+
 	total_sentence_indices = list(set([i[0] for i in pos_type_lst]))
 
 	sub_sentences = []
@@ -265,7 +268,7 @@ def findProperNamedEntity(pos_dict):
 		# create sub sentences for each sentence [[0], [1])
 		sub_sentences.append([x for x in pos_type_lst if x[0] == index])
 	#print("\nsub_sentence={0}\n".format(sub_sentences))
-	
+
 	from operator import itemgetter # find sequences of consecutive values
 	import itertools
 
@@ -336,10 +339,10 @@ def groupSimilarEntities(grouped_nouns_dict):
 	# filter out enities that only appear once and re-organize
 	'''
 	[['America'], ['Aronnax', 'Pierre', 'Pierre Aronnax'],
-	['Captain Farragut', 'Captain', 'Farragut'], ['Conseil'], 
-	['English'], ['Europe'], ['French'], ['Gentlemen'], ['God'], 
+	['Captain Farragut', 'Captain', 'Farragut'], ['Conseil'],
+	['English'], ['Europe'], ['French'], ['Gentlemen'], ['God'],
 	['Land', 'Mr Ned Land', 'Ned', 'Ned Land'], ['Latin'],
-	['Lincoln', 'Abraham', 'Abraham Lincoln'], ['Museum'], 
+	['Lincoln', 'Abraham', 'Abraham Lincoln'], ['Museum'],
 	['Natural'], ['OEdiphus'], ['Pacific'], ['Paris'], ['Professor'],
 	['Sir'], ['Sphinx'], ['United States', 'States', 'United'],
 	['sir']]
@@ -355,7 +358,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 	gne_list_of_lists = grouped_nouns_dict.values()
 	gne_list_of_lists = list(set([item for sublist in gne_list_of_lists for item in sublist])) # creates a list of unquie names
 
-	import difflib 
+	import difflib
 	from difflib import SequenceMatcher
 	gne_name_group = []
 	# find most similar ['Professor', 'Professor Aronnax'], ['Aronnax', 'Mr Aronnax', 'Pierre Aronnax']
@@ -468,7 +471,7 @@ def groupSimilarEntities(grouped_nouns_dict):
 def lookupSubDictionary(shared_ent):
 	# return a dictionary of proper nouns and surrounding values for one-shot look up
 	'''
-	{"Scarlett O'Hara": ["O'Hara", 'Scarlett'], 'Tarleton': ['Tarleton'], 
+	{"Scarlett O'Hara": ["O'Hara", 'Scarlett'], 'Tarleton': ['Tarleton'],
 	"O'Hara": ["Scarlett O'Hara", 'Scarlett'], 'Scarlett': ["Scarlett O'Hara", "O'Hara"],
 	 'Coast': ['Coast']}
 	'''
@@ -491,7 +494,7 @@ def mostCommonGNE(gne_grouped_dict):
 	#	print(key, value)
 	#print(gne_grouped_dict.values())
 	pass
-	
+
 ########################################################################
 ## INDEX PRONOUNS
 def findPronouns(pos_dict):
@@ -531,7 +534,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 	# save chucks of text (size sentences = how many sentences in each chunk of text)
 	sub_sentences_to_tag = [all_sentences_in_csv[i:i + size_sentences] for i in xrange(0, len(all_sentences_in_csv), size_sentences)]
 	#print("character entities keys: {0}\n".format(character_entities_dict.keys()))
-	
+
 	#print("\n")
 	row_dict = {} # to print data into csv
 	gne_index = 0 # display word of interst as [Name]_index
@@ -582,7 +585,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 				# tag proper nouns
 				found_longest_match = ''
 				gne_found_in_sentence = False # if found, print and update the sentence value
-				
+
 				lst_gne = []
 				lst_gne = [gne_name for gne_name in character_entities_dict.keys() if gne_name in new_sentence_to_add]
 				lst_gne = [x for x in lst_gne if x != []]
@@ -645,7 +648,7 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 						new_sentence_to_add = "".join((new_sentence_to_add[:start_word], replacement_string, new_sentence_to_add[end_word:]))
 						sub_counter = counter
 					# add repeated gne values
-					# if the same name appears more than once in a sentence 
+					# if the same name appears more than once in a sentence
 					sub_counter = 0
 					new_characters_from_update = 0 # new characters to keep track of character length when indexing
 					for find_additional in repeats_to_find:
@@ -679,6 +682,10 @@ def coreferenceLabels(filename, csv_file, character_entities_dict, global_ent, p
 					#print(new_sentence_to_add + '. ')
 			#print("\nFinal Sentence Format:\n\n{0}".format(sentences_in_order))
 			saveTagforManualAccuracy(sentences_in_order)
+		else:
+			# determine that no sentences are skipped because of csv error
+			print("Manual Accuracy Tag not created, len(sentences_tag) must equal size_sentences")
+			exit()
 
 def saveTagforManualAccuracy(sentences_in_order):
 	## corefernece will call the csv creator for each 'paragraph' of text
@@ -704,15 +711,15 @@ def saveTagforManualAccuracy(sentences_in_order):
 	print("opening manual tag: {0}".format('manual_tagging/{0}'.format(output_filename)))
 	with open('manual_tagging/{0}'.format(output_filename), 'w') as tag_data:
 		writer = csv.DictWriter(tag_data, fieldnames=fieldnames)
-		writer.writeheader() 
+		writer.writeheader()
 		# leave MISSED empty for manual tagging
 		for sentence_tag in sentence_range:
-			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
+			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]),
 							 'TEXT': ''.join(sentence_tag),
 							 'FOUND_PROPER_NOUN': ''.join(sentence_tag).count(">_n"),
 							 'MISSED_PROPER_NOUN': None,
 							 'FOUND_PRONOUN': ''.join(sentence_tag).count(">_p"),
-							 'MISSED_PRONOUN': None 
+							 'MISSED_PRONOUN': None
 							})
 	print("{0} create MANUAL TAGGING for CSV".format(output_filename))
 
@@ -720,7 +727,7 @@ def breakTextPandN(manual_tag_dir, loaded_gender_model):
 	# resolve gender and pronoun noun interactions (resolution)
 	pronoun_noun_dict = {}
 	given_file = os.path.basename(os.path.splitext(filename)[0]) # return only the filename and not the extension
-	
+
 	# set up dict for pronouns and gender: {'His': 'Male', etc...}
 	pronoun_gender = {f: 'Female' for f in female_pronouns}
 	m_pronoun_gender = {m: 'Male' for m in male_pronouns}
@@ -732,7 +739,7 @@ def breakTextPandN(manual_tag_dir, loaded_gender_model):
 	for i in test_full_list:
 		if i not in pronoun_gender:
 			print("'{0}' NOT FOUND IN GENDER DICT".format(i))
-	
+
 	tagged_text = [] # store old rows
 	with open(manual_tag_dir, 'r') as tag_data:
 		reader = csv.reader(tag_data)
@@ -740,7 +747,7 @@ def breakTextPandN(manual_tag_dir, loaded_gender_model):
 		for row in reader:
 			tagged_text.append(row[1]) # store the sentence in order
 
-	sub_dict_titles = ['full_text', 'found_all_brackets', 'found_proper_name_value', 
+	sub_dict_titles = ['full_text', 'found_all_brackets', 'found_proper_name_value',
 					   'found_proper_name_index', 'found_pronoun_value', 'found_pronoun_index']
 	line_by_line_dict = {}
 	pronoun_noun_dict = {f: [] for f in sub_dict_titles}
@@ -787,7 +794,7 @@ def breakTextPandN(manual_tag_dir, loaded_gender_model):
 		#print(found_pronoun_value)
 		#for pron in found_pronoun_value:
 			#print("{0} is {1}".format(pron, pronoun_gender[pron.capitalize()]))
-	
+
 	# compress dictionray from a list of list to a single list
 	for key, value in pronoun_noun_dict.iteritems():
 		pronoun_noun_dict[key] = [item for sublist in value for item in sublist]
@@ -800,7 +807,7 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 	#print("DETERMINE GENDER OF: {0}".format(list_of_names))
 	most_likely_gender_label = [] # label and prob: ['Male', (Female: 0.28571, Male: 0.71429)]
 
-	
+
 	determine_words_to_weight_less = []
 	female_prob = 0.0
 	male_prob = 0.0
@@ -824,7 +831,7 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 					if found_connecting_ignore_following and part not in connecting_words: # if word that following connecting word
 						determine_words_to_weight_less.append(part)
 					# weight of and the less, but also 'Queen Elizabeth of England', weigh 'of England' less
-						
+
 			#print("words to weigh less = {0}".format(determine_words_to_weight_less))
 			# if name is part of a gendered honorific, return: Mr Anything is a male
 			if full_name_in_parts[0].title() in male_honorific_titles:
@@ -837,7 +844,7 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 				gender_is = 'Female'
 				female_prob += 1.0
 				found_with_title = True
-			
+
 			# find the name for each part of the name, choose highest
 			#print("'{0}' not found, calculating a probability...".format(full_name)) # not found in gendered honorifics
 			# run test on each part of the name, return the largest so that last names don't overly effect
@@ -845,7 +852,7 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 
 			weight_last_name_less = 0.3
 			weight_connecting_words_less = 0.2 # weight words that follow 'of' less
-			
+
 			if not found_with_title:
 				for sub_name in full_name_in_parts:
 					# determine if the name is likely to be the last name, if so, weight less than other parts of the name
@@ -882,7 +889,7 @@ def determineGenderOfListOfNames(loaded_gender_model, list_of_names):
 def determineGenderNameDict(loaded_gender_model, gne_tree):
 	# use trained model to determine the likely gender of a name
 	gender_gne = {}
-	
+
 	all_gne_values =  gne_tree.keys()
 	for key, values in gne_tree.iteritems():
 		for k, v in values.iteritems():
@@ -921,7 +928,7 @@ def loadDTModel():
 
 def DT_features(given_name):
 	test_given_name = ['corette', 'corey', 'cori', 'corinne', 'william', 'mason', 'jacob', 'zorro'] #small test
-	FEATURE_TAGS = ['first_letter', 
+	FEATURE_TAGS = ['first_letter',
 				'first_2_letters',
 				'first_half',
 				'last_half',
@@ -938,7 +945,7 @@ def gneHierarchy(character_entities_group, over_correct_for_multiple_title):
 	# merge gne into a dict for look up
 	'''
 	key: Dr Urbino
-	{'Dr': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']], 
+	{'Dr': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']],
 	'Urbino': [['Dr', 'Dr Juvenal Urbino', 'Dr Urbino'], ['Urbino']]}
 	 '''
 	# if there are a name with a different version of the title, include both
@@ -968,7 +975,7 @@ def gneHierarchy(character_entities_group, over_correct_for_multiple_title):
 							name_with_caps = sub_long_name.title()
 						if name_with_caps in smaller_name.split() and name_with_caps not in connecting_words:
 							# store only honorific titles that include elements of the same name
-							# 'Dr Juvenal Urbino' NOT 'Dr Lacides Olivella', but 'Dr Juvenal Urbino' and 'Dr Urbino' 
+							# 'Dr Juvenal Urbino' NOT 'Dr Lacides Olivella', but 'Dr Juvenal Urbino' and 'Dr Urbino'
 							if name_with_caps in all_honorific_titles and len(longer_name) > 1:
 								if any(i.title() in longer_name for i in smaller_name.split() if i.title() not in all_honorific_titles):
 									#print("\t\tindex: {0}".format(smaller_name.split().index(sub_long_name.title())))
@@ -1081,7 +1088,7 @@ def addNameWithSameTitle(name_list):
 									if name_c in similar_potential:
 										if new_name_to_add not in found_similar.values()[sub_list_index]:
 											found_similar.values()[sub_list_index].append(new_name_to_add) # add new value to sub instex for comparison in gne tree
-								
+
 	updated_list = list(set(updated_list))
 	list_of_similar = found_similar.values()
 	return updated_list, list_of_similar
@@ -1142,7 +1149,7 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 			if is_sub_tree:
 				for key, values in tree_to_update.iteritems():
 					tree_to_update[key] = list(set(values))
-		
+
 		#print("contains_words_to_ignore = {0}, {1}\n".format(contains_words_to_ignore, new_key))
 		if contains_words_to_ignore: # if it contains words to ignore, use new key without the words to ignore
 			if not new_key: # if the entire word was only words to ignore
@@ -1156,7 +1163,7 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 				if any(ig in " ".join(s_t) for ig in words_to_ignore):
 					# only keep the parts of substrings that have element
 					tree_to_remove.append(s_t)
-						
+
 	# remove all values in a named ent that are in words to ignore "Poor Dickens" Becomes "Dickens"
 	# also removes sub_trees for "poor"
 	for to_remove in tree_to_remove:
@@ -1177,26 +1184,26 @@ def removeIgnoreWordsKeySubtree(tree_to_update, is_sub_tree=False):
 				tree_to_update[new_key] = tree_to_update.pop(old_key_to_update) # 'Dickens' mapped to the dictionary value for 'Poor Dickens'
 	return tree_to_update
 
-def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_info=False):
+def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_info=True):
 	print("\nIDENTIFY CHARACTER OF INTEREST\n")
 	# count instances of a name appearing
 	'''
 	{'Brussels': 1, 'Mrs Darling': 4, 'East': 1, 'Miss Fulsom': 1,
 	 'Neverland': 1, 'Michael': 2, 'Kindergarten': 1, 'Margaret': 3,
-	 'John': 2, 'Wendy': 11, 'Jane': 1, 'Mr Darling': 4, 'Peter': 3, 
+	 'John': 2, 'Wendy': 11, 'Jane': 1, 'Mr Darling': 4, 'Peter': 3,
 	 'George': 1, 'Napoleon': 1}
 	'''
 	name_counter = {}
 	is_first_person_text = False
 	main_character_is = ''
-	
+
 	pronoun_counter = Counter(pronoun_noun_dict['found_pronoun_value'])
 	#print(pronoun_noun_dict['found_pronoun_value'])
-	most_common_pronoun = pronoun_counter.most_common(1)[0][0].title() 
+	most_common_pronoun = pronoun_counter.most_common(1)[0][0].title()
 	first_person_pronouns = ['I', 'Me', 'Myself','My']
 	if most_common_pronoun in first_person_pronouns:
 		is_first_person_text = True
-		
+
 	# include all sub instances into a larger instance
 	for counter, proper_name in enumerate(pronoun_noun_dict['found_proper_name_value']):
 		# weight the first name that appear in the text an additional amount
@@ -1324,7 +1331,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 						character_with_sub_types.pop(existing_key)
 				else:
 					to_update_key_with_longer_key = True
-				if to_update_key_with_longer_key: 
+				if to_update_key_with_longer_key:
 					found_list.extend(compare_values)
 					final_gne[longer_name] = 0
 					character_with_sub_types[longer_name] = compare_values
@@ -1361,7 +1368,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 			# save updates to the dict
 		#print(sub_tree)
 		#print("\n")
-	
+
 	sorted_final = sorted(final_gne.items(), key=lambda x:x[1])[::-1] # store from largest to smallest
 	#print("ALL GROUPED CHARACTERS: \n{0}\n".format(sorted_final))
 	#print("TEXT: {0}".format(pronoun_noun_dict['full_text']))
@@ -1391,7 +1398,7 @@ def identifyCharacterOfInterest(pronoun_noun_dict, gne_tree, gender_gne, print_i
 		print("\nCHARACTER OF INTEREST: {0}\n".format(main_character_total))
 		top_characters = sorted_final[len(main_character_total):len(main_character_total)+5]
 		print("ADDITIONAL TOP CHARACTERS OF INTEREST: {0}\n".format(top_characters)) # print from highest to lowest
-		
+
 	# return a dict with the top character name and the sub elements:
 	# { Master Colin: ['Master Colin', 'Colin', 'Master', 'Colin Craven']}
 
@@ -1417,23 +1424,23 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 	'''
 	# create a sub_list of the line id to organize
 	# [0, 1, 2, 3, 4, 5] -> [[0, 1], [2, 3], [4, 5]]
-	# 
+	#
 	ordered_lines = line_by_line_dict.keys()
 	total_sentences_in_each_chunk = 8 # sentences in each group
 	split_sentences = len(ordered_lines) / total_sentences_in_each_chunk
 	if split_sentences > len(ordered_lines) or split_sentences < 1:
 		split_sentences = 3 # debugging smaller text
-	
+
 	list_with_chunks = []
 	split_num = 1.0/split_sentences*len(ordered_lines)
 	for i in range(split_sentences):
 		list_with_chunks.append(ordered_lines[int(round(i*split_num)):int(round((i+1)*split_num))]) # break into roughly thirds
-	
+
 	grouping_of_chunks = {} # maps group id to the sentences: {0: [0, 1], 1: [2, 3], 2: [4, 5]}
 	for group_id, sub_list in enumerate(list_with_chunks):
 		grouping_of_chunks[group_id] = sub_list
 	#for i in list_with_chunks: # print the length of each chunk
-	#	print len(i), 
+	#	print len(i),
 	#print("\n")
 	#print(list_with_chunks)
 	#print(len(list_with_chunks))
@@ -1468,9 +1475,9 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 	# keep only one instance of a character name
 	for sentence_id, character_lst in grouping_of_characters.iteritems():
 		grouping_of_characters[sentence_id] = list(set(character_lst))
-		
+
 	#print("Grouping characters with top of gne (UPDATED): \n{0}\n".format(grouping_of_characters))
-	
+
 	# Sentiment anaylsis for each sentence in a chunk
 	from textblob import TextBlob
 	sentence_id_polarity = {}
@@ -1481,10 +1488,10 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 			# TODO: if sentiment is neutral, make it similar to the previous value
 			sentence_id_polarity[sentence_id] = sentiment_pole # store each sentiment in a sublist
 	#print(sentence_id_polarity)
-	
+
 	average_polarity_sentence = 0.0
 	# map each interaction and find polarity of relationships over time
-	character_interactions_polarity = {} # (group_id, sentence_id) = 
+	character_interactions_polarity = {} # (group_id, sentence_id) =
 	for group_id, sentence_lst in grouping_of_chunks.iteritems():
 		average_polarity_sentence += sentence_id_polarity[sentence_id]
 		if grouping_of_characters[group_id] != []: # if there are characters in a group of sentences
@@ -1505,7 +1512,7 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 	fieldnames = ['GROUP_ID', 'SENTENCE_INDEX', 'CHARACTERS', 'SENTENCE_POLARITY', 'GROUP_POLARITY']
 	with open('sentiment_csv/{0}'.format(output_filename), 'w') as sent_data:
 		writer = csv.DictWriter(sent_data, fieldnames=fieldnames)
-		writer.writeheader() 
+		writer.writeheader()
 		for group_id, sentence_lst in grouping_of_chunks.iteritems():
 			for sentence_id in sentence_lst:
 				average_polarity_group +=  character_interactions_polarity[group_id]
@@ -1517,7 +1524,7 @@ def interactionsPolarity(character_gne_tree_dict, line_by_line_dict, filename):
 								})
 
 	print("SENTIMENT for each group/sentence CSV saved as {0}".format(output_filename))
-	print("Average polarity: Group [{0:.5f}] vs. Sentence [{1:.5f}]".format(average_polarity_sentence / len(ordered_lines), 
+	print("Average polarity: Group [{0:.5f}] vs. Sentence [{1:.5f}]".format(average_polarity_sentence / len(ordered_lines),
 																			(average_polarity_group / len(grouping_of_chunks.keys())/split_sentences)))
 	# contains a list of characters in a section and the polarity of the section
 	#sorted_groups = sorted(character_interactions_polarity.items(), key=lambda x:x[0])
@@ -1535,7 +1542,7 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 	check_existing_character = [item for sublist in long_name_with_sub_name.values() for item in sublist]
 	check_existing_character += long_name_with_sub_name.keys()
 	# does not include values that aren't in the characters list
-	
+
 	# {group id: [(Holmes, Holmes), (Watson, Watson), (Holmes, Watson)]}
 	# include a one to one interaction between a character and themselves
 	group_into_one_to_one_interactions = {}
@@ -1579,7 +1586,7 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 	#	print(characters_interacting)
 	#	print(polarity_lst)
 	#	print("\n")
-	
+
 	'''
 	# PLOTTING NETWORKS FOR EACH CHARACTER INTERACTION
 	# create a sub_directory for the file with all its characters within
@@ -1606,7 +1613,7 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 				if pol > 0.0:
 					neg_pol.append(np.nan)
 					pos_pol.append(pol)
-			
+
 		avg_line = [(float(a)+float(b))/2 for a, b in zip(polarity_lst[:], polarity_lst[1:])]
 		avg_line.append((float(polarity_lst[-2])+float(polarity_lst[-1]))/2)
 		#print(x_text_chunk)
@@ -1622,7 +1629,7 @@ def characterInteractionsNetwork(file_name, long_name_with_sub_name, group_id_wi
 		output_file = "{0}.png".format(given_file.upper())
 		plt.savefig('sentiment_csv/{0}/{1}'.format(file_name.upper(), img_title))
 		plt.close() # close plot to prevent runtime warnings
-	
+
 	print("CHARACTER PLOTS FOR {0} SAVED TO SENTIMENT_CSV".format(file_name.upper()))
 	'''
 	return character_interactions_over_time
@@ -1669,7 +1676,7 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 	plt.title("Polarity {0}: 'Female'".format(given_file.upper()))
 	plt.boxplot(male_female_polarity_dict['Female'])
 	plt.savefig('sentiment_csv/{0}_boxplot.png'.format(file_name.upper() + '_female'))
-	
+
 	plt.title("Polarity {0}: 'Male'".format(given_file.upper()))
 	plt.boxplot(male_female_polarity_dict['Male'])
 	plt.savefig('sentiment_csv/{0}_boxplot.png'.format(file_name.upper() + '_male'))
@@ -1684,7 +1691,7 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 		img_title = file_name.upper() + '_' + gender.lower() + '.png'
 		#print(img_title)
 		#print(polarity_lst)
-	
+
 		(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 		neg_pol =[]
 		pos_pol = []
@@ -1695,7 +1702,7 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 			if pol > 0.0:
 				neg_pol.append(np.nan)
 				pos_pol.append(pol)
-		
+
 		avg_line = [(float(a)+float(b))/2 for a, b in zip(polarity_lst[:], polarity_lst[1:])]
 		avg_line.append((float(polarity_lst[-2])+float(polarity_lst[-1]))/2)
 
@@ -1710,26 +1717,26 @@ def plotGenderInteractionsNetwork(file_name, long_name_with_sub_name, each_inter
 		output_file = "{0}.png".format(given_file.upper())
 		plt.savefig('sentiment_csv/{0}'.format(img_title))
 
-	
+
 	# Save polarity and tagged sentence to a csv for graphing
 	output_filename = "sent_gender_{0}.csv".format(file_name.upper())
 
 	fieldnames = ['FEMALE', 'MALE']
 	with open('sentiment_csv/{0}'.format(output_filename), 'w') as sent_data:
 		writer = csv.DictWriter(sent_data, fieldnames=fieldnames)
-		writer.writeheader() 
+		writer.writeheader()
 		for male_pole, female_pole in zip(male_female_polarity_dict['Male'], male_female_polarity_dict['Female']):
 			writer.writerow({'FEMALE': female_pole, 'MALE': male_pole})
 
-	print("Average polarity {0}: Male ({1}) [{2:.5f}] vs. Female ({3}) [{4:.5f}]".format(len(male_female_polarity_dict['Male']), 
+	print("Average polarity {0}: Male ({1}) [{2:.5f}] vs. Female ({3}) [{4:.5f}]".format(len(male_female_polarity_dict['Male']),
 																					len(male_female_character_dict['Male']),
-																					float(sum(male_female_polarity_dict['Male'])) / len(male_female_polarity_dict['Male']), 
+																					float(sum(male_female_polarity_dict['Male'])) / len(male_female_polarity_dict['Male']),
 																					len(male_female_character_dict['Female']),
 																					float(sum(male_female_polarity_dict['Female'])) / len(male_female_polarity_dict['Female'])))
 
 	print("GENDER PLOTS FOR {0} SAVED TO SENTIMENT_CSV".format(file_name.upper()))
 	return male_female_character_dict
-	
+
 
 ########################################################################
 # NETWORK GRAPHS AND TREE
@@ -1743,18 +1750,18 @@ def generateGNEtree(gne_tree, filename):
 		os.makedirs("gne_trees/{0}".format(gne_imge_directory_name))
 	for key, value in gne_tree.iteritems():
 		print("\ngne base name: {0}\n{1}".format(key, value))
-	
+
 	for key, value in gne_tree.iteritems():
 		G = nx.DiGraph(name="GNE name tree: {0}".format(key))
 		G.add_node(key) # root is the gne base name (Dr Juvenal Urbino)
-		
+
 		# add child (the name broken into parts)
 		for split_name in key.split():
 			G.add_edge(key, split_name)
 		#for sub_name in value:
 		#	print(sub_name)
-		#G.add_edge(key, 
-	
+		#G.add_edge(key,
+
 		nx.nx_pydot.write_dot(G, 'gne_trees/{0}/{1}.dot'.format(gne_imge_directory_name, key.replace(" ", "_")))
 		plt.title("GNE name tree: {0}".format(key))
 		pos=nx.drawing.nx_agraph.graphviz_layout(G, prog='dot')
@@ -1827,7 +1834,7 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 								edge_size = 7
 								if len(all_characters_check) > 35: # increase penwidth
 									edge_size = 25
-								network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themsleves								
+								network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themsleves
 							else:
 								# does exist, either keep existing, or create a new edge (if different sentiment)
 								#print("do not include = {0} {1}\n\n".format(each_character, interaction))
@@ -1840,6 +1847,7 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 								if current_value != edge_color: # if the current edge isn't the same sentiment
 									network_file.write('	"{0}" -> "{1}" [dir=none, color={2}, penwidth={3}];\n'.format(each_character, interaction, polarity_colors[p_val], edge_size)) # create links between interactions of characters and themselves
 		network_file.write("}\n")
+
 	print("Nodes in graph: {0}, Edge Width: {1}, Node Width: {2}".format(len(all_characters_check), edge_size, node_size))
 
 	#print(found_edge)
@@ -1849,6 +1857,7 @@ def PlotNetworkGraphs(file_name, male_female_character_dict, group_polarity_dict
 	#print(all_file_lines)
 	from graphviz import Source
 	save_name = "network_interactions/" + "{0}_network_interactions".format(file_name).upper() + '.gv'
+	#print(save_name)
 	save_image_from_source = Source(all_file_lines, filename=save_name, format="png")
 	save_image_from_source.render()
 	os.remove(save_name) # remove extraneous .gv file
@@ -1899,7 +1908,7 @@ def percentagePos(total_words, csv_dict):
 
 	print("Text is approximately {0} words".format(total_words))
 	percentageDict['text_size'] = total_words
-	return percentageDict  
+	return percentageDict
 
 def saveDatatoCSV(filename, percentDict):
 	# save data from each run to a csv for graphing (if text is new or has been updated)
@@ -1907,7 +1916,7 @@ def saveDatatoCSV(filename, percentDict):
 	output_filename = "nounData_allText.csv"
 	print("\n")
 
-	fieldnames = ['FILENAME', 'TEXT_SIZE', 
+	fieldnames = ['FILENAME', 'TEXT_SIZE',
 				  'ALL_NOUNS_IN_ALL_WORDS', 'PRONOUNS_IN_ALL_WORDS',
 				  'PROPER_NOUNS_IN_ALL_WORDS', 'REGULAR_NOUNS_IN_ALL_NOUNS',
 				  'PROPER_NOUNS_IN_ALL_NOUNS', 'GNE_IN_ALL_WORDS',
@@ -1916,8 +1925,8 @@ def saveDatatoCSV(filename, percentDict):
 	if not os.path.isfile("plot_percent_data/{0}".format(output_filename)): # if it doesn't exist, create csv file with dict data
 		with open('plot_percent_data/{0}'.format(output_filename), 'w') as noun_data:
 			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
-			writer.writeheader() 
-			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]), 
+			writer.writeheader()
+			writer.writerow({'FILENAME': os.path.basename(os.path.splitext(filename)[0]),
 							 'TEXT_SIZE': percentDict['text_size'],
 							 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
 							 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
@@ -1928,7 +1937,7 @@ def saveDatatoCSV(filename, percentDict):
 							 'GNE_IN_ALL_NOUNS': 0.0
 								})
 		print("\n{0} created a new CSV NOUN DATA ".format(given_file.upper()))
-	else: # csv file exists, copy data and re-generate 
+	else: # csv file exists, copy data and re-generate
 		stored_results = [] # store old rows
 		with open('plot_percent_data/{0}'.format(output_filename), 'r') as noun_data:
 			reader = csv.DictReader(noun_data)
@@ -1939,11 +1948,11 @@ def saveDatatoCSV(filename, percentDict):
 			new_file_to_append = os.path.basename(os.path.splitext(filename)[0])
 			to_append = True
 			writer = csv.DictWriter(noun_data, fieldnames=fieldnames)
-			writer.writeheader() 
+			writer.writeheader()
 			for data_row in stored_results:
 				if data_row['FILENAME'] == new_file_to_append:
 					to_append = False # updated to an existing row rather than appended
-					writer.writerow({'FILENAME':  new_file_to_append, 
+					writer.writerow({'FILENAME':  new_file_to_append,
 									 'TEXT_SIZE': percentDict['text_size'],
 									 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
 									 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
@@ -1959,7 +1968,7 @@ def saveDatatoCSV(filename, percentDict):
 					writer.writerow(data_row)
 			if to_append: # if the file wasn't found, append to the end
 				# add new data to the end (appended)
-				writer.writerow({'FILENAME':  new_file_to_append, 
+				writer.writerow({'FILENAME':  new_file_to_append,
 								 'TEXT_SIZE': percentDict['text_size'],
 								 'ALL_NOUNS_IN_ALL_WORDS': percentDict['all_noun_in_all_words'],
 								 'PRONOUNS_IN_ALL_WORDS': percentDict['pronoun_in_all_words'],
@@ -1984,7 +1993,7 @@ def graphGNEvText(current_filename, previous_csv_data, percent_ratio_dict, noun_
 	print("ADDING COLUMNS FOR GNE PERCENTAGE TO nounData_allText.csv\n")
 	output_filename = "nounData_allText.csv"
 
-	fieldnames = ['FILENAME', 'TEXT_SIZE', 
+	fieldnames = ['FILENAME', 'TEXT_SIZE',
 				  'ALL_NOUNS_IN_ALL_WORDS', 'PRONOUNS_IN_ALL_WORDS',
 				  'PROPER_NOUNS_IN_ALL_WORDS', 'REGULAR_NOUNS_IN_ALL_NOUNS',
 				  'PROPER_NOUNS_IN_ALL_NOUNS', 'GNE_IN_ALL_WORDS',
@@ -2005,9 +2014,9 @@ def graphGNEvText(current_filename, previous_csv_data, percent_ratio_dict, noun_
 
 	with open('plot_percent_data/{0}'.format(output_filename), 'w') as gne_data:
 		writer = csv.DictWriter(gne_data, fieldnames=fieldnames)
-		writer.writeheader() 
+		writer.writeheader()
 		for previous_file in saved_filenames_in_alpha_order:
-			writer.writerow({'FILENAME': previous_file, 
+			writer.writerow({'FILENAME': previous_file,
 							'TEXT_SIZE': previous_csv_data[previous_file]['TEXT_SIZE'],
 							 'ALL_NOUNS_IN_ALL_WORDS': previous_csv_data[previous_file]['ALL_NOUNS_IN_ALL_WORDS'],
 							 'PRONOUNS_IN_ALL_WORDS': previous_csv_data[previous_file]['PRONOUNS_IN_ALL_WORDS'],
@@ -2015,7 +2024,7 @@ def graphGNEvText(current_filename, previous_csv_data, percent_ratio_dict, noun_
 							 'REGULAR_NOUNS_IN_ALL_NOUNS': previous_csv_data[previous_file]['REGULAR_NOUNS_IN_ALL_NOUNS'],
 							 'PROPER_NOUNS_IN_ALL_NOUNS': previous_csv_data[previous_file]['PROPER_NOUNS_IN_ALL_NOUNS'],
 							 'GNE_IN_ALL_WORDS': previous_csv_data[previous_file]["GNE_IN_ALL_WORDS"],
-							 'GNE_IN_ALL_NOUNS': previous_csv_data[previous_file]["GNE_IN_ALL_NOUNS"] 
+							 'GNE_IN_ALL_NOUNS': previous_csv_data[previous_file]["GNE_IN_ALL_NOUNS"]
 							})
 	# save information as dictionary of dictionary values for graphing purposes {filename: {attributes:}}
 	csv_data_results = {} # store old rows
@@ -2024,13 +2033,13 @@ def graphGNEvText(current_filename, previous_csv_data, percent_ratio_dict, noun_
 		for row in reader:
 			csv_data_results[row['FILENAME']] = row # store previous rows
 	return csv_data_results
-	
+
 def graphPOSdata(csv_data):
 	# scatter plot of pronouns, nouns and word length (updated every run/edit)
 	'''
 	sample {'ALL_NOUNS_IN_ALL_WORDS': '0.17543859649122806',
 	'FILENAME': 'sample', 'REGULAR_NOUNS_IN_ALL_NOUNS': '0.7407407407407407',
-	'PROPER_NOUNS_IN_ALL_WORDS': '0.06140350877192982', 
+	'PROPER_NOUNS_IN_ALL_WORDS': '0.06140350877192982',
 	'PRONOUNS_IN_ALL_WORDS': '0.08771929824561403',
 	'TEXT_SIZE': '114', 'PROPER_NOUNS_IN_ALL_NOUNS': '0.17543859649122806'}
 	'''
@@ -2061,7 +2070,7 @@ def graphPOSdata(csv_data):
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
 	plt.savefig('plot_percent_data/all_nouns_in_all_words.png')
-	
+
 	(fig, ax) = plt.subplots(1, 1, figsize=(16, 16))
 	ax.scatter(text_size, pronouns_in_all_words)
 	plt.title("POS DATA: Text size and Pronouns in All Words")
@@ -2106,7 +2115,7 @@ def graphPOSdata(csv_data):
 	ax.set_xlim(left=0)
 	plt.xlabel("File Text Size (words)")
 	plt.savefig('plot_percent_data/gnes_in_all_words.png')
-	
+
 	#BOXPLOTS
 	'''
 	plt.title("POS DATA: Text size and All Nouns in All Words")
@@ -2153,10 +2162,10 @@ def plotPolarity(group_polarity, given_file):
 		else:
 			neg_pol.append(np.nan)
 			pos_pol.append(pol)
-	
+
 	avg_line = [(float(a)+float(b))/2 for a, b in zip(polarity_y[:], polarity_y[1:])]
 	avg_line.append((float(polarity_y[-2])+float(polarity_y[-1]))/2)
-	
+
 	ax.scatter(group_id_x, pos_pol, color='red')
 	ax.scatter(group_id_x, neg_pol, color='blue')
 	ax.plot(group_id_x, avg_line, '--', color='black')
@@ -2184,13 +2193,13 @@ def plotTagData():
 			text_size.append(size_data)
 		else:
 			text_size.append(np.nan)
-		
+
 		parse_data = sub_headers['PARSEY_TAGGING_TIME_SECONDS']
 		if parse_data != '':
 			time_parsey.append(parse_data)
 		else:
 			time_parsey.append(np.nan)
-		
+
 		tag_data = sub_headers['MANUAL_TAGGING_TIME_SECONDS']
 		if tag_data != '':
 			time_manualTag.append(tag_data)
@@ -2235,12 +2244,12 @@ def outputCSVconll(filename, dict_parts_speech, filednames):
 
 	with open('csv_pos/{0}'.format(output_filename), 'w+') as pos_data:
 		writer = csv.DictWriter(pos_data, fieldnames=fieldnames)
-		writer.writeheader() 
+		writer.writeheader()
 		for i in range(len(dict_parts_speech)):
 			sentence_pos_lst = dict_parts_speech[i][1]
 			for pos in sentence_pos_lst:
 				#print(pos, i)
-				writer.writerow({'SENTENCE_INDEX': i, 
+				writer.writerow({'SENTENCE_INDEX': i,
 								'FORM': pos[1],
 								'XPOSTAG': pos[4],
 								'UPOSTAG': pos[3],
@@ -2330,7 +2339,7 @@ if __name__ == '__main__':
 		file_has_been_modified_recently = os.path.getmtime("{0}/{1}".format(os.getcwd(), filename)) > os.path.getmtime(csv_local_dir)
 		#print("file has been modifed = {0}".format(file_has_been_modified_recently))
 	# if file does not exist in the csv folder
-	if not os.path.isfile(csv_local_dir) or file_has_been_modified_recently: 
+	if not os.path.isfile(csv_local_dir) or file_has_been_modified_recently:
 		#print("pos needs to be calculated...")
 		dict_parts_speech = partsOfSpeech(token_sentence_dict)
 		outputCSVconll(filename, dict_parts_speech, fieldnames)
@@ -2363,13 +2372,13 @@ if __name__ == '__main__':
 	# index pronouns
 	pronoun_index_dict = findPronouns(pos_dict)
 	#print("\n\npronoun index dictionary: {0}".format(pronoun_index_dict))
-	
+
 	# print/display graphs with pos data
 	percent_ratio_dict = percentagePos(total_words, pos_dict) # print percentage of nouns/pronouns
 	csv_data = saveDatatoCSV(filename, percent_ratio_dict)
 	time_data_csv = "plot_percent_data/timedTagging.csv"
 	time_plot_data = "plot_percent_data/runtime_parsey_data.png"
-	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data): 
+	if os.path.getmtime(time_data_csv) > os.path.getmtime(time_plot_data):
 		# checks if csv has been updated more recently than the plot data
 		plotTagData()
 
@@ -2388,12 +2397,12 @@ if __name__ == '__main__':
 
 	# create a dictionary from the manual taggins _p and _n for the value and the index
 	noun_pronoun_dict, line_by_line_dict = breakTextPandN(manual_tag_dir, loaded_gender_model)
-	
+
 	updated_csv_data = graphGNEvText(given_file, csv_data, percent_ratio_dict, noun_pronoun_dict)
 	graphPOSdata(updated_csv_data) # graph data
 
 	# identify the characters of interest and condense the trees
-	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=False)
+	characters_with_sub_names = identifyCharacterOfInterest(noun_pronoun_dict, gne_tree, gender_gne, print_info=True)
 
 	# find and graph all interactions
 	# (group_id) : polarity
